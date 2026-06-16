@@ -1,0 +1,25 @@
+/* --- Header Wrapper --- */
+.header_nav { display: flex; justify-content: space-between; align-items: center; padding-block: 4rem; position: relative; width: 100%; }
+nav.main-nav { margin-left: auto; }
+.header { border-top: 5px solid var(--color-d4); }
+.main-nav ul { display: flex; gap: 6rem; list-style: none; margin: 0; padding: 0; }
+.main-nav ul li a { text-decoration: none; color: var(--color-23); font: var(--font-24); font-weight: normal; transition: color 0.3s ease; }
+.main-nav ul li a:hover { color: var(--color-c8); }
+/* --- Hamburger Icon Style --- */
+.hamburger { display: flex; flex-direction: column; justify-content: space-between; width: 3rem; height: 3rem; cursor: pointer; z-index: 1050;  position: relative; margin-left: 6rem;}
+.hamburger span { display: block; height: 1px; width: 100%; background-color: var(--color-23); border-radius: 3px; transition: all 0.3s ease-in-out; transform-origin: left center; }
+.hamburger.active span { background: #fff; }
+.hamburger.active span:nth-child(1) { transform: rotate(45deg); top:.6rem; position: relative; }
+.hamburger.active span:nth-child(2) { width: 0%; opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg); top: 1px; }
+.other-links-drawer { position: fixed; top: 0; right: 0; width: 35rem; height: 100vh; background-color: #ffffff; box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1); padding-block: 9rem; padding-inline: 4rem; z-index: 1000; box-sizing: border-box; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
+.other-links-drawer.open { transform: translateX(0); }
+.other-links-drawer ul { list-style: none; padding: 0; margin: 0; }
+.other-links-drawer ul li { margin-bottom: 20px; }
+.other-links-drawer ul li a { text-decoration: none; color: #111; font:var(--font-18); font-weight: 500; transition: color 0.2s; }
+.other-links-drawer ul li a:hover { color: var(--color-c8); }
+.nav-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.4); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.nav-overlay.show { opacity: 1; pointer-events: auto; }
+.logo a { display: flex; align-items: center; gap: 2.4rem; text-decoration: none; }
+
+.logo p { margin: 0; color: #000; font: var(--font-18); text-decoration: none; width: 20rem; }

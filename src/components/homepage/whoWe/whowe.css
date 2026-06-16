@@ -1,0 +1,204 @@
+.who_we {
+    padding-block: 18rem 0;
+    overflow: hidden;
+}
+
+.who_we .font_title {
+    text-align: center;
+    margin-bottom: 8rem;
+}
+
+
+
+.portfolio-grid {
+    width: 100%;
+}
+
+.grid-row-top {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-left: 1px solid var(--color-d1);
+    border-top: 1px solid var(--color-d1);
+    border-right: 1px solid var(--color-d1);
+}
+
+.grid-row-bottom {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-left: 1px solid var(--color-d1);
+    border-bottom: 1px solid var(--color-d1);
+    border-right: 1px solid var(--color-d1);
+}
+
+.system-tile {
+    position: relative;
+    padding-block: 8rem; padding-inline: 10rem 18rem; min-height: 38rem;
+    display: flex;
+    flex-direction: column;
+    /* overflow: hidden; */
+    cursor: pointer;
+}
+
+.system-tile:hover {
+    padding-inline: 3rem 7rem; }
+
+.grid-row-top .system-tile {
+    border-right: 1px solid var(--color-d1);
+    border-bottom: 1px solid var(--color-d1);
+}
+
+.grid-row-top .system-tile:last-child {
+    border-right: none;
+}
+
+.grid-row-bottom .system-tile {
+    border-right: 1px solid var(--color-d1);
+    padding-inline: 3rem 10rem; }
+
+.grid-row-bottom .system-tile:last-child {
+    border-right: none;
+}
+
+.tile-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transform: scale(1.02);
+    transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 1;
+}
+
+.tile-backdrop::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.tile-info-wrapper {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transform: translateY(-3rem);
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.system-tile h3 {
+    color: var(--color-c8);
+    font: var(--font-32);
+    letter-spacing: -1.06px;
+    margin-bottom: 3rem;
+    transition: color 0.4s ease;
+}
+
+.system-tile p {
+    color: var(--color-1a);
+    font: var(--font-18);
+    line-height: 1.6;
+    font-weight: 300;
+    transition: color 0.4s ease;
+}
+
+.tile-action-trigger {
+    position: absolute;
+    bottom: 4.9rem;
+    left: 10rem;
+    width: 4.5rem;
+    height: 4.5rem;
+    background-color: #a8a9ad30;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 3;
+}
+
+.tile-action-trigger svg {
+    stroke: var(--color-23);
+    transition: fill 0.4s ease;
+}
+
+.system-tile:hover:after {
+    content: "";
+    width: 100%;
+    height: 32rem;
+    background: transparent linear-gradient(180deg, #00000000 0%, #000000 100%) 0% 0% no-repeat padding-box;
+    opacity: 0.7;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 9;
+    transform: scale(1.05);
+}
+
+.system-tile:hover .tile-backdrop {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.system-tile:hover p {
+    color: #ffffff;
+}
+
+.system-tile:hover h3 {
+    color: #fff;
+}
+
+.system-tile:hover .tile-info-wrapper {
+    transform: translateY(9rem);
+    z-index: 99;
+}
+
+.system-tile:hover .tile-action-trigger {
+    background-color: var(--color-c8);
+    left: calc(100% - 72px);
+    bottom: 4rem;
+    z-index: 99;
+}
+
+.system-tile:hover .tile-action-trigger svg {
+    stroke: #ffffff;
+}
+
+@media (max-width: 1100px) {
+    .grid-row-top, .grid-row-bottom {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-row-top .system-tile, .grid-row-bottom .system-tile {
+        border-right: 1px solid #e2e2e6 !important;
+        border-bottom: 1px solid #e2e2e6 !important;
+    }
+}
+
+@media (max-width: 650px) {
+    .grid-row-top, .grid-row-bottom {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 2199px) {
+    .system-tile {
+        position: relative;
+        padding-block: 8rem; padding-inline: 3rem 2rem;}
+
+    .tile-action-trigger {
+        left: 3rem;
+    }
+
+    .tile-action-trigger {
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+}
