@@ -3,6 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useRef } from 'react'
 import './homeBanner.css'
+import { refreshScrollTriggers } from '@/hooks/useScrollTriggerRefresh';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,169 +35,163 @@ export default function HomeBanner() {
 
         if (!section || !h1) return;
 
-        let lastProgress = 0;
-        let videoStarted = false;
-        let mainScrollTrigger: ScrollTrigger | undefined;
+        const ctx = gsap.context(() => {
+            let lastProgress = 0;
+            let videoStarted = false;
+            let mainScrollTrigger: ScrollTrigger | undefined;
 
-        if (video) {
-            video.pause();
-            video.currentTime = 0;
-        }
+            if (video) {
+                video.pause();
+                video.currentTime = 0;
+            }
 
-        gsap.set(h1, {
-            y: "100%",
-            opacity: 1,
-            transformOrigin: "center center",
-            force3D: true
-        })
+            gsap.set(h1, {
+                y: "100%",
+                opacity: 1,
+                transformOrigin: "center center",
+                force3D: true
+            })
 
-        gsap.set([...pList, btn, pEm], {
-            y: 50,
-            opacity: 0
-        })
+            gsap.set([...pList, btn, pEm], {
+                y: 50,
+                opacity: 0
+            })
 
-        const lineProgress = section.querySelector(".line-progress");
+            const lineProgress = section.querySelector(".line-progress");
 
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: section,
-                start: "top top",
-                end: "+180%",
-                scrub: 1,
-                pin: true,
-                pinSpacing: true,
-                invalidateOnRefresh: true,
-                anticipatePin: 1,
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top top",
+                    end: "+180%",
+                    scrub: 1,
+                    pin: true,
+                    pinSpacing: true,
+                    invalidateOnRefresh: true,
+                    anticipatePin: 1,
 
-                onUpdate: (self) => {
-                    const scrollingDown = self.progress > lastProgress
-                    const scrollingUp = self.progress < lastProgress
-                    lastProgress = self.progress
+                    onUpdate: (self) => {
+                        const scrollingDown = self.progress > lastProgress
+                        const scrollingUp = self.progress < lastProgress
+                        lastProgress = self.progress
 
-                    if (scrollingDown && self.progress > 0.50) {
-                        bannerCaption?.classList.add("transparent")
+                        if (scrollingDown && self.progress > 0.50) {
+                            bannerCaption?.classList.add("transparent")
 
-                        if (!videoStarted && video) {
-                            video.classList.add("visible")
-                            video.play().catch(() => { })
-                            videoStarted = true
+                            if (!videoStarted && video) {
+                                video.classList.add("visible")
+                                video.play().catch(() => { })
+                                videoStarted = true
+                            }
+                        }
+
+                        if (scrollingUp && self.progress <= 0.50) {
+                            bannerCaption?.classList.remove("transparent")
+                            video?.classList.remove("visible")
+                            video?.pause()
+                            videoStarted = false
                         }
                     }
-
-                    if (scrollingUp && self.progress <= 0.50) {
-                        bannerCaption?.classList.remove("transparent")
-                        video?.classList.remove("visible")
-                        video?.pause()
-                        videoStarted = false
-                    }
                 }
-            }
-        })
+            })
 
-        tl.to(lineProgress, {
-            height: "100%",
-            ease: "none",
-            duration: 1
-        }, 0)
-
-            .to(h1, {
-                y: -100,
+            tl.to(lineProgress, {
+                height: "100%",
                 ease: "none",
                 duration: 1
             }, 0)
 
-        tl.to(h1, {
-            scale: 10,
-            opacity: 0,
-            ease: "power2.out",
-            duration: 1.5,
-            force3D: true
-        }, 1)
+                .to(h1, {
+                    y: -100,
+                    ease: "none",
+                    duration: 1
+                }, 0)
 
-            .to(pList, {
-                y: -1000,
+            tl.to(h1, {
+                scale: 10,
                 opacity: 0,
                 ease: "power2.out",
+                duration: 1.5,
                 force3D: true
             }, 1)
 
-            .to(pEm, {
-                y: -1000,
-                opacity: 0,
-                ease: "power2.out",
-                force3D: true
-            }, 1)
+                .to(pList, {
+                    y: -1000,
+                    opacity: 0,
+                    ease: "power2.out",
+                    force3D: true
+                }, 1)
 
-            .to(btn, {
-                y: -1000,
-                opacity: 0,
-                ease: "power1.out",
-                force3D: true
-            }, 1)
+                .to(pEm, {
+                    y: -1000,
+                    opacity: 0,
+                    ease: "power2.out",
+                    force3D: true
+                }, 1)
 
-        mainScrollTrigger = tl.scrollTrigger
-        mainScrollTrigger?.disable()
+                .to(btn, {
+                    y: -1000,
+                    opacity: 0,
+                    ease: "power1.out",
+                    force3D: true
+                }, 1)
 
+            mainScrollTrigger = tl.scrollTrigger
+            mainScrollTrigger?.disable()
 
-        const resetTrigger = ScrollTrigger.create({
-            trigger: section,
-            start: "bottom bottom",
+            ScrollTrigger.create({
+                trigger: section,
+                start: "bottom bottom",
 
-            onEnter: () => {
-                h1.classList.add("filled")
-            },
+                onEnter: () => {
+                    h1.classList.add("filled")
+                },
 
-            onLeaveBack: () => {
-                h1.classList.remove("filled")
-                gsap.set(h1, { y: 100, scale: 1, opacity: 1 })
-                gsap.set(pList, { y: 0, opacity: 1 })
-                gsap.set(pEm, { y: 0, opacity: 1 })
-                gsap.set(btn, { y: 0, opacity: 1 })
-            }
-        })
+                onLeaveBack: () => {
+                    h1.classList.remove("filled")
+                    gsap.set(h1, { y: 100, scale: 1, opacity: 1 })
+                    gsap.set(pList, { y: 0, opacity: 1 })
+                    gsap.set(pEm, { y: 0, opacity: 1 })
+                    gsap.set(btn, { y: 0, opacity: 1 })
+                }
+            })
 
-        const introTl = gsap.timeline({
-            onComplete: () => {
-                mainScrollTrigger?.enable()
-                ScrollTrigger.refresh()
-            }
-        })
+            gsap.timeline({
+                onComplete: () => {
+                    mainScrollTrigger?.enable()
+                    refreshScrollTriggers()
+                }
+            })
+                .to(pList, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.7,
+                    delay: 1,
+                    stagger: 0.2,
+                    ease: "power3.out"
+                }, "-=0.4")
 
-        introTl
-            .to(pList, {
-                y: 0,
-                opacity: 1,
-                duration: 0.7,
-                delay: 1,
-                stagger: 0.2,
-                ease: "power3.out"
-            }, "-=0.4")
+                .to(pEm, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.5,
+                    delay: .5,
+                    stagger: 0.1,
+                    ease: "power3.out"
+                }, "-=0.3")
 
-            .to(pEm, {
-                y: 0,
-                opacity: 1,
-                duration: 0.5,
-                delay: .5,
-                stagger: 0.1,
-                ease: "power3.out"
-            }, "-=0.3")
+                .to(btn, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.7,
+                    delay: 0.3,
+                    ease: "power3.out"
+                }, "-=0.4")
+        }, section)
 
-            .to(btn, {
-                y: 0,
-                opacity: 1,
-                duration: 0.7,
-                delay: 0.3,
-                ease: "power3.out"
-            }, "-=0.4")
+        refreshScrollTriggers()
 
-        return () => {
-            introTl.kill()
-            tl.kill()
-            resetTrigger.kill()
-            mainScrollTrigger?.kill()
-        }
-
-
+        return () => ctx.revert()
     }, [])
 
     return (

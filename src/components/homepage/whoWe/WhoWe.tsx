@@ -22,8 +22,8 @@ export default function WhoWe(){
                     <div className="tile-action-trigger">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 
-                            <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                            <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" strokeLinecap="round"
+                                strokeLinejoin="round" />
                         </svg>
                     </div>
                 </div>
@@ -38,8 +38,8 @@ export default function WhoWe(){
                     <div className="tile-action-trigger">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 
-                            <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                            <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" strokeLinecap="round"
+                                strokeLinejoin="round" />
                         </svg>
                     </div>
                 </div>
@@ -55,8 +55,8 @@ export default function WhoWe(){
                     <div className="tile-action-trigger">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 
-                            <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                            <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" strokeLinecap="round"
+                                strokeLinejoin="round" />
                         </svg>
                     </div>
                 </div>
@@ -72,8 +72,8 @@ export default function WhoWe(){
                     <div className="tile-action-trigger">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 
-                            <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                            <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" strokeLinecap="round"
+                                strokeLinejoin="round" />
                         </svg>
                     </div>
                 </div>
@@ -91,8 +91,8 @@ export default function WhoWe(){
                     <div className="tile-action-trigger">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 
-                            <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                            <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" strokeLinecap="round"
+                                strokeLinejoin="round" />
                         </svg>
                     </div>
                 </div>
@@ -108,8 +108,8 @@ export default function WhoWe(){
                     <div className="tile-action-trigger">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 
-                            <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                            <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" strokeLinecap="round"
+                                strokeLinejoin="round" />
                         </svg>
                     </div>
                 </div>
@@ -125,8 +125,8 @@ export default function WhoWe(){
                     <div className="tile-action-trigger">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 
-                            <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                            <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" strokeLinecap="round"
+                                strokeLinejoin="round" />
                         </svg>
                     </div>
                 </div>
