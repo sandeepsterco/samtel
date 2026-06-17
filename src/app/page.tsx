@@ -1,19 +1,18 @@
-import Happenings from "@/components/homepage/happenings/Happenings";
 import HomeBanner from "@/components/homepage/homeBanner/HomeBanner";
-import People from "@/components/homepage/people/People";
-import Sustainability from "@/components/homepage/sustainability/Sustainability";
-import Technology from "@/components/homepage/technology/Technology";
-import WhoWe from "@/components/homepage/whoWe/WhoWe";
+import LazySections from "@/components/homepage/LazySections";
+import { apiFetch } from "@/lib/api";
 
-export default function Home() {
+export default async function Home() {
+  const {data, error} = await apiFetch(`home-page`);
+
+  const pageData = data?.data;
+
+  console.log('homepeage data',pageData);
+
   return (
     <>
-      <HomeBanner />
-      <WhoWe />
-      <Technology />
-      <People />
-      <Sustainability />
-      <Happenings />
+      <HomeBanner data={pageData?.banner ?? {}}  />
+      <LazySections />
     </>
   );
 }

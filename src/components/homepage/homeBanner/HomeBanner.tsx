@@ -1,213 +1,341 @@
 "use client"
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useEffect, useRef } from 'react'
 import './homeBanner.css'
-import { refreshScrollTriggers } from '@/hooks/useScrollTriggerRefresh';
+import { refreshScrollTriggers } from '@/hooks/useScrollTriggerRefresh'
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger)
 
-export default function HomeBanner() {
+interface HomeBannerProps {
+    data: {
+        headings: any,
+        description: string,
+        video?: string,
+        videourl?: string,
+    }
+}
+
+function isYouTubeUrl(url: string): boolean {
+    return /youtube\.com|youtu\.be/.test(url)
+}
+
+function getYouTubeId(url: string): string | null {
+    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]{11})/)
+    return match ? match[1] : null
+}
+
+declare global {
+    interface Window {
+        YT: any
+        onYouTubeIframeAPIReady: (() => void) | undefined
+    }
+}
+
+function loadYouTubeApi(): Promise<void> {
+    return new Promise((resolve) => {
+        if (window.YT && window.YT.Player) {
+            resolve()
+            return
+        }
+
+        const existingCallback = window.onYouTubeIframeAPIReady
+        window.onYouTubeIframeAPIReady = () => {
+            existingCallback?.()
+            resolve()
+        }
+
+        if (!document.querySelector('script[src="https://www.youtube.com/iframe_api"]')) {
+            const tag = document.createElement('script')
+            tag.src = 'https://www.youtube.com/iframe_api'
+            document.head.appendChild(tag)
+        }
+    })
+}
+
+// Common control surface so GSAP logic doesn't care which type it's driving
+interface VideoController {
+    pause: () => void
+    play: () => Promise<void> | void
+    reset: () => void
+    addVisibleClass: () => void
+    removeVisibleClass: () => void
+}
+
+export default function HomeBanner({ data }: HomeBannerProps) {
     const sectionRef = useRef<HTMLElement | null>(null)
-    const videoRef = useRef<HTMLVideoElement | null>(null)
+    const videoElRef = useRef<HTMLVideoElement | null>(null)
+    const ytContainerRef = useRef<HTMLDivElement | null>(null)
+    const ytPlayerRef = useRef<any>(null)
     const bannerCaptionRef = useRef<HTMLDivElement | null>(null)
     const h1Ref = useRef<HTMLHeadingElement | null>(null)
     const btnRef = useRef<HTMLDivElement | null>(null)
     const pListRef = useRef<HTMLParagraphElement[]>([])
     const pEmRef = useRef<HTMLElement | null>(null)
 
-    pListRef.current = [];
+    pListRef.current = []
 
     const addPRef = (el: HTMLParagraphElement | null) => {
         if (el && !pListRef.current.includes(el)) {
-            pListRef.current.push(el);
+            pListRef.current.push(el)
         }
     }
 
+    const isYouTube = isYouTubeUrl(data?.videourl ?? '')
+    const youtubeId = isYouTube ? getYouTubeId(data?.videourl ?? '') : null
+
     useEffect(() => {
         const section = sectionRef.current
-        const video = videoRef.current
         const bannerCaption = bannerCaptionRef.current
         const h1 = h1Ref.current
         const btn = btnRef.current
         const pEm = pEmRef.current
         const pList = pListRef.current
 
-        if (!section || !h1) return;
+        if (!section || !h1) return
 
-        const ctx = gsap.context(() => {
-            let lastProgress = 0;
-            let videoStarted = false;
-            let mainScrollTrigger: ScrollTrigger | undefined;
+        let cancelled = false
 
-            if (video) {
-                video.pause();
-                video.currentTime = 0;
+        async function setup() {
+            let controller: VideoController
+
+            if (isYouTube && youtubeId) {
+                await loadYouTubeApi()
+                if (cancelled || !ytContainerRef.current) return
+
+                const player = await new Promise<any>((resolve) => {
+                    const p = new window.YT.Player(ytContainerRef.current, {
+                        videoId: youtubeId,
+                        playerVars: {
+                            autoplay: 0,
+                            controls: 0,
+                            mute: 1,
+                            playsinline: 1,
+                            loop: 1,
+                            playlist: youtubeId
+                        },
+                        events: {
+                            onReady: () => resolve(p)
+                        }
+                    })
+                })
+
+                if (cancelled) return
+                ytPlayerRef.current = player
+                player.mute()
+
+                controller = {
+                    pause: () => player.pauseVideo(),
+                    play: () => player.playVideo(),
+                    reset: () => player.seekTo(0, true),
+                    addVisibleClass: () => ytContainerRef.current?.classList.add('visible'),
+                    removeVisibleClass: () => ytContainerRef.current?.classList.remove('visible')
+                }
+            } else {
+                const video = videoElRef.current
+                if (!video) return
+
+                video.pause()
+                video.currentTime = 0
+
+                controller = {
+                    pause: () => video.pause(),
+                    play: () => video.play().catch(() => { }),
+                    reset: () => { video.currentTime = 0 },
+                    addVisibleClass: () => video.classList.add('visible'),
+                    removeVisibleClass: () => video.classList.remove('visible')
+                }
             }
 
-            gsap.set(h1, {
-                y: "100%",
-                opacity: 1,
-                transformOrigin: "center center",
-                force3D: true
-            })
+            if (cancelled) return
 
-            gsap.set([...pList, btn, pEm], {
-                y: 50,
-                opacity: 0
-            })
+            const ctx = gsap.context(() => {
+                let lastProgress = 0
+                let videoStarted = false
+                let mainScrollTrigger: ScrollTrigger | undefined
 
-            const lineProgress = section.querySelector(".line-progress");
+                gsap.set(h1, {
+                    y: "100%",
+                    opacity: 1,
+                    transformOrigin: "center center",
+                    force3D: true
+                })
 
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top top",
-                    end: "+180%",
-                    scrub: 1,
-                    pin: true,
-                    pinSpacing: true,
-                    invalidateOnRefresh: true,
-                    anticipatePin: 1,
+                gsap.set([...pList, btn, pEm], {
+                    y: 50,
+                    opacity: 0
+                })
 
-                    onUpdate: (self) => {
-                        const scrollingDown = self.progress > lastProgress
-                        const scrollingUp = self.progress < lastProgress
-                        lastProgress = self.progress
+                const lineProgress = section.querySelector<HTMLElement>(".line-progress")
+                if (!lineProgress) return
 
-                        if (scrollingDown && self.progress > 0.50) {
-                            bannerCaption?.classList.add("transparent")
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top top",
+                        end: "+180%",
+                        scrub: 1,
+                        pin: true,
+                        pinSpacing: true,
+                        invalidateOnRefresh: true,
+                        anticipatePin: 1,
 
-                            if (!videoStarted && video) {
-                                video.classList.add("visible")
-                                video.play().catch(() => { })
-                                videoStarted = true
+                        onUpdate: (self) => {
+                            const scrollingDown = self.progress > lastProgress
+                            const scrollingUp = self.progress < lastProgress
+                            lastProgress = self.progress
+
+                            if (scrollingDown && self.progress > 0.50) {
+                                bannerCaption?.classList.add("transparent")
+
+                                if (!videoStarted) {
+                                    controller.addVisibleClass()
+                                    controller.play()
+                                    videoStarted = true
+                                }
+                            }
+
+                            if (scrollingUp && self.progress <= 0.50) {
+                                bannerCaption?.classList.remove("transparent")
+                                controller.removeVisibleClass()
+                                controller.pause()
+                                videoStarted = false
                             }
                         }
-
-                        if (scrollingUp && self.progress <= 0.50) {
-                            bannerCaption?.classList.remove("transparent")
-                            video?.classList.remove("visible")
-                            video?.pause()
-                            videoStarted = false
-                        }
                     }
-                }
-            })
+                })
 
-            tl.to(lineProgress, {
-                height: "100%",
-                ease: "none",
-                duration: 1
-            }, 0)
-
-                .to(h1, {
-                    y: -100,
+                tl.to(lineProgress, {
+                    height: "100%",
                     ease: "none",
                     duration: 1
                 }, 0)
 
-            tl.to(h1, {
-                scale: 10,
-                opacity: 0,
-                ease: "power2.out",
-                duration: 1.5,
-                force3D: true
-            }, 1)
+                    .to(h1, {
+                        y: -100,
+                        ease: "none",
+                        duration: 1
+                    }, 0)
 
-                .to(pList, {
-                    y: -1000,
+                tl.to(h1, {
+                    scale: 10,
                     opacity: 0,
                     ease: "power2.out",
+                    duration: 1.5,
                     force3D: true
                 }, 1)
 
-                .to(pEm, {
-                    y: -1000,
-                    opacity: 0,
-                    ease: "power2.out",
-                    force3D: true
-                }, 1)
+                    .to(pList, {
+                        y: -1000,
+                        opacity: 0,
+                        ease: "power2.out",
+                        force3D: true
+                    }, 1)
 
-                .to(btn, {
-                    y: -1000,
-                    opacity: 0,
-                    ease: "power1.out",
-                    force3D: true
-                }, 1)
+                    .to(pEm, {
+                        y: -1000,
+                        opacity: 0,
+                        ease: "power2.out",
+                        force3D: true
+                    }, 1)
 
-            mainScrollTrigger = tl.scrollTrigger
-            mainScrollTrigger?.disable()
+                    .to(btn, {
+                        y: -1000,
+                        opacity: 0,
+                        ease: "power1.out",
+                        force3D: true
+                    }, 1)
 
-            ScrollTrigger.create({
-                trigger: section,
-                start: "bottom bottom",
+                mainScrollTrigger = tl.scrollTrigger
+                mainScrollTrigger?.disable()
 
-                onEnter: () => {
-                    h1.classList.add("filled")
-                },
+                ScrollTrigger.create({
+                    trigger: section,
+                    start: "bottom bottom",
 
-                onLeaveBack: () => {
-                    h1.classList.remove("filled")
-                    gsap.set(h1, { y: 100, scale: 1, opacity: 1 })
-                    gsap.set(pList, { y: 0, opacity: 1 })
-                    gsap.set(pEm, { y: 0, opacity: 1 })
-                    gsap.set(btn, { y: 0, opacity: 1 })
-                }
-            })
+                    onEnter: () => {
+                        h1.classList.add("filled")
+                    },
 
-            gsap.timeline({
-                onComplete: () => {
-                    mainScrollTrigger?.enable()
-                    refreshScrollTriggers()
-                }
-            })
-                .to(pList, {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.7,
-                    delay: 1,
-                    stagger: 0.2,
-                    ease: "power3.out"
-                }, "-=0.4")
+                    onLeaveBack: () => {
+                        h1.classList.remove("filled")
+                        gsap.set(h1, { y: 100, scale: 1, opacity: 1 })
+                        gsap.set(pList, { y: 0, opacity: 1 })
+                        gsap.set(pEm, { y: 0, opacity: 1 })
+                        gsap.set(btn, { y: 0, opacity: 1 })
+                    }
+                })
 
-                .to(pEm, {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.5,
-                    delay: .5,
-                    stagger: 0.1,
-                    ease: "power3.out"
-                }, "-=0.3")
+                gsap.timeline({
+                    onComplete: () => {
+                        mainScrollTrigger?.enable()
+                        refreshScrollTriggers()
+                    }
+                })
+                    .to(pList, {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.7,
+                        delay: 1,
+                        stagger: 0.2,
+                        ease: "power3.out"
+                    }, "-=0.4")
 
-                .to(btn, {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.7,
-                    delay: 0.3,
-                    ease: "power3.out"
-                }, "-=0.4")
-        }, section)
+                    .to(pEm, {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.5,
+                        delay: .5,
+                        stagger: 0.1,
+                        ease: "power3.out"
+                    }, "-=0.3")
 
-        refreshScrollTriggers()
+                    .to(btn, {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.7,
+                        delay: 0.3,
+                        ease: "power3.out"
+                    }, "-=0.4")
+            }, section)
 
-        return () => ctx.revert()
-    }, [])
+            refreshScrollTriggers()
+
+            return () => ctx.revert()
+        }
+
+        let cleanupFn: (() => void) | undefined
+        setup().then((fn) => { cleanupFn = fn })
+
+        return () => {
+            cancelled = true
+            cleanupFn?.()
+            if (ytPlayerRef.current) {
+                ytPlayerRef.current.destroy?.()
+            }
+        }
+    }, [data, isYouTube, youtubeId])
 
     return (
         <section className="home_banner" ref={sectionRef}>
-            <video className="desktop_video" ref={videoRef} muted autoPlay playsInline loop>
-                <source src="/assets/videos/sample-video.mp4" type="video/mp4" />
-            </video>
+            {isYouTube ? (
+                <div className="desktop_video yt_video_wrap" ref={ytContainerRef} />
+            ) : (
+                <video className="desktop_video" ref={videoElRef} muted playsInline loop>
+                    <source src={data?.video} type="video/mp4" />
+                </video>
+            )}
+
             <div className="banner_caption" ref={bannerCaptionRef}>
                 <div className="container">
                     <div className="banner_title">
-                        <p ref={addPRef}>A part of the 50-year old Samtel Group with a </p>
-                        <p ref={addPRef}>multi-dimensional presence in various domains including </p>
-                        <p ref={addPRef}><b> Defense, Avionics, Railways, and Education</b></p>
-                        <em ref={pEmRef}>Samtel has a well-established history of being India’s largest integrated manufacturer of a wide
-                            range of displays for <br />
-                            avionics, television, industrial, medical and professional applications.</em>
+                        {data?.headings.length > 0 && data?.headings.map((item:{heading:string}, idx:number)=>(
+                            <p key={idx} ref={addPRef} dangerouslySetInnerHTML={{__html:item?.heading}} />
+                        ))}
+                        {data?.description && (
+                            <em ref={pEmRef} dangerouslySetInnerHTML={{__html:data?.description}} />
+                        )}
+                        
 
                         <div className="down_btn" ref={btnRef}>
                             <div className="line-section">
@@ -216,6 +344,7 @@ export default function HomeBanner() {
                                 </div>
                             </div>
                         </div>
+                        
                         <div className="video_caption">
                             <h1 className="video_text" ref={h1Ref}> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 803.196 484.129">
                                 <g id="Group_29855" data-name="Group 29855" transform="translate(13980.195 3658.485)">
@@ -231,8 +360,6 @@ export default function HomeBanner() {
                     </div>
                 </div>
             </div>
-
-
         </section>
     )
 }

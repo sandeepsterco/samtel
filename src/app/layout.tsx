@@ -5,6 +5,7 @@ import Header from "@/components/header/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import '../styles/globals.css'
 import Footer from "@/components/footer/Footer";
+import Script from "next/script";
 
 const funnelSans = Funnel_Sans({
   subsets: ['latin'],
@@ -30,6 +31,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <Script src="/js/smoothscroll.min.js" strategy="lazyOnload" />
       </body>
     </html>
   );

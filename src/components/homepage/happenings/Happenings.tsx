@@ -61,7 +61,7 @@ export default function Happenings() {
                     </div>
                     <a href="javascipt:void(0)" className="more_btn">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.1">
+                            strokeWidth="1.1">
                             <polyline points="9 18 15 12 9 6"></polyline>
                         </svg>
                     </a>
@@ -93,8 +93,8 @@ export default function Happenings() {
                         }
                     }}
                 >
-                    {happeningsData.map((item) => (
-                        <SwiperSlide key={item.id}>
+                    {happeningsData.map((item, idx) => (
+                        <SwiperSlide key={item.id + idx}>
                             <div className="happening-image">
                                 <img src={item.image} className="img-fluid" alt={item.title} />
                             </div>
