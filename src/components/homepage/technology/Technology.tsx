@@ -29,7 +29,7 @@ const TABS = [
     }
 ]
 
-export default function Technology(){
+export default function Technology() {
     const [activeTab, setActiveTab] = useState(TABS[0].id)
 
     const sectionRef = useRef<HTMLElement | null>(null)
@@ -77,7 +77,10 @@ export default function Technology(){
                         else index = 2
 
                         setActiveTab(TABS[index].id)
-                    }
+                    },
+                },
+                onComplete:()=>{
+                    refreshScrollTriggers()
                 }
             })
 
@@ -94,60 +97,60 @@ export default function Technology(){
 
     return (
         <section className="technology_sec" ref={sectionRef}>
-        <div className="container-fluid">
-            <div className="techno_grid">
-                <div className="techno_left">
-                    <div className="tech_figureitem">
-                        <figure className="techfigure techno01" ref={techno01Ref}>
-                            <img src="/assets/images/homepage/technology/techno01.webp" alt="Technology" className="img-fluid w-100" />
-                        </figure>
-                        <figure className="techfigure techno02" ref={techno02Ref}>
-                            <img src="/assets/images/homepage/technology/techno02.webp" alt="Technology" className="img-fluid w-100" />
-                        </figure>
-                        <figure className="techfigure techno03" ref={techno03Ref}>
-                            <img src="/assets/images/homepage/technology/techno03.webp" alt="Technology" className="img-fluid w-100" />
-                        </figure>
-                        <figure className="techfigure techno04" ref={techno04Ref}>
-                            <img src="/assets/images/homepage/technology/techno04.webp" alt="Technology" className="img-fluid w-100" />
-                        </figure>
+            <div className="container-fluid">
+                <div className="techno_grid">
+                    <div className="techno_left">
+                        <div className="tech_figureitem">
+                            <figure className="techfigure techno01" ref={techno01Ref}>
+                                <img src="/assets/images/homepage/technology/techno01.webp" alt="Technology" className="img-fluid w-100" />
+                            </figure>
+                            <figure className="techfigure techno02" ref={techno02Ref}>
+                                <img src="/assets/images/homepage/technology/techno02.webp" alt="Technology" className="img-fluid w-100" />
+                            </figure>
+                            <figure className="techfigure techno03" ref={techno03Ref}>
+                                <img src="/assets/images/homepage/technology/techno03.webp" alt="Technology" className="img-fluid w-100" />
+                            </figure>
+                            <figure className="techfigure techno04" ref={techno04Ref}>
+                                <img src="/assets/images/homepage/technology/techno04.webp" alt="Technology" className="img-fluid w-100" />
+                            </figure>
+                        </div>
+
+                        <div className="techtab">
+                            {TABS.map((tab) => (
+                                <button
+                                    key={tab.id}
+                                    type="button"
+                                    className={`techtab_btn${activeTab === tab.id ? ' active' : ''}`}
+                                    data-tabid={tab.id}
+                                    onClick={() => setActiveTab(tab.id)}
+                                >
+                                    {tab.label}
+                                </button>
+                            ))}
+                        </div>
                     </div>
 
-                    <div className="techtab">
-                        {TABS.map((tab) => (
-                            <button
-                                key={tab.id}
-                                type="button"
-                                className={`techtab_btn${activeTab === tab.id ? ' active' : ''}`}
-                                data-tabid={tab.id}
-                                onClick={() => setActiveTab(tab.id)}
-                            >
-                                {tab.label}
-                            </button>
-                        ))}
-                    </div>
-                </div>
+                    <div className="techno_right">
+                        <h4>Technology</h4>
+                        <div className="techno_tabwrapper">
+                            {TABS.map((tab) => (
+                                <div
+                                    key={tab.id}
+                                    className={`techno_tabdata${activeTab === tab.id ? ' show' : ''}`}
+                                    data-target={tab.id}
+                                >
+                                    <h5>{tab.title}</h5>
+                                    <p>{tab.text}</p>
+                                    <a href="javascript:void(0)" className="more_btn">
+                                        <img src="/assets/icons/right-arrow-white.svg" alt="arrow" className="img-fluid" />
+                                    </a>
+                                </div>
+                            ))}
 
-                <div className="techno_right">
-                    <h4>Technology</h4>
-                    <div className="techno_tabwrapper">
-                        {TABS.map((tab) => (
-                            <div
-                                key={tab.id}
-                                className={`techno_tabdata${activeTab === tab.id ? ' show' : ''}`}
-                                data-target={tab.id}
-                            >
-                                <h5>{tab.title}</h5>
-                                <p>{tab.text}</p>
-                                <a href="javascript:void(0)" className="more_btn">
-                                    <img src="/assets/icons/right-arrow-white.svg" alt="arrow" className="img-fluid" />
-                                </a>
-                            </div>
-                        ))}
-
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
     )
 }

@@ -1,0 +1,22 @@
+.people_panel { height:90vh; }
+.people_panel .font_title { text-align: center; padding: 4rem 0 1rem; }
+.line-wrap2 {width: 0.4rem;height: 12rem;background: #ddd;margin: 2rem auto 4rem;position: relative;}
+.line-progress2 { position: absolute; top: 0; left: 0; width: 100%; height: 0%; background: var(--color-c8); }
+.people-image-wrap { position: relative; width: 60%; margin: 0 auto; overflow: hidden; border-radius: 20px; }
+.people-image, .people-image img { width: 100%; height: 100%; object-fit: cover; }
+.people-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.55); opacity: 0; visibility: hidden; z-index: 10; }
+.overlay-content {display: flex;flex-direction: column;justify-content: space-between;height: 100%;padding: 8rem 0;box-sizing: border-box;}
+.people_pic_text { max-width: 48rem; text-align: left; margin-top: 10%; }
+.people_pic_text blockquote { color: #ffffff; font: var(--font-34); line-height: 1.4; font-weight: 300; margin: 0 0 1.5rem 0; }
+.people_fact_link { display: flex; justify-content: space-between; align-items:center; width: 100%; }
+.people_left_fact {display: flex;align-items: center;border-left: 3px solid var(--color-f8);padding-left: 6rem; }
+.people_left_fact h6 {color: var(--color-f8);font: var(--font-90);font-weight: 300;margin: 0;line-height: 1;letter-spacing: -3.6px;}
+.people_left_fact h6 sup {font:var(--font-42);top: -1.2em;left: .9rem;font-weight: 300;}
+.people_left_fact p {color: rgba(255, 255, 255, 0.8);font: var(--font-21);margin: 0 0 0 3.5rem;line-height: 1.3;font-weight: 300;}
+.people_right_link ul {list-style: none;padding: 0;margin: 0;display: flex;gap: 5rem;}
+.people_right_link ul li a {color: #ffffff;text-decoration: none;position: relative;padding-bottom: 4px;border-bottom: 1px dotted rgba(255, 255, 255, 0.4);transition: color 0.2s ease;font: var(--font-21);font-weight: 300; display:flex;}
+.people_right_link ul li a:hover { color: var(--color-f8); }
+.people_pic_text a.more_btn {margin-top: 5rem;width: 3.2rem;height: 3.2rem;}
+.people_pic_text a.more_btn img { width: .8rem; }
+.people_pic_text a.more_btn:hover { background: var(--color-23); }
+.people_right_link ul li a img { width: 1.2rem; margin-left: 1rem; }

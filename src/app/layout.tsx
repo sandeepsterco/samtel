@@ -4,6 +4,7 @@ import Header from "@/components/header/Header";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import '../styles/globals.css'
+import Footer from "@/components/footer/Footer";
 
 const funnelSans = Funnel_Sans({
   subsets: ['latin'],
@@ -28,6 +29,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
