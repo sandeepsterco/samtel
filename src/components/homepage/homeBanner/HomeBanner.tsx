@@ -1,18 +1,19 @@
 "use client"
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useEffect, useRef } from 'react'
-import './homeBanner.css'
+import { useEffect, useRef, useState } from 'react'
 import { refreshScrollTriggers } from '@/hooks/useScrollTriggerRefresh'
+import './homeBanner.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
 interface HomeBannerProps {
     data: {
-        headings: any,
+        titles: any,
         description: string,
         video?: string,
-        videourl?: string,
+        iframeurl?: string,
+        poster?: string,
     }
 }
 
@@ -53,18 +54,20 @@ function loadYouTubeApi(): Promise<void> {
     })
 }
 
-// Common control surface so GSAP logic doesn't care which type it's driving
 interface VideoController {
     pause: () => void
     play: () => Promise<void> | void
     reset: () => void
     addVisibleClass: () => void
     removeVisibleClass: () => void
+    ensureLoaded: () => void
 }
 
 export default function HomeBanner({ data }: HomeBannerProps) {
     const sectionRef = useRef<HTMLElement | null>(null)
     const videoElRef = useRef<HTMLVideoElement | null>(null)
+    const sourceElRef = useRef<HTMLSourceElement | null>(null)
+    const ytWrapperRef = useRef<HTMLDivElement | null>(null)
     const ytContainerRef = useRef<HTMLDivElement | null>(null)
     const ytPlayerRef = useRef<any>(null)
     const bannerCaptionRef = useRef<HTMLDivElement | null>(null)
@@ -72,6 +75,8 @@ export default function HomeBanner({ data }: HomeBannerProps) {
     const btnRef = useRef<HTMLDivElement | null>(null)
     const pListRef = useRef<HTMLParagraphElement[]>([])
     const pEmRef = useRef<HTMLElement | null>(null)
+
+    const videoLoadedRef = useRef(false)
 
     pListRef.current = []
 
@@ -81,8 +86,9 @@ export default function HomeBanner({ data }: HomeBannerProps) {
         }
     }
 
-    const isYouTube = isYouTubeUrl(data?.videourl ?? '')
-    const youtubeId = isYouTube ? getYouTubeId(data?.videourl ?? '') : null
+    const isYouTube = isYouTubeUrl(data?.iframeurl ?? '')
+    const youtubeId = isYouTube ? getYouTubeId(data?.iframeurl ?? '') : null
+
 
     useEffect(() => {
         const section = sectionRef.current
@@ -97,14 +103,19 @@ export default function HomeBanner({ data }: HomeBannerProps) {
         let cancelled = false
 
         async function setup() {
+            if (!section || !h1) return
             let controller: VideoController
 
             if (isYouTube && youtubeId) {
                 await loadYouTubeApi()
                 if (cancelled || !ytContainerRef.current) return
 
-                const player = await new Promise<any>((resolve) => {
-                    const p = new window.YT.Player(ytContainerRef.current, {
+                let ytPlayerCreated = false
+
+                const createPlayer = () => {
+                    if (ytPlayerCreated || cancelled || !ytContainerRef.current) return
+                    ytPlayerCreated = true
+                    ytPlayerRef.current = new window.YT.Player(ytContainerRef.current, {
                         videoId: youtubeId,
                         playerVars: {
                             autoplay: 0,
@@ -115,35 +126,44 @@ export default function HomeBanner({ data }: HomeBannerProps) {
                             playlist: youtubeId
                         },
                         events: {
-                            onReady: () => resolve(p)
+                            onReady: () => {
+                                ytPlayerRef.current?.mute()
+                            }
                         }
                     })
-                })
-
-                if (cancelled) return
-                ytPlayerRef.current = player
-                player.mute()
+                }
 
                 controller = {
-                    pause: () => player.pauseVideo(),
-                    play: () => player.playVideo(),
-                    reset: () => player.seekTo(0, true),
-                    addVisibleClass: () => ytContainerRef.current?.classList.add('visible'),
-                    removeVisibleClass: () => ytContainerRef.current?.classList.remove('visible')
+                    pause: () => ytPlayerRef.current?.pauseVideo(),
+                    play: () => ytPlayerRef.current?.playVideo(),
+                    reset: () => ytPlayerRef.current?.seekTo(0, true),
+                    addVisibleClass: () => ytWrapperRef.current?.classList.add('visible'),
+                    removeVisibleClass: () => ytWrapperRef.current?.classList.remove('visible'),
+                    ensureLoaded: createPlayer
                 }
             } else {
                 const video = videoElRef.current
                 if (!video) return
 
                 video.pause()
-                video.currentTime = 0
+                
+                const ensureLoaded = () => {
+                    if (videoLoadedRef.current || !sourceElRef.current || !data?.video) return
+                    videoLoadedRef.current = true
+                    sourceElRef.current.src = data.video
+                    video.load()
+                }
 
                 controller = {
                     pause: () => video.pause(),
-                    play: () => video.play().catch(() => { }),
+                    play: () => {
+                        ensureLoaded()
+                        return video.play().catch(() => { })
+                    },
                     reset: () => { video.currentTime = 0 },
                     addVisibleClass: () => video.classList.add('visible'),
-                    removeVisibleClass: () => video.classList.remove('visible')
+                    removeVisibleClass: () => video.classList.remove('visible'),
+                    ensureLoaded
                 }
             }
 
@@ -185,10 +205,15 @@ export default function HomeBanner({ data }: HomeBannerProps) {
                             const scrollingUp = self.progress < lastProgress
                             lastProgress = self.progress
 
+                            if (scrollingDown && self.progress > 0.35 && self.progress <= 0.50) {
+                                controller.ensureLoaded()
+                            }
+
                             if (scrollingDown && self.progress > 0.50) {
                                 bannerCaption?.classList.add("transparent")
 
                                 if (!videoStarted) {
+                                    controller.ensureLoaded()
                                     controller.addVisibleClass()
                                     controller.play()
                                     videoStarted = true
@@ -319,18 +344,44 @@ export default function HomeBanner({ data }: HomeBannerProps) {
     return (
         <section className="home_banner" ref={sectionRef}>
             {isYouTube ? (
-                <div className="desktop_video yt_video_wrap" ref={ytContainerRef} />
+                <div className=" yt_video_wrap" ref={ytWrapperRef}>
+                    <div ref={ytContainerRef} className='desktop_video' />
+                </div>
             ) : (
-                <video className="desktop_video" ref={videoElRef} muted playsInline loop>
-                    <source src={data?.video} type="video/mp4" />
+                <video
+                    className="desktop_video"
+                    ref={videoElRef}
+                    muted
+                    playsInline
+                    loop
+                    preload="none"
+                    aria-hidden="true"
+                >
+                    <source ref={sourceElRef} type="video/mp4" />
                 </video>
+            )}
+
+            {!isYouTube && data?.poster && (
+                <img
+                    className="desktop_video_poster"
+                    src={data.poster}
+                    alt="home video poster"
+                    aria-hidden="true"
+                    fetchPriority="high"
+                />
             )}
 
             <div className="banner_caption" ref={bannerCaptionRef}>
                 <div className="container">
                     <div className="banner_title">
-                        {data?.headings.length > 0 && data?.headings.map((item:{heading:string}, idx:number)=>(
-                            <p key={idx} ref={addPRef} dangerouslySetInnerHTML={{__html:item?.heading}} />
+                        {data?.titles?.[0] && (
+                            <h1
+                                dangerouslySetInnerHTML={{ __html: data.titles[0].heading }}
+                                className='d-none'
+                            />
+                        )}
+                        {data?.titles?.length > 0 && data?.titles.map((item:{paragraph:string}, idx:number)=>(
+                            <p key={idx} ref={addPRef} dangerouslySetInnerHTML={{__html:item?.paragraph}} />
                         ))}
                         {data?.description && (
                             <em ref={pEmRef} dangerouslySetInnerHTML={{__html:data?.description}} />

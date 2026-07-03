@@ -4,12 +4,32 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { refreshScrollTriggers } from '@/hooks/useScrollTriggerRefresh'
+import Image from 'next/image'
+import Link from 'next/link'
 import './people.css'
 
 
 gsap.registerPlugin(ScrollTrigger)
 
-export default function People() {
+interface ButtonInterface {
+    name: string;
+    url: string;
+}
+
+interface PeoplePropsInterface {
+    data: {
+        title: string;
+        subtitle: string;
+        image: string;
+        message: string;
+        slug: string;
+        count: string;
+        counttitle: string;
+        buttonsgroup: ButtonInterface[];
+    }
+}
+
+export default function People({ data }: PeoplePropsInterface) {
     const sectionRef = useRef<HTMLElement | null>(null)
     const imageWrapRef = useRef<HTMLDivElement | null>(null)
     const imageRef = useRef<HTMLImageElement | null>(null)
@@ -47,7 +67,7 @@ export default function People() {
                     pin: true,
                     anticipatePin: 1,
                     invalidateOnRefresh: true,
-                    pinSpacing:true,
+                    pinSpacing: true,
                 }
             })
 
@@ -120,9 +140,12 @@ export default function People() {
     return (
         <section className="people_panel" ref={sectionRef}>
             <div className="font_title">
-                <p>PEOPLE</p>
-                <blockquote><b>We're a diverse team</b> of thinkers and doers, united by a <br /> steadfast commitment to
-                    serving our customers.</blockquote>
+                {data?.title && (
+                    <p dangerouslySetInnerHTML={{ __html: data.title }} />
+                )}
+                {data?.subtitle && (
+                    <blockquote dangerouslySetInnerHTML={{ __html: data.subtitle }} />
+                )}
             </div>
 
             <div className="line-wrap2">
@@ -130,38 +153,51 @@ export default function People() {
             </div>
 
             <div className="people-image-wrap" ref={imageWrapRef}>
-                <div className="people-image">
-                    <img src="/assets/images/homepage/people/people_pic.webp" className="img-fluid" alt="Worker smiling" ref={imageRef} />
-                </div>
+                {data?.image && (
+                    <div className="people-image">
+                        <Image src={data.image} width={2545} height={900} loading='lazy' className="img-fluid" alt="people image" ref={imageRef} />
+                    </div>
+                )}
 
                 <div className="people-overlay" ref={overlayRef}>
                     <div className="container h-100">
                         <div className="col-lg-11 mx-auto h-100">
                             <div className="overlay-content">
 
-                                <div className="people_pic_text">
-                                    <blockquote ref={picTextBlockquoteRef}>At Samtel Avionics, people are the true driving force behind innovation in
-                                        aerospace and defense technology</blockquote>
-                                    <a href="javascript:void(0)" className="more_btn" ref={moreBtnRef}>
-                                        <img src="/assets/icons/right-arrow-white.svg" alt="arrow" className="img-fluid" />
-                                    </a>
-                                </div>
+                                {data?.message.trim() && (
+                                    <div className="people_pic_text">
+                                        <blockquote ref={picTextBlockquoteRef} dangerouslySetInnerHTML={{ __html: data.message }} />
+                                        {data?.slug && (
+                                            <Link href={data.slug} className="more_btn" ref={moreBtnRef}>
+                                                <img src="/assets/icons/right-arrow-white.svg" alt="arrow" className="img-fluid" />
+                                            </Link>
+                                        )}
+
+                                    </div>
+                                )}
 
                                 <div className="people_fact_link">
                                     <div className="people_left_fact" ref={leftFactRef}>
-                                        <h6>6K<sup>+</sup></h6>
-                                        <p>Total Samtel Group <br />Employees</p>
+                                        {data?.count.trim() && (
+                                            <h6 dangerouslySetInnerHTML={{ __html: data.count }} />
+                                        )}
+                                        {data?.counttitle && (
+                                            <p dangerouslySetInnerHTML={{ __html: data.counttitle }} />
+                                        )}
                                     </div>
-                                    <div className="people_right_link">
-                                        <ul ref={rightLinkListRef}>
-                                            <li><a href="javascript:void(0)">Life at Samtel <img
-                                                src="/assets/icons/right-arrow-white.svg" alt="arrow"
-                                                className="img-fluid" /></a></li>
-                                            <li><a href="javascript:void(0)">Open Positions <img
-                                                src="/assets/icons/right-arrow-white.svg" alt="arrow"
-                                                className="img-fluid" /></a></li>
-                                        </ul>
-                                    </div>
+                                    {data?.buttonsgroup && data.buttonsgroup.length > 0 && (
+                                        <div className="people_right_link">
+                                            <ul ref={rightLinkListRef}>
+                                                {data.buttonsgroup.map((item, idx) => (
+                                                    <li key={idx}>
+                                                        <Link href={item?.url}>{item?.name} <img src="/assets/icons/right-arrow-white.svg" alt="arrow" className="img-fluid" /></Link>
+                                                    </li>
+                                                ))}
+
+                                            </ul>
+                                        </div>
+                                    )}
+
                                 </div>
                             </div>
                         </div>

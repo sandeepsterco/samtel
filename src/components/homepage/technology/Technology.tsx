@@ -1,62 +1,68 @@
 "use client"
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-import './technology.css'
 import { useEffect, useRef, useState } from 'react';
 import { refreshScrollTriggers } from '@/hooks/useScrollTriggerRefresh';
+import { BASE_URL } from '@/config/config';
+import './technology.css'
 
 gsap.registerPlugin(ScrollTrigger);
 
-const TABS = [
-    {
-        id: 'tectab-01',
-        label: '01',
-        title: 'DESIGN',
-        text: 'We engineer mission-ready avionics solutions built for performance, reliability, and compliance in the most demanding operational environments.'
-    },
-    {
-        id: 'tectab-02',
-        label: '02',
-        title: 'MANFACTURING',
-        text: 'We engineer mission-ready avionics solutions built for performance, reliability, and compliance in the most demanding operational environments.'
-    },
-    {
-        id: 'tectab-03',
-        label: '03',
-        title: 'QUALITY',
-        text: 'We engineer mission-ready avionics solutions built for performance, reliability, and compliance in the most demanding operational environments.'
+interface TechnologyImage {
+    image: string
+}
+
+interface TechnologyInfo {
+    title: string
+    id: string
+    description: string
+    slug:string;
+}
+
+interface TechnologyPropsInterface{
+    data:{
+        images: TechnologyImage[]
+        heading: string
+        info: TechnologyInfo[]
     }
-]
+}
 
-export default function Technology() {
-    const [activeTab, setActiveTab] = useState(TABS[0].id)
-
+export default function Technology({data}:TechnologyPropsInterface) {
+    const images = data?.images ?? []
+    const info = data?.info ?? []
+    const [activeTab, setActiveTab] = useState(info[0].id)
     const sectionRef = useRef<HTMLElement | null>(null)
-    const techno01Ref = useRef<HTMLElement | null>(null)
-    const techno02Ref = useRef<HTMLElement | null>(null)
-    const techno03Ref = useRef<HTMLElement | null>(null)
-    const techno04Ref = useRef<HTMLElement | null>(null)
+    const figureRefs = useRef<(HTMLElement | null)[]>([])
+
+    figureRefs.current = []
+    const addFigureRef = (el:HTMLElement | null)=>{
+        if(el && !figureRefs.current.includes(el)){
+            figureRefs.current.push(el)
+        }
+    }
 
     useEffect(() => {
-        const section = sectionRef.current
+        const section = sectionRef.current;
+        const figures = figureRefs.current
 
         if (!section || window.innerWidth < 1024) return
+        if (!figures.length || figures.some((f) => !f)) return
 
-        const figures = [
-            techno01Ref.current,
-            techno02Ref.current,
-            techno03Ref.current,
-            techno04Ref.current
-        ]
+        const count = figures.length
 
-        if (figures.some((f) => !f)) return
+        // spread figures symmetrically around 0, e.g. for 4 items: -40,-15,15,40 (scaled)
+        const getSpread = (index: number, max: number) => {
+            const mid = (count - 1) / 2
+            const step = max / mid
+            return (index - mid) * step
+        }
+        
 
         const ctx = gsap.context(() => {
-            gsap.set(techno01Ref.current, { yPercent: -40 })
-            gsap.set(techno02Ref.current, { yPercent: -15 })
-            gsap.set(techno03Ref.current, { yPercent: 15 })
-            gsap.set(techno04Ref.current, { yPercent: 40 })
+            figures.forEach((fig, i) => {
+                gsap.set(fig, { yPercent: getSpread(i, 40) })
+            })
+
 
             const tl = gsap.timeline({
                 scrollTrigger: {
@@ -70,13 +76,12 @@ export default function Technology() {
                     anticipatePin: 1,
                     onUpdate: (self) => {
                         const progress = self.progress
-                        let index: number
+                        const index = Math.min(
+                            info.length - 1,
+                            Math.floor(progress * info.length)
+                        )
+                        setActiveTab(info[index].id)
 
-                        if (progress < 0.33) index = 0
-                        else if (progress < 0.66) index = 1
-                        else index = 2
-
-                        setActiveTab(TABS[index].id)
                     },
                 },
                 onComplete:()=>{
@@ -84,16 +89,16 @@ export default function Technology() {
                 }
             })
 
-            tl.to(techno01Ref.current, { yPercent: -60 }, 0)
-                .to(techno02Ref.current, { yPercent: -20 }, 0)
-                .to(techno03Ref.current, { yPercent: 25 }, 0)
-                .to(techno04Ref.current, { yPercent: 60 }, 0)
+            figures.forEach((fig, i) => {
+                tl.to(fig, { yPercent: getSpread(i, 60) }, 0)
+            })
+
         }, section)
 
         refreshScrollTriggers()
 
         return () => ctx.revert()
-    }, [])
+    }, [images])
 
     return (
         <section className="technology_sec" ref={sectionRef}>
@@ -101,22 +106,24 @@ export default function Technology() {
                 <div className="techno_grid">
                     <div className="techno_left">
                         <div className="tech_figureitem">
-                            <figure className="techfigure techno01" ref={techno01Ref}>
-                                <img src="/assets/images/homepage/technology/techno01.webp" alt="Technology" className="img-fluid w-100" />
-                            </figure>
-                            <figure className="techfigure techno02" ref={techno02Ref}>
-                                <img src="/assets/images/homepage/technology/techno02.webp" alt="Technology" className="img-fluid w-100" />
-                            </figure>
-                            <figure className="techfigure techno03" ref={techno03Ref}>
-                                <img src="/assets/images/homepage/technology/techno03.webp" alt="Technology" className="img-fluid w-100" />
-                            </figure>
-                            <figure className="techfigure techno04" ref={techno04Ref}>
-                                <img src="/assets/images/homepage/technology/techno04.webp" alt="Technology" className="img-fluid w-100" />
-                            </figure>
+                            {images.map((img, idx) => (
+                                    <figure
+                                        key={idx}
+                                        className={`techfigure techno0${idx + 1}`}
+                                        ref={addFigureRef}
+                                    >
+                                        <img
+                                            src={img.image}
+                                            alt="Technology"
+                                            className="img-fluid w-100"
+                                        />
+                                    </figure>
+                                ))}
+
                         </div>
 
                         <div className="techtab">
-                            {TABS.map((tab) => (
+                            {info.map((tab:any) => (
                                 <button
                                     key={tab.id}
                                     type="button"
@@ -131,19 +138,28 @@ export default function Technology() {
                     </div>
 
                     <div className="techno_right">
-                        <h4>Technology</h4>
+                        {data?.heading && (
+                            <h4 dangerouslySetInnerHTML={{__html:data.heading}} />
+                        )}
                         <div className="techno_tabwrapper">
-                            {TABS.map((tab) => (
+                            {info.map((tab) => (
                                 <div
                                     key={tab.id}
                                     className={`techno_tabdata${activeTab === tab.id ? ' show' : ''}`}
                                     data-target={tab.id}
                                 >
-                                    <h5>{tab.title}</h5>
-                                    <p>{tab.text}</p>
-                                    <a href="javascript:void(0)" className="more_btn">
-                                        <img src="/assets/icons/right-arrow-white.svg" alt="arrow" className="img-fluid" />
-                                    </a>
+                                    {tab?.title && (
+                                        <h5>{tab.title}</h5>
+                                    )}
+                                    {tab?.description && (
+                                        <p>{tab.description}</p>
+                                    )}
+                                    {tab?.slug && (
+                                        <a href={`${BASE_URL}${tab.slug}`} className="more_btn">
+                                            <img src="/assets/icons/right-arrow-white.svg" alt="arrow" className="img-fluid" />
+                                        </a>
+                                    )}
+                                    
                                 </div>
                             ))}
 

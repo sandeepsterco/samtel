@@ -36,7 +36,7 @@
     display: flex;
     flex-direction: column;
     /* overflow: hidden; */
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .system-tile:hover {
@@ -70,7 +70,7 @@
     opacity: 0;
     transform: scale(1.02);
     transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-    z-index: 1;
+    /* z-index: 1; */
 }
 
 .tile-backdrop::after {
@@ -84,7 +84,7 @@
 
 .tile-info-wrapper {
     position: relative;
-    z-index: 2;
+    /* z-index: 2; */
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -157,18 +157,22 @@
 
 .system-tile:hover .tile-info-wrapper {
     transform: translateY(9rem);
-    z-index: 99;
+    z-index: 10;
 }
 
 .system-tile:hover .tile-action-trigger {
     background-color: var(--color-c8);
     left: calc(100% - 72px);
     bottom: 4rem;
-    z-index: 99;
+    z-index: 10;
 }
 
 .system-tile:hover .tile-action-trigger svg {
     stroke: #ffffff;
+}
+
+.system-tile .streched_link{
+    z-index: 11;
 }
 
 @media (max-width: 1100px) {

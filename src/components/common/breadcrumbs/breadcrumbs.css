@@ -1,0 +1,26 @@
+.breadcrumb-sec {
+    padding-block: 1.7rem; }
+
+.breadcrumb-sec li.breadcrumb-item {
+    font: var(--font-18);
+    font-weight: 300;
+    letter-spacing: -0.18px;
+    color: var(--color-23);
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    padding-right: 2.2rem;
+}
+
+.breadcrumb-sec li.breadcrumb-item a {
+    color: var(--color-23);
+    text-decoration: none;
+}
+
+.breadcrumb-sec li.breadcrumb-item.active {
+    color: var(--color-c8);
+}
+
+.breadcrumb-custom{
+    --bs-breadcrumb-divider: ">";
+}

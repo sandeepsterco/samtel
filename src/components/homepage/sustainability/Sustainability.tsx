@@ -1,5 +1,18 @@
+import Link from 'next/link';
 import './sustainability.css'
-export default function Sustainability() {
+import Image from 'next/image';
+
+interface SustainabilityPropsInterface{
+    data:{
+        title:string;
+        image:string;
+        subtitle:string;
+        description:string;
+        pageslug?:string;
+    }
+}
+
+export default function Sustainability({data}:SustainabilityPropsInterface) {
     return (
         <section className="home_sustainbility">
             <div className="container">
@@ -7,21 +20,30 @@ export default function Sustainability() {
                     <div className="row">
                         <div className="col-lg-5">
                             <div className="font_title">
-                                <p>SUSTAINABILITY</p>
-                                <blockquote>Engineering Responsibility. <b>Delivering Sustainably.</b> </blockquote>
+                                {data?.title && (
+                                    <p dangerouslySetInnerHTML={{__html:data.title}} />
+                                )}
+                                {data?.subtitle && (
+                                    <blockquote dangerouslySetInnerHTML={{__html:data.subtitle}} />
+                                )}
 
-                                <a href="javascipt:void(0)" className="more_btn">
-                                    <img src="/assets/icons/right-arrow-white.svg" alt="arrow" className="img-fluid" />
-                                </a>
+                                {data?.pageslug && (
+                                    <Link href="javascipt:void(0)" className="more_btn">
+                                        <img src="/assets/icons/right-arrow-white.svg" alt="arrow" className="img-fluid" />
+                                    </Link>
+                                )}
+
+                                
                             </div>
                         </div>
                         <div className="col-lg-7">
                             <div className="sustainbility-content">
-                                <figure><img src="/assets/images/homepage/sustainability/sustainbility.webp" className="img-fluid" alt="sustainbility" /></figure>
-                                <p>Sustainability is integral to how we design, manufacture, and operate. As a technology
-                                    partner in mission-critical
-                                    sectors, we recognize our responsibility to minimize environmental impact while
-                                    delivering high-reliability solutions.</p>
+                                <figure>
+                                    <Image src={data?.image ?? '/assets/images/placeholders/image1.webp'} className="img-fluid" width={850} height={600} loading='lazy' alt="sustainbility" />
+                                </figure>
+                                {data?.description && (
+                                    <p dangerouslySetInnerHTML={{__html:data.description}} />
+                                )}
                             </div>
                         </div>
                     </div>

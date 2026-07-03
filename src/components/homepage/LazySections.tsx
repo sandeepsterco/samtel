@@ -32,11 +32,9 @@ const Happenings = dynamic(() => import("@/components/homepage/happenings/Happen
 export default function LazySections() {
   return (
     <>
-      <WhoWe />
-      <Technology />
-      <People />
-      <Sustainability />
-      <Happenings />
+      {/* <People /> */}
+      {/* <Sustainability /> */}
+      {/* <Happenings /> */}
     </>
   )
 }

@@ -1,138 +1,103 @@
+import Link from 'next/link';
 import './whowe.css'
 
-export default function WhoWe(){
-    return(
+interface CategoryInterface {
+    name: string;
+    image: string;
+    description: string;
+    display_order?: string;
+    slug?: string;
+}
+
+interface WhoWePropsInterface {
+    data: {
+        title: string;
+        subtitle: string;
+        categories: CategoryInterface[];
+    }
+}
+
+export default function WhoWe({ data }: WhoWePropsInterface) {
+    const firstCategories = data?.categories.filter((item, idx) => idx < 4);
+    const secondCategories = data?.categories.filter((item, idx) => idx > 3 && idx < 7);
+
+    return (
         <section className="who_we">
-        <div className="font_title">
-            <p>WHO WE SERVE</p>
-            <blockquote>A global leader in <b>Aerospace products and services</b></blockquote>
-        </div>
-
-        <div className="portfolio-grid">
-
-            <div className="grid-row-top">
-                <div className="system-tile">
-                    <div className="tile-backdrop" style={{backgroundImage: `url('/assets/images/homepage/who_we/who_we_pro1.webp')`}}>
-                    </div>
-                    <div className="tile-info-wrapper">
-                        <h3>Airborne Systems</h3>
-                        <p>Airborne Systems is a global leader in advanced parachutes, aerial delivery, and airborne
-                            technology.</p>
-                    </div>
-                    <div className="tile-action-trigger">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-
-                            <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" strokeLinecap="round"
-                                strokeLinejoin="round" />
-                        </svg>
-                    </div>
-                </div>
-
-                <div className="system-tile">
-                    <div className="tile-backdrop" style={{backgroundImage: `url('/assets/images/homepage/who_we/who_we_pro1.webp')`}}>
-                    </div>
-                    <div className="tile-info-wrapper">
-                        <h3>Naval Systems</h3>
-                        <p>A global leader in parachutes, aerial delivery, and airborne technology.</p>
-                    </div>
-                    <div className="tile-action-trigger">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-
-                            <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" strokeLinecap="round"
-                                strokeLinejoin="round" />
-                        </svg>
-                    </div>
-                </div>
-
-                <div className="system-tile">
-                    <div className="tile-backdrop" style={{backgroundImage: `url('/assets/images/homepage/who_we/who_we_pro1.webp')`}}>
-                    </div>
-                    <div className="tile-info-wrapper">
-                        <h3>Land & Tactical Systems</h3>
-                        <p>Airborne Systems is a global leader in advanced parachutes, aerial delivery, and airborne
-                            technology.</p>
-                    </div>
-                    <div className="tile-action-trigger">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-
-                            <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" strokeLinecap="round"
-                                strokeLinejoin="round" />
-                        </svg>
-                    </div>
-                </div>
-
-                <div className="system-tile">
-                    <div className="tile-backdrop" style={{backgroundImage: `url('/assets/images/homepage/who_we/who_we_pro1.webp')`}}>
-                    </div>
-                    <div className="tile-info-wrapper">
-                        <h3>Space & Satellite</h3>
-                        <p>Airborne Systems is a global leader in advanced parachutes, aerial delivery, and airborne
-                            technology.</p>
-                    </div>
-                    <div className="tile-action-trigger">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-
-                            <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" strokeLinecap="round"
-                                strokeLinejoin="round" />
-                        </svg>
-                    </div>
-                </div>
+            <div className="font_title">
+                {data?.title && (
+                    <p dangerouslySetInnerHTML={{ __html: data.title }} />
+                )}
+                {data?.subtitle && (
+                    <blockquote dangerouslySetInnerHTML={{ __html: data.subtitle }} />
+                )}
             </div>
 
-            <div className="grid-row-bottom">
-                <div className="system-tile">
-                    <div className="tile-backdrop" style={{backgroundImage: `url('/assets/images/homepage/who_we/who_we_pro1.webp')`}}>
-                    </div>
-                    <div className="tile-info-wrapper">
-                        <h3>Unmanned Systems</h3>
-                        <p>Airborne Systems is a global leader in advanced parachutes, aerial delivery, and airborne
-                            technology.</p>
-                    </div>
-                    <div className="tile-action-trigger">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <div className="portfolio-grid">
 
-                            <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" strokeLinecap="round"
-                                strokeLinejoin="round" />
-                        </svg>
-                    </div>
-                </div>
+                {firstCategories && firstCategories?.length > 0 && (
+                    <div className="grid-row-top">
+                        {firstCategories.map((item, idx) => (
+                            <div key={idx} className="system-tile">
+                                <div className="tile-backdrop" style={{ backgroundImage: `url('/assets/images/homepage/who_we/who_we_pro1.webp')` }}>
+                                </div>
+                                <div className="tile-info-wrapper">
+                                    {item?.name && (
+                                        <h3>{item.name}</h3>
+                                    )}
+                                    {item?.description && (
+                                        <p dangerouslySetInnerHTML={{ __html: item.description }} />
+                                    )}
 
-                <div className="system-tile">
-                    <div className="tile-backdrop" style={{backgroundImage: `url('/assets/images/homepage/who_we/who_we_pro1.webp')`}}>
-                    </div>
-                    <div className="tile-info-wrapper">
-                        <h3>Railways</h3>
-                        <p>Airborne Systems is a global leader in advanced parachutes, aerial delivery, and airborne
-                            technology.</p>
-                    </div>
-                    <div className="tile-action-trigger">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                </div>
+                                <div className="tile-action-trigger">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 
-                            <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" strokeLinecap="round"
-                                strokeLinejoin="round" />
-                        </svg>
-                    </div>
-                </div>
+                                        <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" strokeLinecap="round"
+                                            strokeLinejoin="round" />
+                                    </svg>
+                                </div>
+                                {item?.slug && (
+                                    <Link href={item.slug} className="streched_link"></Link>
+                                )}
+                            </div>
+                        ))}
 
-                <div className="system-tile">
-                    <div className="tile-backdrop" style={{backgroundImage: `url('/assets/images/homepage/who_we/who_we_pro1.webp')`}}>
                     </div>
-                    <div className="tile-info-wrapper">
-                        <h3>Industrial & Emerging Tech</h3>
-                        <p>Airborne Systems is a global leader in advanced parachutes, aerial delivery, and airborne
-                            technology.</p>
-                    </div>
-                    <div className="tile-action-trigger">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                )}
 
-                            <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" strokeLinecap="round"
-                                strokeLinejoin="round" />
-                        </svg>
+                {secondCategories && secondCategories?.length > 0 && (
+                    <div className="grid-row-bottom">
+                        {secondCategories.map((item, idx) => (
+                            <div key={idx} className="system-tile">
+                                <div className="tile-backdrop" style={{ backgroundImage: `url('/assets/images/homepage/who_we/who_we_pro1.webp')` }}>
+                                </div>
+                                <div className="tile-info-wrapper">
+                                    {item?.name && (
+                                        <h3>{item.name}</h3>
+                                    )}
+                                    {item?.description && (
+                                        <p dangerouslySetInnerHTML={{ __html: item.description }} />
+                                    )}
+
+                                </div>
+                                <div className="tile-action-trigger">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+
+                                        <path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" strokeLinecap="round"
+                                            strokeLinejoin="round" />
+                                    </svg>
+                                </div>
+                                {item?.slug && (
+                                    <Link href={item.slug} className="streched_link"></Link>
+                                )}
+                            </div>
+                        ))}
                     </div>
-                </div>
+                )}
+
+
+
             </div>
-
-        </div>
-    </section>
+        </section>
     )
 }
