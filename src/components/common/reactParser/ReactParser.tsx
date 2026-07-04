@@ -2,7 +2,6 @@ import parse, {attributesToProps, HTMLReactParserOptions, Element} from 'html-re
 import DOMPurify from 'isomorphic-dompurify'
 import Image from 'next/image';
 import CmsEnhancer from '../CmsEnhancer';
-import { randomUUID } from 'crypto';
 
 const options:HTMLReactParserOptions = {
     replace(domNode){
@@ -61,9 +60,17 @@ const options:HTMLReactParserOptions = {
     }
 }
 
+function hashString(str: string): string {
+    let hash = 5381;
+    for (let i = 0; i < str.length; i++) {
+      hash = (hash * 33) ^ str.charCodeAt(i);
+    }
+    return (hash >>> 0).toString(36);
+  }
+
 export default function ReactParser({html}:{html:string}){
     const sanitizedHtml = DOMPurify.sanitize(html);
-    const containerId = `cms-block-${randomUUID()}`;
+    const containerId = `cms-block-${hashString(sanitizedHtml)}`;
     
 
     return(

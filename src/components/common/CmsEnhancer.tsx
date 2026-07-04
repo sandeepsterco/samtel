@@ -49,8 +49,8 @@ export default function CmsEnhancer({ containerId }: { containerId: string }) {
             speed: 1000,
             slidesPerView,
             autoplay: autoplayDelay ? { delay: autoplayDelay, disableOnInteraction: false } : false,
-            pagination: pagination ? { el: pagination, clickable: true } : undefined,
-            navigation: nextEl && prevEl ? { nextEl, prevEl } : undefined,
+            pagination: pagination ? { el: pagination, clickable: true } : false,
+            navigation: nextEl && prevEl ? { nextEl, prevEl } : false,
           })
         );
       });
