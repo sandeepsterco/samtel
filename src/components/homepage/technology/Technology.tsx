@@ -1,7 +1,7 @@
 "use client"
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { refreshScrollTriggers } from '@/hooks/useScrollTriggerRefresh';
 import { BASE_URL } from '@/config/config';
 import './technology.css'
@@ -16,18 +16,18 @@ interface TechnologyInfo {
     title: string
     id: string
     description: string
-    slug:string;
+    slug: string;
 }
 
-interface TechnologyPropsInterface{
-    data:{
+interface TechnologyPropsInterface {
+    data: {
         images: TechnologyImage[]
         heading: string
         info: TechnologyInfo[]
     }
 }
 
-export default function Technology({data}:TechnologyPropsInterface) {
+export default function Technology({ data }: TechnologyPropsInterface) {
     const images = data?.images ?? []
     const info = data?.info ?? []
     const [activeTab, setActiveTab] = useState(info[0].id)
@@ -35,13 +35,13 @@ export default function Technology({data}:TechnologyPropsInterface) {
     const figureRefs = useRef<(HTMLElement | null)[]>([])
 
     figureRefs.current = []
-    const addFigureRef = (el:HTMLElement | null)=>{
-        if(el && !figureRefs.current.includes(el)){
+    const addFigureRef = (el: HTMLElement | null) => {
+        if (el && !figureRefs.current.includes(el)) {
             figureRefs.current.push(el)
         }
     }
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const section = sectionRef.current;
         const figures = figureRefs.current
 
@@ -56,7 +56,7 @@ export default function Technology({data}:TechnologyPropsInterface) {
             const step = max / mid
             return (index - mid) * step
         }
-        
+
 
         const ctx = gsap.context(() => {
             figures.forEach((fig, i) => {
@@ -84,9 +84,7 @@ export default function Technology({data}:TechnologyPropsInterface) {
 
                     },
                 },
-                onComplete:()=>{
-                    refreshScrollTriggers()
-                }
+
             })
 
             figures.forEach((fig, i) => {
@@ -95,9 +93,12 @@ export default function Technology({data}:TechnologyPropsInterface) {
 
         }, section)
 
-        refreshScrollTriggers()
-
-        return () => ctx.revert()
+        return () => {
+            ctx.revert()
+            ScrollTrigger.getAll().forEach((st) => {
+                if (st.trigger === section) st.kill()
+            })
+        }
     }, [images])
 
     return (
@@ -107,23 +108,23 @@ export default function Technology({data}:TechnologyPropsInterface) {
                     <div className="techno_left">
                         <div className="tech_figureitem">
                             {images.map((img, idx) => (
-                                    <figure
-                                        key={idx}
-                                        className={`techfigure techno0${idx + 1}`}
-                                        ref={addFigureRef}
-                                    >
-                                        <img
-                                            src={img.image}
-                                            alt="Technology"
-                                            className="img-fluid w-100"
-                                        />
-                                    </figure>
-                                ))}
+                                <figure
+                                    key={idx}
+                                    className={`techfigure techno0${idx + 1}`}
+                                    ref={addFigureRef}
+                                >
+                                    <img
+                                        src={img.image}
+                                        alt="Technology"
+                                        className="img-fluid w-100"
+                                    />
+                                </figure>
+                            ))}
 
                         </div>
 
                         <div className="techtab">
-                            {info.map((tab:any) => (
+                            {info.map((tab: any) => (
                                 <button
                                     key={tab.id}
                                     type="button"
@@ -139,7 +140,7 @@ export default function Technology({data}:TechnologyPropsInterface) {
 
                     <div className="techno_right">
                         {data?.heading && (
-                            <h4 dangerouslySetInnerHTML={{__html:data.heading}} />
+                            <h4 dangerouslySetInnerHTML={{ __html: data.heading }} />
                         )}
                         <div className="techno_tabwrapper">
                             {info.map((tab) => (
@@ -159,7 +160,7 @@ export default function Technology({data}:TechnologyPropsInterface) {
                                             <img src="/assets/icons/right-arrow-white.svg" alt="arrow" className="img-fluid" />
                                         </a>
                                     )}
-                                    
+
                                 </div>
                             ))}
 

@@ -1,7 +1,7 @@
 "use client"
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { refreshScrollTriggers } from '@/hooks/useScrollTriggerRefresh'
 import './homeBanner.css'
 
@@ -90,7 +90,7 @@ export default function HomeBanner({ data }: HomeBannerProps) {
     const youtubeId = isYouTube ? getYouTubeId(data?.iframeurl ?? '') : null
 
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const section = sectionRef.current
         const bannerCaption = bannerCaptionRef.current
         const h1 = h1Ref.current
@@ -335,9 +335,13 @@ export default function HomeBanner({ data }: HomeBannerProps) {
         return () => {
             cancelled = true
             cleanupFn?.()
+            ScrollTrigger.getAll().forEach((st)=>{
+                if(st.trigger === section) st.kill();
+            })
             if (ytPlayerRef.current) {
                 ytPlayerRef.current.destroy?.()
             }
+
         }
     }, [data, isYouTube, youtubeId])
 

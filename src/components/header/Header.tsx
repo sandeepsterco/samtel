@@ -1,24 +1,44 @@
+import { BASE_URL } from '@/config/config'
 import Hamburger from './Hamburger'
+import Image from 'next/image'
+import Link from 'next/link'
 import './header.css'
+import { apiFetch } from '@/lib/api'
 
-export default function Header() {
+interface HeaderMenuItem {
+    title: string
+    slug: string
+
+}
+
+interface HeaderResponse{
+    header:HeaderMenuItem[]
+}
+
+export default async function Header() {
+    const {data, error} = await apiFetch(`header`);
+
+    const headerData = (data as HeaderResponse)?.header ?? [];
+
     return (
         <section className="header">
             <div className="container">
                 <div className="header_nav">
                     <div className="logo">
-                        <a href="javascript:void(0)">
-                            <figure><img src="/assets/images/main-logo.webp" className="img-fluid" alt="Logo" /></figure>
-                        </a>
+                        <Link href={BASE_URL ?? '/'}>
+                            <figure>
+                                <Image src="/assets/images/main-logo.webp" className="img-fluid" alt="Logo" width={164} height={125} priority loading="eager" />
+                            </figure>
+                        </Link>
                     </div>
 
                     <nav className="main-nav">
                         <ul>
-                            <li><a href="javascript:void(0)">Who we are</a></li>
-                            <li><a href="javascript:void(0)">What we do</a></li>
-                            <li><a href="javascript:void(0)">Industries</a></li>
-                            <li><a href="javascript:void(0)">Products & Solutions</a></li>
-                            <li><a href="javascript:void(0)">Technology</a></li>
+                            {headerData?.map((item, idx)=>(
+                                <li key={idx}>
+                                    <Link href={BASE_URL+item.slug}>{item.title}</Link>
+                                </li>
+                            ))}
                         </ul>
                     </nav>
 

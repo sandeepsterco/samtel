@@ -3,9 +3,9 @@ import { Funnel_Sans } from "next/font/google";
 import Header from "@/components/header/Header";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import '../styles/globals.css'
 import Footer from "@/components/footer/Footer";
 import Script from "next/script";
+import '../styles/globals.css'
 
 const funnelSans = Funnel_Sans({
   subsets: ['latin'],

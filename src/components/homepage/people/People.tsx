@@ -1,9 +1,8 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { refreshScrollTriggers } from '@/hooks/useScrollTriggerRefresh'
 import Image from 'next/image'
 import Link from 'next/link'
 import './people.css'
@@ -40,7 +39,7 @@ export default function People({ data }: PeoplePropsInterface) {
     const rightLinkListRef = useRef<HTMLUListElement | null>(null)
     const lineProgressRef = useRef<HTMLSpanElement | null>(null)
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const section = sectionRef.current
         const imageWrap = imageWrapRef.current
         const image = imageRef.current
@@ -132,9 +131,12 @@ export default function People({ data }: PeoplePropsInterface) {
             }
         }, section)
 
-        refreshScrollTriggers()
-
-        return () => ctx.revert()
+        return () => {
+            ctx.revert();
+            ScrollTrigger.getAll().forEach((st)=>{
+                if(st.trigger === section) st.kill();
+            })
+        }
     }, [])
 
     return (

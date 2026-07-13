@@ -1,3 +1,4 @@
+// useScrollTriggerRefresh.ts
 'use client'
 
 import { useEffect } from 'react'
@@ -15,6 +16,13 @@ export function refreshScrollTriggers() {
     }, 100)
 }
 
+// NEW: allow cancelling a pending refresh
+export function cancelScrollTriggerRefresh() {
+    if (refreshTimer) {
+        clearTimeout(refreshTimer)
+        refreshTimer = null
+    }
+}
 
 export function useScrollTriggerRefresh() {
     useEffect(() => {
@@ -42,6 +50,7 @@ export function useScrollTriggerRefresh() {
                 img.removeEventListener('load', handleImageLoad)
                 img.removeEventListener('error', handleImageLoad)
             })
+            cancelScrollTriggerRefresh()
         }
     }, [])
 }

@@ -1,8 +1,68 @@
-// CmsEnhancer.tsx — still "use client", but scoped, no doc-wide querySelectorAll
 "use client";
 
 import { useEffect } from "react";
 import type Swiper from "swiper";
+import type { SwiperOptions, NavigationOptions, PaginationOptions } from "swiper/types";
+
+type PaginationType = "bullets" | "fraction" | "progressbar" | "custom";
+
+type RawSwiperConfig = Omit<SwiperOptions, "navigation" | "pagination"> & {
+  navigation?: boolean | { nextEl?: string; prevEl?: string };
+  pagination?:
+    | boolean
+    | { el?: string; clickable?: boolean; type?: PaginationType };
+};
+
+const DEFAULTS: RawSwiperConfig = {
+  loop: false,
+  speed: 600,
+  slidesPerView: 1,
+};
+
+function parseConfig(raw: string | undefined): RawSwiperConfig {
+  if (!raw) return {};
+  try {
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch {
+    console.warn("Invalid data-swiper-config JSON, falling back to defaults");
+    return {};
+  }
+}
+
+function resolveEl(root: HTMLElement, selector?: string) {
+  if (!selector) return undefined;
+  return root.querySelector<HTMLElement>(selector) || undefined;
+}
+
+function buildSwiperOptions(root: HTMLElement, config: RawSwiperConfig): SwiperOptions {
+  const { navigation: rawNav, pagination: rawPag, ...rest } = { ...DEFAULTS, ...config };
+
+  let navigation: NavigationOptions | false = false;
+  if (rawNav === true) {
+    const nextEl = root.querySelector<HTMLElement>(".swiper-button-next") || undefined;
+    const prevEl = root.querySelector<HTMLElement>(".swiper-button-prev") || undefined;
+    navigation = nextEl && prevEl ? { nextEl, prevEl } : false;
+  } else if (rawNav && typeof rawNav === "object") {
+    const nextEl = resolveEl(root, rawNav.nextEl) ||
+      root.querySelector<HTMLElement>(".swiper-button-next") || undefined;
+    const prevEl = resolveEl(root, rawNav.prevEl) ||
+      root.querySelector<HTMLElement>(".swiper-button-prev") || undefined;
+    navigation = nextEl && prevEl ? { nextEl, prevEl } : false;
+  }
+
+  let pagination: PaginationOptions | false = false;
+  if (rawPag === true) {
+    const el = root.querySelector<HTMLElement>(".swiper-pagination") || undefined;
+    pagination = el ? { el, clickable: true } : false;
+  } else if (rawPag && typeof rawPag === "object") {
+    const el = resolveEl(root, rawPag.el) ||
+      root.querySelector<HTMLElement>(".swiper-pagination") || undefined;
+    pagination = el ? { ...rawPag, el } : false;
+  }
+
+  return { ...rest, navigation, pagination };
+}
 
 export default function CmsEnhancer({ containerId }: { containerId: string }) {
   useEffect(() => {
@@ -14,15 +74,19 @@ export default function CmsEnhancer({ containerId }: { containerId: string }) {
       if (!root) return;
 
       const sliders = root.querySelectorAll<HTMLElement>(
-        ".adfSwiper:not([data-swiper-init])"
+        ".swiper:not([data-swiper-init])"
       );
       if (!sliders.length) return;
 
-      const [{ default: SwiperCore }, { Pagination, Autoplay, Navigation }] = await Promise.all([
+      const [{ default: SwiperCore }, modules] = await Promise.all([
         import("swiper"),
         import("swiper/modules"),
       ]);
-      await Promise.all([import("swiper/css"), import("swiper/css/pagination")]);
+      await Promise.all([
+        import("swiper/css"),
+        import("swiper/css/pagination"),
+        import("swiper/css/navigation"),
+      ]);
 
       if (cancelled) return;
 
@@ -30,27 +94,16 @@ export default function CmsEnhancer({ containerId }: { containerId: string }) {
         if (slider.dataset.swiperInit) return;
         slider.dataset.swiperInit = "true";
       
-        const pagination = slider.querySelector<HTMLElement>(".swiper-pagination");
-        const nextEl = slider.querySelector<HTMLElement>(".swiper-button-next");
-        const prevEl = slider.querySelector<HTMLElement>(".swiper-button-prev");
+        const config = parseConfig(slider.dataset.swiperConfig);
+        const options = buildSwiperOptions(slider, config);
       
-        const loop = slider.dataset.swiperLoop === "true";
-        const autoplayDelay = slider.dataset.swiperAutoplay
-          ? parseInt(slider.dataset.swiperAutoplay, 10)
-          : undefined;
-        const slidesPerView = slider.dataset.swiperSlidesPerView
-          ? parseFloat(slider.dataset.swiperSlidesPerView)
-          : 1;
+        console.log("raw config:", config);
+        console.log("final swiper options:", options);
       
         instances.push(
           new SwiperCore(slider, {
-            modules: [Pagination, Autoplay, Navigation],
-            loop,
-            speed: 1000,
-            slidesPerView,
-            autoplay: autoplayDelay ? { delay: autoplayDelay, disableOnInteraction: false } : false,
-            pagination: pagination ? { el: pagination, clickable: true } : false,
-            navigation: nextEl && prevEl ? { nextEl, prevEl } : false,
+            modules: [modules.Navigation, modules.Pagination, modules.Autoplay],
+            ...options,
           })
         );
       });

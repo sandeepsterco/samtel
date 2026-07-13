@@ -1,14 +1,26 @@
 import './inner-section.css'
 
-export default function InnerSection() {
+interface InnerSectionPropsInterface{
+    data:{
+        page_title:string;
+        description:string;
+        slug:string;
+
+    }
+}
+
+export default function InnerSection({data}:InnerSectionPropsInterface) {
     return (
         <section className="inner-section">
             <div className="container">
                 <div className="col-lg-10 mx-auto">
                     <div className="inner-text">
-                        <h1>Company Profile</h1>
-                        <blockquote>Samtel Avionics (SA) is a key Indian player in high-technology avionics, defence and
-                            railway electronic products and systems.</blockquote>
+                        {data?.page_title && (
+                            <h1 dangerouslySetInnerHTML={{__html:data.page_title}} />
+                        )}
+                        {data?.description && (
+                            <blockquote dangerouslySetInnerHTML={{__html:data.description}} />
+                        )}
                     </div>
                 </div>
             </div>
