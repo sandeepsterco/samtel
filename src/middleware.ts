@@ -70,7 +70,7 @@ export function middleware(request: NextRequest) {
     request: { headers: requestHeaders },
   });
 
-  response.headers.set('Content-Security-Policy', cspHeader);
+  // response.headers.set('Content-Security-Policy', cspHeader);
   response.headers.set('x-pathname', pathname);
 
   return response;

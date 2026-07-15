@@ -1,0 +1,28 @@
+.coming_soon_page{
+    padding:10rem 0;
+    height:calc(100vh - 38.3rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.coming_soon_page .heading{
+    font:var(--font-42);
+    font-weight: 600;
+    color:var(--color-c8);
+    margin-bottom: 2rem;
+    letter-spacing: 0;
+}
+
+.coming_soon_page .para{
+    font:var(--font-24);
+    margin-bottom: 5rem;
+}
+
+.coming_soon_page .back_btn{
+    background:var(--color-c8);
+    color:var(--color-white);
+    text-decoration: none;
+    padding:1.2rem 2.5rem;
+    font-weight: 500;
+}

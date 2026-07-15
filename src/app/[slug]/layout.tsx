@@ -5,6 +5,7 @@ import { getSlug } from "@/lib/getSlug";
 
 import '@/styles/inner.css'
 import NotFound from "../not-found";
+import ComingSoon from "@/components/common/comingSoon/ComingSoon";
 
 export default async function DynamicPageLayout({ children }: { children: React.ReactNode }) {
     const slug = await getSlug();
@@ -20,7 +21,7 @@ export default async function DynamicPageLayout({ children }: { children: React.
         <>
             <InnerSection data={topData} />
             <Breadcrumbs data={topData} />
-            {children}
+            {data.data.sections.length == 0 ? <ComingSoon /> : children}
         </>
     )
 }

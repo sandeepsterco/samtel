@@ -8,17 +8,32 @@ import { apiFetch } from '@/lib/api'
 interface HeaderMenuItem {
     title: string
     slug: string
-
 }
 
-interface HeaderResponse{
-    header:HeaderMenuItem[]
+interface HeaderResponse {
+    header: HeaderMenuItem[]
+}
+
+export interface SidebarItem {
+    title: string
+    slug: string
+    children: SidebarItem[]
+}
+
+interface SidebarResponse {
+    sidebar: SidebarItem[]
 }
 
 export default async function Header() {
-    const {data, error} = await apiFetch(`header`);
+    const [headerRes, sidebarRes] = await Promise.all([
+        apiFetch(`header`),
+        apiFetch(`sidebar`),
+    ]);
 
-    const headerData = (data as HeaderResponse)?.header ?? [];
+    console.log('sidebarRes',sidebarRes);
+
+    const headerData = (headerRes.data as HeaderResponse)?.header ?? [];
+    const sidebarData = (sidebarRes.data as SidebarResponse)?.sidebar ?? [];
 
     return (
         <section className="header">
@@ -34,15 +49,15 @@ export default async function Header() {
 
                     <nav className="main-nav">
                         <ul>
-                            {headerData?.map((item, idx)=>(
+                            {headerData?.map((item, idx) => (
                                 <li key={idx}>
-                                    <Link href={BASE_URL+item.slug}>{item.title}</Link>
+                                    <Link href={BASE_URL + item.slug}>{item.title}</Link>
                                 </li>
                             ))}
                         </ul>
                     </nav>
 
-                    <Hamburger />
+                    <Hamburger sidebarData={sidebarData} />
 
                 </div>
             </div>

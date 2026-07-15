@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "@/components/footer/Footer";
 import Script from "next/script";
 import '../styles/globals.css'
+import ScrollToTop from "@/components/common/ScrollToTop";
 
 const funnelSans = Funnel_Sans({
   subsets: ['latin'],
@@ -28,6 +29,7 @@ export default function RootLayout({
       className={`${funnelSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+      <ScrollToTop />
         <Header />
         {children}
         <Footer />

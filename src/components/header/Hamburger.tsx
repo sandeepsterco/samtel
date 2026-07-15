@@ -2,8 +2,15 @@
 
 import { useState } from "react"
 import { createPortal } from "react-dom";
+import type { SidebarItem } from "./Header";
+import Link from "next/link";
+import { BASE_URL } from "@/config/config";
 
-export default function Hamburger() {
+interface HamburgerProps {
+    sidebarData: SidebarItem[]
+}
+
+export default function Hamburger({sidebarData }:HamburgerProps) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     return (
@@ -15,12 +22,16 @@ export default function Hamburger() {
             </div>
 
             <div className={`other-links-drawer ${isSidebarOpen ? 'open' : ''}`}>
-                <ul>
-                    <li><a href="javascript:void(0)">Careers</a></li>
-                    <li><a href="javascript:void(0)">Resources & Media</a></li>
-                    <li><a href="javascript:void(0)">Contact Us</a></li>
-                    <li><a href="javascript:void(0)">Privacy Policy</a></li>
-                </ul>
+            <ul>
+            {sidebarData.map((item, idx) => (
+                <li key={idx}>
+                    <Link href={BASE_URL + item.slug}  onClick={()=>setIsSidebarOpen(!isSidebarOpen)}>{item.title}</Link>
+                    {/* {item.children?.length > 0 && (
+                        <SidebarList items={item.children} />
+                    )} */}
+                </li>
+            ))}
+        </ul>
             </div>
 
             {isSidebarOpen && createPortal(
