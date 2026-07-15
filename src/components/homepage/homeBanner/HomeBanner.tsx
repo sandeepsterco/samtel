@@ -17,6 +17,14 @@ interface HomeBannerProps {
     }
 }
 
+function lockBodyScroll() {
+    document.body.classList.add('body-locked')
+}
+
+function unlockBodyScroll() {
+    document.body.classList.remove('body-locked')
+}
+
 function isYouTubeUrl(url: string): boolean {
     return /youtube\.com|youtu\.be/.test(url)
 }
@@ -101,6 +109,19 @@ export default function HomeBanner({ data }: HomeBannerProps) {
         if (!section || !h1) return
 
         let cancelled = false
+        let scrollUnlocked = false
+
+        const unlockOnce = () => {
+            if (scrollUnlocked) return
+            scrollUnlocked = true
+            unlockBodyScroll()
+        }
+
+        lockBodyScroll()
+
+        // Safety net: never leave scroll locked longer than this,
+        // regardless of what happens with GSAP/animations.
+        const safetyTimeout = setTimeout(unlockOnce, 6000)
 
         async function setup() {
             if (!section || !h1) return
@@ -146,7 +167,7 @@ export default function HomeBanner({ data }: HomeBannerProps) {
                 if (!video) return
 
                 video.pause()
-                
+
                 const ensureLoaded = () => {
                     if (videoLoadedRef.current || !sourceElRef.current || !data?.video) return
                     videoLoadedRef.current = true
@@ -295,6 +316,8 @@ export default function HomeBanner({ data }: HomeBannerProps) {
                     onComplete: () => {
                         mainScrollTrigger?.enable()
                         refreshScrollTriggers()
+                        clearTimeout(safetyTimeout)
+                        unlockOnce()
                     }
                 })
                     .to(pList, {
@@ -335,6 +358,8 @@ export default function HomeBanner({ data }: HomeBannerProps) {
         return () => {
             cancelled = true
             cleanupFn?.()
+            clearTimeout(safetyTimeout)
+            unlockOnce()
             ScrollTrigger.getAll().forEach((st)=>{
                 if(st.trigger === section) st.kill();
             })

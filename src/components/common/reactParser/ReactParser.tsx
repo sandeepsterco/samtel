@@ -1,22 +1,36 @@
-import parse, {attributesToProps, HTMLReactParserOptions, Element} from 'html-react-parser'
-import DOMPurify from 'isomorphic-dompurify'
+import parse, { attributesToProps, HTMLReactParserOptions, Element } from 'html-react-parser'
+import sanitizeHtml from 'sanitize-html'
 import Image from 'next/image';
 import CmsEnhancer from '../CmsEnhancer';
 
-const options:HTMLReactParserOptions = {
-    replace(domNode){
-        if(domNode instanceof Element && domNode.attribs){
-            if(domNode.name === 'img'){
+const sanitizeOptions: sanitizeHtml.IOptions = {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat([
+        'img', 'h1', 'h2', 'iframe', 'span', 'figure', 'figcaption'
+    ]),
+    allowedAttributes: {
+        ...sanitizeHtml.defaults.allowedAttributes,
+        img: ['src', 'alt', 'width', 'height', 'style', 'class', 'loading'],
+        a: ['href', 'name', 'target', 'rel', 'class'],
+        '*': ['class', 'style', 'id'],
+        iframe: ['src', 'width', 'height', 'allow', 'allowfullscreen', 'frameborder'],
+    },
+    allowedIframeHostnames: ['www.youtube.com', 'youtube.com', 'player.vimeo.com'],
+};
+
+const options: HTMLReactParserOptions = {
+    replace(domNode) {
+        if (domNode instanceof Element && domNode.attribs) {
+            if (domNode.name === 'img') {
                 const props = attributesToProps(domNode.attribs) as any;
-                const resolvedSrc = (()=>{
+                const resolvedSrc = (() => {
                     const s = props.src || '';
-                    if(!s) return '';
-                    if(
+                    if (!s) return '';
+                    if (
                         s.startsWith("http") ||
                         s.startsWith("/") ||
                         s.startsWith("data:")
                     ) return s;
-                    return "/"+s;
+                    return "/" + s;
                 })();
 
                 if (!resolvedSrc) return <></>;
@@ -66,14 +80,13 @@ function hashString(str: string): string {
       hash = (hash * 33) ^ str.charCodeAt(i);
     }
     return (hash >>> 0).toString(36);
-  }
+}
 
-export default function ReactParser({html}:{html:string}){
-    const sanitizedHtml = DOMPurify.sanitize(html);
+export default function ReactParser({ html }: { html: string }) {
+    const sanitizedHtml = sanitizeHtml(html, sanitizeOptions);
     const containerId = `cms-block-${hashString(sanitizedHtml)}`;
-    
 
-    return(
+    return (
         <div id={containerId}>
             {parse(sanitizedHtml, options)}
             <CmsEnhancer containerId={containerId} />
