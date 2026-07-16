@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import './whowe.css'
+import { BASE_URL } from '@/config/config';
 
 interface CategoryInterface {
     name: string;
@@ -57,7 +58,7 @@ export default function WhoWe({ data }: WhoWePropsInterface) {
                                     </svg>
                                 </div>
                                 {item?.slug && (
-                                    <Link href={item.slug} className="streched_link"></Link>
+                                    <Link href={`${BASE_URL}category/${item.slug}`} className="streched_link"></Link>
                                 )}
                             </div>
                         ))}
@@ -88,7 +89,7 @@ export default function WhoWe({ data }: WhoWePropsInterface) {
                                     </svg>
                                 </div>
                                 {item?.slug && (
-                                    <Link href={item.slug} className="streched_link"></Link>
+                                    <Link href={`${BASE_URL}category/${item.slug}`} className="streched_link"></Link>
                                 )}
                             </div>
                         ))}
