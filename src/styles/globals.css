@@ -40,3 +40,33 @@ a.more_btn:hover { background: var(--color-23); }
 .font_title>blockquote>b { font-weight: 300; color: var(--color-c8); }
 figure { margin:0; }
 .streched_link { position: absolute; bottom: 0; left: 0; right: 0; width: 100%; height: 100%; z-index: 1; }
+
+.modal-media-holder {
+  width: 100%;
+  height: 50vh;
+}
+
+.gallery-swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.gallery-swiper .swiper-wrapper,
+.gallery-swiper .swiper-slide {
+  height: 100%;
+}
+
+.modal-media-slide {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-media {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
