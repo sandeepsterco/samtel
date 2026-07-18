@@ -52,15 +52,6 @@ export function middleware(request: NextRequest) {
   const nonce = crypto.randomUUID();
   const cspHeader = buildCsp(nonce, isDev);
 
-  // Redirect /department/:slug/home -> /department/:slug
-  // const match = pathname.match(/^\/department\/([^/]+)\/home$/);
-  // if (match) {
-  //   const slug = match[1];
-  //   return NextResponse.redirect(
-  //     new URL(`/department/${slug}`, request.url)
-  //   );
-  // }
-
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-pathname', pathname);
   // requestHeaders.set('x-nonce', nonce);

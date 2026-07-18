@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import './header.css'
 import { apiFetch } from '@/lib/api'
+import HeaderWrapper from './HeaderWrapper'
 
 interface HeaderMenuItem {
     title: string
@@ -30,13 +31,11 @@ export default async function Header() {
         apiFetch(`sidebar`),
     ]);
 
-    console.log('sidebarRes',sidebarRes);
-
     const headerData = (headerRes.data as HeaderResponse)?.header ?? [];
     const sidebarData = (sidebarRes.data as SidebarResponse)?.sidebar ?? [];
 
     return (
-        <section className="header">
+        <HeaderWrapper>
             <div className="container">
                 <div className="header_nav">
                     <div className="logo">
@@ -61,6 +60,6 @@ export default async function Header() {
 
                 </div>
             </div>
-        </section>
+        </HeaderWrapper>
     )
 }
