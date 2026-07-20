@@ -1,0 +1,151 @@
+
+.company-sec1 {
+    padding-block: 10rem;}
+
+.company-text {
+    position: relative;
+    margin-bottom: 5.6rem;
+}
+
+.company-text h2 {
+    font: var(--font-28);
+    color: var(--color-23);
+    font-weight: 300;
+}
+
+.company-list {
+    display: grid;
+    grid-template-columns: repeat(1, 57.65% auto);
+    gap: 8.5rem;
+}
+
+.company-img img {
+    width: 100%;
+}
+
+.company-right-bx {
+    padding-right: 13.3rem;
+}
+
+.company-right-text {
+    position: relative;
+    margin-bottom: 7.8rem;
+}
+
+.company-right-text p {
+    font: var(--font-18);
+    color: var(--color-23);
+    font-weight: 300;
+    margin-bottom: 2.8rem;
+    line-height: 1.6;
+}
+
+.company-right-list p {
+    font: var(--font-18);
+    color: var(--color-23);
+    font-weight: 300;
+    margin-bottom: 4.1rem;
+}
+
+
+.newsroom_full {
+    display: grid;
+    padding-top: 4rem;
+}
+
+.newsroom_full>* {
+    grid-area: 1/1;
+}
+
+.newsroom_full_content {
+    background: #152d65e8;
+    width: 47rem;
+    color:#fff;
+    padding-inline: 12rem 7rem;
+    padding-block: 12rem;
+}
+.date {
+    font: var(--font-12);
+}
+
+.newsroom_full_content blockquote {
+    padding-block: 1.9rem;
+    font: var(--font-32);
+    font-weight: 300;
+}
+.newsroom_full_content p {
+    font-weight: 300;
+    line-height: 1.6;
+}
+
+.newsroom_full_content .more_btn {margin-top:2rem;background:#fff;padding: 1rem;}
+
+
+.filter_grid {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+}
+
+.filter_grid h3 {
+    font: var(--font-36);
+    font-weight: 300;
+}
+
+.filter_group {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.filter_group select {
+    border: 0;
+    background: none;
+    border-bottom: 1px solid #1a18186b;
+    padding-inline: 0 3rem;
+    outline: 0;
+    box-shadow: inherit;
+    height: auto;
+    display: block;
+    padding-bottom: 1rem;
+}
+
+
+.news_grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .4rem;
+    padding-bottom: 15rem;
+}
+.news_item {
+    position: relative;
+}
+
+.news_item:after {
+    content: "";
+    width: 100%;
+    height: 63%;
+    background: transparent linear-gradient(180deg, #00000000 0%, #000000 100%) 0% 0% no-repeat padding-box;
+    opacity: 0.87;
+    position: absolute;
+    bottom: 0;
+}
+
+.news-des {
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+    color: #fff;
+    padding: 3.5rem;
+}
+
+.news-des .date {
+    margin-bottom: 2rem;
+}
+.filter_group select{
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: url("/assets/icons/select_arrow.svg") no-repeat right 0 center;
+    background-size: 1rem;
+    padding-right: 4.5rem;
+}
