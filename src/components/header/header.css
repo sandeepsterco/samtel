@@ -2,6 +2,7 @@
 .header_nav { display: flex; justify-content: space-between; align-items: center; padding-block: 4rem; position: relative; width: 100%; }
 nav.main-nav { margin-left: auto; }
 .header { border-top: 5px solid var(--color-d4); }
+.header.inner{background-color: #d1d2d46b;}
 .main-nav ul { display: flex; gap: 6rem; list-style: none; margin: 0; padding: 0; }
 .main-nav ul li a { text-decoration: none; color: var(--color-23); font: var(--font-24); font-weight: normal; transition: color 0.3s ease; }
 .main-nav ul li a:hover { color: var(--color-c8); }

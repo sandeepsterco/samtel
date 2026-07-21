@@ -2,17 +2,18 @@ import parse, { attributesToProps, HTMLReactParserOptions, Element } from 'html-
 import sanitizeHtml from 'sanitize-html'
 import Image from 'next/image';
 import CmsEnhancer from '../CmsEnhancer';
+import ContactForm from '@/components/parser/ContactForm';
 
 const sanitizeOptions: sanitizeHtml.IOptions = {
     allowedTags: sanitizeHtml.defaults.allowedTags.concat([
-        'img', 'h1', 'h2', 'iframe', 'span', 'figure', 'figcaption'
+        'img', 'h1', 'h2', 'iframe', 'span', 'figure', 'figcaption', 'svg', 'g', 'path',
     ]),
     allowedAttributes: {
         ...sanitizeHtml.defaults.allowedAttributes,
         img: ['src', 'alt', 'width', 'height', 'style', 'class', 'loading'],
         a: ['href', 'name', 'target', 'rel', 'class'],
-        '*': ['class', 'style', 'id'],
-        iframe: ['src', 'width', 'height', 'allow', 'allowfullscreen', 'frameborder'],
+        '*': ['class', 'src', 'style', 'id', 'xmlns', 'transform', 'data-name', 'd', 'fill', 'stroke', 'stroke-linecap', 'stroke-linejoin', 'stroke-width', 'width', 'height', 'viewBox',],
+        svg:['viewBox']
     },
     allowedIframeHostnames: ['www.youtube.com', 'youtube.com', 'player.vimeo.com'],
 };
@@ -70,6 +71,22 @@ const options: HTMLReactParserOptions = {
                     />
                 );
             }
+
+            if (domNode.name === 'iframe' && domNode.attribs) {
+                const src = domNode.attribs.src || domNode.attribs['data-src'];
+                return (
+                  <iframe
+                    src={src}
+                    width={domNode.attribs.width}
+                    height={domNode.attribs.height}
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                );
+            }
+
+            if (domNode.attribs.id === "contact_form") return <ContactForm />;
         }
     }
 }

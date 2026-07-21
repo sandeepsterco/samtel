@@ -1014,7 +1014,7 @@
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-bottom: 1px solid #ffffff; }
 .phone-input-container { display: flex; gap: 1rem; }
 .phone-input-container select { width: 7rem; }
-.submit-btn { background-color: #ffffff; border: none; padding: 10px 25px; font:var(--font-16); font-weight: 500; cursor: pointer; border-radius: 2px; display: flex; align-items: center; gap: 1rem; margin-top:2.5rem; transition: opacity 0.3s; }
+.submit-btn { background-color: #ffffff; border: none; padding: 10px 25px; font:var(--font-16); font-weight: 500; cursor: pointer; border-radius: 2px; display: flex; align-items: center; gap: 1rem; margin-top:2.5rem; transition: opacity 0.3s; color:var(--color-black)}
 .submit-btn:hover { opacity: 0.9; }
 .departments-grid {display: grid;grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));gap: 1.2rem;position: relative;z-index: 1;}
 .dept-card {padding:3rem;text-align: center;display: flex;flex-direction: column;align-items: center;justify-content: center;background: #F7F7F7 0% 0% no-repeat padding-box;border-radius: 2px;}
