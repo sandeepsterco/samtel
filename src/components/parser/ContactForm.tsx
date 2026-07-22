@@ -32,7 +32,6 @@ export default function ContactForm() {
             })
 
             const data = await res.json();
-            console.log('res',data);
 
             if(!data.success){
                 setStatus('idle');
@@ -81,12 +80,14 @@ export default function ContactForm() {
                 ))}
             </div>
 
-            <div className="form-group phone-input-container">
-                <select name="country-code" defaultValue="+91">
-                    <option value="+91">+91</option>
-                    <option value="+1">+1</option>
-                </select>
-                <input type="tel" name="phone" placeholder="Mobile No." />
+            <div className="form-group">
+                <div className="phone-input-container">
+                    <select name="country-code" defaultValue="+91">
+                        <option value="+91">+91</option>
+                        <option value="+1">+1</option>
+                    </select>
+                    <input type="tel" name="phone" placeholder="Mobile No." />
+                </div>
                 {errors.phone?.map((msg, i) => (
                     <p key={i} className="field-error">{msg}</p>
                 ))}

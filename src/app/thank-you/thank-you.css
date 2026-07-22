@@ -1,0 +1,38 @@
+.thank_you {
+    padding: 10rem 0;
+    height: calc(100vh - 38.3rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.thank_you .thank_you_card {
+    text-align: center;
+}
+
+.thank_you .heading {
+    font: var(--font-42);
+    font-weight: 600;
+    color: var(--color-c8);
+    margin-bottom: 2rem;
+    letter-spacing: 0;
+}
+
+.thank_you .message {
+    font: var(--font-24);
+    margin-bottom: 5rem;
+}
+
+.thank_you .back_btn {
+    display: inline-block;
+    background: var(--color-c8);
+    color: var(--color-white);
+    text-decoration: none;
+    padding: 1.2rem 2.5rem;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.thank_you .back_btn:hover {
+    opacity: 0.9;
+}
