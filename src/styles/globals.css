@@ -239,5 +239,9 @@ select {
 
 select option {
   color: #000;
-  background: #fff; /* Optional: keeps dropdown background white */
+  background: #fff;
+}
+
+.PhoneInputCountry {
+  border-bottom: 1px solid #fff6;
 }

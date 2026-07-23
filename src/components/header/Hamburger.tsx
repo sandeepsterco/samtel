@@ -24,7 +24,7 @@ export default function Hamburger({sidebarData }:HamburgerProps) {
             <div className={`other-links-drawer ${isSidebarOpen ? 'open' : ''}`}>
             <ul>
             {sidebarData.map((item, idx) => (
-                <li key={idx}>
+                <li key={idx} >
                     <Link href={BASE_URL + item.slug}  onClick={()=>setIsSidebarOpen(!isSidebarOpen)}>{item.title}</Link>
                     {/* {item.children?.length > 0 && (
                         <SidebarList items={item.children} />
