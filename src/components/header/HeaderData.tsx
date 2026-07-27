@@ -69,6 +69,7 @@ export default function HeaderData({
                   height={125}
                   priority
                   loading="eager"
+                  fetchPriority="high"
                 />
               </figure>
             </Link>
@@ -78,7 +79,7 @@ export default function HeaderData({
               {headerData.map((item: any, idx: number) => (
                 <li
                   key={idx}
-                  className={item.title === "Industries" ? "mega-parent" : ""}
+                  className={`${item.title === "Industries" ? "mega-parent" : "" } ${item?.children?.length > 0 ? 'site_dropdown' : ''}`}
                   onMouseEnter={() => {
                     if (item.title === "Industries") openMenu();
                   }}
@@ -87,6 +88,19 @@ export default function HeaderData({
                   }}
                 >
                   <Link href={BASE_URL + item.slug}>{item.title}</Link>
+
+                  {item?.children?.length > 0 && (
+                    <ul className="site_dropdown_menu">
+                      {item.children.map((li:any, liIdx:number)=>(
+                        <li key={liIdx}>
+                          <Link href={`${BASE_URL}${li.slug}`}>{li.title}</Link>
+                        </li>
+                      ))}
+                      
+                    </ul>
+                  )}
+
+                  
                 </li>
               ))}
             </ul>

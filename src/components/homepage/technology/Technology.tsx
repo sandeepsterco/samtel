@@ -5,6 +5,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { refreshScrollTriggers } from '@/hooks/useScrollTriggerRefresh';
 import { BASE_URL } from '@/config/config';
 import './technology.css'
+import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -113,10 +114,13 @@ export default function Technology({ data }: TechnologyPropsInterface) {
                                     className={`techfigure techno0${idx + 1}`}
                                     ref={addFigureRef}
                                 >
-                                    <img
+                                    <Image
                                         src={img.image}
                                         alt="Technology"
+                                        width={437}
+                                        height={237}
                                         className="img-fluid w-100"
+                                        loading='lazy'
                                     />
                                 </figure>
                             ))}

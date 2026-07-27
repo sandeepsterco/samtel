@@ -2,13 +2,20 @@
 .header_nav { display: flex; justify-content: space-between; align-items: center; padding-block: 4rem; position: relative; width: 100%; }
 nav.main-nav { margin-left: auto; }
 .header { border-top: 5px solid var(--color-d4); }
-.header.inner{background-color: #d1d2d46b;}
-.header.menu-open{background-color: #ECECEC;}
+.header.inner { background-color: #d1d2d46b; }
+.header.menu-open { background-color: #ECECEC; }
 .main-nav ul { display: flex; gap: 6rem; list-style: none; margin: 0; padding: 0; }
+.main-nav ul li { padding-block: 2rem; }
 .main-nav ul li a { text-decoration: none; color: var(--color-23); font: var(--font-24); font-weight: normal; transition: color 0.3s ease; }
-.main-nav ul li a:hover { color: var(--color-c8); }
+.main-nav ul>li>a:hover { color: var(--color-c8); }
+.main-nav .site_dropdown_menu { position: absolute; top: 100%; background-color: var(--color-c8); display: flex; flex-direction: column; padding: 0; min-width: 30rem; max-width: 30rem; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); opacity: 0; visibility: hidden; transform: translateY(1rem); pointer-events: none; transition: all 0.3s ease; -webkit-transition: all 0.3s ease; z-index: 11; gap:0; }
+.main-nav .site_dropdown { position:relative; }
+.main-nav .site_dropdown:hover .site_dropdown_menu { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; }
+.main-nav .site_dropdown_menu li { padding:0; border-bottom: 0.1rem solid rgba(0, 0, 0, 0.1); }
+.main-nav .site_dropdown_menu a { display: block; font: var(--font-18); color: var(--color-white); padding: 1rem 2rem; }
+.main-nav .site_dropdown_menu a:hover { color: var(--color-white); }
 /* --- Hamburger Icon Style --- */
-.hamburger { display: flex; flex-direction: column; justify-content: space-between; width: 3rem; height: 3rem; cursor: pointer; z-index: 1050;  position: relative; margin-left: 6rem;}
+.hamburger { display: flex; flex-direction: column; justify-content: space-between; width: 3rem; height: 3rem; cursor: pointer; z-index: 1050; position: relative; margin-left: 6rem; }
 .hamburger span { display: block; height: 1px; width: 100%; background-color: var(--color-23); border-radius: 3px; transition: all 0.3s ease-in-out; transform-origin: left center; }
 .hamburger.active span { background: #fff; }
 .hamburger.active span:nth-child(1) { transform: rotate(45deg); top:.6rem; position: relative; }
@@ -23,5 +30,4 @@ nav.main-nav { margin-left: auto; }
 .nav-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.4); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
 .nav-overlay.show { opacity: 1; pointer-events: auto; }
 .logo a { display: flex; align-items: center; gap: 2.4rem; text-decoration: none; }
-
 .logo p { margin: 0; color: #000; font: var(--font-18); text-decoration: none; width: 20rem; }
