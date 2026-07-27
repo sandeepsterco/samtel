@@ -24,7 +24,7 @@ export default function CategoryProducts({title, data}:CategoryPropsInterface) {
             <div className="container">
                 <div className="col-lg-10 mx-auto">
                     {title && (
-                        <h3>{title}</h3>
+                        <h3>Products of {title}</h3>
                     )}
 
                     <div className="product_grid">

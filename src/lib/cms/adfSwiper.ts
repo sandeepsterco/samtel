@@ -36,16 +36,21 @@ export async function initAdfSwiper(root: HTMLElement): Promise<Swiper[]> {
     const slidesPerView = slider.dataset.swiperSlidesPerView
       ? parseFloat(slider.dataset.swiperSlidesPerView)
       : 1;
-
     instances.push(
       new SwiperCore(slider, {
         modules: [Pagination, Autoplay, Navigation],
         loop,
         speed: 1000,
         slidesPerView,
-        autoplay: autoplayDelay ? { delay: autoplayDelay, disableOnInteraction: false } : false,
-        pagination: pagination ? { el: pagination, clickable: true } : undefined,
-        navigation: nextEl && prevEl ? { nextEl, prevEl } : undefined,
+        autoplay: autoplayDelay
+      ? { delay: autoplayDelay, disableOnInteraction: false }
+      : false,
+    pagination: pagination
+      ? { el: pagination, clickable: true }
+      : false,
+    navigation: nextEl && prevEl
+      ? { nextEl, prevEl }
+      : false,
       })
     );
   });

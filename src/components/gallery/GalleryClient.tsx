@@ -123,7 +123,7 @@ export default function GalleryClient({ items }: { items: GalleryItem[] }) {
                                 <Swiper
                                     key={activeItem.id}
                                     modules={[Navigation, Keyboard]}
-                                    keyboard={{ enabled: true }}
+                                    // keyboard={{ enabled: true }}
                                     navigation={{
                                         prevEl: ".nav-btn-prev",
                                         nextEl: ".nav-btn-next",

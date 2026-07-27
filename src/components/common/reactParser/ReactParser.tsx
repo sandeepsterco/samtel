@@ -20,6 +20,7 @@ const sanitizeOptions: sanitizeHtml.IOptions = {
     "svg",
     "g",
     "path",
+    "button"
   ]),
   allowedAttributes: {
     ...sanitizeHtml.defaults.allowedAttributes,
