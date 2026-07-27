@@ -1,8 +1,8 @@
 import React from "react";
-import "./megaMenu.css";
 import { ProductCategory } from "../Header";
 import Image from "next/image";
 import Link from "next/link";
+import "./megaMenu.css";
 
 interface MegaMenuProps {
   show: boolean;
@@ -48,6 +48,7 @@ export default function MegaMenu({
                 href={`/category/${category.slug}`}
                 key={idx}
                 className="industry-card"
+                onClick={onMouseLeave}
               >
                 {category.image && (
                   <Image

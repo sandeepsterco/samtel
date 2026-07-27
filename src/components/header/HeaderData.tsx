@@ -3,10 +3,11 @@ import { BASE_URL } from "@/config/config";
 import Hamburger from "./Hamburger";
 import Image from "next/image";
 import Link from "next/link";
-import "./header.css";
 import MegaMenu from "./megaMenu/MegaMenu";
 import { useRef, useState, useEffect } from "react";
 import { HeaderMenuItem, ProductCategory, SidebarItem } from "./Header";
+import { useHeader } from "./HeaderContext";
+import "./header.css";
 
 export default function HeaderData({
   headerData,
@@ -17,8 +18,8 @@ export default function HeaderData({
   sidebarData: SidebarItem[];
   productCategoryData: ProductCategory[];
 }) {
-  const [showMegaMenu, setShowMegaMenu] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
+  const {showMegaMenu, setShowMegaMenu} = useHeader()
   const [headerHeight, setHeaderHeight] = useState(0);
   const closeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 

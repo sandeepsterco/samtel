@@ -1,7 +1,7 @@
-import "./header.css";
 import { apiFetch } from "@/lib/api";
 import HeaderWrapper from "./HeaderWrapper";
 import HeaderData from "./HeaderData";
+import "./header.css";
 
 export interface HeaderMenuItem {
   title: string;
