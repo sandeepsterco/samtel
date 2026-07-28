@@ -13,10 +13,12 @@ export default function HeaderData({
   headerData,
   sidebarData,
   productCategoryData,
+  infoData
 }: {
   headerData: HeaderMenuItem[];
   sidebarData: SidebarItem[];
   productCategoryData: ProductCategory[];
+  infoData:any
 }) {
   const navRef = useRef<HTMLDivElement>(null);
   const {showMegaMenu, setShowMegaMenu} = useHeader()
@@ -114,6 +116,7 @@ export default function HeaderData({
         show={showMegaMenu}
         categoryData={productCategoryData}
         topOffset={headerHeight}
+        infoData={infoData}
         onMouseEnter={openMenu}
         onMouseLeave={closeMenu}
       />

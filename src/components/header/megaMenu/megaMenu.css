@@ -7,7 +7,7 @@
   visibility: hidden;
   transform: translateY(25px);
   transition: 0.45s ease;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.08);
+  /* box-shadow: 0 25px 60px rgba(0, 0, 0, 0.08); */
   z-index: 999;
 }
 
@@ -18,29 +18,104 @@
 }
 
 .mega-wrapper {
-  display: flex;
-  gap: 70px;
-  padding: 60px 0;
+  padding: 3.7rem 0 13.8rem;
+  display: grid;
+  grid-template-columns: 41.6rem auto;
+  gap: 8.4rem;
   align-items: flex-start;
 }
+
+
 
 /*==========================
 LEFT
 ==========================*/
 
 .mega-left {
-  width: 28%;
+  display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .mega-left h2 {
-  font-size: 36px;
-  line-height: 1.35;
+  font: var(--font-42);
   font-weight: 300;
-  margin: 0 0 35px;
+  margin: 0 0 3.8rem;
+  letter-spacing: -1.26px;
 }
 
 .mega-left h2 span {
   color: #c6002b;
+}
+
+.mega-count{
+  display: flex;
+  padding: 3rem;
+  gap: 5rem;
+  position:relative;
+}
+
+.mega-count .before,
+.mega-count .after{
+  position:absolute;
+  width:50%;
+  top:0;
+  height:100%;
+  left:0;
+}
+
+.mega-count .after{
+  right:0;
+  left:unset;
+}
+
+.mega-count .before:before{
+  position:absolute;
+  content:'';
+  height:0.6rem;
+  width: 0.6rem;
+  top:0;
+  left:0;
+  border-left: 1px solid #C83030;
+  border-top:1px solid #C83030;
+}
+
+.mega-count .before:after{
+  position:absolute;
+  content:'';
+  height:0.6rem;
+  width: 0.6rem;
+  border-left: 1px solid #C83030;
+  border-bottom:1px solid #C83030;
+  bottom:0;
+  left:0;
+}
+
+.mega-count .after:before{
+  position:absolute;
+  content:'';
+  height:0.6rem;
+  width: 0.6rem;
+  top:0;
+  right:0;
+  border-right: 1px solid #C83030;
+  border-top:1px solid #C83030;
+}
+
+.mega-count .after:after{
+  position:absolute;
+  content:'';
+  height:0.6rem;
+  width: 0.6rem;
+  border-right: 1px solid #C83030;
+  border-bottom:1px solid #C83030;
+  bottom:0;
+  right:0;
+}
+
+.mega-count .total,
+.mega-count .para{
+  margin:0;
 }
 
 .mega-btn {
@@ -56,17 +131,26 @@ LEFT
   margin-bottom: 55px;
 }
 
-.mega-count h3 {
+.mega-count .total {
   color: #c6002b;
-  font-size: 56px;
-  margin: 0 0 10px;
-  font-weight: 300;
+  font:var(--font-90);
+  font-weight: 100;
+  position:relative;
 }
 
-.mega-count p {
-  color: #666;
+.mega-count .total sup{
+  font:var(--font-32);
+  position: absolute;
+  /* top: 3rem; */
+  margin-left: 0.5rem;
+  top:0;
+}
+
+.mega-count .para {
   line-height: 1.6;
-  max-width: 220px;
+  font:var(--font-21);
+  font-weight: normal;
+  color: #231F20;
 }
 
 /*==========================
@@ -74,7 +158,7 @@ GRID
 ==========================*/
 
 .mega-grid {
-  width: 72%;
+  /* width: 72%; */
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.4rem;

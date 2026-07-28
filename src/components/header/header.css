@@ -1,7 +1,8 @@
 /* --- Header Wrapper --- */
 .header_nav { display: flex; justify-content: space-between; align-items: center; padding-block: 4rem; position: relative; width: 100%; }
 nav.main-nav { margin-left: auto; }
-.header { border-top: 5px solid var(--color-d4); }
+.menu_backdrop{position:fixed; top:0; left:0; width:100%; height:100%; background:#000; opacity: 0.7; z-index: 3; transition: all 0.5s ease-in-out;}
+.header { border-top: 5px solid var(--color-d4); position: relative; z-index: 100;}
 .header.inner { background-color: #d1d2d46b; }
 .header.menu-open { background-color: #ECECEC; }
 .main-nav ul { display: flex; gap: 6rem; list-style: none; margin: 0; padding: 0; }
@@ -27,7 +28,7 @@ nav.main-nav { margin-left: auto; }
 .other-links-drawer ul li { margin-bottom: 20px; }
 .other-links-drawer ul li a { text-decoration: none; color: #111; font:var(--font-18); font-weight: 500; transition: color 0.2s; }
 .other-links-drawer ul li a:hover { color: var(--color-c8); }
-.nav-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.4); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.nav-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.4); z-index: 99; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
 .nav-overlay.show { opacity: 1; pointer-events: auto; }
 .logo a { display: flex; align-items: center; gap: 2.4rem; text-decoration: none; }
 .logo p { margin: 0; color: #000; font: var(--font-18); text-decoration: none; width: 20rem; }

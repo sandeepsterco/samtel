@@ -33,16 +33,18 @@ interface SidebarResponse {
 }
 
 export default async function Header() {
-  const [headerRes, sidebarRes, productCategoryRes] = await Promise.all([
+  const [headerRes, sidebarRes, productCategoryRes, infoRes] = await Promise.all([
     apiFetch(`header`),
     apiFetch(`sidebar`),
     apiFetch(`product-categories`),
+    apiFetch(`info`),
   ]);
 
   const headerData = (headerRes.data as HeaderResponse)?.header ?? [];
   const sidebarData = (sidebarRes.data as SidebarResponse)?.sidebar ?? [];
   const productCategoryData =
     (productCategoryRes.data as ProductCategoryResponse)?.data ?? [];
+  const infoData = infoRes?.data ?? [];
 
   return (
     <HeaderWrapper>
@@ -50,6 +52,7 @@ export default async function Header() {
         headerData={headerData}
         sidebarData={sidebarData}
         productCategoryData={productCategoryData}
+        infoData={infoData}
       />
     </HeaderWrapper>
   );

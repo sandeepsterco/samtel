@@ -34,9 +34,8 @@ export default function Hamburger({sidebarData }:HamburgerProps) {
         </ul>
             </div>
 
-            {isSidebarOpen && createPortal(
-                <div className="nav-overlay show" onClick={()=>setIsSidebarOpen(false)}></div>,
-                document.body
+            {isSidebarOpen && (
+                <div className="nav-overlay show" onClick={()=>setIsSidebarOpen(false)}></div>
             )}
         </>
     )

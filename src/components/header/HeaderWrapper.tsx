@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 import { HeaderContextProvider, useHeader } from "./HeaderContext";
+import { createPortal } from "react-dom";
 
 function HeaderShell({ children }: { children: React.ReactNode }) {
     const [baseClass, setBaseClass] = useState("");
@@ -16,6 +17,9 @@ function HeaderShell({ children }: { children: React.ReactNode }) {
     return (
         <section className={`header ${baseClass} ${showMegaMenu ? "menu-open" : ""}`}>
             {children}
+            {showMegaMenu && (
+                createPortal(<div className="menu_backdrop"></div>, document.body)
+            )}
         </section>
     );
 }
