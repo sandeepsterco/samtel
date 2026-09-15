@@ -16,7 +16,7 @@ export default async function LeadershipDetailPage({params}:{params:Promise<{slu
 
     const innerData = {
         page_title:'Leadership',
-        description:descriptionData
+        description:descriptionData 
     };
 
     return(
