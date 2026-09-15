@@ -6,7 +6,7 @@ import './leadership-detail.css'
 export default async function LeadershipDetailPage({params}:{params:Promise<{slug:string}>}){
     const {slug} = await params;
     const {data, error} = await apiFetch(`leadership/${slug}`);
-
+ 
     if(error){
         throw new Error(`Failed to fetch leadership detail api`);
     }
