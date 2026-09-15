@@ -90,7 +90,7 @@ export default function Happenings({data}:HappeningsPropsInterface) {
                                         <span className="happening-date">{item.date}</span>
                                     </div>
                                     {item?.slug && (
-                                        <Link className="streched_link" href={`${BASE_URL}news-events/${item.slug}`}></Link>
+                                        <Link className="streched_link" href={`${BASE_URL}newsroom/${item.slug}`}></Link>
                                     )}
                                 </div>
 
