@@ -91,7 +91,7 @@ export default function Leaderships({ pageData }: { pageData: DataInterface }) {
                             transform="translate(-0.296 3.482)"
                             fill="none"
                             stroke=""
-                            stroke-width="1"
+                            strokeWidth="1"
                           ></line>
                           <path
                             id="Path_680"
@@ -100,7 +100,7 @@ export default function Leaderships({ pageData }: { pageData: DataInterface }) {
                             transform="translate(-1274.732 -911.93)"
                             fill="none"
                             stroke=""
-                            stroke-width="1"
+                            strokeWidth="1"
                           ></path>
                         </g>
                       </svg>
