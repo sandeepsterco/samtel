@@ -40,7 +40,7 @@
 }
 
 .system-tile:hover {
-    padding-inline: 3rem 7rem; }
+    padding-inline: 3rem 11rem; }
 
 .grid-row-top .system-tile {
     border-right: 1px solid var(--color-d1);
@@ -53,7 +53,7 @@
 
 .grid-row-bottom .system-tile {
     border-right: 1px solid var(--color-d1);
-    padding-inline: 3rem 10rem; }
+    padding-inline: 10rem 10rem; }
 
 .grid-row-bottom .system-tile:last-child {
     border-right: none;
@@ -195,14 +195,24 @@
 @media (max-width: 2199px) {
     .system-tile {
         position: relative;
-        padding-block: 8rem; padding-inline: 3rem 2rem;}
+        padding-block: 8rem; 
+        padding-inline: 7rem;
+    }
+    .grid-row-bottom .system-tile {
+  padding-inline: 7rem 10rem;
+}
+    .grid-row-bottom:hover .system-tile {
+        padding-inline: 3rem 10rem;
+    }
 
     .tile-action-trigger {
-        left: 3rem;
+        left: 7rem;
+        
     }
 
     .tile-action-trigger {
         width: 3.5rem;
         height: 3.5rem;
     }
+   
 }
