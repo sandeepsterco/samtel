@@ -5,6 +5,7 @@ import { BASE_URL } from '@/config/config';
 interface CategoryInterface {
     name: string;
     image: string;
+    home_image: string;
     description: string;
     display_order?: string;
     slug?: string;
@@ -39,7 +40,7 @@ export default function WhoWe({ data }: WhoWePropsInterface) {
                     <div className="grid-row-top">
                         {firstCategories.map((item, idx) => (
                             <div key={idx} className="system-tile">
-                                <div className="tile-backdrop" style={{ backgroundImage: `url('/assets/images/homepage/who_we/who_we_pro1.webp')` }}>
+                                <div className="tile-backdrop" style={{ backgroundImage: `url(${item.home_image})` }}>
                                 </div>
                                 <div className="tile-info-wrapper">
                                     {item?.name && (
@@ -70,7 +71,7 @@ export default function WhoWe({ data }: WhoWePropsInterface) {
                     <div className="grid-row-bottom">
                         {secondCategories.map((item, idx) => (
                             <div key={idx} className="system-tile">
-                                <div className="tile-backdrop" style={{ backgroundImage: `url('/assets/images/homepage/who_we/who_we_pro1.webp')` }}>
+                                <div className="tile-backdrop" style={{ backgroundImage: `url(${item.home_image})` }}>
                                 </div>
                                 <div className="tile-info-wrapper">
                                     {item?.name && (
