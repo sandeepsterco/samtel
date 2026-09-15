@@ -1,0 +1,13 @@
+.leadership_sec{padding-block: 0 10rem;}
+.ledrsp_list{margin-top: 5rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem;} .ledrsp_bx{ position: relative; }
+.ledrsp_bx figure{overflow: hidden;}
+.ledrsp_bx figure img{ transition: transform 0.6s; }
+.ledrsp_bx:hover img{ transform: scale(1.06); }
+
+.ledrsp_txt { background-color: var(--color-f3); padding: 4.2rem 3.6rem; position: relative; border-bottom: .5rem solid var(--color-ea); display: flex; justify-content: space-between; }
+.ledrsp_txt_lft h5{ font: var(--font-24); color: var(--color-30); }
+.ledrsp_txt_lft p{ font: var(--font-16); }
+.ledrsp_bx:hover .web_btn{ background: var(--color-07); color: var(--color-white); border-color: var(--color-2a); }
+.web_btn { width: 4.4rem; height: 4.4rem; border: 1px solid var(--color-c8); color: var(--color-c8); display: inline-flex; align-items: center; justify-content: center; transition: all .3s ease; }
+.web_btn svg { stroke: currentColor; }
+.ledrsp_bx:hover .web_btn { background: var(--color-c8); color: var(--color-white); border-color: var(--color-c8); }

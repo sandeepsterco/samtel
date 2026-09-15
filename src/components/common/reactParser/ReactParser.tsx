@@ -7,6 +7,7 @@ import sanitizeHtml from "sanitize-html";
 import Image from "next/image";
 import CmsEnhancer from "../CmsEnhancer";
 import ContactForm from "@/components/parser/ContactForm";
+import LeadershipGrid from "@/components/parser/LeadershipGrid";
 
 const sanitizeOptions: sanitizeHtml.IOptions = {
   allowedTags: sanitizeHtml.defaults.allowedTags.concat([
@@ -133,6 +134,7 @@ const options: HTMLReactParserOptions = {
       }
 
       if (domNode.attribs.id === "contact_form") return <ContactForm />;
+      if (domNode.attribs.id === "leadership_grid") return <LeadershipGrid />;
     }
   },
 };

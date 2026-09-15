@@ -4,8 +4,6 @@ interface InnerSectionPropsInterface{
     data:{
         page_title:string;
         description:string;
-        slug:string;
-
     }
 }
 
