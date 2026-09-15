@@ -11,7 +11,7 @@ export default async function DynamicPageLayout({ children }: { children: React.
     const slug = await getSlug();
     const {data, error} = await apiFetch(`cms/${slug}`);
 
-    if(error || !data.status){
+    if(error ){
         return <NotFound />;
     }
 

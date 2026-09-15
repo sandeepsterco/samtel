@@ -4,6 +4,11 @@ import "./leadership.css";
 import Image from "next/image";
 import Link from "next/link";
 import { BASE_URL } from "@/config/config";
+import PaginationWrapper from "../common/pagination/PaginationWrapper";
+import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
+import { apiFetch } from "@/lib/api";
+import Loading from "@/app/loading";
 
 interface DataItemInterface {
   name: string;
@@ -19,15 +24,36 @@ interface DataInterface {
   last_page: number;
 }
 
+const fetchLeadershipPage = async(page:number)=>{
+    const {data, error} = await apiFetch(`leadership?page=${page}`);
+    if(error){
+      throw new Error("Failed to fetch leadership");
+    }
+
+    return data?.data;
+}
+
 export default function Leaderships({ pageData }: { pageData: DataInterface }) {
-  const [initialData, setInitialData] = useState(pageData?.data ?? []);
+  const searchParams = useSearchParams();
+
+  const page = Number(searchParams.get("page") || 1);
+
+  const { data, isLoading } = useQuery({
+    queryKey:['leadership', page],
+    queryFn:()=>fetchLeadershipPage(page),
+    initialData:page === pageData.current_page ? pageData : undefined
+  });  
+
+  const leadershipData = data?.data ?? [];
+
+  if(isLoading) return <Loading />
 
   return (
     <section className="leadership_sec">
       <div className="container">
         <div className="col-lg-10 mx-auto">
           <div className="ledrsp_list">
-            {initialData.map((item) => (
+            {leadershipData.map((item:any) => (
               <div key={item.id} className="ledrsp_bx">
                 <figure>
                   <Image
@@ -88,6 +114,11 @@ export default function Leaderships({ pageData }: { pageData: DataInterface }) {
             ))}
           </div>
         </div>
+
+        <PaginationWrapper
+          currentPage={data?.current_page ?? pageData?.current_page ?? 1}
+          totalPages={data?.last_page ?? pageData?.last_page ?? 1}
+        />
       </div>
     </section>
   );
