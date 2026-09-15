@@ -520,12 +520,14 @@
     margin-block:0;}
 
 .naval_system_box {
-    background: #a8a9ad1f 0% 0% no-repeat padding-box;
-    border: 1px solid #DFDADA;
-    padding-block: 5rem;padding-inline: 4rem;display: grid;
-    grid-template-columns: 20% 75%;
+background: #a8a9ad1f no-repeat padding-box padding-box;
+    border: 1px solid #dfdada;
+    grid-template-columns: 30% 69%;
     gap: 3rem;
     margin-top: 11rem;
+    padding-block: 5rem;
+    padding-inline: 4rem;
+    display: grid;
     position: relative;
 }
 
@@ -953,6 +955,16 @@
     text-overflow: ellipsis;
     -webkit-box-orient: vertical;
     display: -webkit-box;
+}
+.news-text {
+    margin-top: 6rem;
+}
+.news-text h4{
+        font: var(--font-28);
+    color: var(--color-23);
+    letter-spacing: -.9px;
+    font-weight: 300;
+        margin-block: 2rem;
 }
 
 

@@ -28,7 +28,7 @@ export default function Sustainability({data}:SustainabilityPropsInterface) {
                                 )}
 
                                 {data?.pageslug && (
-                                    <Link href="javascipt:void(0)" className="more_btn">
+                                    <Link href={data.pageslug} className="more_btn">
                                         <img src="/assets/icons/right-arrow-white.svg" alt="arrow" className="img-fluid" />
                                     </Link>
                                 )}
