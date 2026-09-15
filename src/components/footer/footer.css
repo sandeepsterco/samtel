@@ -4,8 +4,10 @@ ul{padding:0; list-style: none; margin:0;}
 .footer_left ul {display: flex;gap: 4rem;flex-wrap: wrap;}
 .footer_left ul li a { text-decoration: none; color: #fff; font: var(--font-18); letter-spacing: 0.36px; }
 .footer_right { margin-left: auto; }
-.social-icon a { width: 3.2rem; height: 3.2rem; background: #000; display: inline-flex; margin: auto; }
-.social-icon a img { width: 32%; margin: 0 auto; }
+.social-icon a {}
+.social-icon a img { margin: 0 auto; }
 .copyright p {color: #fff;font: var(--font-14);letter-spacing: -0.35px;line-height: 1.6;margin-bottom: 0;}
-.social-icon { margin-bottom: 1.5rem; }
+.social-icon {    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 1rem;}
 .copyright p a { color: #fff; text-decoration: none; }
