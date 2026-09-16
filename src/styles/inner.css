@@ -940,3 +940,8 @@ background: #a8a9ad1f no-repeat padding-box padding-box;
 .contact-map { margin-top: -12rem; position: relative; overflow: hidden; }
 
 .contact-map:after { content: ""; width: 100%; height: 100%; position: absolute; bottom: 0; left: 0; background: #000; opacity: .2; }
+/* press */
+.press-sec{ padding-block: 6rem 12rem; }
+.press_grid { display: grid; gap: 2rem; grid-template-columns: repeat(2, 1fr); }
+.press_bx { position: relative; display: flex; gap: 2rem; justify-content: space-between; padding: 3rem; align-items: center; background-color: rgb(255 255 255 / 59%); border-bottom: 0.1rem solid var(--color-d4); }
+.press_bx>img { width: 3.6rem; }
