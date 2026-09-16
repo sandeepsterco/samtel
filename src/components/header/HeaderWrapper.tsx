@@ -26,7 +26,7 @@ function HeaderShell({ children }: { children: React.ReactNode }) {
         const onScroll = () => {
             const scrollTop = window.scrollY || document.documentElement.scrollTop
 
-            section.classList.toggle("header_fix", scrollTop > 0)
+            section.classList.toggle("header_fix", scrollTop > 400)
 
             // Force-hide while inside certain sections
             let insideAnySection = false
@@ -46,7 +46,7 @@ function HeaderShell({ children }: { children: React.ReactNode }) {
 
             if (insideAnySection) {
                 section.style.top = "-100%"
-            } else if (scrollTop > lastScrollTop.current && scrollTop > 100) {
+            } else if (scrollTop > lastScrollTop.current && scrollTop > 401) {
                 // scrolling down -> hide
                 section.style.top = "-100%"
             } else if (scrollTop < lastScrollTop.current) {
