@@ -4,7 +4,7 @@
 .ledrsp_bx figure img{ transition: transform 0.6s; }
 .ledrsp_bx:hover img{ transform: scale(1.06); }
 
-.ledrsp_txt { background-color: var(--color-f3); padding: 4.2rem 3.6rem; position: relative; border-bottom: .5rem solid var(--color-ea); display: flex; justify-content: space-between; }
+.ledrsp_txt { background-color:#f3f3f3; padding: 4.2rem 3.6rem; position: relative; border-bottom: .5rem solid var(--color-c8); display: flex; justify-content: space-between; max-height: 16rem; }
 .ledrsp_txt_lft h5{ font: var(--font-24); color: var(--color-30); }
 .ledrsp_txt_lft p{ font: var(--font-16); }
 .ledrsp_bx:hover .web_btn{ background: var(--color-07); color: var(--color-white); border-color: var(--color-2a); }
