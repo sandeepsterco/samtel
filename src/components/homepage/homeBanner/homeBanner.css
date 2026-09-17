@@ -155,9 +155,9 @@
     margin-inline: auto; }
 
 @media (max-width: 2199px) {
-    .banner_caption .banner_title {
+    /* .banner_caption .banner_title {
         margin-top:10rem;
-    }
+    } */
 
     .video_text {
         max-width: 60rem;

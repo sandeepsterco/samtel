@@ -83,6 +83,7 @@ export default function HomeBanner({ data }: HomeBannerProps) {
     const btnRef = useRef<HTMLDivElement | null>(null)
     const pListRef = useRef<HTMLParagraphElement[]>([])
     const pEmRef = useRef<HTMLElement | null>(null)
+    const bannerTitleRef = useRef<HTMLDivElement | null>(null)
 
     const videoLoadedRef = useRef(false)
 
@@ -101,6 +102,7 @@ export default function HomeBanner({ data }: HomeBannerProps) {
     useLayoutEffect(() => {
         const section = sectionRef.current
         const bannerCaption = bannerCaptionRef.current
+        const bannerTitle = bannerTitleRef.current   // ADD THIS
         const h1 = h1Ref.current
         const btn = btnRef.current
         const pEm = pEmRef.current
@@ -196,7 +198,7 @@ export default function HomeBanner({ data }: HomeBannerProps) {
                 let mainScrollTrigger: ScrollTrigger | undefined
 
                 gsap.set(h1, {
-                    y: "100%",
+                    y: "50%",              
                     opacity: 1,
                     transformOrigin: "center center",
                     force3D: true
@@ -257,11 +259,17 @@ export default function HomeBanner({ data }: HomeBannerProps) {
                     duration: 1
                 }, 0)
 
-                    .to(h1, {
-                        y: -100,
-                        ease: "none",
-                        duration: 1
-                    }, 0)
+                .to(bannerTitle, {          
+                    y: -100,
+                    ease: "none",
+                    duration: 1
+                }, 0)
+
+                .to(h1, {
+                    y: -100,
+                    ease: "none",
+                    duration: 1
+                }, 0)
 
                 tl.to(h1, {
                     scale: 10,
@@ -305,6 +313,7 @@ export default function HomeBanner({ data }: HomeBannerProps) {
 
                     onLeaveBack: () => {
                         h1.classList.remove("filled")
+                        gsap.set(bannerTitle, { y: 0 })    // ADD THIS
                         gsap.set(h1, { y: 100, scale: 1, opacity: 1 })
                         gsap.set(pList, { y: 0, opacity: 1 })
                         gsap.set(pEm, { y: 0, opacity: 1 })
@@ -402,7 +411,7 @@ export default function HomeBanner({ data }: HomeBannerProps) {
 
             <div className="banner_caption" ref={bannerCaptionRef}>
                 <div className="container">
-                    <div className="banner_title">
+                    <div className="banner_title" ref={bannerTitleRef}>
                         {data?.titles?.[0] && (
                             <h1
                                 dangerouslySetInnerHTML={{ __html: data.titles[0].heading }}
