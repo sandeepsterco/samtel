@@ -19,7 +19,7 @@ interface PageDataInterface {
 }
 
 export default async function PressCollection({searchParams}:{searchParams?:Promise<{page?:string}>}) {
-  const { page } = await searchParams;
+  const page = await searchParams;
   const currentPage = Number(page) || 1;
   const { data, error } = await apiFetch(`media-pdf?page=${currentPage}`);
 
