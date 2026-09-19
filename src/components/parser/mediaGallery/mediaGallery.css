@@ -1,0 +1,6 @@
+.media_sec3{ padding-block: 10rem; }
+.pres_list{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin-top: 5rem; }
+.inner .pres_list{margin-top:0;}
+.media_bx { position: relative; }
+.zoombtn { position: absolute; content: ""; opacity: 0; left: 50%; top: 50%; transform: translate(-50%, -50%); -webkit-transform: translate(-50%, -50%); -moz-transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); -o-transform: translate(-50%, -50%); transition: all 0.5s ease; -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; }
+.media_bx:has(a:hover) .zoombtn { opacity: 1; }

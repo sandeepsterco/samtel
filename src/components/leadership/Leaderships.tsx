@@ -8,7 +8,7 @@ import PaginationWrapper from "../common/pagination/PaginationWrapper";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { apiFetch } from "@/lib/api";
-import Loading from "@/app/loading";
+import Loading from "@/app/loading1";
 
 interface DataItemInterface {
   name: string;

@@ -945,3 +945,19 @@ background: #a8a9ad1f no-repeat padding-box padding-box;
 .press_grid { display: grid; gap: 2rem; grid-template-columns: repeat(2, 1fr); }
 .press_bx { position: relative; display: flex; gap: 2rem; justify-content: space-between; padding: 3rem; align-items: center; background-color: rgb(255 255 255 / 59%); border-bottom: 0.1rem solid var(--color-d4); }
 .press_bx>img { width: 3.6rem; }
+
+
+/* ================= media =================== */
+
+.media_sec1{ padding-block: 6rem 12rem; }
+.med_txt blockquote { margin-top: 2rem; margin-bottom: 0; }
+.cus-media {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.media_sec4{ background-color: var(--color-white); padding-block: 10rem; }
+.media_sec4.inner{background:transparent;}
+
+/* ================= media =================== */

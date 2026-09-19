@@ -1,0 +1,15 @@
+.video_grid .zoombtn img { width: 7rem; filter: brightness(0) invert(1); }
+.med_txt blockquote { margin-top: 2rem; margin-bottom: 0; }
+.video_grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    margin-top: 5rem;
+}
+.inner .video_grid{margin-top:0;}
+.video_grid .media_bx p{
+    margin-top: 3rem;
+}
+.video_grid .media_bx .zoombtn {
+    top: 40%;
+}

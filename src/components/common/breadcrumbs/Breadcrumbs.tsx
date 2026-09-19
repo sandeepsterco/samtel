@@ -34,7 +34,7 @@ export default function Breadcrumbs({data}:BreadcrumbPropsInterface) {
                                         className={`breadcrumb-item ${isLast ? 'active' : ''}`}
                                         aria-current={isLast ? 'page' : undefined}
                                     >
-                                        {isLast ? (
+                                        {isLast || String(item.slug).includes('#') ? (
                                             item.title
                                         ) : (
                                             <Link href={`/${item.slug}`}>{item.title}</Link>

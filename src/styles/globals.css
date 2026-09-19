@@ -82,6 +82,7 @@ select option { color: #000; background: #fff; }
   display:flex;
   align-items: center;
   justify-content: center;
+  padding-top: 30rem;
 }
 
 .error_page .error_state{
