@@ -1,6 +1,20 @@
-
-.home_sustainbility {padding-block: 25rem 16rem;}
-.home_sustainbility .font_title>blockquote{margin-bottom:8rem;}
-.sustainbility-content p { font: var(--font-16); color: #57585A; letter-spacing: 0.38px; }
+.home_sustainbility {padding-block: 15rem 16rem;}
+.home_sustainbility .font_title>blockquote{margin-bottom:5rem;}
+.sustainbility-content p { font: var(--font-18); color: var(--color-23);padding-right: 19rem; }
 .sustainbility-content figure { margin-bottom: 3.5rem; }
+.home_sustainbility .more_btn { background-color: #E6E6E6; }
+.home_sustainbility .more_btn:hover{background: var(--color-c8);}
+.home_sustainbility .more_btn img { filter: invert(1); }
+.home_sustainbility .more_btn:hover img { filter: invert(0); }
 
+@media (max-width:992px) {
+.font_title { text-align: center; }
+.home_sustainbility .font_title>blockquote {padding-inline: 0; margin-bottom: 3rem; }
+.home_sustainbility { padding-block: 5rem 5rem; text-align: center; }
+.home_sustainbility a.more_btn.for_mobile { display: flex; justify-content: center; align-items: center; margin: 2.4rem auto; width: 2.4rem; height: 2.4rem; padding: .7rem; }
+.home_sustainbility .container { padding-inline: 2rem; }
+.sustainbility-content p{padding:0;}
+.sustainbility-content {
+    margin-top: 4rem;
+}
+}

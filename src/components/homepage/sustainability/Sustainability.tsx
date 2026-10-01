@@ -18,7 +18,7 @@ export default function Sustainability({data}:SustainabilityPropsInterface) {
             <div className="container">
                 <div className="col-lg-11 mx-auto">
                     <div className="row">
-                        <div className="col-lg-5">
+                        <div className="col-lg-4">
                             <div className="font_title">
                                 {data?.title && (
                                     <p dangerouslySetInnerHTML={{__html:data.title}} />
@@ -36,7 +36,7 @@ export default function Sustainability({data}:SustainabilityPropsInterface) {
                                 
                             </div>
                         </div>
-                        <div className="col-lg-7">
+                        <div className="col-lg-8">
                             <div className="sustainbility-content">
                                 <figure>
                                     <Image src={data?.image ?? '/assets/images/placeholders/image1.webp'} className="img-fluid" width={850} height={600} loading='lazy' alt="sustainbility" />

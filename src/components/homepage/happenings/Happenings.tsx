@@ -87,7 +87,11 @@ export default function Happenings({data}:HappeningsPropsInterface) {
                                     </div>
                                     <div className="happening-content">
                                         <h3>{item.name}</h3>
-                                        <span className="happening-date">{item.date}</span>
+                                        <span className="happening-date">{new Date(item.date).toLocaleDateString('en-US', {
+                                            month: 'long',
+                                            day: 'numeric',
+                                            year: 'numeric'
+                                        })}</span>
                                     </div>
                                     {item?.slug && (
                                         <Link className="streched_link" href={`${BASE_URL}newsroom/${item.slug}`}></Link>

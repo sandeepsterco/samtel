@@ -146,6 +146,15 @@ export default function Technology({ data }: TechnologyPropsInterface) {
                         {data?.heading && (
                             <h4 dangerouslySetInnerHTML={{ __html: data.heading }} />
                         )}
+                        <div className="techno_mobile for_mobile">
+
+                            <figure className="techfigure techno01">
+                                <img src="/images/technology_pic.webp" alt="Technology" className="img-fluid w-100" />
+                            </figure>
+
+                        </div>
+                        <div className="techno_slider">
+                        
                         <div className="techno_tabwrapper">
                             {info.map((tab) => (
                                 <div
@@ -168,6 +177,7 @@ export default function Technology({ data }: TechnologyPropsInterface) {
                                 </div>
                             ))}
 
+                        </div>
                         </div>
                     </div>
                 </div>

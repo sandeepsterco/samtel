@@ -49,7 +49,7 @@ export default async function Footer() {
                         <div className="footer_right">
                             <div className="social-icon">
                                 {infoUpdatedData
-                                    .filter((item:any)=>(item.key == 'facebook' || item.key == 'x' || item.key == 'youtube' || item.key == 'instagram' || item.key == 'linkedin'))
+                                    .filter((item:any)=>(item.key == 'facebook' || item.key == 'x' || item.key == 'youtube' || item.key == 'insta' || item.key == 'linkedn'))
                                     .map((item:any)=>(
                                         <Link key={item.key} href={item.value ?? ''} target='_blank'>
                                             <img src={item.image} className="img-fluid" alt={item.key} />

@@ -84,6 +84,10 @@ export default function HomeBanner({ data }: HomeBannerProps) {
     const pListRef = useRef<HTMLParagraphElement[]>([])
     const pEmRef = useRef<HTMLElement | null>(null)
     const bannerTitleRef = useRef<HTMLDivElement | null>(null)
+    const mVideoRef = useRef<HTMLVideoElement | null>(null)
+    const mYtWrapperRef = useRef<HTMLDivElement | null>(null)
+    const mYtContainerRef = useRef<HTMLDivElement | null>(null)
+    const mYtPlayerRef = useRef<any>(null)
 
     const videoLoadedRef = useRef(false)
 
@@ -98,11 +102,10 @@ export default function HomeBanner({ data }: HomeBannerProps) {
     const isYouTube = isYouTubeUrl(data?.iframeurl ?? '')
     const youtubeId = isYouTube ? getYouTubeId(data?.iframeurl ?? '') : null
 
-
     useLayoutEffect(() => {
         const section = sectionRef.current
         const bannerCaption = bannerCaptionRef.current
-        const bannerTitle = bannerTitleRef.current   // ADD THIS
+        const bannerTitle = bannerTitleRef.current  
         const h1 = h1Ref.current
         const btn = btnRef.current
         const pEm = pEmRef.current
@@ -112,8 +115,31 @@ export default function HomeBanner({ data }: HomeBannerProps) {
 
         let cancelled = false
         let scrollUnlocked = false
+        let introCompleted = false
+
+        const lockScroll = () => {
+            if (!introCompleted) window.scrollTo(0, 0)
+        }
+
+        const preventWheel = (event: WheelEvent) => {
+            if (!introCompleted) event.preventDefault()
+        }
+
+        const preventTouch = (event: TouchEvent) => {
+            if (!introCompleted) event.preventDefault()
+        }
+
+        const preventKeyboard = (event: KeyboardEvent) => {
+            const scrollKeys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' ']
+            if (!introCompleted && scrollKeys.includes(event.key)) event.preventDefault()
+        }
 
         const unlockOnce = () => {
+            introCompleted = true
+            window.removeEventListener('scroll', lockScroll)
+            window.removeEventListener('wheel', preventWheel)
+            window.removeEventListener('touchmove', preventTouch)
+            window.removeEventListener('keydown', preventKeyboard)
             if (scrollUnlocked) return
             scrollUnlocked = true
             unlockBodyScroll()
@@ -192,16 +218,29 @@ export default function HomeBanner({ data }: HomeBannerProps) {
 
             if (cancelled) return
 
+            if (window.innerWidth < 1024) {
+                unlockOnce()
+                clearTimeout(safetyTimeout)
+                return
+            }
+
+            window.addEventListener('scroll', lockScroll, { passive: false })
+            window.addEventListener('wheel', preventWheel, { passive: false })
+            window.addEventListener('touchmove', preventTouch, { passive: false })
+            window.addEventListener('keydown', preventKeyboard)
+
             const ctx = gsap.context(() => {
                 let lastProgress = 0
                 let videoStarted = false
                 let mainScrollTrigger: ScrollTrigger | undefined
 
                 gsap.set(h1, {
-                    y: "50%",              
-                    opacity: 1,
+                    y: 0,
+                    x: 0,
+                    scale: 1,
+                    opacity: 0,
+                    visibility: "visible",
                     transformOrigin: "center center",
-                    force3D: true
                 })
 
                 gsap.set([...pList, btn, pEm], {
@@ -212,12 +251,14 @@ export default function HomeBanner({ data }: HomeBannerProps) {
                 const lineProgress = section.querySelector<HTMLElement>(".line-progress")
                 if (!lineProgress) return
 
+                gsap.set(lineProgress, { height: "0%", opacity: 0 })
+
                 const tl = gsap.timeline({
                     scrollTrigger: {
                         trigger: section,
                         start: "top top",
-                        end: "+180%",
-                        scrub: 1,
+                        end: "+=180%",
+                        scrub: 1.8,
                         pin: true,
                         pinSpacing: true,
                         invalidateOnRefresh: true,
@@ -247,13 +288,16 @@ export default function HomeBanner({ data }: HomeBannerProps) {
                                 bannerCaption?.classList.remove("transparent")
                                 controller.removeVisibleClass()
                                 controller.pause()
+                                controller.reset()
                                 videoStarted = false
                             }
                         }
                     }
                 })
 
-                tl.to(lineProgress, {
+                tl.fromTo(lineProgress, {
+                    height: "0%"
+                }, {
                     height: "100%",
                     ease: "none",
                     duration: 1
@@ -313,47 +357,71 @@ export default function HomeBanner({ data }: HomeBannerProps) {
 
                     onLeaveBack: () => {
                         h1.classList.remove("filled")
-                        gsap.set(bannerTitle, { y: 0 })    // ADD THIS
-                        gsap.set(h1, { y: 100, scale: 1, opacity: 1 })
+                        gsap.set(bannerTitle, { y: 0 })
+                        gsap.set(h1, { y: 0, x: 0, scale: 1, opacity: 1, visibility: "visible" })
                         gsap.set(pList, { y: 0, opacity: 1 })
                         gsap.set(pEm, { y: 0, opacity: 1 })
                         gsap.set(btn, { y: 0, opacity: 1 })
+                        gsap.set(lineProgress, { height: "0%", opacity: 1 })
+                        bannerCaption?.classList.remove("transparent")
+                        controller.pause()
+                        controller.reset()
+                        controller.removeVisibleClass()
+                        videoStarted = false
+                        lastProgress = 0
                     }
                 })
 
                 gsap.timeline({
                     onComplete: () => {
+                        gsap.set(bannerTitle, { y: 0 })
+                        gsap.set(h1, {
+                            y: 0,
+                            x: 0,
+                            scale: 1,
+                            opacity: 1,
+                            visibility: "visible"
+                        })
+                        gsap.set(lineProgress, { height: "0%", opacity: 1 })
                         mainScrollTrigger?.enable()
                         refreshScrollTriggers()
                         clearTimeout(safetyTimeout)
                         unlockOnce()
                     }
                 })
+                    .to({}, { duration: 0.4 })
                     .to(pList, {
                         y: 0,
                         opacity: 1,
                         duration: 0.7,
-                        delay: 1,
                         stagger: 0.2,
                         ease: "power3.out"
-                    }, "-=0.4")
+                    })
 
                     .to(pEm, {
                         y: 0,
                         opacity: 1,
-                        duration: 0.5,
-                        delay: .5,
-                        stagger: 0.1,
+                        duration: 0.6,
+                        stagger: 0.12,
                         ease: "power3.out"
-                    }, "-=0.3")
+                    }, "-=0.1")
 
                     .to(btn, {
                         y: 0,
                         opacity: 1,
                         duration: 0.7,
-                        delay: 0.3,
                         ease: "power3.out"
-                    }, "-=0.4")
+                    }, "-=0.1")
+                    .to(lineProgress, {
+                        opacity: 1,
+                        duration: 0.6,
+                        ease: "power2.out"
+                    }, "+=0.1")
+                    .to(h1, {
+                        opacity: 1,
+                        duration: 0.45,
+                        ease: "power1.out"
+                    }, "+=0.02")
             }, section)
 
             refreshScrollTriggers()
@@ -376,6 +444,51 @@ export default function HomeBanner({ data }: HomeBannerProps) {
                 ytPlayerRef.current.destroy?.()
             }
 
+        }
+    }, [data, isYouTube, youtubeId])
+
+    useEffect(() => {
+        if (window.innerWidth >= 1024) return
+
+        let cancelled = false
+        let observer: IntersectionObserver | undefined
+
+        if (isYouTube && youtubeId) {
+            loadYouTubeApi().then(() => {
+                if (cancelled || !mYtContainerRef.current) return
+                mYtPlayerRef.current = new window.YT.Player(mYtContainerRef.current, {
+                    videoId: youtubeId,
+                    playerVars: {
+                        autoplay: 1, controls: 0, mute: 1,
+                        playsinline: 1, loop: 1, playlist: youtubeId,
+                    },
+                    events: {
+                        onReady: (e: any) => {
+                            e.target.mute()
+                            e.target.playVideo()
+                            mYtWrapperRef.current?.classList.add('visible')
+                        },
+                    },
+                })
+            })
+        } else {
+            const video = mVideoRef.current
+            if (video && data?.video) {
+                video.src = data.video  
+                video.load()
+                observer = new IntersectionObserver(([entry]) => {
+                    if (entry.isIntersecting) video.play().catch(() => { })
+                    else video.pause()
+                }, { threshold: 0.25 })
+                observer.observe(video)
+            }
+        }
+
+        return () => {
+            cancelled = true
+            observer?.disconnect()
+            mYtPlayerRef.current?.destroy?.()
+            mYtPlayerRef.current = null
         }
     }, [data, isYouTube, youtubeId])
 
@@ -411,7 +524,8 @@ export default function HomeBanner({ data }: HomeBannerProps) {
 
             <div className="banner_caption" ref={bannerCaptionRef}>
                 <div className="container">
-                    <div className="banner_title" ref={bannerTitleRef}>
+                    <div className="banner_title for_desktop" ref={bannerTitleRef}>
+                        <div className="arrwo_fix"></div>
                         {data?.titles?.[0] && (
                             <h1
                                 dangerouslySetInnerHTML={{ __html: data.titles[0].heading }}
@@ -435,7 +549,8 @@ export default function HomeBanner({ data }: HomeBannerProps) {
                         </div>
                         
                         <div className="video_caption">
-                            <h1 className="video_text" ref={h1Ref}> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 803.196 484.129">
+                            <h1 className="video_text" ref={h1Ref}> 
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 803.196 484.129">
                                 <g id="Group_29855" data-name="Group 29855" transform="translate(13980.195 3658.485)">
                                     <path id="Path_3405" data-name="Path 3405"
                                         d="M181.419,2.139c33.213-.871,85.323,9.445,114.391,25.891,4.181,2.364,27.889,19.186,27.442,22.205L256.08,124.763C229,94.325,172.45,85.45,137.62,106.869c-24.439,15.028-28.823,48.577-5.839,66.808,37.8,29.987,108.348,30.619,150.63,64.057,71.66,56.664,52.252,172.423-22.214,217.61-66.984,40.651-198.209,34.246-255.4-22.366-3.549-3.514-6.882-7.523-3.171-12.125l65.165-72.185c23.839,18.712,43.329,37.375,75.351,40.649,37.712,3.855,97.2-12.778,80.693-62.373-11.482-34.493-96.939-50.671-129.343-64.783C57.457,246.467,19.873,219.838,13.337,177.9-3.471,70.058,81.11,4.769,181.419,2.139"
@@ -444,9 +559,38 @@ export default function HomeBanner({ data }: HomeBannerProps) {
                                         d="M551.476,481.319H506.93c-1.48,0-6.666-4.069-7.507-6.194-16.829-38.33-29.437-78.688-48.433-115.96l-255.874-3.409c-1.425-1.258,11.122-33.114,13.541-35.524,2.128-2.117,14.973-5.551,17.289-5.551H429.259c5.422,0,.121-12.389-.756-15.236-22.993-74.711-76.365-159.317-95.661-233.11C327.374,45.421,334.317,21.37,346.186,3.4c1.821-2.758,2.774-5.285,5.365-1.416Z"
                                         transform="translate(-13728.475 -3658.484)" />
                                 </g>
-                            </svg></h1>
+                                </svg>
+                            </h1>
                         </div>
                     </div>
+
+                    <div className="banner_title for_mobile">
+                        {data?.titles?.length > 0 && data?.titles.map((item:{paragraph:string}, idx:number)=>(
+                            <p key={idx} dangerouslySetInnerHTML={{__html:item?.paragraph}} />
+                        ))}
+                    
+                        {data?.description && (
+                            <em dangerouslySetInnerHTML={{__html:data?.description}} />
+                        )}
+                    </div>
+                    {isYouTube ? (
+                        <div className="yt_video_wrap for_mobile" ref={mYtWrapperRef}>
+                            <div ref={mYtContainerRef} />
+                        </div>
+                    ) : (
+                        <video
+                            className="for_mobile"
+                            ref={mVideoRef}
+                            poster={data?.poster}
+                            muted
+                            playsInline
+                            loop
+                            autoPlay
+                            preload="metadata"
+                            aria-hidden="true"
+                        />
+                    )}
+
                 </div>
             </div>
         </section>

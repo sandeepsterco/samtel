@@ -5,73 +5,86 @@ import { useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import { HeaderContextProvider, useHeader } from "./HeaderContext"
 
-// Sections where the header should stay hidden regardless of scroll direction
+// Sections where the header stays hidden regardless of scroll direction
 const HIDE_SECTIONS = [".testim_sec"]
 
 function HeaderShell({ children }: { children: React.ReactNode }) {
-    const [baseClass, setBaseClass] = useState("")
-    const sectionRef = useRef<HTMLElement>(null)
-    const lastScrollTop = useRef(0)
+    const [hidden, setHidden] = useState(false)
+    const [fixed, setFixed] = useState(false)
+    const lastScroll = useRef(0)
     const pathname = usePathname()
     const { showMegaMenu } = useHeader()
 
-    useEffect(() => {
-        setBaseClass(pathname !== "/" ? "inner" : "")
-    }, [pathname])
+    // Keep the latest menu state available to the scroll listener
+    // without re-binding it every time the menu opens/closes
+    const menuOpenRef = useRef(showMegaMenu)
+    menuOpenRef.current = showMegaMenu
+
+    const baseClass = pathname !== "/" ? "inner" : ""
 
     useEffect(() => {
-        const section = sectionRef.current
-        if (!section) return
+        lastScroll.current = window.scrollY || 0
+        setHidden(false)
 
-        const onScroll = () => {
-            const scrollTop = window.scrollY || document.documentElement.scrollTop
+        let ticking = false
 
-            section.classList.toggle("header_fix", scrollTop > 400)
+        const update = () => {
+            ticking = false
+            const current = window.scrollY || document.documentElement.scrollTop
 
-            // Force-hide while inside certain sections
-            let insideAnySection = false
+            setFixed(current > 400)
 
-            for (const selector of HIDE_SECTIONS) {
-                const target = document.querySelector<HTMLElement>(selector)
-                if (!target) continue
-
-                const targetTop = target.getBoundingClientRect().top + window.scrollY
-                const targetBottom = targetTop + target.offsetHeight
-
-                if (scrollTop >= targetTop - 100 && scrollTop <= targetBottom) {
-                    insideAnySection = true
-                    break
-                }
+            // Always show at the very top
+            if (current <= 0) {
+                setHidden(false)
+                lastScroll.current = 0
+                return
             }
 
-            if (insideAnySection) {
-                section.style.top = "-100%"
-            } else if (scrollTop > lastScrollTop.current && scrollTop > 401) {
-                // scrolling down -> hide
-                section.style.top = "-100%"
-            } else if (scrollTop < lastScrollTop.current) {
+            // Force-hide inside specific sections
+            const insideSection = HIDE_SECTIONS.some((selector) => {
+                const el = document.querySelector<HTMLElement>(selector)
+                if (!el) return false
+                const top = el.getBoundingClientRect().top + window.scrollY
+                return current >= top - 100 && current <= top + el.offsetHeight
+            })
+
+            if (insideSection) {
+                setHidden(true)
+            } else if (current > lastScroll.current) {
+                // scrolling down -> hide (unless mega menu is open)
+                if (!menuOpenRef.current) setHidden(true)
+            } else if (current < lastScroll.current) {
                 // scrolling up -> show
-                section.style.top = "0"
+                setHidden(false)
             }
 
-            // Always show at the very top of the page
-            if (scrollTop <= 0) {
-                section.style.top = "0"
-            }
-
-            lastScrollTop.current = scrollTop
+            lastScroll.current = current
         }
 
-        onScroll()
+        const onScroll = () => {
+            if (ticking) return
+            ticking = true
+            requestAnimationFrame(update)
+        }
+
+        update()
         window.addEventListener("scroll", onScroll, { passive: true })
         return () => window.removeEventListener("scroll", onScroll)
     }, [pathname])
 
+    const className = [
+        "header",
+        baseClass,
+        fixed && "header_fix",
+        hidden && "hide-header",
+        showMegaMenu && "menu-open",
+    ]
+        .filter(Boolean)
+        .join(" ")
+
     return (
-        <section
-            ref={sectionRef}
-            className={`header ${baseClass} ${showMegaMenu ? "menu-open" : ""}`}
-        >
+        <section className={className}>
             {children}
             {showMegaMenu &&
                 createPortal(<div className="menu_backdrop"></div>, document.body)}
