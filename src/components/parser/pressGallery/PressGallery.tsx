@@ -25,7 +25,7 @@ export default async function PressGallery({
 }: {
   searchParams?: Promise<{ page?: string }>;
 }) {
-  const { page } = (await searchParams) ?? {};
+  const { page } = await searchParams ?? {};
 
   const currentPage = Number(page) || 1;
   const { data, error } = await apiFetch(`media-press?page=${currentPage}`);

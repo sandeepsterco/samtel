@@ -12,6 +12,7 @@ import MediaGallery from "@/components/parser/mediaGallery/MediaGallery";
 import PressGallery from "@/components/parser/pressGallery/PressGallery";
 import PressOnScreen from "@/components/parser/pressOnScreen/PressOnScreen";
 import MediaFeatured from "@/components/parser/mediaFeatured/MediaFeatured";
+import MediaElectronic from "@/components/parser/mediaElectronic/MediaElectronic";
 
 
 export type PressCoverage = unknown;
@@ -20,6 +21,7 @@ interface ReactParserProps {
   html: string;
   pressCoverage?: PressCoverage;
   searchParams?:Promise<{page?:string}>
+  modularData?:any;
 }
 
 const ALLOWED_IFRAME_HOSTS = ["www.youtube.com", "youtube.com", "player.vimeo.com"];
@@ -152,7 +154,7 @@ function renderIframe(attribs: Element["attribs"]) {
   );
 }
 
-function createParserOptions(pressCoverage?: PressCoverage, searchParams?:Promise<{page?:string}>): HTMLReactParserOptions {
+function createParserOptions(pressCoverage?: PressCoverage, modularData?:any, searchParams?:Promise<{page?:string}>): HTMLReactParserOptions {
   return {
     replace(domNode: DOMNode) {
       if (!(domNode instanceof Element)) return undefined;
@@ -168,19 +170,21 @@ function createParserOptions(pressCoverage?: PressCoverage, searchParams?:Promis
         case "leadership_grid":
           return <LeadershipGrid />;
         case "media_coverage_grid":
-          return <MediaCoverageGrid data={pressCoverage} />;
+          return <MediaCoverageGrid data={modularData}  />;
         case "press_collection":
           return <PressCollection searchParams={searchParams} />;
+        case "media_electronic":
+          return <MediaElectronic searchParams={searchParams} />;
         case "media_pdf":
-          return <MediaPDFGrid data={pressCoverage} />;
+          return <MediaPDFGrid data={modularData} />;
         case "media_gallery":
-          return <MediaGallery data={pressCoverage} />;
+          return <MediaGallery data={modularData} />;
         case "press_gallery":
           return <PressGallery searchParams={searchParams} />;
         case "press_on_screen":
           return <PressOnScreen searchParams={searchParams} />;
         case "media_featured":
-          return <MediaFeatured data={pressCoverage} />;
+          return <MediaFeatured data={modularData} />;
         default:
           return undefined;
       }
@@ -188,7 +192,7 @@ function createParserOptions(pressCoverage?: PressCoverage, searchParams?:Promis
   };
 }
 
-export default function ReactParser({ html, pressCoverage, searchParams }: ReactParserProps) {
+export default function ReactParser({ html, pressCoverage, modularData, searchParams }: ReactParserProps) {
   if (!html) return null;
 
   const sanitizedHtml = sanitizeHtml(html, sanitizeOptions);
@@ -196,7 +200,7 @@ export default function ReactParser({ html, pressCoverage, searchParams }: React
 
   return (
     <div id={containerId}>
-      {parse(sanitizedHtml, createParserOptions(pressCoverage, searchParams))}
+      {parse(sanitizedHtml, createParserOptions(pressCoverage, modularData, searchParams))}
       <CmsEnhancer containerId={containerId} />
     </div>
   );

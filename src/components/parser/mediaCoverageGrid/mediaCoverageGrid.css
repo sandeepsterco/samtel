@@ -1,4 +1,5 @@
 .media_grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 6.6rem 3.8rem; position: relative; margin-top: 5rem; }
+.inner .media_grid{margin-top:0;}
 .media_lst { position: relative; }
 .media_logo { background: var(--color-f9); text-align: center; border-radius: 2rem; padding: 8rem; margin-bottom: 2.5rem; overflow: hidden; }
 .media_logo img { transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }

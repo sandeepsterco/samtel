@@ -3,6 +3,7 @@ import './mediaCoverageGrid.css'
 import Link from "next/link";
 
 export default async function MediaCoverageGrid({ data }: { data: any }) {
+  console.log('media coverage data', data);
   const pageData = data[`media-coverage`] || [];
 
   if(pageData?.length === 0) return;

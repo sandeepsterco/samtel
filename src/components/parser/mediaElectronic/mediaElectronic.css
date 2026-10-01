@@ -1,0 +1,5 @@
+.media_sec2{ background-color: var(--color-white); padding-block: 10rem; }
+.media_sec2.inner{background:transparent;}
+.media_sec2 .press_grid { margin-top: 5rem; }
+.media_sec2.inner .press_grid{margin:0;}
+.media_sec2 .press_bx{ background-color: var(--color-f9); }
