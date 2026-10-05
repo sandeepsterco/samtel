@@ -1,0 +1,407 @@
+/* career page css starts here */
+
+.career_sec{padding:12rem 0 10rem;}
+.career_ttl{padding:0 0 7rem 0;}
+.career_ttl blockquote{margin:0 0 5rem 0;font:var(--font-45);font-weight:300;color:var(--color-23);letter-spacing:-0.9px;}
+.career_ttl blockquote b{font-weight:300;color:var(--color-c8);}
+.font_links{margin:4rem 0 0 0;}
+.font_links .more_btn{width:auto;height:auto;padding:1.2rem 2rem 1.2rem 2rem;border-radius:8px;font:var(--font-16);text-decoration:none;color:var(--color-white);line-height:1.4;}
+.font_links .more_btn img{margin-left:1rem;}
+.work_grp{padding:15rem 0 7rem 0;}
+.work_ttl h2{font:var(--font-21);font-weight:900;color:var(--color-23);text-transform:uppercase;letter-spacing:1.05px;margin:0 0 2.2rem 0;}
+.work_ttl blockquote{margin:0 0 2.2rem 0;font:var(--font-45);font-weight:300;color:var(--color-23);letter-spacing:-0.9px;}
+.work_grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.3rem;}
+.work_content{margin:7rem 0 0 0;}
+.ourvalue_grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13rem 2.5rem;align-items: center;}
+.value_list{padding:0 12rem 4.6rem 10rem;}
+.value_list p.font28{margin:0 0 3rem 0;}
+.value_list.value-second{padding:0 11rem 0 12rem;}
+.career_sec_one{padding:15rem 0;background-color:#FFFFFF5a;}
+.career_sec_two figure{display:grid;align-items:center;position: relative;}
+.career_sec_two figure img{width:100%;height:100%;object-fit:cover;}
+.career_sec_two figure>*{grid-area:1 / 1;}
+.princ-sec .work_ttl h2,.princ-sec .work_ttl blockquote,.princ-sec .work_ttl p{color:var(--color-white);}
+.princ-sec{max-width:50rem;position: relative;z-index: 99;}
+.career_sec_three{padding:15rem 0;}
+.contri-cont .work_ttl blockquote{margin:0 0 4rem 0;}
+.contri-cont .work_ttl p.font28{margin:0 0 3rem 0;}
+.contri-cont{margin:0 0 7rem 0;}
+.ourvalue_grid > figure:first-child{margin-left:-12.5rem;}
+.ourvalue_grid > figure:last-child{margin-right:-12.5rem;}
+.career_slider{overflow:hidden;}
+.career_sec_four .slider-outer-wrapper{margin-left:calc((100vw - min(1755px,91.40625vw)) / 2 + 0.7rem);overflow:hidden;}
+.career_sec_four{background-color:var(--color-c8);padding:15rem 0;}
+.career_sec_four .work_ttl h2,.career_sec_four .work_ttl blockquote,.career_sec_four .work_ttl p,.car_btmcont p{color:var(--color-white);}
+.car_btmcont{margin:7rem 0 0 0;}
+.car_btmcont p{margin:0;}
+.storie_grid{display:grid;grid-template-columns:85rem auto;gap:12.5rem;align-items:center;padding:15rem 0;background-color:var(--color-white);position:relative;}
+.storie_list .work_ttl blockquote{margin:0 0 6rem 0;}
+.storie_list .work_ttl figure{margin:0 0 6rem 0;}
+.storie_list{padding-right:26rem;}
+.employ_cont{margin:4rem 0 0 0;}
+.employ_cont h4{font:var(--font-30);font-weight:300;color:var(--color-c8);letter-spacing:-0.99px;margin:0 0 1rem 0;}
+.employ_cont p,.employ_cont p span{font:var(--font-18);font-weight:500;color:var(--color-23);letter-spacing:0px;}
+.employ_cont p span{font-weight:300;display:block;margin:0.5rem 0 0 0;}
+.career_sec_five{padding:15rem 0 0 0;}
+.storie_grid figure{position:relative;z-index:1;}
+.storie_grid:before{content:"";position:absolute;left:0;top:0;bottom:0;width:12.5rem;height:100%;background-color:var(--color-ef);z-index:1;}
+.career_sec_six{padding:13rem 0 15rem;}
+.princ-sec .work_ttl h2{margin:0 0 3rem 0;}
+.career_sec_two figure:before{content:"";position:absolute;left:0;top:0;bottom:0;background:transparent linear-gradient(270deg,#00000000 0%,#000000 100%) 0% 0% no-repeat padding-box;width:163.5rem;    z-index: 9;}
+.princ-sec .work_ttl p{margin-bottom:3rem;}
+
+/* career page css ends here */
+
+
+/* MRO css starts here */
+
+.mro_grid{display:grid;grid-template-columns:auto 85rem;}
+.mro_grid{display:grid;grid-template-columns:auto 85rem;gap:0 13rem;}
+.mro_grid .career_ttl{margin:0 0 0 10rem;padding:0;position:relative;}
+.mro_sec{padding:12rem 0 13rem 0;}
+.mro_grid .career_ttl:after{content:"";position:absolute;left:0;bottom:0;height:2px;width:12.3rem;background-color:#C83030;}
+.mro_sec2_grid{display:grid;grid-template-columns:85rem auto;gap:0 12.5rem;}
+.mro_sec2{padding:32.5rem 0 15rem;background-color:var(--color-c8);}
+.mro_sec1{margin-bottom:-17.5rem;}
+.mro_sec2_content blockquote{color:var(--color-white);margin:0 0 5rem 0;}
+.mro_sec2_content ul{padding:0;margin:0;}
+.mro_sec2_content ul li{font:var(--font-18);font-weight:300;color:var(--color-white);margin:0 0 2.9rem 0;position:relative;padding-left:3.1rem;line-height:1.6;}
+.mro_sec2_content .font_links .more_btn{background-color:var(--color-23);}
+.mro_sec2_content ul li:before{content:"";position:absolute;top:9px;left:0;width:7px;height:7px;background-color:#FBF22D;border-radius:50%;}
+.mro_sec2_content{padding:0 29rem 0 0;}
+.mro_sec2_content .font_links{margin:7rem 0 0 0;}
+.mro_grid .career_ttl p{padding-bottom:4rem;margin:0;}
+
+/* MRO css ends here */
+
+
+/* Rugged Electronics css starts here */
+
+.rug_elect_list{padding:10rem 0;}
+.rug_elect_list blockquote{position:relative;padding:6.2rem 0 5rem 0;margin: 0;}
+.rug_elect_list blockquote:before{content:"";position:absolute;left:0;top:0;height:2px;width:12.3rem;background-color:#C83030;}
+.rug_elect_list ul{padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0 7.5rem;}
+.rug_elect_list ul li{font:var(--font-18);font-weight:300;color:var(--color-23);margin:0 0 2.9rem 0;position:relative;padding-left:3.1rem;line-height:1.6;}
+.rug_elect_list ul li:before{content:"";position:absolute;top:9px;left:0;width:7px;height:7px;background-color:#C83030;border-radius:50%;}
+.rug_elect_sec1_grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2.5rem;}
+.rug_elect_sec1{background-color:var(--color-c8);padding:0 0 15rem 0;}
+.rug_elect_sec1_grid > figure{margin-top:-15.5rem;}
+.rug_elect_sec1{background-color:var(--color-c8);padding:0 0 15rem 0;margin:15.5rem 0 0 0;}
+.rug_elect_sec{padding:12rem 0 0 0;}
+.rug_elect_sec .career_ttl p{margin-bottom:4rem;}
+.rug_elect_sec .career_ttl{margin:0 0 7rem 0;padding:0;}
+
+/* Rugged Electronics css ends here */  
+
+
+/* optronics css starts here */
+    .optronics_grid{display:grid;grid-template-columns:110rem auto;gap:2.5rem;}
+    .optronics_img{display:flex;flex-direction:column;height:100%;gap:2.5rem;}
+    .optronics_list,.optronics_list figure{height:100%;}
+    .optronics_list figure img{height:100%;object-fit:cover;}
+    .optronics_img figure,.optronics_img figure img{height:100%;}
+    .optronics_img figure img{object-fit:cover;}
+
+/* optronics css ends here */
+
+/* railways page css starts here */
+.rug_elect_sec.railways-sec{padding:12rem 0 15rem 0;}
+.railways_grid1 { display: grid; grid-template-columns: 85rem auto; gap: 0 12.5rem; align-items: center; margin-bottom: 0.5rem; position: sticky; top: 23rem; background-color: var(--color-ef); }
+.railways-content { padding:0 26.8rem 0 0; }
+
+.railways-content .work_ttl blockquote{margin:0 0 4rem 0;}
+.railways-content .work_ttl p{margin:0 0 3rem 0;}
+.railways-sec1{padding:0 0 15rem 0;}
+.ourvalue_grid.railways_grid5 .value_list{padding:0 25.1rem 4.6rem 10rem;}
+.ourvalue_grid.railways_grid5 .value_list.value-second{padding:0 13rem 4.6rem 12rem;}
+.career_sec_one.railyways99{background:var(--color-ef);}
+.products_systems.railways66{background-color:var(--color-f7);}
+.product_grid.prod-grid .product_item{background-color:transparent;}
+.product_grid.prod-grid .product_item figure{mix-blend-mode:darken;}
+.princ-sec.railways56 .work_ttl blockquote{margin:0 0 4rem 0;}
+.ourvalue_grid.railways_grid5 > figure:first-child{margin-left:0;}
+.ourvalue_grid.railways_grid5 > figure:last-child{margin-right:0;}
+.ourvalue_grid.railways_grid5 .value_list blockquote{margin:0 0 4rem 0;}
+.ourvalue_grid.railways_grid5 .value_list.value-second{padding:0 13rem 4.6rem 25rem;}
+
+/* railways page css ends here */
+
+@media(max-width:1920px){
+    .storie_list{padding-right:51rem;}
+    .mro_grid .career_ttl{margin:0 11rem 0 22rem;}
+    .railways_grid1{
+        grid-template-columns: 98rem auto;
+    }
+    .railways-content {
+    padding: 0 39.4rem 0 0;
+}
+.ourvalue_grid.railways_grid5 .value_list {
+    padding: 0 38.1rem 4.6rem 10rem;
+}
+.ourvalue_grid.railways_grid5 .value_list.value-second {
+    padding: 0 13rem 4.6rem 37.5rem;
+}
+}
+@media(max-width:1700px){
+    .mro_grid{grid-template-columns:auto 97rem;}
+    .mro_grid .career_ttl{margin:0 0 0 22rem;}
+    .mro_sec2_grid{grid-template-columns:100rem auto;}
+    .mro_sec2_content{padding:0 39rem 0 0;}
+.railways-content { padding: 0 39.4rem 0 0; }
+.ourvalue_grid.railways_grid5 .value_list.value-second { padding: 0 13rem 4.6rem 38.8rem; }
+
+}
+@media(max-width:1599px){
+    .mro_grid .career_ttl{margin:0 0 0 17rem;}
+    .mro_grid{grid-template-columns:auto 69rem;}
+    .mro_sec2_grid{grid-template-columns:84rem auto;}
+    .mro_sec2_content{padding:0 20rem 0 0;}
+    .rug_elect_list ul{gap:0 2.5rem;}
+.railways-content { padding: 0 36.4rem 0 0; }
+.ourvalue_grid.railways_grid5 .value_list.value-second { padding: 0 13rem 4.6rem 36.6rem; }
+
+}
+@media(max-width:1499px){
+    .value_list{padding:0 0 0 9rem;}
+    .value_list.value-second{padding:0 0 0 10rem;}
+    .career_sec_two figure img{min-height:85rem;margin-left:0;margin-right:auto;object-position:left;}
+    .storie_grid{grid-template-columns:70rem auto;}
+    .storie_list{padding-right:30rem;}
+.railways_grid1 { grid-template-columns: 86rem auto; gap: 0 10.5rem; }
+.ourvalue_grid.railways_grid5 .value_list { padding: 0 33.1rem 4.6rem 10rem; }
+.ourvalue_grid.railways_grid5 .value_list.value-second { padding: 0 13rem 4.6rem 33.6rem; }
+}
+@media(max-width:1399px){
+    .value_list.value-second{padding:0 4rem 0 10rem;}
+    .ourvalue_grid.railways_grid5 .value_list.value-second {
+        padding: 0 9rem 4.6rem 31.6rem;
+    }
+.railways-content { padding: 0 27.4rem 0 0; }
+.ourvalue_grid.railways_grid5 .value_list { padding: 0 27.1rem 4.6rem 10rem; }
+
+
+}
+@media(max-width:1299px){
+    .career_sec_two figure:before{width:80%;}
+.railways_grid1 { grid-template-columns: 77rem auto; }
+.railways-content { padding: 0 25.4rem 0 0; }
+.ourvalue_grid.railways_grid5 .value_list { padding: 0 24.1rem 4.6rem 8rem; }
+.ourvalue_grid.railways_grid5 .value_list.value-second { padding: 0 8rem 4.6rem 29.6rem; }
+}
+@media(max-width:1199px){
+    .railways-content {
+        padding: 0 22.4rem 0 0;
+    }
+        .ourvalue_grid.railways_grid5 .value_list {
+        padding: 0 22.1rem 4.6rem 7rem;
+    }
+        .ourvalue_grid.railways_grid5 .value_list.value-second {
+        padding: 0 11rem 4.6rem 13.6rem;
+    }
+}
+
+
+@media(max-width:1100px){
+    .optronics_grid{grid-template-columns:100%;}
+    .rug_elect_list ul{grid-template-columns:repeat(2,1fr);}
+    .ourvalue_grid{gap:6rem 2.5rem;}
+    .ourvalue_grid{gap: 6rem 5.5rem;}
+    .ourvalue_grid > figure:first-child{margin-left:0;}
+    .ourvalue_grid > figure:last-child{margin-right:0;}
+    .value_list{padding:0;}
+    .value_list.value-second{padding:0;}
+    .career_sec_two figure img{min-height:74rem;}
+    .storie_grid{grid-template-columns:100%;padding:0 0 8rem;gap:5.5rem;}
+    .storie_grid:before{display:none;}
+    .storie_list{padding:0 5rem 0;}
+    .mro_grid{grid-template-columns:100%;}
+    .mro_grid .career_ttl{margin:0 0 6rem 0;}
+    .mro_sec2_grid{grid-template-columns:100%;}
+    .mro_sec2_content{padding:6rem 0 0 0;}
+    .mro_sec2{padding:20rem 0 8rem;}
+    .mro_sec1{margin-bottom:-13.5rem;}
+    .mro_sec2_content{padding:6rem 0 0 0;}
+
+.rug_elect_sec { padding: 8rem 0 8rem 0; }
+.railways-content .work_ttl blockquote br,
+.ourvalue_grid.railways_grid5 .value_list blockquote br{
+    display: none;
+}
+    .railways-content {
+        padding: 6rem 0 6rem 0;
+    }
+    .railways-sec1 {
+    padding: 0;
+}
+.career_sec_one.railyways99 {
+    padding: 8rem 0;
+}
+    .ourvalue_grid.railways_grid5 .value_list.value-second {
+        padding: 0;
+    }
+        .ourvalue_grid.railways_grid5 .value_list {
+        padding: 0;
+    }
+    .products_systems.railways66 {
+    padding-block: 8rem;
+}
+
+.rug_elect_sec.railways-sec {
+    padding-bottom: 8rem;
+}
+    .railways_grid1 {
+        gap: 0 7.5rem;
+    }
+
+}
+@media(max-width:991px){
+    .career_sec{padding:8rem 0 8rem;}
+    .work_grp{padding:8rem 0 6rem 0;}
+    .career_sec_one{padding:8rem 0;background-color:#FFFFFF5a;}
+    .ourvalue_grid{gap:6rem 2.5rem;}
+    .ourvalue_grid{grid-template-columns:repeat(1,1fr);}
+    .value_list{padding:0;}
+    .value_list.value-second{padding:0;}
+    .career_sec_two figure img{min-height:100%;}
+    .career_sec_two figure>*{grid-area:auto;}
+    .career_sec_two figure:before{display:none;}
+    .princ-sec .work_ttl h2,.princ-sec .work_ttl blockquote,.princ-sec .work_ttl p{color:var(--color-23);}
+    .princ-sec{max-width:100%;}
+    .career_sec_three{padding:8rem 0;}
+    .career_sec_four{padding:8rem 0;}
+    .career_sec_five{padding:8rem 0 0 0;}
+    .storie_grid{grid-template-columns:100%;padding:0 0 8rem;gap:5.5rem;}
+    .storie_grid:before{display:none;}
+    .career_sec_six{padding:8rem 0 8rem;}
+    .storie_list{padding:0 5rem 0;}
+    .princ-sec{padding:6rem 0 0 0;}
+    .princ-sec .work_ttl blockquote br,.work_ttl blockquote br{display:none;}
+    .ourvalue_grid > figure:first-child{margin-left:0;}
+    .ourvalue_grid > figure:last-child{margin-right:0;}
+    .mro_grid{grid-template-columns:100%;}
+    .mro_grid .career_ttl{margin:0 0 6rem 0;}
+    .mro_sec{padding:8rem 0 8rem 0;}
+    .mro_sec2_grid{grid-template-columns:100%;}
+    .mro_sec2{padding:20rem 0 8rem;}
+    .mro_sec1{margin-bottom:-13.5rem;}
+    .mro_sec2_content{padding:6rem 0 0 0;}
+    .rug_elect_sec{padding:8rem 0 0 0;}
+    .rug_elect_sec .career_ttl{margin:0px 0 6rem 0;}
+    .rug_elect_list{padding:8rem 0;}
+    .rug_elect_sec1{padding:0 0 10rem 0;}
+    .rug_elect_sec{padding:8rem 0 0 0;}
+    .rug_elect_list{padding:8rem 0;}
+    .rug_elect_sec.railways-sec{
+                padding: 6rem 0 6rem 0;
+    }
+    .rug_elect_sec.railways-sec .career_ttl{
+                margin: 0px 0 4rem 0;
+    }
+        .railways-content {
+        padding: 4rem 0 0 0;
+    }
+    .railways-content .work_ttl blockquote {
+    margin: 0 0 2rem 0;
+}
+    .princ-sec {
+        padding: 4rem 0 0 0;
+    }
+    .career_sec_one.railyways99 {
+        padding: 4rem 0;
+    }
+        .ourvalue_grid {
+        gap: 4rem 2.5rem;
+    }
+        .products_systems.railways66 {
+        padding-block: 6rem;
+    }
+    .products_systems.railways66 h3{
+    margin-bottom: 3rem;
+    }
+    .ourvalue_grid.railways_grid5 figure:first-child{
+    order: 1;
+}
+.ourvalue_grid.railways_grid5 figure:last-child{
+    order: 3;
+}
+.ourvalue_grid.railways_grid5 .value_list:nth-child(2){
+    order: 2;
+}
+.ourvalue_grid.railways_grid5 .value_list.value-second{
+    order: 4;
+}
+    .railways_grid1 {
+        grid-template-columns: 100%;
+    }
+.railways_grid1 { position: relative; top: 0; }
+.railways-content .work_ttl p br{display: none;}
+.ourvalue_grid.railways_grid5 .value_list blockquote { margin: 0 0 3rem 0; }
+.princ-sec.railways56 .work_ttl blockquote { margin: 0 0 3rem 0; }
+}
+
+@media(max-width:767px){
+    .career_sec{padding:6rem 0 6rem;}
+    .career_ttl blockquote{margin:0 0 3rem 0;}
+    .work_grp{padding:6rem 0 6rem 0;}
+    .work_grid{grid-template-columns:repeat(1,1fr);}
+    .work_content{margin:6rem 0 0 0;}
+    .career_sec_one{padding:6rem 0;}
+    .career_sec_three{padding:6rem 0;}
+    .career_sec_four{padding:6rem 0;}
+    .career_sec_five{padding:6rem 0 0 0;}
+    .career_sec_six{padding:6rem 0 6rem;}
+    .contri-cont{margin:0 0 6rem 0;}
+    .mro_sec{padding:6rem 0 6rem 0;}
+    .mro_grid .career_ttl{margin:0 0 4rem 0;}
+    .mro_sec2_content{padding:4rem 0 0 0;}
+    .mro_sec2{padding:15rem 0 6rem;}
+    .mro_sec1{margin-bottom:-10.5rem;}
+    .rug_elect_sec{padding:6rem 0 0 0;}
+    .rug_elect_list{padding:6rem 0;}
+    .rug_elect_list ul{grid-template-columns:repeat(2,1fr);}
+    .rug_elect_list blockquote{padding:4rem 0 4rem 0;}
+    .rug_elect_sec1{padding:0 0 8rem 0;}
+    .rug_elect_sec1_grid > figure{margin-top:-8.5rem;}
+    .rug_elect_sec1{margin:8.5rem 0 0 0;}
+    .rug_elect_list ul{grid-template-columns:repeat(1,1fr);}
+    .rug_elect_list ul li:before{top:7px;}
+    .rug_elect_sec.railways-sec {
+        padding: 4rem 0 4rem 0;
+    }
+    .ourvalue_grid.railways_grid5 .value_list blockquote {
+    margin: 0 0 2rem 0;
+}
+.product_grid.prod-grid {
+    grid-template-columns: repeat(2, 1fr);
+}
+.career_sec_one.railyways99 { padding: 2rem 0; }
+.products_systems.railways66 { padding-block: 4rem; }
+
+}   
+
+@media(max-width:575px){
+    .career_sec{padding:4rem 0 4rem;}
+    .work_grp{padding:4rem 0 4rem 0;}
+    .work_content{margin:4rem 0 0 0;}
+    .career_sec_one{padding:4rem 0;}
+    .ourvalue_grid{gap:4rem 0;}
+    .princ-sec{padding:4rem 0 0 0;}
+    .career_sec_three{padding:4rem 0;}
+    .career_sec_four{padding:4rem 0;}
+    .car_btmcont{margin:4rem 0 0 0;}
+    .career_sec_five{padding:4rem 0 0 0;}
+    .career_sec_six{padding:4rem 0 4rem;}
+    .contri-cont{margin:0 0 4rem 0;}
+    .mro_sec{padding:5rem 0 5rem 0;}
+    .rug_elect_sec .career_ttl{margin:0px 0 4rem 0;}
+    .rug_elect_sec{padding:5rem 0 0 0;}
+    .rug_elect_list{padding:5rem 0;}
+    .rug_elect_list ul{grid-template-columns:repeat(1,1fr);}
+    .rug_elect_sec1_grid{grid-template-columns:repeat(1,1fr);}
+    .rug_elect_sec1_grid > figure{margin-top:0;}
+    .rug_elect_sec1{margin:0;}
+    .rug_elect_sec1{padding:6rem 0 6rem 0;}
+        .product_grid.prod-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

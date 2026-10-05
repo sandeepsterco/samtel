@@ -9,9 +9,9 @@ export default async function PressCoveragePage(){
 
     const combinedHtml = Object.values(data?.data?.cms ?? {}).join(''); 
 
-    const modularData = data?.data?.modular || {};
+    const modularData = data?.data?.modular ?? {};
 
     return(
-        <ReactParserDynamic html={combinedHtml} pressCoverage={modularData} />
+        <ReactParserDynamic html={combinedHtml} modularData={modularData} />
     )
 }
