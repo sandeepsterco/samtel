@@ -43,8 +43,7 @@ export default function MegaMenu({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <div className="container-fluid">
-        <div className="col-md-9 mx-auto">
+      <div className="menu-container">
           <div className="mega-wrapper">
             <div className="mega-left">
               <div>
@@ -88,7 +87,6 @@ export default function MegaMenu({
               ))}
             </div>
           </div>
-        </div>
       </div>
     </div>
   );

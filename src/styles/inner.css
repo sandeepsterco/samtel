@@ -1,5 +1,6 @@
 @import url(./inner-page.css);
 @import url(./shyam.css);
+@import url(./milestone.css);
 .blockquote{
     font: var(--font-28);
     color: var(--color-23);
