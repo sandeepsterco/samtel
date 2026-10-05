@@ -8,7 +8,6 @@ import type { SliderModule } from "@/lib/cms/types";
 const SLIDER_MODULES: SliderModule[] = [
   adfSwiperModule,
   heroSliderModule,
-  // otherSliderModule,
 ];
 
 export default function CmsEnhancer({ containerId }: { containerId: string }) {

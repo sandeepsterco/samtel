@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Funnel_Sans } from "next/font/google";
 import Header from "@/components/header/Header";
+import WipeOnScroll from "@/components/common/WipeOnScroll";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "@/components/footer/Footer";
@@ -30,6 +31,7 @@ export default function RootLayout({
       className={`${funnelSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <WipeOnScroll />
         <Providers>
         <Header />
         {children}
