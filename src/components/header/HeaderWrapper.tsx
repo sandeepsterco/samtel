@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import { HeaderContextProvider, useHeader } from "./HeaderContext"
 
-// Sections where the header stays hidden regardless of scroll direction
 const HIDE_SECTIONS = [".testim_sec"]
 
 function HeaderShell({ children }: { children: React.ReactNode }) {
@@ -13,14 +12,12 @@ function HeaderShell({ children }: { children: React.ReactNode }) {
     const [fixed, setFixed] = useState(false)
     const lastScroll = useRef(0)
     const pathname = usePathname()
-    const { showMegaMenu } = useHeader()
+    const { showMegaMenu, setShowMegaMenu } = useHeader()
 
-    // Keep the latest menu state available to the scroll listener
-    // without re-binding it every time the menu opens/closes
     const menuOpenRef = useRef(showMegaMenu)
     menuOpenRef.current = showMegaMenu
 
-    const baseClass = pathname !== "/" ? "inner" : ""
+    const baseClass = pathname !== "/" ? "inner-header" : ""
 
     useEffect(() => {
         lastScroll.current = window.scrollY || 0
@@ -84,11 +81,14 @@ function HeaderShell({ children }: { children: React.ReactNode }) {
         .join(" ")
 
     return (
-        <section className={className}>
-            {children}
-            {showMegaMenu &&
-                createPortal(<div className="menu_backdrop"></div>, document.body)}
-        </section>
+        <>
+            <section className={className}>
+                {children}
+                {/* {showMegaMenu &&
+                    createPortal(<div className="menu_backdrop"></div>, document.body)} */}
+                </section>
+                <div className={`nav-overlay ${showMegaMenu ? 'show' : ''}`} onClick={() => setShowMegaMenu(false)}></div>
+        </>
     )
 }
 

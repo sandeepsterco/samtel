@@ -4,10 +4,14 @@ import Hamburger from "./Hamburger";
 import Image from "next/image";
 import Link from "next/link";
 import MegaMenu from "./megaMenu/MegaMenu";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { HeaderMenuItem, ProductCategory, SidebarItem } from "./Header";
 import { useHeader } from "./HeaderContext";
 import "./header.css";
+import { usePathname } from "next/navigation";
+
+const CLOSE_DELAY = 350; 
+
 
 export default function HeaderData({
   headerData,
@@ -24,37 +28,63 @@ export default function HeaderData({
   const {showMegaMenu, setShowMegaMenu} = useHeader()
   const [headerHeight, setHeaderHeight] = useState(0);
   const closeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pathname = usePathname();
 
-  useEffect(() => {
-    const updateHeight = () => {
-      if (navRef.current) {
-        setHeaderHeight(navRef.current.getBoundingClientRect().height);
-      }
-    };
-    updateHeight();
-    window.addEventListener("resize", updateHeight);
-    return () => window.removeEventListener("resize", updateHeight);
-  }, []);
-
-  const openMenu = () => {
+  const clearCloseTimer = useCallback(() => {
     if (closeTimeout.current) {
       clearTimeout(closeTimeout.current);
       closeTimeout.current = null;
     }
-    setShowMegaMenu(true);
-  };
+  }, []);
 
-  const closeMenu = () => {
-    closeTimeout.current = setTimeout(() => {
-      setShowMegaMenu(false);
-    }, 150);
-  };
+  const updateHeight = useCallback(() => {
+    if (navRef.current) {
+      setHeaderHeight(navRef.current.getBoundingClientRect().height);
+    }
+  }, []);
 
   useEffect(() => {
+    updateHeight();
+    const el = navRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(updateHeight);
+    ro.observe(el);
+    window.addEventListener("resize", updateHeight);
     return () => {
-      if (closeTimeout.current) clearTimeout(closeTimeout.current);
+      ro.disconnect();
+      window.removeEventListener("resize", updateHeight);
     };
-  }, []);
+  }, [updateHeight]);
+
+  const openMenu = useCallback(() => {
+    clearCloseTimer();
+    updateHeight();
+    setShowMegaMenu(true);
+  }, [clearCloseTimer, updateHeight, setShowMegaMenu]);
+
+  const closeMenu = useCallback(() => {
+    clearCloseTimer();
+    closeTimeout.current = setTimeout(() => setShowMegaMenu(false), CLOSE_DELAY);
+  }, [clearCloseTimer, setShowMegaMenu]);
+
+  const closeMenuNow = useCallback(() => {
+    clearCloseTimer();
+    setShowMegaMenu(false);
+  }, [clearCloseTimer, setShowMegaMenu]);
+
+  useEffect(() => {
+    closeMenuNow();
+  }, [pathname, closeMenuNow]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeMenuNow();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [closeMenuNow]);
+
+  useEffect(() => clearCloseTimer, [clearCloseTimer]);
 
   return (
     <>
@@ -81,7 +111,7 @@ export default function HeaderData({
               {headerData.map((item: any, idx: number) => (
                 <li
                   key={idx}
-                  className={`${item.title === "Industries" ? "mega-parent" : "" } ${item?.children?.length > 0 ? 'site_dropdown' : ''}`}
+                  className={`${item.title === "Industries" ? "mega-parent" : "" } ${item?.children?.length > 0 ? 'site_dropdown' : ''} ${showMegaMenu && item.title === "Industries" ? 'active' : ''}`}
                   onMouseEnter={() => {
                     if (item.title === "Industries") openMenu();
                   }}
@@ -119,6 +149,7 @@ export default function HeaderData({
         infoData={infoData}
         onMouseEnter={openMenu}
         onMouseLeave={closeMenu}
+        onClose={closeMenuNow}
       />
     </>
   );

@@ -83,405 +83,245 @@
   font-display: swap;
 }
 
-:root {
-  --color-23: #231f20;
-  --color57: #57585a;
-  --color-c8: #c83030;
-  --color-d4: #d40505;
-  --color-f5: #f5f5f5;
-  --color-f9: #f9f9f9;
-  --color-ef: #efefef;
-  --color-d1: #d1d2d4;
-  --color-1a: #1a1a1a;
-  --color-f8: #f8cd2a;
-  --color-fb: #fbf22d;
-  --color-16: #161616;
-  --color-white: #ffffff;
-  --color-black: #000000;
-  --font-91: 9.1rem/1.3 "avenir_regularregular";
-  --font-90: 9rem/1.3 "avenir_regularregular";
-  --font-70: 7rem/1.3 "avenir_regularregular";
-  --font-60: 6rem/1.3 "avenir_regularregular";
-  --font-50: 5rem/1.3 "avenir_regularregular";
-  --font-46: 4.6rem/1.3 "avenir_regularregular";
-  --font-45: 4.5rem/1.3 "avenir_regularregular";
-  --font-42: 300 4.2rem/1.3 "avenir_regularregular";
-  --font-36: 3.6rem/1.3 "avenir_regularregular";
-  --font-34: 3.4rem/1.3 "avenir_regularregular";
-  --font-32: 300 3.2rem/1.3 "avenir_regularregular";
-  --font-30: 300 3rem/1.3 "avenir_regularregular";
-  --font-28: 2.8rem/1.3 "avenir_regularregular";
-  --font-26: 2.6rem/1.3 "avenir_regularregular";
-  --font-24: 300 2.4rem/1.3 "avenir_regularregular";
-  --font-21: 2.1rem/1.3 "avenir_regularregular";
-  --font-18: 300 1.8rem / 1.6 "avenir_regularregular";
-  --font-16: 300 1.6rem/1.5 "avenir_regularregular";
-  --font-14: 1.4rem/1.3 "avenir_regularregular";
-  --font-12: 1.2rem/1.3 "avenir_regularregular";
-  --font-light: "avenirlight";
-  --font-regular: "avenir_regularregular";
-  --font-funnel: "Funnel Sans", sans-serif;
-}
-body {
-  background: var(--color-ef);
-  background-size: cover;
-  padding: 0;
-  margin: 0;
-  color: var(--color-23);
-  font: var(--font-18);
-}
-body.body-locked {
-  overflow: hidden;
-}
-/* According to 2545px */
-.container {
-  width: 100%;
-  max-width: min(1505px, 68.4090909vw);
-  padding-inline: 1.5rem;
-  margin: auto;
-}
-.container-group {
-  width: 100%;
-  max-width: min(1465px, 66.59090909vw);
-  padding-inline: 1.5rem;
-  margin: auto;
-}
-.container-full {
-  width: 100%;
-  max-width: min(1755px, 91.40625vw);
-  padding-inline: 1.5rem;
-  margin: auto;
-}
-html {
-  font-size: min(0.45454545vw, 10px);
-}
-.more_btn {
-  width: 3.2rem;
-  height: 3.2rem;
-  display: inline-flex;
-  background-color: var(--color-c8);
-}
-.more_btn > img {
-  margin: auto;
-  width: 100%;
-  max-width: 1.5rem;
-}
-a.more_btn:hover {
-  background: var(--color-23);
-}
-.font_title > p {
-  font: var(--font-21);
-  font-weight: 900;
-  color: var(--color-23);
-  letter-spacing: 1.05px;
-  text-transform: uppercase;
-  margin-bottom: 2rem;
-}
-.font_title > blockquote {
-  font: var(--font-45);
-  font-weight: 300;
-  color: var(--color-23);
-  letter-spacing: -0.9px;
-}
-.font_title > blockquote > b {
-  font-weight: 300;
-  color: var(--color-c8);
-}
-figure {
-  margin: 0;
-}
+:root{
+    --color-23:#231F20;
+    --color-d466:#d1d2d466;
+    --color57:#57585A;
+    --color-c8:#C83030;
+    --color-d4:#D40505;
+    --color-b8:#B82727;
+    --color-f5:#F5F5F5;
+    --color-f9:#F9F9F9;
+    --color-f3:#f3f3f3;
+    --color-ef:#efefef;
+    --color-d1:#d1d2d4;
+    --color-1a:#1A1A1A;
+    --color-f8:#F8CD2A;
+    --color-fb:#FBF22D;
+     --color-df:#DFDADA;
+      --color-e9:#e9e9e9;
+    --color-16:#161616;
+    --color-f7:#f7f7f7;
+     --color-ee:#EEEEEE;
+    --color-white:#ffffff;
+    --color-black:#000000;
+    --color-dc:#DCDCDC;
+     --color-fd:#FEDADA;
 
-.for_mobile {
-  display: none;
-}
-.for_desktop {
-  display: block;
-}
-.streched_link {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-.modal-media-holder {
-  width: 100%;
-  height: 50vh;
-}
-.gallery-swiper {
-  width: 100%;
-  height: 100%;
-}
-.gallery-swiper .swiper-wrapper,
-.gallery-swiper .swiper-slide {
-  height: 100%;
-}
-.modal-media-slide {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.modal-media {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-}
-.field-error {
-  font-size: 12px;
-  margin-top: 5px;
-}
-select {
-  color: #000;
-}
-select option {
-  color: #000;
-  background: #fff;
-}
-.PhoneInputCountry {
-  border-bottom: 1px solid #fff6;
-}
-.not_found_page {
-  justify-content: center;
-  align-items: center;
-  height: calc(100vh - 38.3rem);
-  padding: 10rem 0;
-  display: flex;
-}
-.not_found_page .content {
-  text-align: center;
-}
-.not_found_page .heading {
-  font: var(--font-70);
-  color: var(--color-c8);
-  letter-spacing: 0;
-  margin-bottom: 2rem;
-  font-weight: 600;
-}
-.not_found_page .sub_heading {
-  font: var(--font-24);
-  margin-bottom: 0.8rem;
-  font-weight: 500;
-}
-.not_found_page .para {
-  font: var(--font-20);
-  margin-bottom: 5rem;
-}
-.not_found_page .back_btn {
-  background: var(--color-c8);
-  color: var(--color-white);
-  padding: 1.2rem 2.5rem;
-  font-weight: 500;
-  text-decoration: none;
-}
-
-/* error page css */
-.error_page {
-  padding: 10rem 0;
-  height: calc(100vh - 38.3rem);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 30rem;
-}
-
-.error_page .error_state {
-  text-align: center;
-}
-
-.error_page .heading {
-  font: var(--font-30);
-  font-weight: 500;
-}
-
-.error_page .btn {
-  background: var(--color-c8);
-  color: var(--color-white);
-  padding: 1.2rem 2.5rem;
-  margin-top: 3rem;
-  color: #fff;
-  font: var(--font-14);
-  text-transform: uppercase;
-  font-weight: 500;
-}
-
-/* =========== START RESPONSIVE========= */
-
-@media (max-width: 992px) {
-  .for_mobile {
-    display: block;
-  }
-  .for_desktop {
-    display: none;
-  }
-}
-
-@media (max-width: 1699px) {
-  :root {
-    --font-91: 9.1rem/1.3 "avenir_regularregular";
-    --font-90: 9rem/1.3 "avenir_regularregular";
-    --font-70: 7rem/1.3 "avenir_regularregular";
-    --font-60: 6rem/1.3 "avenir_regularregular";
-    --font-50: 5rem/1.3 "avenir_regularregular";
-    --font-46: 4.6rem/1.3 "avenir_regularregular";
-    --font-45: 4.5rem/1.3 "avenir_regularregular";
-    --font-42: 300 4.2rem/1.3 "avenir_regularregular";
-    --font-36: 3.1rem/1.3 "avenir_regularregular";
-    --font-34: 3rem/1.3 "avenir_regularregular";
-    --font-32: 300 2.8rem/1.3 "avenir_regularregular";
-    --font-30: 300 2.8rem/1.3 "avenir_regularregular";
-    --font-28: 2.4rem/1.3 "avenir_regularregular";
-    --font-26: 2.2rem/1.3 "avenir_regularregular";
-    --font-24: 300 2.2rem/1.3 "avenir_regularregular";
-    --font-21: 1.8rem/1.3 "avenir_regularregular";
-    --font-18: 300 1.8rem/1.3 "avenir_regularregular";
-    --font-16: 300 1.5rem/1.5 "avenir_regularregular";
-    --font-14: 1.4rem/1.3 "avenir_regularregular";
-    --font-12: 1.2rem/1.3 "avenir_regularregular";
-    --font-light: "avenirlight";
-    --font-regular: "avenir_regularregular";
+    --font-91: 9.1rem/1.3  'avenir_regularregular';
+    --font-90: 9rem/1.3  'avenir_regularregular';
+     --font-70: 7rem/1.3  'avenir_regularregular';
+    --font-60: 6rem/1.3  'avenir_regularregular';
+    --font-50: 5rem/1.3  'avenir_regularregular';
+    --font-46: 4.6rem/1.3  'avenir_regularregular';
+    --font-45: 4.5rem/1.3  'avenir_regularregular';
+    --font-42: 300 4.2rem/1.3  'avenir_regularregular';
+    --font-36: 3.6rem/1.3  'avenir_regularregular';
+    --font-34: 3.4rem/1.3  'avenir_regularregular';
+    --font-32: 300 3.2rem/1.3  'avenir_regularregular';
+    --font-30: 300 3rem/1.3  'avenir_regularregular';
+    --font-28: 2.8rem/1.3  'avenir_regularregular';
+    --font-26: 2.6rem/1.3  'avenir_regularregular';
+    --font-24: 300 2.4rem/1.3  'avenir_regularregular';
+    --font-21: 2.1rem/1.3  'avenir_regularregular';
+    --font-18: 300 1.8rem/1.6  'avenir_regularregular';
+    --font-16: 300 1.6rem/1.5  'avenir_regularregular';
+    --font-14: 1.4rem/1.3  'avenir_regularregular';
+    --font-12: 1.2rem/1.3  'avenir_regularregular';
+    --font-light: 'avenirlight';
+    --font-regular: 'avenir_regularregular';
     --font-funnel: "Funnel Sans", sans-serif;
-  }
-
-  html {
-    font-size: 45.5%;
-  }
 }
 
-@media (max-width: 1199px) {
-  html {
-    font-size: 45.5%;
-  }
-  .container {
-    width: 100%;
-    max-width: 100%;
-    padding-inline: 3rem;
-    margin: auto;
-  }
-  .container-group {
-    width: 100%;
-    max-width: 100%;
-    padding-inline: 3rem;
-    margin: auto;
-  }
-  .container-full {
-    width: 100%;
-    max-width: 100%;
-    padding-inline: 3rem;
-    margin: auto;
-  }
-  .menu-container {
-    width: 100%;
-    max-width: 100%;
-    margin-inline: auto;
-    padding-inline: 3rem;
-  }
+
+
+ body{background:var(--color-ef);background-size:cover;padding:0;margin:0; color: var(--color-23); font: var(--font-18);}
+ p{line-height: 1.7;}
+
+/* According to 2545px */
+.container{width:100%;max-width:min(1505px,68.40909090vw);padding-inline:1.5rem;margin: auto;}
+.container-group{width:100%;max-width:min(1465px,66.590909090vw);padding-inline:1.5rem;margin: auto;}
+.container-full{width:100%;max-width:min(1755px,91.40625vw);padding-inline:1.5rem;margin: auto;}
+.menu-container { width: 100%; max-width: min(2113px, 83.0255vw); margin-inline: auto; }
+html{font-size:min(0.45454545vw,10px);}
+.more_btn {width: 3.2rem;height: 3.2rem;display: inline-flex;background-color: var(--color-c8);}
+.more_btn>img { margin: auto; width: 100%; max-width: 1.5rem; }
+a.more_btn:hover { background: var(--color-c8); }
+.font_title>p { font: var(--font-21); font-weight: 900; color: var(--color-23); letter-spacing: 1.05px; text-transform: uppercase; margin-bottom: 2rem; }
+.font_title>blockquote { font: var(--font-45); font-weight: 300; color: var(--color-23); letter-spacing: -0.9px; }
+.font_title>blockquote>b { font-weight: 300; color: var(--color-c8); }
+figure{margin:0;}
+.streched_link { position: absolute; bottom: 0; left: 0; right: 0; width: 100%; height: 100%; z-index: 1;font-size: 0; }
+ul.list { list-style-type: disc; margin-inline: 2rem 0; }
+ul.list li::marker{color: var(--color-f8); }
+.custom_list li { font: var(--font-18); line-height: 1.6;color: var(--color-23); font-weight: 400; margin-bottom: 3rem; padding-inline: 2.8rem 0px; position: relative; }
+.custom_list li:after { content: ""; width: .7rem; height: .7rem; background: var(--color-c8); border-radius: 50%; position: absolute; left: 0; top: 1rem; }
+.font24 { font:var(--font-24); font-weight:400; color:var(--color-23); }
+.font28 { font:var(--font-28); font-weight:300; color:var(--color-23);line-height: 1.43; }
+.font30 { font:var(--font-30); font-weight:300; color:var(--color-23); letter-spacing: -0.9px; }
+.font45 { font: var(--font-45); font-weight: 300; color: var(--color-23); letter-spacing: -0.9px; }
+.for_mobile{display: none;}
+.for_desktop{display: block;}
+
+.streched_link { z-index: 99; width: 100%; height: 100%; position: absolute; bottom: 0; left: 0; right: 0; }
+/* ---------button---------- */
+.explore_btn img { margin-left: 1rem; }
+
+.explore_btn::before { content: ""; position: absolute; inset: 0; background: var(--color-black); transform: translateX(-101%); transition: transform 0.45s ease; z-index: -1; }
+.explore_btn { position: relative; display: inline-flex; align-items: center; gap: 1rem; overflow: hidden; background: var(--color-c8); color: var(--color-white); border-radius: 0.8rem; padding: 1.2rem 2rem; font-size: 1.6rem; line-height: 2.4rem; margin-top: 7rem; text-decoration: none; transition: color 0.3s ease; z-index: 1; }
+.explore_btn:hover::before { transform: translateX(0); }
+
+.explore_btn:hover { color: var(--color-white); }
+.explore_btn:hover img { filter: invert(0); }
+/* ---------button---------- */
+
+@media (max-width:992px) {
+.for_mobile { display: block; }
+.for_desktop { display: none; } 
+
+
+}
+@media (max-width:1699px) {
+    :root {
+
+
+        --font-91: 9.1rem/1.3 'avenir_regularregular';
+        --font-90: 9rem/1.3 'avenir_regularregular';
+        --font-70: 7rem/1.3 'avenir_regularregular';
+        --font-60: 6rem/1.3 'avenir_regularregular';
+        --font-50: 5rem/1.3 'avenir_regularregular';
+        --font-46: 4.6rem/1.3 'avenir_regularregular';
+        --font-45: 4.2rem/1.3 'avenir_regularregular';
+        --font-42: 300 4rem/1.3 'avenir_regularregular';
+        --font-36: 3.1rem/1.3 'avenir_regularregular';
+        --font-34: 3rem/1.3 'avenir_regularregular';
+        --font-32: 300 2.8rem/1.3 'avenir_regularregular';
+        --font-30: 300 2.8rem/1.3 'avenir_regularregular';
+        --font-28: 2.4rem/1.3 'avenir_regularregular';
+        --font-26: 2.2rem/1.3 'avenir_regularregular';
+        --font-24: 300 2.2rem/1.3 'avenir_regularregular';
+        --font-21: 1.8rem/1.3 'avenir_regularregular';
+        --font-18: 300 1.8rem/1.3 'avenir_regularregular';
+        --font-16: 300 1.5rem/1.5 'avenir_regularregular';
+        --font-14: 1.4rem/1.3 'avenir_regularregular';
+        --font-12: 1.2rem/1.3 'avenir_regularregular';
+        --font-light: 'avenirlight';
+        --font-regular: 'avenir_regularregular';
+        --font-funnel: "Funnel Sans", sans-serif;
+    }
+
+ html {
+     font-size: 45.5%;
+ }
+
 }
 
-@media (max-width: 640px) {
-  .container {
-    padding-inline: 2rem;
-  }
+
+@media (max-width:1199px) {
+html { font-size: 45.5%; }
+.container{width:100%;max-width:100%;padding-inline:3rem;margin: auto;}
+.container-group{width:100%;max-width:100%;padding-inline:3rem;margin: auto;}
+.container-full{width:100%;max-width:100%;padding-inline:3rem;margin: auto;}
+.menu-container { width: 100%; max-width:100%; margin-inline: auto;padding-inline: 3rem; }
+}
+@media (max-width:640px) {
+.container, .container-full{padding-inline:2rem;}
 }
 
 @media (min-width: 992px) {
-  /* Reveal Animations */
-  .image,
-  .image2 {
-    opacity: 0;
-  }
-  .reveal-image,
-  .reveal-image:after {
-    position: absolute;
-    animation-delay: 0s;
-    animation-iteration-count: 1;
-    animation-duration: 1600ms;
-    animation-fill-mode: both;
-    animation-timing-function: ease-in-out;
-  }
-  .reveal-image2,
-  .reveal-image2:after {
-    position: absolute;
-    animation-delay: 0.1s;
-    animation-iteration-count: 1;
-    animation-duration: 1800ms;
-    animation-fill-mode: both;
-    animation-timing-function: ease-in-out;
-  }
-  .reveal-image {
-    opacity: 1;
-    position: relative;
-    animation-name: reveal-image;
-  }
-  .reveal-image2 {
-    opacity: 1;
-    position: relative;
-    animation-name: reveal-image2;
-  }
-  .reveal-image3 {
-    opacity: 1;
-    position: relative;
-    animation-name: fadeInline1;
-    animation-delay: 0.1s;
-    animation-iteration-count: 1;
-    animation-duration: 1800ms;
-    animation-fill-mode: both;
-    animation-timing-function: ease-in-out;
-    transform-origin: top;
-  }
-  @keyframes reveal-image {
-    from {
-      clip-path: inset(0 100% 0 0);
+    /* Reveal Animations */
+    .image,
+    .image2 {
+        opacity: 0;
     }
-    to {
-      clip-path: inset(0 0 0 0);
+    .reveal-image,
+    .reveal-image:after {
+        position: absolute;
+        animation-delay: 0s;
+        animation-iteration-count: 1;
+        animation-duration: 1600ms;
+        animation-fill-mode: both;
+        animation-timing-function: ease-in-out;
     }
-  }
-  @keyframes reveal-image2 {
-    from {
-      clip-path: inset(0 0% 100% 0);
+    .reveal-image2,
+    .reveal-image2:after {
+        position: absolute;
+        animation-delay: 0.1s;
+        animation-iteration-count: 1;
+        animation-duration: 1800ms;
+        animation-fill-mode: both;
+        animation-timing-function: ease-in-out;
     }
-    to {
-      clip-path: inset(0 0 0 0);
+    .reveal-image {
+        opacity: 1;
+        position: relative;
+        animation-name: reveal-image;
     }
-  }
+    .reveal-image2 {
+        opacity: 1;
+        position: relative;
+        animation-name: reveal-image2;
+    }
+    .reveal-image3 {
+        opacity: 1;
+        position: relative;
+        animation-name: fadeInline1;
+        animation-delay: 0.1s;
+        animation-iteration-count: 1;
+        animation-duration: 1800ms;
+        animation-fill-mode: both;
+        animation-timing-function: ease-in-out;
+        transform-origin: top;
+    }
+    @keyframes reveal-image {
+        from {
+            clip-path: inset(0 100% 0 0);
+        }
+        to {
+            clip-path: inset(0 0 0 0);
+        }
+    }
+    @keyframes reveal-image2 {
+        from {
+            clip-path: inset(0 0% 100% 0);
+        }
+        to {
+            clip-path: inset(0 0 0 0);
+        }
+    }
 }
 
-@media (max-width: 992px) {
-  :root {
-    --font-91: 6.5rem/1.3 "avenir_regularregular";
-    --font-90: 6.5rem/1.3 "avenir_regularregular";
-    --font-70: 3.5rem/1.3 "avenir_regularregular";
-    --font-60: 4rem/1.3 "avenir_regularregular";
-    --font-50: 2.5rem/1.3 "avenir_regularregular";
-    --font-46: 2.4rem/1.3 "avenir_regularregular";
-    --font-45: 2.4rem/1.3 "avenir_regularregular";
-    --font-42: 2.4rem/1.3 "avenir_regularregular";
-    --font-36: 2rem/1.3 "avenir_regularregular";
-    --font-34: 2.6rem/1.3 "avenir_regularregular";
-    --font-32: 300 2.6rem/1.3 "avenir_regularregular";
-    --font-30: 300 2.4rem/1.3 "avenir_regularregular";
-    --font-28: 2rem/1.3 "avenir_regularregular";
-    --font-26: 2.6rem/1.3 "avenir_regularregular";
-    --font-24: 300 1.8rem/1.3 "avenir_regularregular";
-    --font-21: 1.5rem/1.3 "avenir_regularregular";
-    --font-18: 300 1.6rem/1.3 "avenir_regularregular";
-    --font-16: 300 1.5rem/1.3 "avenir_regularregular";
-    --font-14: 1.4rem/1.3 "avenir_regularregular";
-    --font-12: 1.2rem/1.3 "avenir_regularregular";
-  }
 
-  html {
-    font-size: 62.5%;
-  }
-  p {
-    font: var(--font-14) !important;
-    line-height: 1.4 !important;
-  }
+@media (max-width:992px) {
+    :root {
+
+        --font-91: 6.5rem/1.3 'avenir_regularregular';
+        --font-90: 6.5rem/1.3 'avenir_regularregular';
+        --font-70: 3.5rem/1.3 'avenir_regularregular';
+        --font-60: 4rem/1.3 'avenir_regularregular';
+        --font-50: 2.5rem/1.3 'avenir_regularregular';
+        --font-46: 2.4rem/1.3 'avenir_regularregular';
+        --font-45: 2.4rem/1.3 'avenir_regularregular';
+        --font-42: 2.4rem/1.3 'avenir_regularregular';
+        --font-36: 2rem/1.3 'avenir_regularregular';
+        --font-34: 2.6rem/1.3 'avenir_regularregular';
+        --font-32: 300 2.6rem/1.3 'avenir_regularregular';
+        --font-30: 300 2.4rem/1.3 'avenir_regularregular';
+        --font-28: 2rem/1.3 'avenir_regularregular';
+        --font-26: 2.2rem/1.3 'avenir_regularregular';
+        --font-24: 300 1.8rem/1.3 'avenir_regularregular';
+        --font-21: 1.5rem/1.3 'avenir_regularregular';
+        --font-18: 300 1.6rem/1.3 'avenir_regularregular';
+        --font-16: 300 1.5rem/1.3 'avenir_regularregular';
+        --font-14: 1.4rem/1.3 'avenir_regularregular';
+        --font-12: 1.2rem/1.3 'avenir_regularregular';
+    }
+
+    html {
+        font-size: 62.5%;
+    }
+    p{font:var(--font-14)!important; line-height:1.4!important;}
+
 }
 
 /* ===========DONT WRITE ANY CSS HERE================ */

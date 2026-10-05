@@ -11,6 +11,7 @@ interface MegaMenuProps {
   infoData: any;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
+  onClose: () => void;
 }
 
 export default function MegaMenu({
@@ -20,6 +21,7 @@ export default function MegaMenu({
   infoData,
   onMouseEnter,
   onMouseLeave,
+  onClose 
 }: MegaMenuProps) {
 
   const getValue = (key: string) => {
@@ -39,27 +41,27 @@ export default function MegaMenu({
   return (
     <div
       className={`mega-menu ${show ? "show" : ""}`}
-      style={{ top: topOffset }}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      // style={{ top: topOffset }}
+      onMouseEnter={show ? onMouseEnter : undefined}
+  onMouseLeave={show ? onMouseLeave : undefined}
     >
       <div className="menu-container">
           <div className="mega-wrapper">
             <div className="mega-left">
               <div>
                 {getValue('title') && (
-                  <h2 dangerouslySetInnerHTML={{__html:getValue('title')?.value}} />
+                  <blockquote dangerouslySetInnerHTML={{__html:getValue('title')?.value}} />
                 )}
                 
                 <Link href="#" className="mega-btn">
-                  <Image src={`/assets/icons/right-arrow-white.svg`} width={16} height={16} alt="arrow right" />
+                  <Image src={`/assets/icons/right-arrow-white.svg`} width={10} height={10} alt="arrow right" />
                 </Link>
               </div>
               <div className="mega-count">
-                <span className="before"></span>
-                <span className="after"></span>
+                {/* <span className="before"></span>
+                <span className="after"></span> */}
                 {getValue('count') && (
-                  <h3 className="total" dangerouslySetInnerHTML={{__html:getValue('count')?.value}} />
+                  <b className="total" dangerouslySetInnerHTML={{__html:getValue('count')?.value}} />
                 )}
                 {getValue('para') && (
                   <p className="para">{getValue('para')?.value}</p>
@@ -72,7 +74,7 @@ export default function MegaMenu({
                   href={`/category/${category.slug}`}
                   key={idx}
                   className="industry-card"
-                  onClick={onMouseLeave}
+                  onClick={onClose}
                 >
                   {category.image && (
                     <Image
