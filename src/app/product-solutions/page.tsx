@@ -49,8 +49,8 @@ export default async function ProductListingPage({ searchParams }: { searchParam
     return (
         <section className="products_systems_detail">
             <div className="container">
-                <div className="row">
-                    <div className="col-lg-2"></div>
+                <div className="products_systems_detail_grd">
+                    
                     {data?.category && (
                         <div className="col-lg-10">
                             <h3>{data?.category?.name}</h3>
@@ -58,21 +58,18 @@ export default async function ProductListingPage({ searchParams }: { searchParam
                     )}
                     
 
-
-                    <div className="col-lg-2">
-                        <div className="prodcut-nav">
-                            <ul>
-                                {productCategories?.map((item, idx) => (
-                                    <li key={idx} className={activeType === item.slug ? 'active' : ''}>
-                                        <Link href={`${slug}?type=${item.slug}`}>{item.name}</Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
+                    <div className="prodcut-nav">
+                        <ul>
+                            {productCategories?.map((item, idx) => (
+                                <li key={idx} className={activeType === item.slug ? 'active' : ''}>
+                                    <Link href={`${slug}?type=${item.slug}`}>{item.name}</Link>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
 
 
-                    <div className="col-lg-10 mx-auto">
+                    <div className="pro_tab">
                         {productsData.length > 0 ? (
                             <>
                                 <div className="product_grid">
