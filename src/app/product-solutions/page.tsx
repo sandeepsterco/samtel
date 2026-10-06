@@ -1,9 +1,5 @@
-import PaginationWrapper from "@/components/common/pagination/PaginationWrapper";
-import NoData from "@/components/ui/NoData";
+import ProductSolutionsClient from "@/components/product-solutions/ProductSolutionsClient";
 import { apiFetch } from "@/lib/api"
-import { getSlug } from "@/lib/getSlug";
-import Image from "next/image";
-import Link from "next/link";
 
 interface ProductDataInterface {
     name: string;
@@ -11,6 +7,11 @@ interface ProductDataInterface {
     ['product-category']: string;
     slug: string;
     id: string;
+    description?: string;
+    details?: string;
+    content?: string;
+    product_details?: string;
+    product_details_html?: string;
 }
 
 interface ProductsDataInterface {
@@ -32,76 +33,27 @@ interface CategoryInterface {
 
 export default async function ProductListingPage({ searchParams }: { searchParams: Promise<{ page?: string; type?:string }> }) {
     const { page, type } = await searchParams;
-    const slug = await getSlug();
     const currentPage = Number(page) || 1;
 
-    const { data: ProductCategoriesData, error: ProductError } = await apiFetch(`product-categories`);
+    const { data: ProductCategoriesData } = await apiFetch(`product-categories`);
     const productCategories = (ProductCategoriesData as CategoryInterface)?.data ?? [];
 
-    const activeType = type || productCategories[0]?.slug;
+    const activeType = productCategories.some((category) => category.slug === type)
+        ? type
+        : productCategories[0]?.slug;
 
-    const [{ data, error }] = await Promise.all([apiFetch(`product/${activeType}?page=${currentPage}`)])
+    const { data } = activeType
+        ? await apiFetch(`product/${encodeURIComponent(activeType)}?page=${currentPage}`)
+        : { data: null };
 
     const apiData = (data as ProductsDataInterface)?.products;
-
     const productsData = apiData?.data ?? [];
 
-    return (
-        <section className="products_systems_detail">
-            <div className="container">
-                <div className="products_systems_detail_grd">
-                    
-                    {data?.category && (
-                        <div className="col-lg-10">
-                            <h3>{data?.category?.name}</h3>
-                        </div>
-                    )}
-                    
-
-                    <div className="prodcut-nav">
-                        <ul>
-                            {productCategories?.map((item, idx) => (
-                                <li key={idx} className={activeType === item.slug ? 'active' : ''}>
-                                    <Link href={`${slug}?type=${item.slug}`}>{item.name}</Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-
-                    <div className="pro_tab">
-                        {productsData.length > 0 ? (
-                            <>
-                                <div className="product_grid">
-                                    {productsData.map((item) => (
-                                        <div key={item.id} className="product_item">
-                                            <figure>
-                                                <Image src={item.image ?? "/assets/images/placeholders/product.webp"} className="img-fluid" width={275} height={265} alt={item.name} loading="lazy" />
-                                            </figure>
-                                            {item?.name && (
-                                                <p>{item.name}</p>
-                                            )}
-                                        </div>
-                                    ))}
-
-                                </div>
-
-                                {productsData?.length > 0 && (
-                                    <PaginationWrapper
-                                        currentPage={apiData?.current_page || 1}
-                                        totalPages={apiData?.last_page || 1}
-                                    />
-                                )}
-                            </>
-                        ) : <NoData />}
-                        
-
-                    </div>
-                </div>
-            </div>
-
-
-
-        </section>
-    )
+    return <ProductSolutionsClient
+        categories={productCategories}
+        activeCategory={productCategories.find((category) => category.slug === activeType)}
+        products={productsData}
+        currentPage={apiData?.current_page || 1}
+        totalPages={apiData?.last_page || 1}
+    />;
 }
