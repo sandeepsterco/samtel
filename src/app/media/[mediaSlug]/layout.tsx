@@ -6,7 +6,7 @@ import '@/styles/inner.css'
 
 export default async function MediaDetailLayout({ children, params }: { children: React.ReactNode, params:Promise<{mediaSlug:string}> }) {
     const {mediaSlug} = await params;
-    const {data, error} = await apiFetch(`modular/${mediaSlug}`);
+    const {data, error} = await apiFetch(`cms/${mediaSlug}`);
 
     if(error || !data.status){
         notFound()
