@@ -1902,7 +1902,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .product_modal_grid .product_image{
    width: 85rem;
     height: 85rem;
-    background-image: url(/assets/images/product/product_bg.webp);
+    background-image: url(/assets/images/product_bg.webp);
     background-size: cover;
     background-position: center;
     position: sticky;
@@ -2348,7 +2348,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
     .tab_content_wrapper.active { display: block }
     
     /* Accordion Header Style */
-    .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: #f8f9fa; margin-top: 8px; cursor: pointer; border: 1px solid #e2e8f0; border-radius: 4px; transition: all 0.3s ease; }
+    .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 1.8rem; background: #f8f9fa; margin-top: 0.8rem; cursor: pointer; border: 1px solid #e2e8f0; border-radius: 0.4rem; transition: all 0.3s ease;width: 100%; }
     .acc-title{font: var(--font-21);}
     .accordion-header.active { background: var(--color-c8); color: #ffffff; }
     .products_systems_detail h3{margin-top: 2.3rem;}
