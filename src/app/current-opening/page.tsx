@@ -1,5 +1,4 @@
 import KekaJobs from "@/components/career/KekaJobs";
-import { Suspense } from "react";
 
 export const metadata = {
   title: "Current Opening",
@@ -13,9 +12,7 @@ export default function CurrentOpeningPage() {
       <section className="apply_sec">
         <div className="container">
           <div className="col-lg-10 mx-auto">
-            <Suspense fallback={<div>Loading...</div>}>
-              <KekaJobs />
-            </Suspense>
+            <KekaJobs />
           </div>
         </div>
       </section>
