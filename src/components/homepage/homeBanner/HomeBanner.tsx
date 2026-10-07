@@ -14,6 +14,8 @@ interface HomeBannerProps {
         video?: string,
         iframeurl?: string,
         poster?: string,
+        mobiletitle?: string;
+        mobilesubtitle?:string;
     }
 }
 
@@ -565,12 +567,12 @@ export default function HomeBanner({ data }: HomeBannerProps) {
                     </div>
 
                     <div className="banner_title for_mobile">
-                        {data?.titles?.length > 0 && data?.titles.map((item:{paragraph:string}, idx:number)=>(
-                            <p key={idx} dangerouslySetInnerHTML={{__html:item?.paragraph}} />
-                        ))}
+                        {data?.mobiletitle && 
+                            <p dangerouslySetInnerHTML={{__html:data?.mobiletitle}} />
+                        }
                     
-                        {data?.description && (
-                            <em dangerouslySetInnerHTML={{__html:data?.description}} />
+                        {data?.mobilesubtitle && (
+                            <p dangerouslySetInnerHTML={{__html:data?.mobilesubtitle}} />
                         )}
                     </div>
                     {isYouTube ? (

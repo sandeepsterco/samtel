@@ -1,6 +1,5 @@
 import Happenings from "@/components/homepage/happenings/Happenings";
 import HomeBanner from "@/components/homepage/homeBanner/HomeBanner";
-import LazySections from "@/components/homepage/LazySections";
 import People from "@/components/homepage/people/People";
 import Sustainability from "@/components/homepage/sustainability/Sustainability";
 import Technology from "@/components/homepage/technology/Technology";

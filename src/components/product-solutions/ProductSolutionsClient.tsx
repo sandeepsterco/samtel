@@ -9,9 +9,16 @@ import { usePathname, useRouter } from "next/navigation";
 import sanitizeHtml from "sanitize-html";
 import { KeyboardEvent as ReactKeyboardEvent, useEffect, useState } from "react";
 
+interface MappingItemInterface{
+    title?:string;
+    description?:string;
+}
+
 interface ProductCategory {
     name: string;
     slug: string;
+    subtitle?:string;
+    description?:string;
 }
 
 interface Product {
@@ -23,6 +30,9 @@ interface Product {
     content?: string;
     product_details?: string;
     product_details_html?: string;
+    mapping_items?:{
+        lists?:MappingItemInterface[]
+    }
 }
 
 interface ProductSolutionsClientProps {
@@ -103,7 +113,8 @@ export default function ProductSolutionsClient({
     };
 
     return (
-        <section className="products_systems_detail">
+       <>
+         <section className="products_systems_detail">
             <div className="container">
                 <div className="products_systems_detail_grd">
                     <nav className="prodcut-nav" aria-label="Product categories">
@@ -140,7 +151,19 @@ export default function ProductSolutionsClient({
 
                                     {isActive && (
                                         <div className={`tab_content_wrapper${accordionExpanded ? " active" : ""}`}>
-                                            <h3>{category.name}</h3>
+                                            <h3 className="fade-up" data-delay="0.3" data-duration="1">{category.name}</h3>
+                                            
+                                            <div className="prodcut_text">
+                                                {category.subtitle && (
+                                                    <blockquote className="fade-up" data-delay="0.3" data-duration="1">{category.subtitle}</blockquote>
+                                                )}
+
+                                                {category.description && (
+                                                    <p className="fade-up" data-delay="0.3" data-duration="1">{category.description}</p>
+                                                )}
+                                                
+                                                
+                                            </div>
                                             {products.length > 0 ? (
                                                 <>
                                                     <div className="product_grid">
@@ -183,7 +206,9 @@ export default function ProductSolutionsClient({
                 </div>
             </div>
 
-            {selectedProduct && (
+            
+        </section>
+        {selectedProduct && (
                 <div className={`product_modal${modalOpen ? " active" : ""}`} aria-hidden={!modalOpen}>
                     <div className="product_modal_overlay" onClick={() => setModalOpen(false)} />
                     <div className="product_modal_content" role="dialog" aria-modal="true" aria-labelledby="product-modal-title">
@@ -225,9 +250,15 @@ export default function ProductSolutionsClient({
                                     <div className="product_content">
                                         <h1 className="font45" id="product-modal-title">{selectedProduct.name}</h1>
                                         <div id="modalDynamicBody">
-                                            {getProductDetails(selectedProduct)
-                                                ? parse(sanitizeHtml(getProductDetails(selectedProduct)))
-                                                : <p>No additional details available.</p>}
+                                            {selectedProduct?.description && (
+                                                <p>{selectedProduct.description}</p>
+                                            )}
+                                            {Array.isArray(selectedProduct?.mapping_items?.lists) && selectedProduct?.mapping_items?.lists.length > 0 && selectedProduct?.mapping_items?.lists.map((item, index) => (
+                                                <div key={index}>
+                                                    <h3 dangerouslySetInnerHTML={{__html:item.title || ''}} />
+                                                    <div dangerouslySetInnerHTML={{__html:item.description || ''}} />
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
@@ -245,6 +276,6 @@ export default function ProductSolutionsClient({
                     </div>
                 </div>
             )}
-        </section>
+       </>
     );
 }

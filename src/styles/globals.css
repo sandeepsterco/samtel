@@ -216,6 +216,11 @@ ul.list li::marker{color: var(--color-f8); }
 
 }
 
+@media (max-width: 1599px) {
+    .font_title>blockquote {
+        font: var(--font-42);
+    }
+}
 
 @media (max-width:1199px) {
 html { font-size: 45.5%; }
