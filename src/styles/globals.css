@@ -88,6 +88,7 @@
     --color-d466:#d1d2d466;
     --color57:#57585A;
     --color-c8:#C83030;
+    --color-c83:#c83030c7;
     --color-d4:#D40505;
     --color-b8:#B82727;
     --color-f5:#F5F5F5;
@@ -132,7 +133,6 @@
     --font-regular: 'avenir_regularregular';
     --font-funnel: "Funnel Sans", sans-serif;
 }
-
 
 
  body{background:var(--color-ef);background-size:cover;padding:0;margin:0; color: var(--color-23); font: var(--font-18);}
@@ -322,6 +322,9 @@ html { font-size: 45.5%; }
     }
     p{font:var(--font-14)!important; line-height:1.4!important;}
 
+    .custom_list li{margin-bottom: 1.5rem;}
+
 }
+
 
 /* ===========DONT WRITE ANY CSS HERE================ */
