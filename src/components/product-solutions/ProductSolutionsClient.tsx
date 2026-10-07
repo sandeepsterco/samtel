@@ -251,7 +251,7 @@ export default function ProductSolutionsClient({
                                         <h1 className="font45" id="product-modal-title">{selectedProduct.name}</h1>
                                         <div id="modalDynamicBody">
                                             {selectedProduct?.description && (
-                                                <p>{selectedProduct.description}</p>
+                                                <p dangerouslySetInnerHTML={{__html:selectedProduct.description}} />
                                             )}
                                             {Array.isArray(selectedProduct?.mapping_items?.lists) && selectedProduct?.mapping_items?.lists.length > 0 && selectedProduct?.mapping_items?.lists.map((item, index) => (
                                                 <div key={index}>
