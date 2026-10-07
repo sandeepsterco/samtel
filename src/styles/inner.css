@@ -789,7 +789,7 @@
 .news-des p { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 0; }
 .news-des .date { margin-bottom: 2rem; padding-right: 4.5rem; }
 
-.filter_group select { appearance: none; -webkit-appearance: none; -moz-appearance: none; background: url("../images/select_arrow.svg") no-repeat right 0 center; background-size: 1rem;     padding: 0 1rem; width: 11rem; }
+.filter_group select { appearance: none; -webkit-appearance: none; -moz-appearance: none; background: url("/assets/images/select_arrow.svg") no-repeat right 0 center; background-size: 1rem;     padding: 0 1rem; width: 11rem; }
 .company-sec1.newsroom-detail-panel h2 { font:var(--font-46); letter-spacing: -0.46px; font-weight:300; }
 .company-sec1.newsroom-detail-panel .date { color:var(--color-c8); font:var(--font18); margin-bottom:3rem; font-weight:normal; }
 .news_panel_text { display: grid; grid-template-columns: 60% 35%; gap: 6rem; padding-top:8rem; }
@@ -1902,7 +1902,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .product_modal_grid .product_image{
    width: 85rem;
     height: 85rem;
-    background-image: url(../images/product/product_bg.webp);
+    background-image: url(/assets/images/product/product_bg.webp);
     background-size: cover;
     background-position: center;
     position: sticky;
