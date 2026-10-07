@@ -4,10 +4,12 @@ import { useEffect } from "react";
 import { adfSwiperModule } from "@/lib/cms/adfSwiper";
 import { heroSliderModule } from "@/lib/cms/heroSlider";
 import type { SliderModule } from "@/lib/cms/types";
+import { careerSliderModule } from "@/lib/cms/careerSlider";
 
 const SLIDER_MODULES: SliderModule[] = [
   adfSwiperModule,
   heroSliderModule,
+  careerSliderModule,
 ];
 
 export default function CmsEnhancer({ containerId }: { containerId: string }) {
