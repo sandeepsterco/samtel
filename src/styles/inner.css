@@ -1993,11 +1993,7 @@ br.desktop-break { display: none; }
 .product_modal_grid .product_image{
    width: 85rem;
     height: 85rem;
-<<<<<<< HEAD
-    background-image: url(/images/product/product_bg.webp);
-=======
     background-image: url(/assets/images/product_bg.webp);
->>>>>>> d400ec0937212098b62696445ccca512866d76af
     background-size: cover;
     background-position: center;
     position: sticky;
