@@ -114,7 +114,6 @@
 .right_grid1 { width: 75rem; }
 .ad_def2 .right_grid2 blockquote { padding-inline: 0 4rem; }
 .adf_grid { grid-template-columns: 45% 39%; gap: 6rem; margin-block: 6rem 0; padding-bottom: 3rem; }
-.ad_def2:after { height: 44rem; top: -15rem; }
 .vision_img figure { width: 86rem; }
 .vision_box { padding-block: 5rem 10.6rem; padding-inline: 5rem 9.5rem; }
 }
@@ -135,7 +134,6 @@
 .vision_img figure { width: 78rem; }
 .values { padding-block: 10.8rem 12rem; }
 .adf_grid{gap: 5rem;}
-.ad_def2:after{top: -5rem;height: 33rem;}
 .right_grid1 {width: 100%;}
 .inner-section { margin-top: 17.8rem; }
 
@@ -149,9 +147,8 @@
 .ad_def {   padding-block: 6rem 0;}
 .adf_grid{grid-template-columns: 100%;margin-block: 2.5rem;gap: 1rem;}
 .adf_grid2{grid-template-columns: 100%;gap: 4.7rem;}
-.ad_def2:after { height: 25rem; bottom: 17rem; top: auto; }
 .right_ad_content p { font: var(--font-18); color: var(--color-23); padding-bottom: 2.5rem; }
-.ad_def2 .right_grid2 blockquote { padding-inline: 0; padding-block: 0 5rem; }
+.ad_def2 .right_grid2 blockquote { padding-inline: 0; padding-block: 0 3rem; }
 .ad_def2 .right_grid2 blockquote { margin-block: 0; }
 .vision_box blockquote { margin-top: 2.5rem; }
 .right_grid2{padding-top: 0;}
@@ -170,14 +167,21 @@
 .values {padding-block:6rem;}
 .vision_img {    padding-block: 0 5rem;    }
 .adf_grid{padding-bottom: 0;}
+.right_grid2 p, .right_grid2 blockquote {
+    color: var(--color-23);
+}
+
 }
 
 @media (max-width:767px) {
-.ad_def2:after { height: 23rem; bottom: 21rem; }
+.vaue_item h6 { margin-top: 0; }
+.vaue_item { margin-bottom: 2rem; }
+
+
 }
 @media (max-width:575px) {
 .adf_grid2{gap: 0;}
-.ad_def2:after { height: 25rem; bottom: 23rem; }
+
 .vision_box blockquote, .mision_box blockquote { margin-top: 2rem; }
 .right_grid2 blockquote {font-weight: 300;margin-block: 2.9rem 7rem;}
 .right_grid2 {padding-top: 5rem;}
@@ -187,17 +191,18 @@
 .vaue_item p{padding-block: 3rem;}
 .experties_boxes{grid-template-columns: 1fr;}
 .company-right-bx{padding-right: 0;}
+
+
  
 }
 @media (max-width:480px) {
 .inner-section { padding-block: 4.2rem 3rem; }
 .inner-text h1 { margin-bottom: 2rem; }
 .company-sec1 { padding-block: 4rem; }
-.ad_def2:after { bottom: 29rem; }
 .vision_box, .mision_box { padding-inline: 2.5rem; padding-block: 3rem; }
 .vision_img { padding-block: 2.5rem; }
 .values { padding-block: 5rem 3rem; }
-.vaue_item p { padding-block: 2rem 3rem; }
+.vaue_item p { padding-block: 2rem; }
 }
 
 /* ---------end-company-overview---------- */
@@ -492,7 +497,7 @@
 /* Sustainability & CSR css Start */
 .sus_csr_oversec { padding-block: 10rem 0; }
 .ss_csr_grid { display: grid; grid-template-columns: 750fr 850fr; gap: 12.5rem; }
-.ss_csr_grid .ss_csr_lft { padding-left: 25rem; }
+.ss_csr_grid .ss_csr_lft { margin-left: auto; max-width: 23vw; }
 .ss_csr_lft>h2 { margin-bottom: 4rem; }
 .ss_csr_ovrbtm { padding-block: 10rem 7rem; }
 .csr_mod_pubsch { padding-block: 15rem 13rem; }
@@ -514,29 +519,32 @@
 .stu_lern_num sup { font: var(--font-45); letter-spacing: -1.76px; font-weight: 300; }
 .stu_rgtsec>p { font: var(--font-24); font-weight: normal; margin-bottom: 0; }
 .stu_learing_main { padding-bottom: 15rem; }
+@media (min-width:1921px) {
+  .ss_csr_grid .ss_csr_lft { max-width: 51rem; }  
+
+}
 
 @media (max-width:1920px) {
 .ss_csr_grid { gap: 11.5rem; }
-.ss_csr_grid .ss_csr_lft { padding-left: 37.5rem; }
+
 
 }
 @media (max-width:1699px) {
-.ss_csr_grid .ss_csr_lft { padding-left: 38.5rem; }
 .csr_modbx.csrmod_grid2 .csr_mod_lft .csr_mod_content { margin-right: 14.5rem; }
 }
 @media (max-width:1599px) {
-.ss_csr_grid .ss_csr_lft { padding-left: 36.5rem; }
+
 .csr_modbx.csrmod_grid2 .csr_mod_lft .csr_mod_content { margin-right: 10.5rem; }
 
 }
 @media (max-width:1499px) {
-.ss_csr_grid .ss_csr_lft { padding-left: 34.2rem; }
+
 .csr_modbx.csrmod_grid2 .csr_mod_lft .csr_mod_content { max-width: 45.8rem; margin-right: 9.5rem; }
 
 }
 @media (max-width:1399px) {
 .stu_rgtsec { height: auto; text-align: center; grid-template-columns: 1fr; }
-.ss_csr_grid .ss_csr_lft { padding-left: 32rem; }
+
 .ss_csr_grid { gap: 9.5rem; }
 .csr_modbx.csrmod_grid2 .csr_mod_lft .csr_mod_content { max-width: 38.8rem; margin-right: 13.5rem; }
 .csr_modbx.csrmod_grid1 .csr_mod_rgt .csr_mod_content { max-width: 40rem; }
@@ -545,7 +553,7 @@
 
 }
 @media (max-width:1280px) {
-.ss_csr_grid .ss_csr_lft { padding-left: 30rem; }
+
 .csr_modbx.csrmod_grid2 .csr_mod_lft .csr_mod_content { max-width: 44.8rem; margin-right: 10.5rem; }
 .sus_csr_oversec { padding-block: 8rem 0; }
 .ss_csr_grid { gap: 7.5rem; }
@@ -560,19 +568,23 @@
 @media (max-width:1199px) {
 .csr_mod_pubsch { padding-block: 12rem 13.3rem; }
 .stu_learing_main { padding-bottom: 12rem; }
-.ss_csr_grid .ss_csr_lft { padding-left: 13rem; }
+.ss_csr_grid .ss_csr_lft {
+    max-width: 83%;
+}
 .csr_modbx.csrmod_grid2 .csr_mod_lft .csr_mod_content { max-width: 50.8rem; margin-right: 13.5rem; }
 .csr_modbx.csrmod_grid1 .csr_mod_rgt .csr_mod_content { max-width: 50rem; }
 
 }
 @media (max-width:1099px) {
-.ss_csr_grid .ss_csr_lft { padding-left: 11rem; }
+
 .csr_modbx.csrmod_grid2 .csr_mod_lft .csr_mod_content { max-width: 45.8rem; margin-right: 10.5rem; }
 
 }
 @media (max-width:991px) {
 .ss_csr_grid { grid-template-columns: 1fr; }
-.ss_csr_grid .ss_csr_lft { padding-left: 0; }
+.ss_csr_grid .ss_csr_lft {
+    max-width: 100%;
+}
 .ss_csr_grid { gap: 1.5rem; }
 .sus_csr_oversec { padding-block: 5rem 0; }
 .ss_csr_ovrbtm { padding-block: 3rem 4rem; }
@@ -771,8 +783,10 @@
 
 
 /*newsroom css start here*/
-.newsroom_full { display: grid; padding-top: 4rem; }
+.newsroom_full { display: grid; padding-top: 4rem; height: 100%; overflow: hidden;}
 .newsroom_full>* { grid-area: 1/1; }
+.newsroom_full figure { height: 100%; }
+.newsroom_full figure img{ height: 100%;object-fit: cover; }
 .newsroom_full_content { background: #152d65e8; width: 47rem; color:#fff; padding-inline: 12rem 7rem; padding-block: 12rem; }
 .date { font: var(--font-12); }
 .newsroom_full_content blockquote { padding-block: 1.9rem; font: var(--font-32); font-weight: 300; }
@@ -789,7 +803,7 @@
 .news-des p { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 0; }
 .news-des .date { margin-bottom: 2rem; padding-right: 4.5rem; }
 
-.filter_group select { appearance: none; -webkit-appearance: none; -moz-appearance: none; background: url("/assets/images/select_arrow.svg") no-repeat right 0 center; background-size: 1rem;     padding: 0 1rem; width: 11rem; }
+.filter_group select { appearance: none; -webkit-appearance: none; -moz-appearance: none; background: url("/assets/icons/select_arrow.svg") no-repeat right 0 center; background-size: 1rem;     padding: 0 1rem; width: 11rem; }
 .company-sec1.newsroom-detail-panel h2 { font:var(--font-46); letter-spacing: -0.46px; font-weight:300; }
 .company-sec1.newsroom-detail-panel .date { color:var(--color-c8); font:var(--font18); margin-bottom:3rem; font-weight:normal; }
 .news_panel_text { display: grid; grid-template-columns: 60% 35%; gap: 6rem; padding-top:8rem; }
@@ -928,7 +942,7 @@
 
 /* media */
 .media_sec1{ padding-block: 6rem 12rem; }
-.media_grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 6.6rem 3.8rem; position: relative; margin-top: 5rem; }
+.media_grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 6.6rem 3.8rem; position: relative;  }
 .media_lst { position: relative; }
 .media_logo { background: var(--color-f9); text-align: center; border-radius: 2rem; padding: 8rem; margin-bottom: 2.5rem; overflow: hidden; }
 .media_logo img { transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
@@ -940,17 +954,18 @@
 .media_sec2 .press_grid { margin-top: 5rem; }
 .media_sec2 .press_bx{ background-color: var(--color-f9); }
 .media_sec3{ padding-block: 10rem; }
-.pres_list{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin-top: 5rem; }
+.pres_list{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem;}
 .media_bx { position: relative; }
+.media_bx figure img{width: 100%;}
 .zoombtn { position: absolute; content: ""; opacity: 0; left: 50%; top: 50%; transform: translate(-50%, -50%); -webkit-transform: translate(-50%, -50%); -moz-transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); -o-transform: translate(-50%, -50%); transition: all 0.5s ease; -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; }
 .media_bx:has(a:hover) .zoombtn { opacity: 1; }
 .media_sec4{ background-color: var(--color-white); padding-block: 10rem; }
 .video_grid .zoombtn img { width: 7rem; filter: brightness(0) invert(1); }
 .med_txt blockquote { margin-top: 2rem; margin-bottom: 0; }
-.video_grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin-top: 5rem; }
+.video_grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
 .video_grid .media_bx p{ margin-top: 3rem; }
 .video_grid .media_bx .zoombtn { top: 40%; }
-.cus-media { display: flex; align-items: center; justify-content: space-between; }
+.cus-media { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6rem; }
 h4.kh-job-title { font: var(--font-21); color: var(--color-23) }
 ul#kh-hiro-departments, ul#kh-hiro-locations { margin: 1rem !important; }
 li.kh-form-check label { padding-inline: 2rem 0 !important; }
@@ -1158,6 +1173,10 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .form-card1 .submit-btn{ background-color: var(--color-c8); color: var(--color-white); width: auto; font: var(--font-18); }
 .form-card1 .submit-btn img{ filter: brightness(0) invert(1); }
 
+.inclusion .work_ttl{
+    width: 50rem;
+    margin-left: auto;
+}
 
 @media (max-width:1920px) {
 .manufacturing_txt>p { width: 50rem; }
@@ -1269,7 +1288,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .production-bx1-whit:before { width: 34rem; }
 .airborne_systems_detail { padding-block: 8rem 11.2rem; }
 .comprehensive_txt { padding-left: 0; }
-.comprehensive_grid { grid-template-columns: 1fr; gap: 8rem; margin-top: 6rem; }
+.comprehensive_grid { grid-template-columns: 1fr; gap: 1rem; margin-top: 6rem; }
 .comprehensive_txt>p { width: auto; }
 .comprehensive_txt .naval_system_box { width: auto; grid-template-columns: 11% auto; }
 .testing_sec3 { padding-block: 10rem 6rem; }
@@ -1310,10 +1329,13 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .environment_txt.fade-up { width: 100%; }
 .environment_left { order: 2; }
 .print_bx { min-height: 18rem; }
-.approach_grid { column-gap: 6.5rem; }
+.approach_grid { column-gap: 6.5rem; grid-template-columns: 1fr; gap: 4rem; }
 .design_txt blockquote { padding-inline: 0; }
-
-
+.cus_icon .swiper-slide { width: 100% !important; }
+.standards-container { gap: 4.5rem; }
+.standards-content h4 { margin-bottom: 2rem; }
+.facility-slide-content { padding-inline: 0 10rem; }
+.modal-footer { flex-direction: column; }
 }
 
 @media (max-width:850px) {
@@ -1354,13 +1376,14 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .airborne_systems_detail { padding-block: 6rem 6.2rem; }
 .comprehensive_txt .naval_system_box { width: auto; grid-template-columns: 100%; }
 .testing_sec3 { padding-block: 7rem 3rem; }
-.testing-heading { margin-bottom: 7rem; }
+.testing-heading { margin-bottom: 3rem; }
 .standards-content { padding-inline: 0 0rem; }
 .testing-item h3 br{display: none;}
 .infrastructure_txt blockquote{padding-inline: 0;}
 .facilities_grid { grid-template-columns: repeat(1, 1fr); }
 .infrastructure_sec1 { padding-block: 6rem 7rem; }
 .design_sec1 .naval_system_box { grid-template-columns: 100%; margin-top: 4.5rem; }
+.naval_system_box{text-align: center;}
 .design_sec2::before { height: 12rem; }
 .design_sec4 { padding-block: 5rem 6rem; }
 .design_sec5 { padding-block: 5rem 2rem; }
@@ -1381,17 +1404,29 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .facility-meta { gap: 1rem; flex-direction: column; }
 .facility-slide p { margin-bottom: 1.5rem; }
 .facility-meta svg { width: 2rem; height: 2rem; }
-.comprehensive_grid { gap: 5rem; }
+.comprehensive_grid { gap: 1rem; }
 .testing-item { min-height:inherit; margin:0; padding-block:4rem; }
 .design_sec1 { padding-block: 5rem 6rem; }
 .design_sec3 { padding-block: 5rem 2rem; }
 .integration-list { grid-template-columns: repeat(2, 1fr); }
 .manufacturing_sec1 { padding-block: 5rem 8rem; }
 .programs_txt h3, .programs_txt blockquote { margin-bottom: 2rem; }
+.media_sec1 { padding-block: 6rem 8rem; }
+.media_grid { grid-template-columns: repeat(2, 1fr); gap: 4.6rem 2.8rem; }
+.media_sec2 { padding-block: 6rem; }
+.media_sec3 { padding-block: 5rem; }
+.media_sec2 .press_grid{margin-top: 4rem;grid-template-columns: repeat(1, 1fr);}
+.pres_list { grid-template-columns: repeat(2, 1fr); }
+.media_sec4 { padding-block: 6rem; }
+.video_grid { grid-template-columns: repeat(2, 1fr); }
 
 }
 @media (max-width:640px) {
 .integration-list { grid-template-columns: repeat(1, 1fr);  gap:1rem; width:100%;}
+.media_grid { grid-template-columns: repeat(1, 1fr); }
+.media_logo { padding: 4rem; }
+.pres_list { grid-template-columns: repeat(1, 1fr); }
+.video_grid { grid-template-columns: repeat(1, 1fr); }
 
 }
 @media (max-width:520px) {
@@ -1495,18 +1530,22 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .strtgc_bttm_txt p{ padding-bottom: 7rem; padding-inline: 5rem;}
 @media (max-width:1920px) {
 .strategic_grd{ gap: 16.9rem; }
-.strtgc_bttm_txt p { padding-inline: 14rem; }
+.strtgc_bttm_txt p { padding-inline: 7rem; }
 .stategic_first_rght { padding-inline: 0 6rem; }
 }
 
 @media (max-width:1599px) {
 .strategic_grd { gap: 13.9rem; }
-.strtgc_bttm_txt p { padding-inline: 13rem; }
-
+    .strtgc_bttm_txt p {
+        padding-inline: 6rem;
+    }
 
 }
 @media (max-width:1499px) {
 .strategic_grd { gap: 11.9rem; grid-template-columns: 765fr 800fr; }
+    .strtgc_bttm_txt p {
+        padding-inline: 11rem;
+    }
 }
 
 @media (max-width:1399px) {
@@ -1567,10 +1606,16 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 }
 @media (max-width:768px) {
     .wht_eng_industies_grid{grid-template-columns: repeat(2,1fr); }
-  .inner-section { margin-top: 9.1rem; }
+  .inner-section { margin-top: 9.1rem;background: #ebebebfa; }
 .strategic_bottom::before { height: 28.6rem; }
 .strategic_bottom_img { padding-block: 4rem 2rem; }
-.discuss_bx { width: 100%; padding-block: 3rem; padding-inline: 3rem; gap: 1rem; height: auto; margin-top: 3rem; }
+.discuss_bx { width: 100%; padding-block: 3rem; padding-inline: 3rem; gap: 1rem; height: auto; margin-top: 3rem;        grid-template-columns: 100%;
+        text-align: center; }
+.wht_eng_top { padding-block: 6.5rem 0.9rem; }
+.avonic_display_right { padding-bottom: 0rem; }
+.rug_elect_list ul li{    margin: 0 0 1.9rem 0;}
+.font_links { margin: 2rem 0 0 0; }
+
 
 
 }
@@ -1604,6 +1649,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .uav_ovr_rgt h4 { margin-bottom: 5rem; }
 .uav_ovr_rgt ul { margin-bottom: 5rem; }
 .uav_cap_imggrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.3rem; margin-top: 13rem; }
+.uav_cap_imggrid .uavcap_imgbx {position: relative;}
 .uav_ovr_rgt .explore_btn { margin-top: 0; }
 @media (max-width:1199px) {
 
@@ -1623,6 +1669,10 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 @media (max-width:768px) {
  .uav_cap_imggrid { grid-template-columns: repeat(2, 1fr); }
 .uav_oversec .uav_ovrgrid { gap: 4.5rem; }
+.princ-sec .work_ttl h2 { margin: 0 0 1rem 0; }
+.employ_cont { margin: 2rem 0 0 0; }
+
+
  }
 @media (max-width:575px) {
  .uav_cap_imggrid { grid-template-columns: repeat(1, 1fr); }
@@ -1664,6 +1714,22 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 @media (max-width: 1399px) {
 .ed_tes_bench_over { grid-template-columns: 780fr 740fr; gap: 8.5rem; }
 .ed_te_tench_keygrid {  gap: 9.5rem; }
+.ad_def2:after { height: 50rem; top: -21rem; }
+.certi_acc_col figure {
+    height: 14rem;
+}
+.certi_acc_col figure img {
+    height: 100%;
+}
+.pc_ise_col>figure {
+    height: 14rem;
+}
+
+.pc_ise_col>figure img {
+    height: 100%;
+}
+
+
 }
 @media (max-width: 1299px) {
     .ed_tes_bench_over {
@@ -1699,12 +1765,20 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .ed_tes_lft p{padding-bottom: 2rem;}
 .ed_te_tench_keygrid .ed_test_keyrgt { padding-right: 0; }
 .ed_tes_bench_over .ed_tes_lft, .ed_te_tench_keygrid .ed_test_keyrgt{width:100%;}
-.what_eng_txt.spce_stlt_systm {
-    margin-bottom: 3rem;
-}
+.what_eng_txt.spce_stlt_systm { margin-bottom: 3rem; }
+.certi_acc_col figure { height: auto; }
+br.desktop-break { display: none; }
+.pc_ise_col>figure { height: auto; }
+
 
  }
 @media (max-width:768px) {
+    .uav_oversec .uav_ovr_lft .image_title { bottom: 1rem; }
+.mro_grid .career_ttl p { padding-bottom: 2rem; margin: 0; }
+.pro_solu_ovtop { margin-bottom: 3rem; }
+.media_link { margin-top: 3rem; }
+.apply_sec { padding-block: 6rem 3rem; }
+.form-card { padding: 3rem; }
  }
 @media (max-width:575px) {
  }
@@ -1756,7 +1830,8 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .rail_aboutsec .rail_ablft { width: 50rem;}
 .rail_aboutsec .rail_ablft p{padding-right: 0.6rem;}
 .rail_aboutsec .rail_ablft p:not(:last-of-type) { margin-bottom: 4rem; }
-.rail_countbx { background: #a8a9ad1f 0% 0% no-repeat padding-box; border: 1px solid #DFDADA; padding-block: 3.4rem 3.2rem; padding-inline: 5.9rem 5.5rem; display: grid; grid-template-columns: 36% 56%; gap: 3rem; position: relative; margin-top: 7rem;max-width: 50rem; }
+.rail_countbx { background: #a8a9ad1f 0% 0% no-repeat padding-box; border: 1px solid #DFDADA; padding-block: 3.4rem 3.2rem; padding-inline: 5.9rem 5.5rem; display: grid; display: grid;
+    grid-template-columns: 26% 65%; gap: 3rem; position: relative; margin-top: 7rem;max-width: 50rem; }
 .rail_countbx:after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(#ff6b6b, #ff6b6b) top 14px left 14px / 12px 1px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) top 14px left 14px / 1px 12px no-repeat, 
     linear-gradient(#ff6b6b, #ff6b6b) top 14px right 14px / 12px 1px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) top 14px right 14px / 1px 12px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) bottom 14px left 14px / 12px 1px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) bottom 14px left 14px / 1px 12px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) bottom 14px right 16px / 12px 1px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) bottom 14px right 14px / 1px 12px no-repeat; top: -15px; left: -15px; right: -16px; z-index: 9; bottom: -15px; }
 .rail_countnum { font: var(--font-70); letter-spacing: -2.8px; color: var(--color-c8); font-weight: 300; }
@@ -1818,7 +1893,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .unma_title h2{margin-bottom: 4rem;}
 .uuname_ov_full{margin-bottom: 15rem; position: relative;}
 .image_title{position: absolute; content: ''; bottom: 1rem; right: 1rem;background:var(--color-c83);color: #fff;padding:1rem 2.3rem;}
-.image_title h6 {font: var(--font-18); font-weight: 400;   margin-bottom: 0;}
+.image_title h6 {font: var(--font-18); font-weight: 400;   margin-bottom: 0; text-transform: uppercase;}
 .unam_grid{display: grid;grid-template-columns: 850fr 750fr; gap: 12.5rem;}
 .uuname_sys .unname_rgt { padding-inline: 0 25rem; }
 .uuname_sys .unname_lftsec{position: relative;}
@@ -1828,7 +1903,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .uuname_sys1 .unname_lftsec{margin-left: 25rem;position: relative;}
 .uuname_sys1 .unname_lftsec:after { position: absolute; left: 0; bottom: 0; content: ""; background-color: var(--color-c8); height: 0.2rem; width: 12.3rem; }
 .uname_dronsec{position: relative;}
-.uname_dronsec figure:after{content: '';position: absolute; right: 0;top: 0;height: 100%;width: 65%;background: transparent linear-gradient(90deg, #00000000 0%, #000000 100%) 0% 0% no-repeat padding-box;
+.uname_dronsec figure:after{content: '';position: absolute; right: 0;top: 0;height: 100%;width: 72%;background: transparent linear-gradient(90deg, #00000000 0%, #000000 100%) 0% 0% no-repeat padding-box;
 /* opacity: 0.29; */
 }
 .uname_dronsec figure { display: grid; position: relative; overflow: hidden; }
@@ -1836,16 +1911,19 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .umae_dron_content { z-index: 9; position: relative; max-width: 50rem; margin-left: auto; }
 .umae_dron_content p { color: var(--color-white); }
 .umae_dron_content  .explore_btn { margin-top: 5rem; }
-.umae_dron_content h5{font: var(--font-24);color: var(--color-d4);margin-bottom: 2rem;font-weight: bold;}
+.umae_dron_content h5{font: var(--font-24);color: var(--color-white);margin-bottom: 2rem;font-weight: bold;}
 @media (max-width:1199px) {
  .uuname_sys .unname_rgt { padding-inline: 0 7rem; }
 .uuname_sys1 .unname_lftsec { margin-left: 5rem; }
+.rail_countbx {
+    padding-block: 2.4rem 2.2rem;
+    padding-inline: 2.9rem 1.5rem;
+}
  }
 @media (max-width:991px) {
  .unname_over { padding-block: 6rem 5rem; }
 .unam_grid { grid-template-columns: 1fr; gap: 4.5rem; }
 .unname_rgt .rail_countbx { padding-inline: 1.9rem 3.5rem; margin-top: 5rem; }
-.uuname_ov_full { padding-bottom: 5rem; }
 .uuname_sys1.unam_grid { grid-template-columns: 1fr; gap: 5.5rem; }
 .uuname_sys1 .unname_lftsec { margin-left: 0; padding-bottom: 2rem; }
 .uuname_sys1.unam_grid { margin-top: 4rem; }
@@ -1856,9 +1934,22 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .umae_dron_content { padding-block: 3rem 5rem;    max-width: 100%; }
 .umae_dron_content p { color: var(--color-23); }
 .umae_dron_content .explore_btn { margin-top: 3rem; }
+.uuname_ov_full { margin-bottom: 4rem; }
+.uuname_sys1.unam_grid { gap: 5.5rem; }
+.umae_dron_content h5 {
+    color: var(--color-d4);
+}
+.inner-text br{display: none;}
+
  }
 @media (max-width:768px) {
  .uname_dronsec figure>* { height: 100%; }
+.uuname_ov_full { margin-bottom: 3rem; }
+.uuname_sys1.unam_grid { margin-top: 2rem; }
+
+
+
+
  }
 @media (max-width:575px) {
  }
@@ -2098,7 +2189,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 /*industry css end*/
     /*Naval Systems start*/
 .airborne_systems_detail { padding-block:12rem 15.2rem;}
-.airborne_systems_grid { display: grid; grid-template-columns: 48.5% 40.7%; gap: 12.5rem; }
+.airborne_systems_grid { display: grid; grid-template-columns: 48.5% 40.7%; gap: 12.5rem;    position: relative; }
 .spaceSatelliteSwiper{margin-bottom: 1rem;}
 .right_airborne_sys blockquote { font: var(--font-28); margin-bottom: 4rem; font-weight: 300; }
 .dgaqa-logo { border-top: 1px solid #ddd; padding-block: 5rem; margin-top: 5rem; }
@@ -2180,7 +2271,10 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 }/* max-width:991px end */
 @media(max-width:640px){
     .airborne_systems_detail.land_tactical_systems { padding-block: 6rem 7rem; }
-    .land_tactical_systems_banner { padding-bottom: 8rem; }
+    .land_tactical_systems_banner { padding-bottom: 5rem; }
+    .airborne_systems_detail.land_tactical_systems {
+        padding-block: 6rem 5rem;
+    }
 }/* max-width:640px end */
 @media(max-width:480px){
 
@@ -2282,6 +2376,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .boder_line .explore_btn { margin-top: 1rem; }
 .land_tactical_systems .left_airborne_sys { margin-left: -10rem; width: 67rem; }
 .uuname_sys1 .unname_lftsec { margin-left: 11rem; }
+.space_satellite .boder_line .explore_btn { margin-top: 3rem; }
 }
 
 @media (max-width: 991px) {
@@ -2293,7 +2388,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .airborne_systems_grid2 { padding-top: 6rem; }
 .land_tactical_systems .left_airborne_sys { width: 100%; margin-left: 0; }
 .land_tactical_systems .airborne_systems_grid { gap: 5.5rem; }
-.airborne_systems_detail.land_tactical_systems { padding-block: 7rem 7rem; }
+.airborne_systems_detail.land_tactical_systems { padding-block: 7rem 5rem; }
 .space_satellite .airborne_systems_grid { gap: 5.5rem; }
 .unma_title h2 { margin-bottom: 3rem; }
 .unma_title { margin-bottom: 5rem; }
@@ -2312,6 +2407,8 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .land_tactical_systems .airborne_systems_grid { gap: 4.5rem; }
 .unam_grid { gap: 3.5rem; }
 .unname_rgt .rail_countbx { margin-top: 3rem; }
+.uuname_sys1.unam_grid { gap: 4.5rem; }
+.space_satellite .airborne_systems_grid { gap: 4.5rem; }
 
 }
 
@@ -2334,6 +2431,8 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 @media (max-width: 1399px) {
 .airb_solutions .airborne_systems_grid2 { grid-template-columns: 42% 50%; }
 .left_airborne_sys { margin-left: -34rem;width: 83rem; }
+.airborne_systems_grid2 .naval_system_box{ gap: 5rem; }
+
 
 }
 @media (max-width: 1300px) {
@@ -2385,7 +2484,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .key_capabilities_img figure img{width: 100%;}
 .stategic_first_rght { padding-inline: 0; width: auto; }
 .stategic_first_rght .discuss_bx { margin-top: 5rem; height: auto; width: 40rem; padding-block: 4rem; padding-inline: 4rem; }
-.strategic_grd { grid-template-columns: 100%; gap: 5rem; margin-top: 4rem; }
+.strategic_grd { grid-template-columns: 100%; gap: 5rem; margin-top: 2rem; }
 .strategic_secnd_rght { padding-left: 0; width: 100%; }
 .strtgc_bttm_txt p { padding-bottom: 5rem; }
 .product_slide_btns { bottom: 5rem; }
@@ -2405,6 +2504,10 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .product_content #modalDynamicBody p:last-of-type { padding-bottom: 2.2rem; margin-bottom: 3rem; position: relative; }
 .product_content h3 { margin-bottom: 2rem; }
 .product_content .custom_list li{margin-bottom: 1.5rem;}
+.airborne_systems_grid2 .naval_system_box { gap: 2rem; grid-template-columns: 100%; }
+.pc_ise_col figure img { width: 8rem; }
+.what_eng_txt { margin-bottom: 4rem; }
+
     
 }/* max-width:767px end */
 @media(max-width:640px){
@@ -2419,3 +2522,6 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 @media(max-width:480px){
 .product_grid { grid-template-columns: repeat(1, 1fr); }
 }/* max-width:480px end */
+
+
+
