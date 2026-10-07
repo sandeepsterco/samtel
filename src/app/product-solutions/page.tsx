@@ -1,6 +1,11 @@
 import ProductSolutionsClient from "@/components/product-solutions/ProductSolutionsClient";
 import { apiFetch } from "@/lib/api"
 
+interface MappingItemInterface{
+    title?:string;
+    description?:string;
+}
+
 interface ProductDataInterface {
     name: string;
     image?: string;
@@ -12,6 +17,9 @@ interface ProductDataInterface {
     content?: string;
     product_details?: string;
     product_details_html?: string;
+    mapping_items?:{
+        lists?:MappingItemInterface[]
+    }
 }
 
 interface ProductsDataInterface {

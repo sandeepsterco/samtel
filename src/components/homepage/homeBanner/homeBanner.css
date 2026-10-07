@@ -1,7 +1,7 @@
 .home_banner { position: relative; display: grid; min-height: 100vh; overflow: hidden; }
 .banner_caption .banner_title>p { position: relative; font: var(--font-42); color: var(--color-23); letter-spacing: -0.42px; z-index: 10; font-weight: 300; }
 .banner_caption .banner_title>p>b { color: var(--color-c8); font-weight: normal; }
-.banner_caption .banner_title>em { margin-top: 2rem; font: var(--font-18); color: var(--color57); display: block; position: relative; z-index: 9;  }
+.banner_caption .banner_title>em { margin-top: 2rem; font: var(--font-18); color: var(--color57); display: block; position: relative; z-index: 9; }
 .banner_caption .banner_title { position: relative; margin-inline: auto; margin-top: 42rem; text-align: center; }
 .down_btn { position: relative; z-index: 10; }
 .line-section { width: 100%; display: flex; justify-content: center; padding: 5rem 0; animation: textFadeUp 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: .9s; }
@@ -20,12 +20,14 @@
 .arrwo_fix:after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(#ff6b6b, #ff6b6b) top 14px left 14px / 8px 1px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) top 14px left 14px / 1px 8px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) top 14px right 14px / 8px 1px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) top 14px right 14px / 1px 8px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) bottom 14px left 14px / 8px 1px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) bottom 14px left 14px / 1px 8px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) bottom 14px right 16px / 8px 1px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) bottom 14px right 16px / 1px 8px no-repeat; top: 0rem; left: 9rem; right: 9rem; z-index: 9; bottom: 0rem; height: 28rem; }
 .arrwo_fix { height: auto; }
 @media (max-width: 2199px) {
-.video_text { max-width: 60rem; }
-}
+ .video_text { max-width: 60rem; }
+ }
 @media (max-width:992px) {
-.home_banner>.desktop_video{display: none;}   
-.banner_caption .banner_title>p br{display: none;}
+ .home_banner>.desktop_video { display: none; }
+.banner_caption .banner_title>p br { display: none; }
 .banner_caption video { width: 100%; height: 50vh; margin-top: 8rem; transform: scale(1.2); object-fit: cover; }
-.banner_caption .banner_title { position: relative; margin-inline: auto; margin-top: 24rem; text-align: center; }
-.banner_caption .banner_title>p { font: var(--font-42) !important;}
-}
+.banner_caption .banner_title { position: relative; margin-inline: auto; margin-top: 24rem; text-align: center; padding-block: 0 2rem; }
+.banner_caption .banner_title>p { font: var(--font-42) !important; font-weight: 300 !important; }
+.banner_caption .banner_title p span { font-size: 3.8rem; letter-spacing: -0.38px; font-weight: 300; color: var(--color-23); }
+.banner_caption .banner_title:after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(#ff6b6b, #ff6b6b) top 14px left 14px / 8px 1px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) top 14px left 14px / 1px 8px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) top 14px right 14px / 8px 1px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) top 14px right 14px / 1px 8px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) bottom 14px left 14px / 8px 1px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) bottom 14px left 14px / 1px 8px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) bottom 14px right 16px / 8px 1px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) bottom 14px right 16px / 1px 8px no-repeat; top: 0rem; left: 0rem; right: 0; z-index: 9; bottom: 0rem; height: 100%; }
+ }

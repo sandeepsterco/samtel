@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const IDENTIFIER = "57116a0c-2b65-4fe7-a1d4-04fc00c14f87";
 const DOMAIN = "https://samtel.keka.com/careers/";
 const SCRIPT_SRC = `https://samtel.keka.com/careers/api/embedjobs/js/${IDENTIFIER}`;
+const FALLBACK_TIMEOUT_MS = 10000;
 
 type KekaWindow = Window & {
   khConfig?: {
@@ -15,10 +16,11 @@ type KekaWindow = Window & {
 };
 
 export default function KekaJobs() {
-  useEffect(() => {
-    if (typeof window === "undefined") return;
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
     const win = window as KekaWindow;
+    setLoading(true);
 
     // Config must exist BEFORE the Keka script runs
     win.khConfig = {
@@ -27,25 +29,38 @@ export default function KekaJobs() {
       targetContainer: "#khembedjobs",
     };
 
-    const existingScript = document.querySelector<HTMLScriptElement>(
-      `script[src="${SCRIPT_SRC}"]`
-    );
+    const container = document.getElementById("khembedjobs");
 
-    const script = existingScript ?? document.createElement("script");
+    const hasContent = () =>
+      !!container &&
+      Array.from(container.children).some(
+        (el) => !el.classList.contains("kh-container-fluid")
+      );
 
-    if (!existingScript) {
-      script.src = SCRIPT_SRC;
-      script.defer = true;
-      script.async = true;
-      document.body.appendChild(script);
+    let observer: MutationObserver | undefined;
+    if (container) {
+      observer = new MutationObserver(() => {
+        if (hasContent()) {
+          setLoading(false);
+          observer?.disconnect();
+        }
+      });
+      observer.observe(container, { childList: true, subtree: true });
     }
 
-    // Cleanup so the widget reloads correctly on client-side navigation
+    const timeout = setTimeout(() => setLoading(false), FALLBACK_TIMEOUT_MS);
+
+    const script = document.createElement("script");
+    script.src = SCRIPT_SRC;
+    script.defer = true;
+    script.async = true;
+    script.onerror = () => setLoading(false);
+    document.body.appendChild(script);
+
     return () => {
-      if (script.parentNode) {
-        script.remove();
-      }
-      const container = document.getElementById("khembedjobs");
+      clearTimeout(timeout);
+      observer?.disconnect();
+      script.remove();
       if (container) container.innerHTML = "";
       delete win.khConfig;
     };
@@ -53,8 +68,14 @@ export default function KekaJobs() {
 
   return (
     <>
+      {loading && <div className="keka-loading">Loading openings...</div>}
+
       <div id="khembedjobs"></div>
-      <style>{`.kh-container-fluid { display: none !important; }`}</style>
+
+      <style>{`
+        .kh-container-fluid { display: none !important; }
+        .keka-loading { padding: 40px 0; text-align: center; }
+      `}</style>
     </>
   );
 }

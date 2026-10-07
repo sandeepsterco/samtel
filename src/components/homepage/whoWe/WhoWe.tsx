@@ -27,10 +27,10 @@ export default function WhoWe({ data }: WhoWePropsInterface) {
         <section className="who_we">
             <div className="font_title">
                 {data?.title && (
-                    <p dangerouslySetInnerHTML={{ __html: data.title }} />
+                    <p className="fade-up" data-delay="0.3" data-duration="1" dangerouslySetInnerHTML={{ __html: data.title }} />
                 )}
                 {data?.subtitle && (
-                    <blockquote dangerouslySetInnerHTML={{ __html: data.subtitle }} />
+                    <blockquote className="fade-up" data-delay="0.4" data-duration="1" dangerouslySetInnerHTML={{ __html: data.subtitle }} />
                 )}
             </div>
 
