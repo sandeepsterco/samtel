@@ -77,7 +77,7 @@
 
 /* Rugged Electronics css starts here */
 
-.rug_elect_list{padding:10rem 0;}
+.rug_elect_list{padding:10rem 0 14rem;}
 .rug_elect_list blockquote{position:relative;padding:6.2rem 0 5rem 0;margin: 0;}
 .rug_elect_list blockquote:before{content:"";position:absolute;left:0;top:0;height:2px;width:12.3rem;background-color:#C83030;}
 .rug_elect_list ul{padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0 7.5rem;}
@@ -98,7 +98,7 @@
     .optronics_grid{display:grid;grid-template-columns:110rem auto;gap:2.5rem;}
     .optronics_img{display:flex;flex-direction:column;height:100%;gap:2.5rem;}
     .optronics_list,.optronics_list figure{height:100%;}
-    .optronics_list figure img{height:100%;object-fit:cover;}
+    .optronics_list figure img{height:100%;object-fit:cover;object-position: left;}
     .optronics_img figure,.optronics_img figure img{height:100%;}
     .optronics_img figure img{object-fit:cover;}
 
