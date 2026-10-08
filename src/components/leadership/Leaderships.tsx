@@ -58,7 +58,7 @@ export default function Leaderships({ pageData }: { pageData: DataInterface }) {
                 <figure>
                   <Image
                     src={item?.image || "/assets/images/placeholders/leadership.webp"}
-                    className="img-fluid"
+                    className="img-fluid w-100"
                     alt={item?.name || 'Leadership'}
                     width={343}
                     height={389}
