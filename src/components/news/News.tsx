@@ -44,7 +44,7 @@ export default function News({ data }: NewsPropsInterface) {
                                     )}
                                 </div>
                                 {item?.slug && (
-                                    <Link href={`${BASE_URL}newsroom/${item.slug}`} className="streched_link" />
+                                    <Link href={`${BASE_URL}media/newsroom/${item.slug}`} className="streched_link" />
                                 )}
                             </div>
                         ))}
