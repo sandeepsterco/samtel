@@ -24,9 +24,9 @@
 .system-tile:hover p { color: #ffffff; }
 .system-tile:hover h3 { color: #fff;margin-bottom: 1rem; }
 .system-tile:hover .tile-info-wrapper { transform: translateY(9rem); z-index: 99; }
-.system-tile:hover .tile-action-trigger { background-color: var(--color-e6); left: calc(100% - 7.2rem); bottom: 5rem; z-index: 99; }
+.system-tile:hover .tile-action-trigger { background-color: var(--color-c8); left: calc(100% - 7.2rem); bottom: 5rem; z-index: 99; }
 
-/* .system-tile:hover .tile-action-trigger svg { stroke: #ffffff; } */
+.system-tile:hover .tile-action-trigger svg { stroke: #ffffff; }
 @media (max-width: 1550px) {
 .system-tile:hover .tile-action-trigger { left: calc(100% - 45px); }
 }

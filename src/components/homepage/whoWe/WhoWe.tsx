@@ -7,6 +7,7 @@ interface CategoryInterface {
     image: string;
     home_image: string;
     description: string;
+    short_description?: string;
     display_order?: string;
     slug?: string;
 }
@@ -16,6 +17,7 @@ interface WhoWePropsInterface {
         title: string;
         subtitle: string;
         categories: CategoryInterface[];
+        short_description?:string;
     }
 }
 
@@ -46,8 +48,8 @@ export default function WhoWe({ data }: WhoWePropsInterface) {
                                     {item?.name && (
                                         <h3>{item.name}</h3>
                                     )}
-                                    {item?.description && (
-                                        <p dangerouslySetInnerHTML={{ __html: item.description }} />
+                                    {item?.short_description && (
+                                        <p dangerouslySetInnerHTML={{ __html: item.short_description  }} />
                                     )}
 
                                 </div>
@@ -77,8 +79,8 @@ export default function WhoWe({ data }: WhoWePropsInterface) {
                                     {item?.name && (
                                         <h3>{item.name}</h3>
                                     )}
-                                    {item?.description && (
-                                        <p dangerouslySetInnerHTML={{ __html: item.description }} />
+                                    {item?.short_description && (
+                                        <p dangerouslySetInnerHTML={{ __html: item.short_description }} />
                                     )}
 
                                 </div>

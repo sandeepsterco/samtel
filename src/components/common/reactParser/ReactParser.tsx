@@ -13,6 +13,7 @@ import PressGallery from "@/components/parser/pressGallery/PressGallery";
 import PressOnScreen from "@/components/parser/pressOnScreen/PressOnScreen";
 import MediaFeatured from "@/components/parser/mediaFeatured/MediaFeatured";
 import MediaElectronic from "@/components/parser/mediaElectronic/MediaElectronic";
+import CategoryGrid from "@/components/parser/categoryGrid/CategoryGrid";
 
 
 export type PressCoverage = unknown;
@@ -52,6 +53,9 @@ const sanitizeOptions: sanitizeHtml.IOptions = {
       "xmlns",
       "transform",
       "data-name",
+      "data-swiper-autoplay",
+      "data-swiper-loop",
+      "data-swiper-slides-per-view",
       "d",
       "fill",
       "stroke",
@@ -185,6 +189,8 @@ function createParserOptions(pressCoverage?: PressCoverage, modularData?:any, se
           return <PressOnScreen searchParams={searchParams} />;
         case "media_featured":
           return <MediaFeatured data={modularData} />;
+        case "category_grid":
+          return <CategoryGrid />;
         default:
           return undefined;
       }
