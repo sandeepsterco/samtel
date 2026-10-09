@@ -65,6 +65,12 @@ const sanitizeOptions: sanitizeHtml.IOptions = {
       "width",
       "height",
       "viewBox",
+      "type",
+      "data-phase",
+      "data-phase-index",
+      "data-year",
+      "preserveAspectRatio",
+      
     ],
     svg: ["viewBox"],
     iframe: [

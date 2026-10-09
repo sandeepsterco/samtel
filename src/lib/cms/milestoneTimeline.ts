@@ -37,6 +37,13 @@ async function initMilestoneTimeline(root: HTMLElement): Promise<MilestoneInstan
       if (!phases.length) return;
 
       section.querySelectorAll<SVGPathElement>(".curve-path").forEach((path) => {
+        const svg = path.ownerSVGElement;
+        const bounds = path.getBBox();
+        if (svg && bounds.width > 0 && bounds.height > 0) {
+          svg.setAttribute("viewBox", `${bounds.x} ${bounds.y} ${bounds.width} ${bounds.height}`);
+          svg.setAttribute("preserveAspectRatio", "none");
+        }
+
         const length = path.getTotalLength();
         gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
       });
