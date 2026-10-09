@@ -22,8 +22,6 @@ export default function MediaGallery({ data }: { data: any }) {
       Carousel: {
         infinite: true,
       },
-      // No Toolbar option: defaults give counter left,
-      // zoom / slideshow / fullscreen / thumbs / close on the right
     });
 
     return () => {
@@ -40,7 +38,7 @@ export default function MediaGallery({ data }: { data: any }) {
         <div key={idx} className="media_bx">
           <figure>
             <Image
-              src={item.image}
+              src={item.thumbnail_image || '/assets/images/default-image.jpg'}
               alt={`Media Gallery ${item.name}`}
               className="img-fluid"
               width={343}
@@ -61,7 +59,7 @@ export default function MediaGallery({ data }: { data: any }) {
 
           <a
             data-fancybox="gallery"
-            href={item.image}
+            href={item.modal_image || item.thumbnail_image || '/assets/images/default-image.jpg'}
             className="streched_link"
           ></a>
         </div>

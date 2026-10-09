@@ -4,6 +4,26 @@ import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import "@/components/parser/pressOnScreen/pressOnScreen.css";
 import FancyboxWrapper from "@/components/common/FancyboxWrapper";
 
+function getVideoUrl(item: any): string | undefined {
+  const videoUrl = item?.video_url;
+  if (!videoUrl) return item?.video;
+
+  try {
+    const url = new URL(videoUrl);
+    const youtubeId = url.hostname === "youtu.be"
+      ? url.pathname.slice(1)
+      : url.searchParams.get("v") ?? url.pathname.match(/\/(?:embed|shorts|live)\/([^/?]+)/)?.[1];
+
+    if (youtubeId && (/\.youtube\.com$/.test(url.hostname) || url.hostname === "youtu.be")) {
+      return `https://www.youtube.com/embed/${youtubeId}`;
+    }
+  } catch {
+    return videoUrl;
+  }
+
+  return videoUrl;
+}
+
 export default function MediaFeatured({ data }: { data: any }) {
   const pageData = data?.["featured-screen"] || [];
 
@@ -11,8 +31,11 @@ export default function MediaFeatured({ data }: { data: any }) {
 
   return (
     <FancyboxWrapper className="video_grid" variant="video">
-      {pageData.map((item:any, idx:number) => (
-        <div key={idx} className="media_bx">
+      {pageData.map((item:any, idx:number) => {
+        const videoUrl = getVideoUrl(item);
+
+        return (
+          <div key={idx} className="media_bx">
           <figure>
             <Image
               src={item.thumbnail_image}
@@ -34,15 +57,16 @@ export default function MediaFeatured({ data }: { data: any }) {
 
           {item?.title && <p dangerouslySetInnerHTML={{ __html: item.title }} />}
 
-          {item?.video && (
+          {videoUrl && (
             <a
               data-fancybox="video"
-              href={item.video}
+              href={videoUrl}
               className="streched_link"
             ></a>
           )}
-        </div>
-      ))}
+          </div>
+        );
+      })}
     </FancyboxWrapper>
   );
 }

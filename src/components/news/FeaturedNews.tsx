@@ -32,7 +32,7 @@ export default function FeaturedNews({ data, title }: FeaturedDataInterface) {
                 {title && (
                     <div className="col-lg-10 mx-auto">
                         <div className="company-text">
-                            <h2 dangerouslySetInnerHTML={{__html:title}} />
+                            <h2 className="fade-up" data-delay="0.3" data-duration="1" dangerouslySetInnerHTML={{__html:title}} />
                         </div>
                     </div>
                 )}

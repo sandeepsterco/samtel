@@ -8,6 +8,7 @@ interface FeaturedScreenInterface {
   title: string;
   thumbnail_image: string;
   video: string;
+  video_url?: string;
   id: number;
 }
 
@@ -37,8 +38,27 @@ export default async function PressOnScreen({
 
   return (
     <FancyboxWrapper className="video_grid" variant="video">
-      {pageData.data.map((item) => (
-        <div key={item.id} className="media_bx">
+      {pageData.data.map((item) => {
+        const videoUrl = item.video_url || item.video;
+        let fancyboxUrl = videoUrl;
+
+        if (item.video_url) {
+          try {
+            const url = new URL(item.video_url);
+            const youtubeId = url.hostname === "youtu.be"
+              ? url.pathname.slice(1)
+              : url.searchParams.get("v") ?? url.pathname.match(/\/(?:embed|shorts|live)\/([^/?]+)/)?.[1];
+
+            if (youtubeId && (/\.youtube\.com$/.test(url.hostname) || url.hostname === "youtu.be")) {
+              fancyboxUrl = `https://www.youtube.com/embed/${youtubeId}`;
+            }
+          } catch {
+            fancyboxUrl = videoUrl;
+          }
+        }
+
+        return (
+          <div key={item.id} className="media_bx">
           <figure>
             <Image
               src={item.thumbnail_image}
@@ -60,15 +80,16 @@ export default async function PressOnScreen({
 
           {item?.title && <p dangerouslySetInnerHTML={{ __html: item.title }} />}
 
-          {item?.video && (
+          {fancyboxUrl && (
             <a
               data-fancybox="video"
-              href={item.video}
+              href={fancyboxUrl}
               className="streched_link"
             ></a>
           )}
-        </div>
-      ))}
+          </div>
+        );
+      })}
     </FancyboxWrapper>
   );
 }

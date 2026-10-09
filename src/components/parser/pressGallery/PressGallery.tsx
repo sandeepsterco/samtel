@@ -8,7 +8,8 @@ import '@/components/parser/mediaGallery/mediaGallery.css'
 
 interface MediaGalleryInterface {
   name: string;
-  image: string;
+  thumbnail_image?: string | null;
+  modal_image?: string | null;
   id: number;
 }
 
@@ -33,19 +34,23 @@ export default async function PressGallery({
   if (error || !data?.status) notFound();
 
   const pageData = (data as PageDataInterface)?.data || { data: [] };
+  const galleryItems = pageData.data?.filter(
+    (item): item is MediaGalleryInterface & { thumbnail_image: string } =>
+      typeof item.thumbnail_image === "string" && item.thumbnail_image.trim().length > 0,
+  ) ?? [];
 
-  if (pageData?.data?.length === 0) return null;
+  if (galleryItems.length === 0) return null;
 
   return (
     <section className="media_sec3 inner">
       <div className="container">
         <div className="col-lg-10 mx-auto">
           <FancyboxWrapper className="pres_list">
-            {pageData.data.map((item) => (
+            {galleryItems.map((item) => (
               <div key={item.id} className="media_bx">
                 <figure>
                   <Image
-                    src={item.image}
+                    src={item.thumbnail_image}
                     alt={`Media Gallery ${item.name}`}
                     className="img-fluid"
                     width={343}
@@ -65,7 +70,7 @@ export default async function PressGallery({
                 </div>
                 <Link
                   data-fancybox="gallery"
-                  href={item.image}
+                  href={item.modal_image || ''}
                   className="streched_link"
                 ></Link>
               </div>
