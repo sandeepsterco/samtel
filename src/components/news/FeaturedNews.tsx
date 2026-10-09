@@ -68,7 +68,7 @@ export default function FeaturedNews({ data, title }: FeaturedDataInterface) {
                                         )}
 
                                         {item?.slug && (
-                                            <Link href={`${BASE_URL}newsroom/${item.slug}`} className="more_btn">
+                                            <Link href={`${BASE_URL}media/newsroom/${item.slug}`} className="more_btn">
                                                 <img src="/assets/images/icons/right-arrow-red.svg" alt="arrow" className="img-fluid" />
                                             </Link>
                                         )}
