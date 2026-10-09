@@ -5,11 +5,13 @@ import { adfSwiperModule } from "@/lib/cms/adfSwiper";
 import { heroSliderModule } from "@/lib/cms/heroSlider";
 import type { SliderModule } from "@/lib/cms/types";
 import { careerSliderModule } from "@/lib/cms/careerSlider";
+import { milestoneTimelineModule } from "@/lib/cms/milestoneTimeline";
 
 const SLIDER_MODULES: SliderModule[] = [
   adfSwiperModule,
   heroSliderModule,
   careerSliderModule,
+  milestoneTimelineModule,
 ];
 
 export default function CmsEnhancer({ containerId }: { containerId: string }) {

@@ -69,8 +69,9 @@ export default function MegaMenu({
               </div>
             </div>
             <div className="mega-grid">
-              {categoryData.map((category, idx) => (
-                <Link
+              {categoryData.map((category, idx) => {
+                if(category.featured){
+                  return <Link
                   href={`/category/${category.slug}`}
                   key={idx}
                   className="industry-card"
@@ -86,7 +87,8 @@ export default function MegaMenu({
                   )}
                   <span>{category.name}</span>
                 </Link>
-              ))}
+                }
+              })}
             </div>
           </div>
       </div>

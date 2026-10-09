@@ -16,6 +16,7 @@ export interface ProductCategory {
   name: string;
   slug: string;
   image?: string;
+  featured:boolean;
 }
 
 interface ProductCategoryResponse {
