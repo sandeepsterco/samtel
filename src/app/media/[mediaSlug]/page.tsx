@@ -11,13 +11,13 @@ export default async function PressCoveragePage({params, searchParams}:{params:P
 
     const combinedHtml = Object.values(data?.data?.sections ?? {}).join(''); 
 
-    const modularData = data?.data?.modular || {};
+    // const modularData = data?.data?.modular || {};
 
     if(combinedHtml?.length === 0) {
         return <ComingSoon />
     };
 
     return(
-        <ReactParserDynamic html={combinedHtml} searchParams={searchParams} modularData={modularData}  />
+        <ReactParserDynamic html={combinedHtml} searchParams={searchParams}  />
     )
 }
