@@ -1,3 +1,4 @@
+// lib/cms/milestoneTimeline.ts
 import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -24,6 +25,7 @@ async function initMilestoneTimeline(root: HTMLElement): Promise<MilestoneInstan
 
     media.add("(min-width: 768px)", () => {
       const nav = section.querySelector<HTMLElement>(".milestone-nav");
+      const stickyWrap = section.querySelector<HTMLElement>(".milestone-nav-wrap");
       const tabs = Array.from(section.querySelectorAll<HTMLButtonElement>(".milestone-tab"));
       const phases = Array.from(section.querySelectorAll<HTMLElement>(".milestone-phase"));
       const stickyTitle = section.querySelector<HTMLElement>(".sticky-phase-title");
@@ -36,6 +38,12 @@ async function initMilestoneTimeline(root: HTMLElement): Promise<MilestoneInstan
 
       if (!phases.length) return;
 
+      const docEl = document.documentElement;
+      let isAutoScrolling = false;
+      let scrollTween: gsap.core.Tween | null = null;
+      let savedScrollBehavior = "";
+
+      /* ---------------- CURVE SETUP ---------------- */
       section.querySelectorAll<SVGPathElement>(".curve-path").forEach((path) => {
         const svg = path.ownerSVGElement;
         const bounds = path.getBBox();
@@ -48,6 +56,7 @@ async function initMilestoneTimeline(root: HTMLElement): Promise<MilestoneInstan
         gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
       });
 
+      /* ---------------- ACTIVE PHASE ---------------- */
       let currentPhase = -1;
 
       const setActivePhase = (index: number) => {
@@ -59,7 +68,8 @@ async function initMilestoneTimeline(root: HTMLElement): Promise<MilestoneInstan
         if (index !== currentPhase) {
           currentPhase = index;
           if (stickyTitle && stickyYears) {
-            gsap.timeline()
+            gsap
+              .timeline()
               .to([stickyTitle, stickyYears], {
                 opacity: 0,
                 y: -8,
@@ -99,6 +109,7 @@ async function initMilestoneTimeline(root: HTMLElement): Promise<MilestoneInstan
 
       setActivePhase(0);
 
+      /* ---------------- GLOBAL VERTICAL LINE ---------------- */
       const updateGlobalLine = () => {
         if (globalLine && content) gsap.set(globalLine, { height: content.offsetHeight });
       };
@@ -122,16 +133,22 @@ async function initMilestoneTimeline(root: HTMLElement): Promise<MilestoneInstan
         );
       }
 
+      /* ---------------- PHASE DETECTION (scroll) ---------------- */
       phases.forEach((phase, index) => {
         ScrollTrigger.create({
           trigger: phase,
           start: "top 45%",
           end: "bottom 45%",
-          onEnter: () => setActivePhase(index),
-          onEnterBack: () => setActivePhase(index),
+          onEnter: () => {
+            if (!isAutoScrolling) setActivePhase(index);
+          },
+          onEnterBack: () => {
+            if (!isAutoScrolling) setActivePhase(index);
+          },
         });
       });
 
+      /* ---------------- TIMELINE EVENTS ---------------- */
       section.querySelectorAll<HTMLElement>(".timeline-event").forEach((event) => {
         const curve = event.querySelector<SVGPathElement>(".curve-path");
         const image = event.querySelector<HTMLElement>(".event-image");
@@ -154,6 +171,14 @@ async function initMilestoneTimeline(root: HTMLElement): Promise<MilestoneInstan
         if (copy) timeline.to(copy, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, 0.72);
       });
 
+      /* ---------------- TAB CLICK ---------------- */
+      const stopAutoScroll = () => {
+        if (!isAutoScrolling) return;
+        isAutoScrolling = false;
+        docEl.style.scrollBehavior = savedScrollBehavior;
+        document.body.style.scrollBehavior = savedScrollBehavior;
+      };
+
       const tabClickHandlers = tabs.map((tab, index) => {
         const handleClick = (event: MouseEvent) => {
           event.preventDefault();
@@ -161,16 +186,32 @@ async function initMilestoneTimeline(root: HTMLElement): Promise<MilestoneInstan
           if (!target) return;
 
           setActivePhase(index);
-          const targetY = target.getBoundingClientRect().top + window.scrollY - (nav?.offsetHeight ?? 0) - 30;
 
-          gsap.to(window, {
+          const offset = (stickyWrap ?? nav)?.offsetHeight ?? 0;
+
+          // Disable CSS smooth scrolling while GSAP drives the scroll
+          if (!isAutoScrolling) {
+            savedScrollBehavior = docEl.style.scrollBehavior;
+          }
+          docEl.style.scrollBehavior = "auto";
+          document.body.style.scrollBehavior = "auto";
+
+          isAutoScrolling = true;
+          scrollTween?.kill();
+          scrollTween = gsap.to(window, {
             duration: 1.2,
-            scrollTo: { y: targetY, autoKill: true },
+            scrollTo: {
+              y: target, // element, resolved live by ScrollToPlugin
+              offsetY: offset + 30,
+              autoKill: false,
+            },
             ease: "power3.inOut",
             onComplete: () => {
+              stopAutoScroll();
               setActivePhase(index);
               ScrollTrigger.refresh();
             },
+            onInterrupt: stopAutoScroll,
           });
         };
 
@@ -178,6 +219,7 @@ async function initMilestoneTimeline(root: HTMLElement): Promise<MilestoneInstan
         return () => tab.removeEventListener("click", handleClick);
       });
 
+      /* ---------------- REFRESH / RESIZE ---------------- */
       let resizeTimer: ReturnType<typeof setTimeout> | undefined;
       const refreshMilestone = () => {
         updateGlobalLine();
@@ -193,8 +235,11 @@ async function initMilestoneTimeline(root: HTMLElement): Promise<MilestoneInstan
       window.addEventListener("load", refreshMilestone);
       window.addEventListener("resize", handleResize);
 
+      /* ---------------- CLEANUP ---------------- */
       return () => {
         tabClickHandlers.forEach((removeHandler) => removeHandler());
+        scrollTween?.kill();
+        stopAutoScroll();
         window.removeEventListener("load", refreshMilestone);
         window.removeEventListener("resize", handleResize);
         resizeObserver?.disconnect();

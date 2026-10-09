@@ -15,6 +15,7 @@
 .milestone-nav { position: relative; min-height: 22.7rem; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); align-items: start; }
 .milestone-tab { position: relative; z-index: 10; border: 0; outline: none; background: transparent; text-align: center; color: #c7c7c7; cursor: pointer; font: inherit; transition:color .35s ease; padding: 2.5rem 3rem 0; opacity: .5; }
 .milestone-tab .tab-icon { display: block; margin: 0 auto .5rem; transition: color .35s ease, transform .35s ease; }
+.milestone-tab .tab-icon img{margin:auto;}
 .milestone-tab .tab-icon svg { width: 100%; height: 100%; }
 .milestone-tab .tab-title { display: block; font: var(--font-24); letter-spacing: -0.79px; color: var(--color-23); }
 .milestone-tab .tab-years { display: block; font: var(--font-24); letter-spacing: -0.79px; color: var(--color-c8); transition: color .35s ease; }
