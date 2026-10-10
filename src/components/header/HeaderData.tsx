@@ -125,7 +125,17 @@ export default function HeaderData({
                     <ul className="site_dropdown_menu">
                       {item.children.map((li:any, liIdx:number)=>(
                         <li key={liIdx}>
-                          <Link href={`${BASE_URL}${li.slug}`}>{li.title}</Link>
+                          <Link href={`${BASE_URL}${li.slug}`} className={`${li?.child?.length > 0 ? 'has_child' : ''}`}>
+                            {li.title}
+                            {li?.child?.length > 0 && (
+                              <ul>
+                                {li.child.map((childItem:any, childIdx:number)=>(
+                                  <li key={childIdx}><Link href={`${BASE_URL}${li.slug}/${childItem.slug}`}>{childItem.title}</Link></li>
+                                ))}
+                              </ul>
+                            )}
+
+                          </Link>
                         </li>
                       ))}
                       

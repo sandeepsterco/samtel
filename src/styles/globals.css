@@ -135,7 +135,7 @@
 }
 
 
-body{background:var(--color-ef);background-size:cover;padding:0;margin:0; color: var(--color-23); font: var(--font-18);}
+body{background:var(--color-ef);background-size:cover;padding:0;margin:0; color: var(--color-23); font: var(--font-18); overflow-x: hidden; }
 body.body-locked { overflow: hidden; }
 p{line-height: 1.7;}
 
