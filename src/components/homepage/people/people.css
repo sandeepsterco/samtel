@@ -25,8 +25,6 @@
 
 @media (max-width:992px) {
 .font_title>blockquote br, .line-wrap2, .people_pic_text blockquote{display: none;}
-.font_title>blockquote  { padding-inline: 2rem; margin: 0; padding-bottom: 0;letter-spacing: -0.24px;}
-        .font_title>p { font-weight: 900 !important; }
 .people-image-wrap{width:100%;} 
 .people-overlay{position: static; opacity:1;visibility: visible; background:none; padding:0;}
 .overlay-content { display: grid; align-items: flex-end; padding: 3.4rem 0 0; justify-content: inherit;}

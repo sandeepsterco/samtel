@@ -24,7 +24,8 @@ interface TechnologyPropsInterface {
     data: {
         images: TechnologyImage[]
         heading: string
-        info: TechnologyInfo[]
+        info: TechnologyInfo[],
+        mobileimage?: string
     }
 }
 
@@ -146,38 +147,51 @@ export default function Technology({ data }: TechnologyPropsInterface) {
                         {data?.heading && (
                             <h4 dangerouslySetInnerHTML={{ __html: data.heading }} />
                         )}
-                        <div className="techno_mobile for_mobile">
-
+                        {data?.mobileimage && (
+                            <div className="techno_mobile for_mobile">
+                            
                             <figure className="techfigure techno01">
-                                <img src="/images/technology_pic.webp" alt="Technology" className="img-fluid w-100" />
+                                <Image src={data.mobileimage} alt="Technology" className="img-fluid w-100" width={359} height={438}
+                                 />
                             </figure>
 
                         </div>
-                        <div className="techno_slider">
+                        )}
                         
-                        <div className="techno_tabwrapper">
-                            {info.map((tab) => (
-                                <div
-                                    key={tab.id}
-                                    className={`techno_tabdata${activeTab === tab.id ? ' show' : ''}`}
-                                    data-target={tab.id}
-                                >
-                                    {tab?.title && (
-                                        <h5>{tab.title}</h5>
-                                    )}
-                                    {tab?.description && (
-                                        <p>{tab.description}</p>
-                                    )}
-                                    {tab?.slug && (
-                                        <a href={`${BASE_URL}${tab.slug}`} className="more_btn">
-                                            <img src="/assets/icons/right-arrow-white.svg" alt="arrow" className="img-fluid" />
-                                        </a>
-                                    )}
+                        <div className="techno_slider">
 
-                                </div>
-                            ))}
+                            <div className="techno_tabwrapper">
+                                {info.map((tab) => (
+                                    <div
+                                        key={tab.id}
+                                        className={`techno_tabdata${activeTab === tab.id ? ' show' : ''}`}
+                                        data-target={tab.id}
+                                    >
+                                        {tab?.title && (
+                                            <h5>{tab.title}</h5>
+                                        )}
+                                        {tab?.description && (
+                                            <p>{tab.description}</p>
+                                        )}
+                                        {tab?.slug && (
+                                            <a href={`${BASE_URL}${tab.slug}`} className="more_btn">
+                                                <img src="/assets/icons/right-arrow-white.svg" alt="arrow" className="img-fluid" />
+                                            </a>
+                                        )}
 
-                        </div>
+                                    </div>
+                                ))}
+
+                            </div>
+
+                            <div className="techno_mobile_nav">
+                                <button type="button" className="techno_prev">
+                                    <img src="/assets/icons/red-left-btn.svg" alt="arrow" className="img-fluid" />
+                                </button>
+                                <button type="button" className="techno_next">
+                                    <img src="/assets/icons/red-right-btn.svg" alt="arrow" className="img-fluid" />
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
