@@ -66,7 +66,8 @@ ul { padding:0; list-style: none; margin:0; }
 .contact-block { margin: 4.7rem 0 0; }
 .contact-block h2 { margin-bottom: 2rem; color: var(--color-23); font-size: 2.1rem; font-weight: 300; line-height: 1.4; letter-spacing: -0.21px; }
 .contact-block p { margin-bottom: 2rem; color: var(--color-23); font-size: 1.8rem; line-height: 1.5; }
-.contact-phone a { color: var(--color-c8); text-decoration: none; letter-spacing: -0.18px; font:var(--font-18); }
+.contact-phone a { color: var(--color-c8); text-decoration: none; letter-spacing: -0.18px; font:var(--font-18); display: flex; justify-content: center; gap: 0.4rem;}
+.contact-phone a img{width:1.2rem;}
 .phone-icon { margin-right: 05rem; }
 .contact-line { width: 27rem; height: 2px; margin: 2rem auto 0; background: var(--color-f8); }
 .contact-email-area { background: #EFEFEF;padding: 5.7rem 6rem 4.5rem;height: 47rem;}
