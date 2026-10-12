@@ -25,7 +25,13 @@ interface ReactParserProps {
   modularData?:any;
 }
 
-const ALLOWED_IFRAME_HOSTS = ["www.youtube.com", "youtube.com", "player.vimeo.com"];
+const ALLOWED_IFRAME_HOSTS = [
+  "www.youtube.com",
+  "youtube.com",
+  "player.vimeo.com",
+  "www.google.com",
+  "maps.google.com",
+];
 
 const sanitizeOptions: sanitizeHtml.IOptions = {
   allowedTags: sanitizeHtml.defaults.allowedTags.concat([
@@ -52,10 +58,20 @@ const sanitizeOptions: sanitizeHtml.IOptions = {
       "id",
       "xmlns",
       "transform",
+      "data",
       "data-name",
       "data-swiper-autoplay",
       "data-swiper-loop",
       "data-swiper-slides-per-view",
+      "data-aos",
+      "data-aos-delay",
+      "data-aos-duration",
+      "data-aos-easing",
+      "data-aos-offset",
+      "data-aos-anchor",
+      "data-aos-anchor-placement",
+      "data-aos-once",
+      "data-aos-mirror",
       "d",
       "fill",
       "stroke",
@@ -70,7 +86,8 @@ const sanitizeOptions: sanitizeHtml.IOptions = {
       "data-phase-index",
       "data-year",
       "preserveAspectRatio",
-      
+      "referrerpolicy",
+      "allowfullscreen",
     ],
     svg: ["viewBox"],
     iframe: [
@@ -103,7 +120,13 @@ const isAllowedIframeSrc = (src?: string): src is string => {
   if (!src) return false;
   try {
     const url = new URL(src);
-    return url.protocol === "https:" && ALLOWED_IFRAME_HOSTS.includes(url.hostname);
+    if (url.protocol !== "https:") return false;
+
+    const isGoogleMapsHost = ["www.google.com", "maps.google.com"].includes(url.hostname);
+    return (
+      ALLOWED_IFRAME_HOSTS.includes(url.hostname) &&
+      (!isGoogleMapsHost || /^\/maps(?:\/|$)/.test(url.pathname))
+    );
   } catch {
     return false;
   }

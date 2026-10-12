@@ -5,11 +5,13 @@ import WipeOnScroll from "@/components/common/WipeOnScroll";
 import RouteBodyClass from "@/components/common/RouteBodyClass";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "aos/dist/aos.css";
 import Footer from "@/components/footer/Footer";
 import Script from "next/script";
 import ScrollToTop from "@/components/common/ScrollToTop";
 import '../styles/globals.css'
 import Providers from "@/lib/Providers";
+import AosProvider from "@/components/AosProvider";
 
 const funnelSans = Funnel_Sans({
   subsets: ['latin'],
@@ -37,6 +39,7 @@ export default function RootLayout({
         <RouteBodyClass />
         <WipeOnScroll />
         <Providers>
+        <AosProvider />
         <Header />
         {children}
         <Footer />

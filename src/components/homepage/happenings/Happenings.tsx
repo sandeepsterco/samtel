@@ -35,15 +35,15 @@ export default function Happenings({data}:HappeningsPropsInterface) {
                 <div className="happening-header">
                     <div className="font_title">
                         {data?.title && (
-                            <p dangerouslySetInnerHTML={{__html:data.title}}  className="fade-up" data-delay="0.4" data-duration="1" />
+                            <p dangerouslySetInnerHTML={{__html:data.title}}  className="fade-up" data-aos="fade-up" data-aos-delay="400" />
                         )}
                         {data?.subtitle && (
-                            <blockquote className="fade-up" data-delay="0.5" data-duration="1" dangerouslySetInnerHTML={{__html:data.subtitle}}  />
+                            <blockquote className="fade-up" data-aos="fade-up" data-aos-delay="500" dangerouslySetInnerHTML={{__html:data.subtitle}}  />
                         )}
                     </div>
                     {data?.link && (
                         <div className="for_desktop">
-                            <Link href={data.link} className="more_btn fade-up" data-delay="0.6" data-duration="1">
+                            <Link href={data.link} className="more_btn fade-up" data-aos="fade-up" data-aos-delay="600">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     strokeWidth="1.1">
                                     <polyline points="9 18 15 12 9 6"></polyline>
@@ -56,7 +56,7 @@ export default function Happenings({data}:HappeningsPropsInterface) {
             </div>
 
             {data?.happeningsData && data?.happeningsData?.length > 0 && (
-                <div className="slider-outer-wrapper fade-up" data-delay="0.7" data-duration="1">
+                <div className="slider-outer-wrapper fade-up" data-aos="fade-up" data-aos-delay="700">
                     <Swiper
                         modules={[Navigation]}
                         className="happenings-slider"

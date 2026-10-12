@@ -128,6 +128,7 @@
     --font-18: 300 1.8rem/1.6  'avenir_regularregular';
     --font-16: 300 1.6rem/1.5  'avenir_regularregular';
     --font-14: 1.4rem/1.3  'avenir_regularregular';
+    --font-13: 1.3rem/1.3  'avenir_regularregular';
     --font-12: 1.2rem/1.3  'avenir_regularregular';
     --font-light: 'avenirlight';
     --font-regular: 'avenir_regularregular';
@@ -178,6 +179,12 @@ ul.list li::marker{color: var(--color-f8); }
 .explore_btn:hover img { filter: invert(0); }
 /* ---------button---------- */
 
+
+.field-error{
+  font:var(--font-13)
+}
+
+
 @media (max-width:992px) {
 .for_mobile { display: block; }
 .for_desktop { display: none; } 
@@ -186,11 +193,11 @@ ul.list li::marker{color: var(--color-f8); }
     }
 
 }
-@media (max-width:1920px) {
+/* @media (max-width:1920px) {
 .container {
-    max-width: min(1505px, 73.409091vw);
+    max-width: min(1505px, 72.409091vw);
 }
-}
+} */
 
 
 

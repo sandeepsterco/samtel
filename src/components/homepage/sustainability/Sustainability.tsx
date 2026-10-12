@@ -21,15 +21,15 @@ export default function Sustainability({data}:SustainabilityPropsInterface) {
                         <div className="col-lg-4">
                             <div className="font_title">
                                 {data?.title && (
-                                    <p dangerouslySetInnerHTML={{__html:data.title}} className="fade-up" data-delay="0.4" data-duration="1" />
+                                    <p dangerouslySetInnerHTML={{__html:data.title}} className="fade-up" data-aos="fade-up" data-aos-delay="400" />
                                 )}
                                 {data?.subtitle && (
-                                    <blockquote dangerouslySetInnerHTML={{__html:data.subtitle}} className="fade-up" data-delay="0.5" data-duration="1" />
+                                    <blockquote dangerouslySetInnerHTML={{__html:data.subtitle}} className="fade-up" data-aos="fade-up" data-aos-delay="500" />
                                 )}
 
                                 {data?.pageslug && (
                                     <div className="for_desktop">
-                                    <Link href={data.pageslug} className="more_btn fade-up"  data-delay="0.6" data-duration="1">
+                                    <Link href={data.pageslug} className="more_btn fade-up" data-aos="fade-up" data-aos-delay="600">
                                         <img src="/assets/icons/right-arrow-white.svg" alt="arrow" className="img-fluid" />
                                     </Link>
                                     </div>
@@ -44,12 +44,12 @@ export default function Sustainability({data}:SustainabilityPropsInterface) {
                                     <Image src={data?.image ?? '/assets/images/placeholders/image1.webp'} className="img-fluid" width={850} height={600} loading='lazy' alt="sustainbility" />
                                 </figure>
                                 {data?.description && (
-                                    <p dangerouslySetInnerHTML={{__html:data.description}} className="fade-up" data-delay="0.7" data-duration="1" />
+                                    <p dangerouslySetInnerHTML={{__html:data.description}} className="fade-up" data-aos="fade-up" data-aos-delay="700" />
                                 )}
 
                                 {data?.pageslug && (
                                     <div className="for_mobile">
-                                    <Link href={data.pageslug} className="more_btn fade-up"  data-delay="0.6" data-duration="1">
+                                    <Link href={data.pageslug} className="more_btn fade-up" data-aos="fade-up" data-aos-delay="600">
                                         <img src="/assets/icons/right-arrow-white.svg" alt="arrow" className="img-fluid" />
                                     </Link>
                                     </div>

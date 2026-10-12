@@ -9,6 +9,7 @@ import { HeaderMenuItem, ProductCategory, SidebarItem } from "./Header";
 import { useHeader } from "./HeaderContext";
 import "./header.css";
 import { usePathname } from "next/navigation";
+import type { InfoItem } from "@/lib/info";
 
 const CLOSE_DELAY = 350; 
 
@@ -22,7 +23,7 @@ export default function HeaderData({
   headerData: HeaderMenuItem[];
   sidebarData: SidebarItem[];
   productCategoryData: ProductCategory[];
-  infoData:any
+  infoData: InfoItem[];
 }) {
   const navRef = useRef<HTMLDivElement>(null);
   const {showMegaMenu, setShowMegaMenu} = useHeader()

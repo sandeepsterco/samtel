@@ -5,6 +5,7 @@ import FooterMobileMenu, {
     type FooterMenuItem,
     type FooterProductCategory,
 } from './FooterMobileMenu';
+import { normalizeInfoResponse } from '@/lib/info';
 import './footer.css'
 
 interface ItemInterface{
@@ -14,16 +15,6 @@ interface ItemInterface{
 
 interface FooterInterface{
     footer:ItemInterface[]
-}
-
-interface InfoItemInterface{
-    key:string;
-    value:string;
-    image:string;
-}
-
-interface InfoInterface{
-    data: InfoItemInterface[]
 }
 
 interface HeaderMenuResponse {
@@ -48,7 +39,7 @@ export default async function Footer() {
     ])
 
     const footerUpdatedData = (footerData?.data as FooterInterface)?.footer ?? [];
-    const infoUpdatedData = (infoData?.data as InfoInterface)?.data ?? [];
+    const infoUpdatedData = normalizeInfoResponse(infoData?.data);
     const headerMenu = (headerData?.data as HeaderMenuResponse)?.header ?? [];
     const sidebarMenu = (sidebarData?.data as SidebarMenuResponse)?.sidebar ?? [];
     const productCategoryMenu = (productCategoryData?.data as ProductCategoryResponse)?.data ?? [];
@@ -75,11 +66,13 @@ export default async function Footer() {
                         <div className="footer_right">
                             <div className="social-icon">
                                 {infoUpdatedData
-                                    .filter((item:any)=>(item.key == 'facebook' || item.key == 'x' || item.key == 'youtube' || item.key == 'insta' || item.key == 'linkedn'))
-                                    .map((item:any)=>(
-                                        <Link key={item.key} href={item.value ?? ''} target='_blank'>
-                                            <img src={item.image} className="img-fluid" alt={item.key} />
-                                        </Link>
+                                    .filter((item)=>(item.key == 'facebook' || item.key == 'x' || item.key == 'youtube' || item.key == 'insta' || item.key == 'linkedn'))
+                                    .map((item)=>(
+                                        item.image && (
+                                            <Link key={item.key} href={item.value ?? ''} target='_blank'>
+                                                <img src={item.image} className="img-fluid" alt={item.key} />
+                                            </Link>
+                                        )
                                     ))}
                             </div>
                             <div className="copyright">

@@ -3,12 +3,13 @@ import { ProductCategory } from "../Header";
 import Image from "next/image";
 import Link from "next/link";
 import "./megaMenu.css";
+import type { InfoItem } from "@/lib/info";
 
 interface MegaMenuProps {
   show: boolean;
   categoryData: ProductCategory[];
   topOffset: number;
-  infoData: any;
+  infoData: InfoItem[];
   onMouseEnter: () => void;
   onMouseLeave: () => void;
   onClose: () => void;
@@ -25,16 +26,7 @@ export default function MegaMenu({
 }: MegaMenuProps) {
 
   const getValue = (key: string) => {
-    const found = infoData?.data.find((item: any) => item.key == key) ?? null;
-    if (found?.value || found?.image || found?.url) {
-      return {
-        value: found?.value ?? null,
-        image: found?.image ?? null,
-        url: found?.url ?? null,
-      }
-    } else {
-      return null;
-    }
+    return infoData.find((item) => item.key === key) ?? null;
   }
 
 
@@ -50,7 +42,7 @@ export default function MegaMenu({
             <div className="mega-left">
               <div>
                 {getValue('title') && (
-                  <blockquote dangerouslySetInnerHTML={{__html:getValue('title')?.value}} />
+                  <blockquote dangerouslySetInnerHTML={{__html:getValue('title')?.value ?? ''}} />
                 )}
                 
                 <Link href="#" className="mega-btn">
@@ -61,10 +53,10 @@ export default function MegaMenu({
                 {/* <span className="before"></span>
                 <span className="after"></span> */}
                 {getValue('count') && (
-                  <b className="total" dangerouslySetInnerHTML={{__html:getValue('count')?.value}} />
+                  <b className="total" dangerouslySetInnerHTML={{__html:getValue('count')?.value ?? ''}} />
                 )}
                 {getValue('para') && (
-                  <p className="para">{getValue('para')?.value}</p>
+                  <p className="para">{getValue('para')?.value ?? ''}</p>
                 )}
               </div>
             </div>

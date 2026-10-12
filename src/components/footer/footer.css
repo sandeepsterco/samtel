@@ -7,7 +7,7 @@ ul { padding:0; list-style: none; margin:0; }
 .social-icon a { width: 3.2rem; height: 3.2rem; background: #000; display: inline-flex; margin: auto; border-radius: 10rem; margin-right: .5rem; }
 .social-icon a img { width: 32%; margin: 0 auto; }
 .copyright p { color: #fff; font: var(--font-14); letter-spacing: -0.35px; line-height: 1.6; margin-bottom: 0; }
-.social-icon { gap: .5rem; margin-bottom: 2rem; display: inline-flex; }
+.social-icon { gap: .5rem; margin-bottom: 2.4rem; display: inline-flex; }
 .copyright p a { color: #fff; text-decoration: none; }
 
 
