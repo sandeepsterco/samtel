@@ -188,9 +188,9 @@ ul.list li::marker{color: var(--color-f8); }
 @media (max-width:992px) {
 .for_mobile { display: block; }
 .for_desktop { display: none; } 
-    .font_title>p {
+    /* .font_title>p {
         font-weight: 900 !important;
-    }
+    } */
 
 }
 /* @media (max-width:1920px) {
@@ -351,8 +351,8 @@ html { font-size: 45.5%; }
 
     .custom_list li{margin-bottom: 1.5rem;}
     .font_title>blockquote br, .line-wrap2, .people_pic_text blockquote{display: none;}
-    .font_title>blockquote  { padding-inline: 2rem; margin: 0; padding-bottom: 0;letter-spacing: -0.24px;}
-    .font_title>p { font-weight: 900 !important; }
+    .font_title>blockquote  { margin: 0; padding-bottom: 0;letter-spacing: -0.24px;}
+    /* .font_title>p { font-weight: 900 !important; } */
 }
 
 @media (max-width:2100px) {

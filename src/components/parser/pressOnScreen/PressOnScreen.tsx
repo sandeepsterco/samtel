@@ -1,7 +1,7 @@
 import { apiFetch } from "@/lib/api";
 import { notFound } from "next/navigation";
 import FancyboxWrapper from "@/components/common/FancyboxWrapper";
-import "./pressOnScreen.css";
+// import "./pressOnScreen.css";
 import Image from "next/image";
 
 interface FeaturedScreenInterface {

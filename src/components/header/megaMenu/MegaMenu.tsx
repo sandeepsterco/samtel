@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import "./megaMenu.css";
 import type { InfoItem } from "@/lib/info";
+import { BASE_URL } from "@/config/config";
 
 interface MegaMenuProps {
   show: boolean;
@@ -45,7 +46,7 @@ export default function MegaMenu({
                   <blockquote dangerouslySetInnerHTML={{__html:getValue('title')?.value ?? ''}} />
                 )}
                 
-                <Link href="#" className="mega-btn">
+                <Link href={`${BASE_URL}industries`} className="mega-btn">
                   <Image src={`/assets/icons/right-arrow-white.svg`} width={10} height={10} alt="arrow right" />
                 </Link>
               </div>
