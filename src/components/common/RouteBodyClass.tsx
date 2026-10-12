@@ -8,7 +8,7 @@ export default function RouteBodyClass() {
 
   useEffect(() => {
     const routeClass = pathname === "/"
-      ? "homepage"
+      ? "homepage" : pathname === '/leadership' ? 'leadership_page'
       : pathname
         .split("/")
         .filter(Boolean)
