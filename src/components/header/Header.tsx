@@ -1,6 +1,7 @@
 import { apiFetch } from "@/lib/api";
 import HeaderWrapper from "./HeaderWrapper";
 import HeaderData from "./HeaderData";
+import { normalizeInfoResponse } from "@/lib/info";
 import "./header.css";
 
 export interface HeaderMenuItem {
@@ -45,7 +46,7 @@ export default async function Header() {
   const sidebarData = (sidebarRes.data as SidebarResponse)?.sidebar ?? [];
   const productCategoryData =
     (productCategoryRes.data as ProductCategoryResponse)?.data ?? [];
-  const infoData = infoRes?.data ?? [];
+  const infoData = normalizeInfoResponse(infoRes?.data);
 
   return (
     <HeaderWrapper>

@@ -155,19 +155,19 @@ export default function ProductSolutionsClient({
 
                                     {isActive && (
                                         <div className={`tab_content_wrapper${accordionExpanded ? " active" : ""}`}>
-                                            <h3 className="fade-up" data-delay="0.3" data-duration="1">{category.name}</h3>
+                                            <h3 className="fade-up" data-aos="fade-up" data-aos-delay="300">{category.name}</h3>
                                             
                                             <div className="prodcut_text">
                                                 {category.subtitle && (
-                                                    <blockquote className="fade-up" data-delay="0.3" data-duration="1">{category.subtitle}</blockquote>
+                                                    <blockquote className="fade-up" data-aos="fade-up" data-aos-delay="300">{category.subtitle}</blockquote>
                                                 )}
 
                                                 {category.description && (
-                                                    <p className="fade-up" data-delay="0.3" data-duration="1">{category.description}</p>
+                                                    <p className="fade-up" data-aos="fade-up" data-aos-delay="300">{category.description}</p>
                                                 )}
                                                 
                                                 {category?.content && (
-                                                    <div className="fade-up" data-delay="0.3" data-duration="1" dangerouslySetInnerHTML={{ __html: category.content }} />
+                                                    <div className="fade-up" data-aos="fade-up" data-aos-delay="300" dangerouslySetInnerHTML={{ __html: category.content }} />
                                                 )}
                                             </div>
                                             {products.length > 0 && (

@@ -32,10 +32,10 @@ export default function WhoWe({ data }: WhoWePropsInterface) {
         <section className="who_we">
             <div className="font_title">
                 {data?.title && (
-                    <p className="fade-up" data-delay="0.3" data-duration="1" dangerouslySetInnerHTML={{ __html: data.title }} />
+                    <p className="fade-up" data-aos="fade-up" data-aos-delay="300" dangerouslySetInnerHTML={{ __html: data.title }} />
                 )}
                 {data?.subtitle && (
-                    <blockquote className="fade-up" data-delay="0.4" data-duration="1" dangerouslySetInnerHTML={{ __html: data.subtitle }} />
+                    <blockquote className="fade-up" data-aos="fade-up" data-aos-delay="400" dangerouslySetInnerHTML={{ __html: data.subtitle }} />
                 )}
             </div>
 
@@ -57,13 +57,13 @@ export default function WhoWe({ data }: WhoWePropsInterface) {
                 
                 <div className="inustries_item"><div className="mb_ind_grid"><blockquote>Learn more about industrial sectors</blockquote>
                     <div className="mobile-trigger">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6L15 12L9 18" stroke="" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                     </div>
                     <a className="streched_link" href="industries.php">link</a>
                 </div>
                 </div>
             </div>
-            <div className="portfolio-grid for_desktop  fade-up" data-delay="0.6" data-duration="1">
+            <div className="portfolio-grid for_desktop  fade-up" data-aos="fade-up" data-aos-delay="600">
 
                 {firstCategories && firstCategories?.length > 0 && (
                     <div className="grid-row-top">

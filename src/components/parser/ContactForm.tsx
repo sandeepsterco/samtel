@@ -120,9 +120,9 @@ export default function ContactForm() {
         <div className="form-group">
           <input type="text" name="name" placeholder="Name" required />
           {errors.name?.map((msg, i) => (
-            <p key={i} className="field-error">
+            <small key={i} className="field-error">
               {msg}
-            </p>
+            </small>
           ))}
         </div>
 
@@ -144,9 +144,9 @@ export default function ContactForm() {
           </select>
 
           {errors.country?.map((msg, i) => (
-            <p key={i} className="field-error">
+            <small key={i} className="field-error">
               {msg}
-            </p>
+            </small>
           ))}
         </div>
 
@@ -163,18 +163,18 @@ export default function ContactForm() {
           <input type="hidden" name="phone" value={phone || ""} />
 
           {errors.phone?.map((msg, i) => (
-            <p key={i} className="field-error">
+            <small key={i} className="field-error">
               {msg}
-            </p>
+            </small>
           ))}
         </div>
 
         <div className="form-group">
           <input type="email" name="email" placeholder="Email ID" required />
           {errors.email?.map((msg, i) => (
-            <p key={i} className="field-error">
+            <small key={i} className="field-error">
               {msg}
-            </p>
+            </small>
           ))}
         </div>
 
