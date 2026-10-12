@@ -66,7 +66,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
                                         </div>
                                     </div>
                                     {item?.slug && (
-                                        <Link href={`${BASE_URL}newsroom/${item.slug}`} className="streched_link" />
+                                        <Link href={`${BASE_URL}media/newsroom/${item.slug}`} className="streched_link" />
                                     )}
                                 </div>
                             ))}

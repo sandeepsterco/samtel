@@ -96,7 +96,7 @@ export default function Happenings({data}:HappeningsPropsInterface) {
                                         })}</span>
                                     </div>
                                     {item?.slug && (
-                                        <Link className="streched_link" href={`${BASE_URL}newsroom/${item.slug}`}></Link>
+                                        <Link className="streched_link" href={`${BASE_URL}media/newsroom/${item.slug}`}></Link>
                                     )}
                                 </div>
 
