@@ -127,15 +127,14 @@ export default function HeaderData({
                         <li key={liIdx}>
                           <Link href={`${BASE_URL}${li.slug}`} className={`${li?.child?.length > 0 ? 'has_child' : ''}`}>
                             {li.title}
-                            {li?.child?.length > 0 && (
-                              <ul>
-                                {li.child.map((childItem:any, childIdx:number)=>(
-                                  <li key={childIdx}><Link href={`${BASE_URL}${li.slug}/${childItem.slug}`}>{childItem.title}</Link></li>
-                                ))}
-                              </ul>
-                            )}
-
                           </Link>
+                          {li?.child?.length > 0 && (
+                            <ul>
+                              {li.child.map((childItem:any, childIdx:number)=>(
+                                <li key={childIdx}><Link href={`${BASE_URL}${li.slug}/${childItem.slug}`}>{childItem.title}</Link></li>
+                              ))}
+                            </ul>
+                          )}
                         </li>
                       ))}
                       

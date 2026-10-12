@@ -9,11 +9,11 @@
 
 @media (max-width:992px) {
 .font_title { text-align: center; }
-.home_sustainbility .font_title>blockquote {padding-inline: 0; margin-bottom: 3rem; }
+.home_sustainbility .font_title>blockquote {padding-inline: 0; margin-bottom: 0rem; }
 .home_sustainbility { padding-block: 5rem 5rem; text-align: center; }
 .home_sustainbility a.more_btn.for_mobile { display: flex; justify-content: center; align-items: center; margin: 2.4rem auto; width: 2.4rem; height: 2.4rem; padding: .7rem; }
 .home_sustainbility .container { padding-inline: 2rem; }
-.sustainbility-content p{padding:0;}
+.sustainbility-content p{padding:0; margin-bottom: 3rem;}
 .sustainbility-content {
     margin-top: 4rem;
 }
