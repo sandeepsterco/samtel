@@ -15,7 +15,6 @@
 .milestone-nav { position: relative; min-height: 22.7rem; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); align-items: start; }
 .milestone-tab { position: relative; z-index: 10; border: 0; outline: none; background: transparent; text-align: center; color: #c7c7c7; cursor: pointer; font: inherit; transition:color .35s ease; padding: 2.5rem 3rem 0; opacity: .5; }
 .milestone-tab .tab-icon { display: block; margin: 0 auto .5rem; transition: color .35s ease, transform .35s ease; }
-.milestone-tab .tab-icon img{margin:auto;}
 .milestone-tab .tab-icon svg { width: 100%; height: 100%; }
 .milestone-tab .tab-title { display: block; font: var(--font-24); letter-spacing: -0.79px; color: var(--color-23); }
 .milestone-tab .tab-years { display: block; font: var(--font-24); letter-spacing: -0.79px; color: var(--color-c8); transition: color .35s ease; }
@@ -31,7 +30,7 @@
 .milestone-content { margin-top: 5rem; position: relative; width: 100%; }
 .global-timeline-line { position: absolute; z-index: 1; top: 0; bottom: 0; left: 50%; width: 1px; transform: translateX(-50%); background:#efbcbc; pointer-events: none; }
 .global-timeline-line-fill { position: absolute; left: 0; top: 0; width: 100%; height: 0%; background: var(--color-c8); transform-origin: top center; will-change: height; }
-.milestone-phase { position: relative; padding: 0 0 26rem; }
+.milestone-phase { position: relative; padding: 0 0 60rem; }
 .milestone-phase:first-child { padding-top: 2rem; }
 .milestone-phase+.milestone-phase { padding-top: 4rem; }
 .timeline { position: relative; width: min(720px, 90vw); margin: 0 auto; padding: 1.5rem 0 8rem; }
@@ -42,17 +41,18 @@
 .event-curve { position: absolute; top: 0; width: 13.4rem; height: 14.8rem; overflow: visible; }
 .event-left .event-curve { right: 0; }
 .event-right .event-curve { left: 0; }
+.event-curve svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .curve-path { fill: none; stroke: var(--color-c8); stroke-width: 1; vector-effect: non-scaling-stroke; opacity: .9; }
-.event-curve svg { display: block; width: 100%; height: 100%; overflow: visible; position:relative;}
 .event-dot { position: absolute; z-index: 10; top: 14.5rem; width: .7rem; height: .7rem; border-radius: 50%; background: var(--color-c8); transform: translate(-50%, -50%) scale(0); }
 .event-left .event-dot { right: 11.7rem; width: 1.4rem; height: 1.4rem; }
 .event-right .event-dot { left: 12.7rem; width: 1.4rem; height: 1.4rem; }
-.event-image { position: absolute; z-index: 8; top: 8rem; width: 14rem; height: 14rem; padding: 3rem; border-radius: 1rem; background: #f7f7f7; display: flex; align-items: center; justify-content: center; opacity: 0; transform: scale(.7); box-shadow: 0 4px 14px rgba(0, 0, 0, .02); }
+.event-image { position: absolute; z-index: 8; top: 8rem; width: 14rem; height: 14rem; padding: 2rem; border-radius: 1rem; background: #f7f7f7; display: flex; align-items: center; justify-content: center; opacity: 0; transform: scale(.7); box-shadow: 0 4px 14px rgba(0, 0, 0, .02); }
 .event-left .event-image { right: 14rem; }
 .event-right .event-image { left: 14rem; }
 .event-image img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .event-copy { position: absolute; top: 31rem; width: 43.1rem; opacity: 0; transform: translateY(14px); }
 .event-left .event-copy { right: calc(62% + 62px); text-align: right; }
+.event-left .event-copy p{margin-bottom: 4rem;}
 .event-right .event-copy { left: calc(63% + 62px); text-align: left; }
 .event-copy h3 { color: var(--color-c8); font: var(--font-30); line-height: 1; font-weight: 800; margin-bottom: 2rem; }
 .mobile-milestone{display: none;}
@@ -199,7 +199,7 @@
 }
 .milestone_img1{
         background-color: var(--color-white);
-            padding: 1.5rem;
+            padding: 0.6rem;
             border-radius: 1.2rem;
             margin-bottom: 3rem;
             display: inline-block;

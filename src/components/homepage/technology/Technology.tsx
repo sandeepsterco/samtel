@@ -1,7 +1,7 @@
 "use client"
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type PointerEvent } from 'react';
 import { refreshScrollTriggers } from '@/hooks/useScrollTriggerRefresh';
 import { BASE_URL } from '@/config/config';
 import './technology.css'
@@ -32,14 +32,76 @@ interface TechnologyPropsInterface {
 export default function Technology({ data }: TechnologyPropsInterface) {
     const images = data?.images ?? []
     const info = data?.info ?? []
-    const [activeTab, setActiveTab] = useState(info[0].id)
+    const [activeTab, setActiveTab] = useState(info[0]?.id ?? '')
+    const [isMobile, setIsMobile] = useState(false)
+    const [isDragging, setIsDragging] = useState(false)
+    const [dragOffset, setDragOffset] = useState(0)
     const sectionRef = useRef<HTMLElement | null>(null)
     const figureRefs = useRef<(HTMLElement | null)[]>([])
+    const dragStartX = useRef(0)
+    const dragDistance = useRef(0)
+    const activeIndex = Math.max(0, info.findIndex((tab) => tab.id === activeTab))
 
     figureRefs.current = []
     const addFigureRef = (el: HTMLElement | null) => {
         if (el && !figureRefs.current.includes(el)) {
             figureRefs.current.push(el)
+        }
+    }
+
+    useEffect(() => {
+        const mobileQuery = window.matchMedia('(max-width: 992px)')
+        const updateMobileState = () => {
+            setIsMobile(mobileQuery.matches)
+            setIsDragging(false)
+            setDragOffset(0)
+        }
+
+        updateMobileState()
+        mobileQuery.addEventListener('change', updateMobileState)
+
+        return () => mobileQuery.removeEventListener('change', updateMobileState)
+    }, [])
+
+    const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
+        if (!isMobile || !event.isPrimary || event.button !== 0) return
+
+        dragStartX.current = event.clientX
+        dragDistance.current = 0
+        setIsDragging(true)
+    }
+
+    const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
+        if (!isDragging) return
+
+        dragDistance.current = event.clientX - dragStartX.current
+        if (
+            Math.abs(dragDistance.current) > 5 &&
+            !event.currentTarget.hasPointerCapture(event.pointerId)
+        ) {
+            event.currentTarget.setPointerCapture(event.pointerId)
+        }
+        setDragOffset(dragDistance.current)
+    }
+
+    const handlePointerUp = (event: PointerEvent<HTMLDivElement>, cancelled = false) => {
+        if (!isDragging) return
+
+        const distance = dragDistance.current
+        setIsDragging(false)
+        setDragOffset(0)
+        dragDistance.current = 0
+
+        if (cancelled || Math.abs(distance) < 60) return
+
+        const nextIndex = Math.max(
+            0,
+            Math.min(info.length - 1, activeIndex + (distance < 0 ? 1 : -1))
+        )
+        if (info[nextIndex]) setActiveTab(info[nextIndex].id)
+
+        if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+            event.currentTarget.releasePointerCapture(event.pointerId)
         }
     }
 
@@ -160,7 +222,17 @@ export default function Technology({ data }: TechnologyPropsInterface) {
                         
                         <div className="techno_slider">
 
-                            <div className="techno_tabwrapper">
+                            <div
+                                className={`techno_tabwrapper${isDragging ? ' dragging' : ''}`}
+                                style={isMobile ? {
+                                    transform: `translate3d(calc(-${activeIndex * 100}% + ${dragOffset}px), 0, 0)`,
+                                    transition: isDragging ? 'none' : 'transform 0.45s cubic-bezier(.22,.61,.36,1)',
+                                } : undefined}
+                                onPointerDown={handlePointerDown}
+                                onPointerMove={handlePointerMove}
+                                onPointerUp={handlePointerUp}
+                                onPointerCancel={(event) => handlePointerUp(event, true)}
+                            >
                                 {info.map((tab) => (
                                     <div
                                         key={tab.id}
@@ -185,10 +257,26 @@ export default function Technology({ data }: TechnologyPropsInterface) {
                             </div>
 
                             <div className="techno_mobile_nav">
-                                <button type="button" className="techno_prev">
+                                <button
+                                    type="button"
+                                    className="techno_prev"
+                                    aria-label="Previous technology"
+                                    disabled={isMobile && activeIndex === 0}
+                                    onClick={() => {
+                                        if (activeIndex > 0) setActiveTab(info[activeIndex - 1].id)
+                                    }}
+                                >
                                     <img src="/assets/icons/red-left-btn.svg" alt="arrow" className="img-fluid" />
                                 </button>
-                                <button type="button" className="techno_next">
+                                <button
+                                    type="button"
+                                    className="techno_next"
+                                    aria-label="Next technology"
+                                    disabled={isMobile && activeIndex >= info.length - 1}
+                                    onClick={() => {
+                                        if (activeIndex < info.length - 1) setActiveTab(info[activeIndex + 1].id)
+                                    }}
+                                >
                                     <img src="/assets/icons/red-right-btn.svg" alt="arrow" className="img-fluid" />
                                 </button>
                             </div>

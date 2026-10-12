@@ -1,6 +1,10 @@
 import { apiFetch } from '@/lib/api'
 import Link from 'next/link';
 import { BASE_URL } from '@/config/config';
+import FooterMobileMenu, {
+    type FooterMenuItem,
+    type FooterProductCategory,
+} from './FooterMobileMenu';
 import './footer.css'
 
 interface ItemInterface{
@@ -22,13 +26,35 @@ interface InfoInterface{
     data: InfoItemInterface[]
 }
 
+interface HeaderMenuResponse {
+    header: FooterMenuItem[];
+}
+
+interface SidebarMenuResponse {
+    sidebar: FooterMenuItem[];
+}
+
+interface ProductCategoryResponse {
+    data: FooterProductCategory[];
+}
+
 export default async function Footer() {
-    const [footerData, infoData] = await Promise.all([apiFetch(`footer`), apiFetch(`info`)])
+    const [footerData, infoData, headerData, sidebarData, productCategoryData] = await Promise.all([
+        apiFetch(`footer`),
+        apiFetch(`info`),
+        apiFetch(`header`),
+        apiFetch(`sidebar`),
+        apiFetch(`product-categories`),
+    ])
 
     const footerUpdatedData = (footerData?.data as FooterInterface)?.footer ?? [];
     const infoUpdatedData = (infoData?.data as InfoInterface)?.data ?? [];
+    const headerMenu = (headerData?.data as HeaderMenuResponse)?.header ?? [];
+    const sidebarMenu = (sidebarData?.data as SidebarMenuResponse)?.sidebar ?? [];
+    const productCategoryMenu = (productCategoryData?.data as ProductCategoryResponse)?.data ?? [];
 
     return (
+        <>
         <footer>
             <div className="container">
                 <div className="col-lg-10 mx-auto">
@@ -69,5 +95,7 @@ export default async function Footer() {
             </div>
 
         </footer>
+        <FooterMobileMenu headerMenu={headerMenu} sidebarMenu={sidebarMenu} productCategoryMenu={productCategoryMenu} />
+        </>
     )
 }
