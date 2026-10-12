@@ -2,6 +2,7 @@ import InnerSection from "@/components/common/innerSection/InnerSection";
 import ReactParserDynamic from "@/components/common/reactParser/ReactParserDynamic";
 import { apiFetch } from "@/lib/api";
 import './leadership-detail.css'
+import '@/styles/inner.css'
 import Breadcrumbs from "@/components/common/breadcrumbs/Breadcrumbs";
 
 export default async function LeadershipDetailPage({params}:{params:Promise<{slug:string}>}){
