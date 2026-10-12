@@ -19,6 +19,8 @@ interface ProductCategory {
     slug: string;
     subtitle?:string;
     description?:string;
+    content?:string;
+    products_count?:boolean;
 }
 
 interface Product {
@@ -32,7 +34,7 @@ interface Product {
     product_details_html?: string;
     mapping_items?:{
         lists?:MappingItemInterface[]
-    }
+    };
 }
 
 interface ProductSolutionsClientProps {
@@ -119,13 +121,15 @@ export default function ProductSolutionsClient({
                 <div className="products_systems_detail_grd">
                     <nav className="prodcut-nav" aria-label="Product categories">
                         <ul>
-                            {categories.map((category) => (
-                                <li key={category.slug} className={category.slug === activeCategory?.slug ? "active" : ""}>
+                            {categories.map((category) => {
+                                if(category.products_count || category.name.includes('Custom Solutions')){
+                                    return <li key={category.slug} className={category.slug === activeCategory?.slug ? "active" : ""}>
                                     <Link href={`${pathname}?type=${encodeURIComponent(category.slug)}`}>
                                         {category.name}
                                     </Link>
                                 </li>
-                            ))}
+                                }
+                            })}
                         </ul>
                     </nav>
 
@@ -162,9 +166,11 @@ export default function ProductSolutionsClient({
                                                     <p className="fade-up" data-delay="0.3" data-duration="1">{category.description}</p>
                                                 )}
                                                 
-                                                
+                                                {category?.content && (
+                                                    <div className="fade-up" data-delay="0.3" data-duration="1" dangerouslySetInnerHTML={{ __html: category.content }} />
+                                                )}
                                             </div>
-                                            {products.length > 0 ? (
+                                            {products.length > 0 && (
                                                 <>
                                                     <div className="product_grid">
                                                         {products.map((product, index) => (
@@ -196,7 +202,7 @@ export default function ProductSolutionsClient({
                                                     </div>
                                                     <PaginationWrapper currentPage={currentPage} totalPages={totalPages} />
                                                 </>
-                                            ) : <NoData />}
+                                            ) }
                                         </div>
                                     )}
                                 </div>

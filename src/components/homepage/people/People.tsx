@@ -25,6 +25,7 @@ interface PeoplePropsInterface {
         count: string;
         counttitle: string;
         buttonsgroup: ButtonInterface[];
+        mobileimage?: string;
     }
 }
 
@@ -50,7 +51,7 @@ export default function People({ data }: PeoplePropsInterface) {
         const rightLinkItems = rightLinkListRef.current?.querySelectorAll('li')
         const lineProgress = lineProgressRef.current
 
-        if (!section || !imageWrap || !image || !overlay) return
+        if (!section || !imageWrap || !image || !overlay || window.matchMedia('(max-width: 768px)').matches) return
 
         function getDistance() {
             return window.innerHeight || document.documentElement.clientHeight
@@ -156,7 +157,7 @@ export default function People({ data }: PeoplePropsInterface) {
 
             <div className="people-image-wrap" ref={imageWrapRef}>
                 {data?.image && (
-                    <div className="people-image">
+                    <div className="people-image for_desktop">
                         <Image src={data.image} width={2545} height={900} loading='lazy' className="img-fluid" alt="people image" ref={imageRef} />
                     </div>
                 )}
@@ -165,6 +166,11 @@ export default function People({ data }: PeoplePropsInterface) {
                     <div className="container h-100">
                         <div className="col-lg-11 mx-auto h-100">
                             <div className="overlay-content">
+                                <div className="people-image for_mobile">
+                                    {data?.mobileimage && (
+                                        <Image src={data.mobileimage} width={343} height={479} loading='lazy' className="img-fluid" alt="people image" />
+                                    )}
+                                </div>
 
                                 {data?.message.trim() && (
                                     <div className="people_pic_text">

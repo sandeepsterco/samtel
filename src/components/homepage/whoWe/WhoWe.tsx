@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import './whowe.css'
 import { BASE_URL } from '@/config/config';
+import Image from 'next/image';
 
 interface CategoryInterface {
     name: string;
@@ -10,6 +11,8 @@ interface CategoryInterface {
     short_description?: string;
     display_order?: string;
     slug?: string;
+    product_image?: string;
+    content:String | null;
 }
 
 interface WhoWePropsInterface {
@@ -17,7 +20,7 @@ interface WhoWePropsInterface {
         title: string;
         subtitle: string;
         categories: CategoryInterface[];
-        short_description?:string;
+        short_description?: string;
     }
 }
 
@@ -36,7 +39,31 @@ export default function WhoWe({ data }: WhoWePropsInterface) {
                 )}
             </div>
 
-            <div className="portfolio-grid">
+            <div className="mobile_industries for_mobile">
+                {data?.categories && data?.categories?.length > 0 && data.categories.map((item, idx)=>(
+                    <div key={idx} className="inustries_item">
+                        <figure>
+                            <Image src={item?.product_image || item.home_image || '/assets/images/placeholders/placeholder2.webp'} className="img-fluid w-100" loading='lazy' width={366} height={304} alt={item?.name || 'Airborne Systems'} />
+                        </figure> 
+                        {item?.name && (
+                            <p>{item.name}</p> 
+                        )}
+                        {item?.slug && (
+                            <Link href={`${BASE_URL}category/${item.slug}`} className="streched_link"></Link>
+                        )}
+                    </div>
+                ))}
+                
+                
+                <div className="inustries_item"><div className="mb_ind_grid"><blockquote>Learn more about industrial sectors</blockquote>
+                    <div className="mobile-trigger">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6L15 12L9 18" stroke="" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                    </div>
+                    <a className="streched_link" href="industries.php">link</a>
+                </div>
+                </div>
+            </div>
+            <div className="portfolio-grid for_desktop  fade-up" data-delay="0.6" data-duration="1">
 
                 {firstCategories && firstCategories?.length > 0 && (
                     <div className="grid-row-top">
@@ -49,7 +76,7 @@ export default function WhoWe({ data }: WhoWePropsInterface) {
                                         <h3>{item.name}</h3>
                                     )}
                                     {item?.short_description && (
-                                        <p dangerouslySetInnerHTML={{ __html: item.short_description  }} />
+                                        <p dangerouslySetInnerHTML={{ __html: item.short_description }} />
                                     )}
 
                                 </div>
