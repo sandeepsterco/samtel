@@ -70,7 +70,7 @@ export default function MegaMenu({
             </div>
             <div className="mega-grid">
               {categoryData.map((category, idx) => {
-                if(category.featured){
+                if(category.featured || category.slug.includes('industrial')){
                   return <Link
                   href={`/category/${category.slug}`}
                   key={idx}
