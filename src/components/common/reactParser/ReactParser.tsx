@@ -233,9 +233,20 @@ function renderIframe(attribs: Element["attribs"]) {
   );
 }
 
+const PLACEHOLDER_ONLY = /^\{[^{}]*\}$/;
+const PLACEHOLDER_ANY = /\{[^{}]*\}/g;
+
 function createParserOptions(pressCoverage?: PressCoverage, modularData?:any, searchParams?:Promise<{page?:string}>): HTMLReactParserOptions {
   return {
     replace(domNode: DOMNode) {
+      if (domNode.type === "text") {
+        if (PLACEHOLDER_ONLY.test(domNode.data.trim())) {
+          return <></>;
+        }
+
+        return undefined;
+      }
+
       if (!(domNode instanceof Element)) return undefined;
 
       const { name, attribs } = domNode;
