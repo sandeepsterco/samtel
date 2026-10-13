@@ -118,7 +118,7 @@ export default function ContactForm() {
         {generalError && <p className="form-error">{generalError}</p>}
 
         <div className="form-group">
-          <input type="text" name="name" placeholder="Name" required />
+          <input type="text" name="name" placeholder="Name*" required />
           {errors.name?.map((msg, i) => (
             <small key={i} className="field-error">
               {msg}
@@ -133,7 +133,7 @@ export default function ContactForm() {
         <div className="form-group">
           <select name="country" required defaultValue="">
             <option value="" disabled>
-              Country
+              Country*
             </option>
 
             {countries.map((country) => (
@@ -156,7 +156,7 @@ export default function ContactForm() {
             defaultCountry="IN"
             value={phone}
             onChange={setPhone}
-            placeholder="Mobile No."
+            placeholder="Mobile No.*"
             className="phone-input"
           />
 
@@ -170,7 +170,7 @@ export default function ContactForm() {
         </div>
 
         <div className="form-group">
-          <input type="email" name="email" placeholder="Email ID" required />
+          <input type="email" name="email" placeholder="Email ID*" required />
           {errors.email?.map((msg, i) => (
             <small key={i} className="field-error">
               {msg}

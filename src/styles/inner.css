@@ -13,6 +13,10 @@
     color:#000
 }
 
+.form-card h3{
+    font-weight: 600!important;
+}
+
 /* ============= DONT REMOVE THIS=============== */
 
 
@@ -1146,7 +1150,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .design_sec3 .testing-heading span, .design_sec3 .testing-heading h2{ color: var(--color-23); }
 .design_sec3 .testing-item h3, .design_sec3 .testing-item p{ color: var(--color-23); }
 .design_sec3 .testing-item p{ padding-inline: 0 3rem; }
-.design_sec3 .testing-item{ border-bottom: 2px solid var(--color-d4); min-height: 20.2rem; }
+.design_sec3 .testing-item{ border-bottom: 2px solid var(--color-d4); min-height: 20.2rem; overflow: hidden;}
 .design_sec4{ padding-block: 13rem 15rem; }
 .platform_txt h3{ margin-bottom: 5rem; }
 .platform_lst { display: grid; grid-template-columns: repeat(2, 1fr); gap: 19.8rem; }

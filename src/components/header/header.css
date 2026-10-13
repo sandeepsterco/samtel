@@ -38,7 +38,7 @@ ul.site_dropdown_menu li:hover>a { background: #fff; }
 .other-links-drawer ul li a { text-decoration: none; color: var(--color-white); font: var(--font-24); font-weight: 500; transition: color 0.2s;outline:0; }
 .other-links-drawer ul li a:hover { color: var(--color-white); }
 .other-links-drawer.open ul { display: block; }
-.other-links-drawer .media-dropdown { display: none; margin:0rem 0 0; padding: 0 0 0 1rem; list-style: none; position: absolute; }
+.other-links-drawer .media-dropdown { display: none; margin:0rem 0 0; padding: 0 0 0 2rem; list-style: none; position: absolute; }
 
 .other-links-drawer .media-dropdown li a { font: var(--font-18); text-decoration: none; }
 .other-links-drawer .media-toggle { display: flex; align-items: center; justify-content: space-between; }

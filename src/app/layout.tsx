@@ -36,6 +36,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        <ScrollToTop />
         <RouteBodyClass />
         <WipeOnScroll />
         <Providers>
@@ -43,7 +44,6 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
-        <ScrollToTop />
         <Script src="/js/smoothscroll.min.js" strategy="lazyOnload" />
         </Providers>
       </body>
