@@ -1,7 +1,8 @@
-import parse, { attributesToProps, Element } from "html-react-parser";
+import parse, { attributesToProps, domToReact, Element } from "html-react-parser";
 import type { DOMNode, HTMLReactParserOptions } from "html-react-parser";
 import sanitizeHtml from "sanitize-html";
 import Image from "next/image";
+import Link from "next/link";
 import CmsEnhancer from "../CmsEnhancer";
 import ContactForm from "@/components/parser/ContactForm";
 import LeadershipGrid from "@/components/parser/LeadershipGrid";
@@ -66,12 +67,21 @@ const sanitizeOptions: sanitizeHtml.IOptions = {
       "data-aos",
       "data-aos-delay",
       "data-aos-duration",
+      "data-delay",
+      "data-duration",
       "data-aos-easing",
       "data-aos-offset",
       "data-aos-anchor",
       "data-aos-anchor-placement",
       "data-aos-once",
       "data-aos-mirror",
+      "data-bs-toggle",
+      "data-bs-target",
+      "data-bs-parent",
+      "aria-expanded",
+      "aria-controls",
+      "aria-labelledby",
+      "role",
       "d",
       "fill",
       "stroke",
@@ -103,6 +113,40 @@ const sanitizeOptions: sanitizeHtml.IOptions = {
     ],
   },
   allowedIframeHostnames: ALLOWED_IFRAME_HOSTS,
+  transformTags: {
+    "*": (tagName, attributes) => {
+      const classNames = attributes.class?.split(/\s+/) ?? [];
+      const hasLegacyAosTiming =
+        attributes["data-delay"] !== undefined ||
+        attributes["data-duration"] !== undefined;
+
+      if (!classNames.includes("fade-up") || !hasLegacyAosTiming) {
+        return { tagName, attribs: attributes };
+      }
+
+      const transformedAttributes = { ...attributes };
+      if (!transformedAttributes["data-aos"]) {
+        transformedAttributes["data-aos"] = "fade-up";
+      }
+
+      for (const [legacyName, aosName] of [
+        ["data-delay", "data-aos-delay"],
+        ["data-duration", "data-aos-duration"],
+      ]) {
+        const value = transformedAttributes[legacyName];
+        if (value === undefined) continue;
+
+        const seconds = Number(value);
+        if (Number.isFinite(seconds) && seconds >= 0 &&
+          transformedAttributes[aosName] === undefined) {
+          transformedAttributes[aosName] = String(seconds * 1000);
+        }
+        delete transformedAttributes[legacyName];
+      }
+
+      return { tagName, attribs: transformedAttributes };
+    },
+  },
 };
 
 const ABSOLUTE_SRC = /^(https?:|data:|\/)/i;
@@ -115,6 +159,8 @@ const toInt = (value?: string | number): number | undefined => {
   return Number.isNaN(n) ? undefined : n;
 };
 
+const isInternalHref = (href?: string): href is string =>
+  Boolean(href?.startsWith("/") && !href.startsWith("//"));
 
 const isAllowedIframeSrc = (src?: string): src is string => {
   if (!src) return false;
@@ -196,6 +242,13 @@ function createParserOptions(pressCoverage?: PressCoverage, modularData?:any, se
 
       if (name === "img") return renderImage(attribs);
       if (name === "iframe") return renderIframe(attribs);
+      if (name === "a" && isInternalHref(attribs.href)) {
+        return (
+          <Link {...attributesToProps(attribs)} href={attribs.href}>
+            {domToReact(domNode.children as DOMNode[])}
+          </Link>
+        );
+      }
 
       switch (attribs.id) {
         case "contact_form":
