@@ -66,6 +66,8 @@ const sanitizeOptions: sanitizeHtml.IOptions = {
       "data-aos",
       "data-aos-delay",
       "data-aos-duration",
+      "data-delay",
+      "data-duration",
       "data-aos-easing",
       "data-aos-offset",
       "data-aos-anchor",
@@ -103,6 +105,40 @@ const sanitizeOptions: sanitizeHtml.IOptions = {
     ],
   },
   allowedIframeHostnames: ALLOWED_IFRAME_HOSTS,
+  transformTags: {
+    "*": (tagName, attributes) => {
+      const classNames = attributes.class?.split(/\s+/) ?? [];
+      const hasLegacyAosTiming =
+        attributes["data-delay"] !== undefined ||
+        attributes["data-duration"] !== undefined;
+
+      if (!classNames.includes("fade-up") || !hasLegacyAosTiming) {
+        return { tagName, attribs: attributes };
+      }
+
+      const transformedAttributes = { ...attributes };
+      if (!transformedAttributes["data-aos"]) {
+        transformedAttributes["data-aos"] = "fade-up";
+      }
+
+      for (const [legacyName, aosName] of [
+        ["data-delay", "data-aos-delay"],
+        ["data-duration", "data-aos-duration"],
+      ]) {
+        const value = transformedAttributes[legacyName];
+        if (value === undefined) continue;
+
+        const seconds = Number(value);
+        if (Number.isFinite(seconds) && seconds >= 0 &&
+          transformedAttributes[aosName] === undefined) {
+          transformedAttributes[aosName] = String(seconds * 1000);
+        }
+        delete transformedAttributes[legacyName];
+      }
+
+      return { tagName, attribs: transformedAttributes };
+    },
+  },
 };
 
 const ABSOLUTE_SRC = /^(https?:|data:|\/)/i;
