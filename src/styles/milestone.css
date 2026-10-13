@@ -1,3 +1,20 @@
+/* ================DONT CHANGE ==============================*/
+
+
+.milestone-tab .tab-icon img{
+    margin:auto;
+}
+
+.milestone-tab .tab-desc{
+    display:none;
+}
+
+
+/* ================DONT CHANGE ==============================*/
+
+
+
+
 .milestone_sec1{ padding-block: 12rem 5rem; }
 .milestone_txt blockquote{ font: var(--font-28); color: var(--color-23); font-weight: 300; margin-bottom: 7rem; }
 .milestone_grid { display: grid; grid-template-columns: 75rem auto; gap: 8.5rem; }
@@ -25,8 +42,12 @@
 .milestone-progress-fill { position: absolute; left: 0; top: 0; width: 33.333%; height: 100%; background: linear-gradient( 90deg, #F9FF89 0%, #FBF783 30%, #FEEF7B 55%, #FDE36A 75%, #FFD77F 100% ); transform-origin: left center; will-change: width; }
 .milestone-progress-dot { position: absolute; top: 50%; left: 16.666%; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: #FC5454; transform: translate(-50%, -50%); z-index: 10; will-change: left; box-shadow: 3px 0px 4px #00000047; }
 .milestone-sticky-heading { position: relative; z-index: 50; width: 100%; text-align: center; margin-top: 10.8rem; pointer-events: none; }
+
 .sticky-phase-title { margin: 0; font: var(--font-45); letter-spacing: -0.9px; font-weight: 300; color: var(--color-23); }
 .sticky-phase-years { font: var(--font-45); letter-spacing: -0.9px; font-weight: 300; color: var(--color-c8); }
+.sticky-phase-discription { width: 97.5rem; margin: 3rem auto;    opacity: 1;
+    will-change: opacity, transform; }
+
 .milestone-content { margin-top: 5rem; position: relative; width: 100%; }
 .global-timeline-line { position: absolute; z-index: 1; top: 0; bottom: 0; left: 50%; width: 1px; transform: translateX(-50%); background:#efbcbc; pointer-events: none; }
 .global-timeline-line-fill { position: absolute; left: 0; top: 0; width: 100%; height: 0%; background: var(--color-c8); transform-origin: top center; will-change: height; }
@@ -34,7 +55,7 @@
 .milestone-phase:first-child { padding-top: 2rem; }
 .milestone-phase+.milestone-phase { padding-top: 4rem; }
 .timeline { position: relative; width: min(720px, 90vw); margin: 0 auto; padding: 1.5rem 0 8rem; }
-.timeline-event { position: relative; z-index: 5; min-height: 24rem; margin-bottom: 1.5rem; opacity: 0; will-change: opacity, transform; }
+.timeline-event { position: relative; z-index: 5; min-height: 28rem; margin-bottom: 1.5rem; opacity: 0; will-change: opacity, transform; }
 .event-visual { position: absolute; top: 4.7rem; width: 50%; height: 14.8rem; }
 .event-left .event-visual { left: 0; }
 .event-right .event-visual { right: 0; }
@@ -56,6 +77,7 @@
 .event-right .event-copy { left: calc(63% + 62px); text-align: left; }
 .event-copy h3 { color: var(--color-c8); font: var(--font-30); line-height: 1; font-weight: 800; margin-bottom: 2rem; }
 .mobile-milestone{display: none;}
+.event-copy p strong{font-weight: 700;}
 
 @media (max-width: 1920px) {
 .milestone-sticky-heading {

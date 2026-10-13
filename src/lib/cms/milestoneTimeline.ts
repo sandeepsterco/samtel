@@ -8,12 +8,6 @@ interface MilestoneInstance {
   revert: () => void;
 }
 
-const PHASE_DATA = [
-  { title: "Foundations of Manufacturing Excellence", years: "(1973–2000)" },
-  { title: "Aerospace & Defence Transformation", years: "(2001–2020)" },
-  { title: "Global Expansion & Future Technologies", years: "(2021–Present)" },
-];
-
 async function initMilestoneTimeline(root: HTMLElement): Promise<MilestoneInstance[]> {
   const sections = root.querySelectorAll<HTMLElement>(".milestone-section");
   if (!sections.length) return [];
@@ -26,10 +20,15 @@ async function initMilestoneTimeline(root: HTMLElement): Promise<MilestoneInstan
     media.add("(min-width: 768px)", () => {
       const nav = section.querySelector<HTMLElement>(".milestone-nav");
       const stickyWrap = section.querySelector<HTMLElement>(".milestone-nav-wrap");
-      const tabs = Array.from(section.querySelectorAll<HTMLButtonElement>(".milestone-tab"));
+      const allTabs = Array.from(section.querySelectorAll<HTMLButtonElement>(".milestone-tab"));
+      const tabs = allTabs.filter((tab) => tab.querySelector(".tab-title") || tab.querySelector(".tab-years"));
+      allTabs.forEach((tab) => {
+        if (!tabs.includes(tab)) tab.classList.remove("active");
+      });
       const phases = Array.from(section.querySelectorAll<HTMLElement>(".milestone-phase"));
       const stickyTitle = section.querySelector<HTMLElement>(".sticky-phase-title");
       const stickyYears = section.querySelector<HTMLElement>(".sticky-phase-years");
+      const stickyDescription = section.querySelector<HTMLElement>(".sticky-phase-discription");
       const progressFill = section.querySelector<HTMLElement>(".milestone-progress-fill");
       const progressDot = section.querySelector<HTMLElement>(".milestone-progress-dot");
       const globalLine = section.querySelector<HTMLElement>(".global-timeline-line");
@@ -60,27 +59,43 @@ async function initMilestoneTimeline(root: HTMLElement): Promise<MilestoneInstan
       let currentPhase = -1;
 
       const setActivePhase = (index: number) => {
-        const data = PHASE_DATA[index];
-        if (!data) return;
+        const tab = tabs[index];
+        if (!tab) return;
 
         tabs.forEach((tab, tabIndex) => tab.classList.toggle("active", tabIndex === index));
 
         if (index !== currentPhase) {
           currentPhase = index;
-          if (stickyTitle && stickyYears) {
+          const descriptionElement =
+            tab.querySelector<HTMLElement>(".tab-desc") ??
+            (tab.nextElementSibling instanceof HTMLElement && tab.nextElementSibling.matches(".tab-desc")
+              ? tab.nextElementSibling
+              : null);
+          const contentElements = [stickyTitle, stickyYears, stickyDescription].filter(
+            (element): element is HTMLElement => element !== null,
+          );
+
+          if (contentElements.length) {
             gsap
               .timeline()
-              .to([stickyTitle, stickyYears], {
+              .to(contentElements, {
                 opacity: 0,
                 y: -8,
                 duration: 0.18,
                 ease: "power2.out",
               })
               .call(() => {
-                stickyTitle.textContent = data.title;
-                stickyYears.textContent = data.years;
+                if (stickyTitle) {
+                  stickyTitle.textContent = tab.querySelector(".tab-title")?.textContent?.trim() ?? "";
+                }
+                if (stickyYears) {
+                  stickyYears.textContent = tab.querySelector(".tab-years")?.textContent?.trim() ?? "";
+                }
+                if (stickyDescription) {
+                  stickyDescription.textContent = descriptionElement?.textContent?.trim() ?? "";
+                }
               })
-              .to([stickyTitle, stickyYears], {
+              .to(contentElements, {
                 opacity: 1,
                 y: 0,
                 duration: 0.35,
