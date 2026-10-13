@@ -1,4 +1,8 @@
 @import "tailwindcss";
+/* ===========DONT REMOVE============ */
+#customAccordion .collapse.show{
+  visibility: visible!important;
+}
 * {
   padding: 0;
   margin: 0;

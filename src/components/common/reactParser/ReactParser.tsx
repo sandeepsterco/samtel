@@ -1,7 +1,8 @@
-import parse, { attributesToProps, Element } from "html-react-parser";
+import parse, { attributesToProps, domToReact, Element } from "html-react-parser";
 import type { DOMNode, HTMLReactParserOptions } from "html-react-parser";
 import sanitizeHtml from "sanitize-html";
 import Image from "next/image";
+import Link from "next/link";
 import CmsEnhancer from "../CmsEnhancer";
 import ContactForm from "@/components/parser/ContactForm";
 import LeadershipGrid from "@/components/parser/LeadershipGrid";
@@ -74,6 +75,13 @@ const sanitizeOptions: sanitizeHtml.IOptions = {
       "data-aos-anchor-placement",
       "data-aos-once",
       "data-aos-mirror",
+      "data-bs-toggle",
+      "data-bs-target",
+      "data-bs-parent",
+      "aria-expanded",
+      "aria-controls",
+      "aria-labelledby",
+      "role",
       "d",
       "fill",
       "stroke",
@@ -151,6 +159,8 @@ const toInt = (value?: string | number): number | undefined => {
   return Number.isNaN(n) ? undefined : n;
 };
 
+const isInternalHref = (href?: string): href is string =>
+  Boolean(href?.startsWith("/") && !href.startsWith("//"));
 
 const isAllowedIframeSrc = (src?: string): src is string => {
   if (!src) return false;
@@ -232,6 +242,13 @@ function createParserOptions(pressCoverage?: PressCoverage, modularData?:any, se
 
       if (name === "img") return renderImage(attribs);
       if (name === "iframe") return renderIframe(attribs);
+      if (name === "a" && isInternalHref(attribs.href)) {
+        return (
+          <Link {...attributesToProps(attribs)} href={attribs.href}>
+            {domToReact(domNode.children as DOMNode[])}
+          </Link>
+        );
+      }
 
       switch (attribs.id) {
         case "contact_form":

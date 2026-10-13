@@ -23,6 +23,11 @@ export default function CmsEnhancer({ containerId }: { containerId: string }) {
       const root = document.getElementById(containerId);
       if (!root) return;
 
+      if (root.querySelector('[data-bs-toggle="collapse"]')) {
+        await import("bootstrap/dist/js/bootstrap.bundle.min.js");
+        if (cancelled) return;
+      }
+
       for (const mod of SLIDER_MODULES) {
         const instances = await mod.init(root);
         if (cancelled) {
@@ -33,7 +38,9 @@ export default function CmsEnhancer({ containerId }: { containerId: string }) {
       }
     }
 
-    init();
+    void init().catch((error) => {
+      console.error("Failed to initialize CMS enhancements", error);
+    });
 
     return () => {
       cancelled = true;
