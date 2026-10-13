@@ -31,7 +31,7 @@ export default async function PressCollection({searchParams}:{searchParams?:Prom
 
   return (
     <>
-      <section className="media_sec2 inner">
+      <section className="media_sec1">
         <div className="container">
           <div className="col-lg-10 mx-auto">
             <div className="press_grid">

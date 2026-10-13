@@ -32,10 +32,16 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${funnelSans.variable} h-full antialiased`}
-      data-scroll-behavior="smooth"
+      // data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        <Script id="reset-scroll-position" strategy="beforeInteractive">
+          {`if ("scrollRestoration" in window.history) {
+  window.history.scrollRestoration = "manual";
+}
+window.scrollTo({ top: 0, left: 0, behavior: "instant" });`}
+        </Script>
         <ScrollToTop />
         <RouteBodyClass />
         <WipeOnScroll />

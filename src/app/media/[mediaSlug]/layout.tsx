@@ -14,10 +14,20 @@ export default async function MediaDetailLayout({ children, params }: { children
 
     const topData = data?.data || {};
 
+     const updatedBreadcrumbsData = {
+        breadcrumbs:[
+            {
+                "title": 'Media',
+                "slug": 'media'
+            },,
+            ...topData?.breadcrumbs ?? [],
+        ]
+    }
+
     return (
         <>
             <InnerSection data={topData} />
-            <Breadcrumbs data={topData} />
+            <Breadcrumbs data={updatedBreadcrumbsData} />
             {children}
         </>
     )
