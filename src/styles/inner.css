@@ -1005,7 +1005,8 @@
 .pres_list{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem;}
 .media_bx { position: relative; }
 .media_bx figure img{width: 100%;}
-.zoombtn { position: absolute; content: ""; opacity: 0; left: 50%; top: 50%; transform: translate(-50%, -50%); -webkit-transform: translate(-50%, -50%); -moz-transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); -o-transform: translate(-50%, -50%); transition: all 0.5s ease; -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; }
+.zoombtn { position: absolute; content: ""; opacity: 1; left: 50%; top: 50%; transform: translate(-50%, -50%); -webkit-transform: translate(-50%, -50%); -moz-transform: 
+    translate(-50%, -50%); -ms-transform: translate(-50%, -50%); -o-transform: translate(-50%, -50%); transition: all 0.5s ease; -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; }
 .media_bx:has(a:hover) .zoombtn { opacity: 1; }
 .media_sec4{ background-color: var(--color-white); padding-block: 10rem; }
 .video_grid .zoombtn img { width: 7rem; filter: brightness(0) invert(1); }
@@ -1150,7 +1151,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .design_sec3 .testing-heading span, .design_sec3 .testing-heading h2{ color: var(--color-23); }
 .design_sec3 .testing-item h3, .design_sec3 .testing-item p{ color: var(--color-23); }
 .design_sec3 .testing-item p{ padding-inline: 0 3rem; }
-.design_sec3 .testing-item{ border-bottom: 2px solid var(--color-d4); min-height: 20.2rem; overflow: hidden;}
+.design_sec3 .testing-item{ border-bottom: 2px solid var(--color-d4); min-height: 20.2rem; }
 .design_sec4{ padding-block: 13rem 15rem; }
 .platform_txt h3{ margin-bottom: 5rem; }
 .platform_lst { display: grid; grid-template-columns: repeat(2, 1fr); gap: 19.8rem; }
@@ -1943,6 +1944,7 @@ br.desktop-break { display: none; }
 .unma_title{margin-bottom: 7rem;}
 .unma_title h2{margin-bottom: 4rem;}
 .uuname_ov_full{margin-bottom: 15rem; position: relative;}
+.uavcap_imgbx{position: relative;}
 .image_title{position: absolute; content: ''; bottom: 1rem; right: 1rem;background:var(--color-c83);color: #fff;padding:1rem 2.3rem;}
 .image_title h6 {font: var(--font-18); font-weight: 400;   margin-bottom: 0; text-transform: uppercase;}
 .unam_grid{display: grid;grid-template-columns: 850fr 750fr; gap: 12.5rem;}
@@ -2044,7 +2046,7 @@ br.desktop-break { display: none; }
 .product_modal_grid .product_image{
    width: 85rem;
     height: 85rem;
-    background-image: url("/assets/images/product/product_bg.webp");
+    background-image: url(/assets/images/product/product_bg.webp);
     background-size: cover;
     background-position: center;
     position: sticky;
@@ -2084,7 +2086,7 @@ br.desktop-break { display: none; }
 .product_slide_btns .more_btn{height: 5.2rem;width: 5.2rem;}
 .product_count{background-color: var(--color-c8);height: 5.2rem;width: 5.2rem;color: var(--color-white);    display: flex;align-items: center;justify-content: center;}
 .product_count p{margin-bottom: 0;} .product_content #modalDynamicBody .sort_desc_bx { position: relative; }
-.produ_grid2 { grid-template-columns: repeat(2, 1fr); gap: 3rem; display: grid; }
+.produ_grid2 { grid-template-columns: repeat(1, 1fr); gap: 3rem; display: grid; }
 .produ_gbx>h5 { font: var(--font-18); color: var(--color-23); margin-bottom: 2.2rem; font-weight: 600; }
 .produ_gbx>.custom_list { margin-bottom: 0; }
 .product_content .custom_list li { font-weight: 300; }
@@ -2286,6 +2288,14 @@ br.desktop-break { display: none; }
 .load_more_btn img { width: 4.5rem; height: 4.5rem; background-color: var(--color-c8); margin: auto; width: 100%; max-width: fit-content; padding: 1.5rem; transform: rotate(90deg); margin-left: 2rem; }
 .load_more_btn:hover img { background: var(--color-23); }
 .products_systems .product_item::after { bottom: 0; left: 50%; transform: translateX(-50%); }
+.products_announce{padding-block:12rem 15rem;background:var(--color-c8);}
+.products_announce .sec_hed{padding-top:7rem;margin-bottom:7rem;border-top:1px solid rgba(255,255,255,50%);border-bottom:1px solid rgba(255,255,255,50%);}
+.products_announce h3{font:var(--font-45);color:#fff;letter-spacing:-0.9px;line-height:1.6;margin-bottom:5rem;font-weight:300;}
+.products_announce h4{font:var(--font-21);letter-spacing:1.05px;color:#fff;margin-bottom:3rem;font-weight:900;}
+.products_announce p{color:#fff;}
+.announcements_grid{display:grid;grid-template-columns:49.4% auto;gap:10rem;}
+.announcements_grid_left{padding-top:3rem;}
+
 @media (max-width:992px) {
 .product_item figure img{padding:0;}
     
@@ -2318,38 +2328,71 @@ br.desktop-break { display: none; }
 .airborne_systems_detail.land_tactical_systems { padding-block: 15rem 13.5rem; }
 .sec_hed { padding-bottom: 7rem; }
 .land_tactical_systems_banner { padding-bottom: 15rem; }
+.products_announce.dmr_based .sec_hed{padding-top:0;border-top:0;padding-bottom:0;}
+.products_announce.dmr_based h3 {margin-bottom: 4rem;}
+.right_liink_btn{margin-top:5rem;}
+.right_liink_btn a{background:var(--color-df);}
+.right_liink_btn a.more_btn:hover{background:var( --color-23);}
+.right_liink_btn a img{filter:invert(1) grayscale(1);}
+.right_liink_btn a.more_btn:hover img{filter:invert(0) grayscale(0);}
+
+@media(max-width:1399px){
+.announcements_grid.dmr_based {gap: 8rem;}
+.dmr_based .announcements_grid_left{padding-top:2rem;}
+.right_liink_btn{margin-top:3rem;}
+
+}
 @media(max-width:1199px){
     .airborne_systems_detail.land_tactical_systems { padding-block: 8rem 10rem; }
     .blockquote { margin-bottom: 2.5rem; }
     .sec_hed { padding-bottom: 4rem; }
+    .space_satellite .explore_btn { margin-top: 2rem; }
+.space_satellite .sec_hed { padding-bottom: 0; }
+.announcements_grid{gap:3rem;}
     
 }/* max-width:1199px end */
 @media(max-width:991px){
     .land_tactical_systems .sec_hed { padding-bottom: 2rem; }
     .land_tactical_systems_banner { padding-bottom: 10rem; }
+    .space_satellite .airborne_systems_grid .left_airborne_sys { order: 2; }
+.space_satellite .naval_system_box { max-width: 46rem; }
+.announcements_grid{gap:5rem;}
+.products_announce{padding-block:7rem 8rem;}
+.products_announce h3{margin-bottom:3rem;}
+.products_announce .sec_hed{padding-top:4rem;margin-bottom:4rem;}
+.products_announce h4{margin-bottom:2rem;}
+
 }/* max-width:991px end */
+@media(max-width:767px){
+.announcements_grid{grid-template-columns:100%;gap:2rem;}
+.announcements_grid_left{padding-top:1rem;}
+.right_liink_btn{margin-top:2rem;margin-bottom:2rem;}
+.dmr_based .announcements_grid_left{padding-top:0;}
+
+}/* max-width:767px end */
 @media(max-width:640px){
     .airborne_systems_detail.land_tactical_systems { padding-block: 6rem 7rem; }
     .land_tactical_systems_banner { padding-bottom: 5rem; }
-    .airborne_systems_detail.land_tactical_systems {
-        padding-block: 6rem 5rem;
-    }
+ .airborne_systems_detail.land_tactical_systems{padding-block:6rem 5rem;}
+.products_announce{padding-block:5rem 7rem;}
+.products_announce h3{margin-bottom:2rem;}
+.products_announce .sec_hed{padding-top:3rem;margin-bottom:3rem;padding-bottom:2.5rem;}
+.products_announce.dmr_based h3{margin-bottom:2rem;}
+
+
 }/* max-width:640px end */
 @media(max-width:480px){
-
+.products_announce {
+    padding-block: 4rem 6rem;
+}
+.products_announce h4 {
+    margin-bottom: 1.6rem;
+}
 }/* max-width:480px end */
 /* land-and-tactical-systems-end */
     /* space-and-satellite-start */
 .space_satellite .naval_system_box { grid-template-columns: 30% 56%; }
 .space_satellite .left_airborne_sys figure:not(:last-child) { margin-bottom: 1rem; }
-@media(max-width:1199px){
-.space_satellite .explore_btn { margin-top: 2rem; }
-.space_satellite .sec_hed { padding-bottom: 0; }
-}/* max-width:1199px end */
-@media(max-width:991px){
-.space_satellite .airborne_systems_grid .left_airborne_sys { order: 2; }
-.space_satellite .naval_system_box { max-width: 46rem; }
-}/* max-width:991px end */
 
 /* space-and-satellite-end */
 
@@ -2580,4 +2623,5 @@ br.desktop-break { display: none; }
 }/* max-width:640px end */
 @media(max-width:480px){
 .product_grid { grid-template-columns: repeat(1, 1fr); }
+.airborne_systems_detail { padding-block: 4rem 5rem; } 
 }/* max-width:480px end */
