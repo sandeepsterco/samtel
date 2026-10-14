@@ -2,7 +2,7 @@ import Breadcrumbs from "@/components/common/breadcrumbs/Breadcrumbs";
 import InnerSection from "@/components/common/innerSection/InnerSection";
 import { apiFetch } from "@/lib/api";
 import { getSlug } from "@/lib/getSlug";
-import NotFound from "../not-found";
+import NotFound from "../../not-found";
 
 import '@/styles/inner.css'
 
