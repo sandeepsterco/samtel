@@ -77,7 +77,7 @@ export default async function Footer() {
                             </div>
                             <div className="copyright">
                                 <p>Copyright © Samtel Avionics. All rights Reserved.<br /> Website Design and Development by 
-                                    <Link href={'https://www.stercodigitex.com/'}> Sterco Digitex</Link>
+                                    <Link target='_blank' href={'https://www.stercodigitex.com/'}> Sterco Digitex</Link>
                                 </p>
                             </div>
 
