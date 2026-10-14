@@ -7,6 +7,16 @@
    gap: 0.4rem;
 }
 
+.submenu-link-group { border-top: 1px solid rgba(0, 0, 0, .08); }
+.submenu-parent-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.submenu-parent-link { flex: 1; }
+.nested-submenu-toggle { width: 3.2rem; height: 3.2rem; flex: 0 0 3.2rem; display: flex; align-items: center; justify-content: center; border: 0; background: transparent; cursor: pointer; }
+.nested-submenu-toggle img { width: 1.4rem; height: 1.4rem; filter: brightness(0); transition: transform .25s ease; }
+.nested-submenu-toggle[aria-expanded="true"] img { transform: rotate(90deg); }
+.nested-submenu { display: none; padding: 0 0 1rem 1.5rem; border-left: 1px solid rgba(0, 0, 0, .18); margin-left: .2rem; }
+.nested-submenu.open { display: block; }
+.submenu .nested-submenu a { padding: .6rem 0; }
+
 
 /* ============DONT WRRITE ANY CSS HERE========== */
 
@@ -129,6 +139,7 @@ footer { padding-block: 6.7rem 9.3rem; }
 
 .submenu { display: none; padding: 1rem 5rem 1rem; }
 .submenu a { display: block; padding: .8rem 0; color: var(--color-23); font:var(--font-14); line-height: 1.4; text-decoration: none; letter-spacing: -0.14px; font-weight: 300;}
+
 .mobile-menu-item.has-submenu.open { background: var(--color-f7); transition: .35s ease;}
 .has-submenu.open .submenu { background: var(--color-f7); display: block;transition: .35s ease; }
 .has-submenu.open .submenu-toggle .menu-arrow { transform: rotate(90deg); transition: .35s ease;}

@@ -11,7 +11,6 @@ export default function AosProvider() {
   useEffect(() => {
     AOS.init({
       easing: "ease-out",
-      disable: "mobile",
       duration: 800,
       once: true,
     });

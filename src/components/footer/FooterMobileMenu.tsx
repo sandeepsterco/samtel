@@ -26,7 +26,13 @@ export interface FooterProductCategory {
 interface MenuSection {
   title: string;
   href: string;
-  links: { title: string; href: string }[];
+  links: MenuLink[];
+}
+
+interface MenuLink {
+  title: string;
+  href: string;
+  children?: { title: string; href: string }[];
 }
 
 const contactSlides = [
@@ -80,6 +86,10 @@ function getMenuHref(slug: string) {
   return `${BASE_URL ?? "/"}${normalizedSlug}`;
 }
 
+function getMenuChildren(item: FooterMenuItem) {
+  return [...(item.children ?? []), ...(item.child ?? [])];
+}
+
 function getMenuSections(
   headerMenu: FooterMenuItem[],
   sidebarMenu: FooterMenuItem[],
@@ -93,7 +103,7 @@ function getMenuSections(
   ) => {
     items.forEach((item) => {
       const key = item.title.trim().toLocaleLowerCase();
-      const children = [...(item.children ?? []), ...(item.child ?? [])];
+      const children = getMenuChildren(item);
       const existing = sections.get(key);
       const section = existing ?? {
         title: item.title,
@@ -103,21 +113,37 @@ function getMenuSections(
 
       children.forEach((child) => {
         const childKey = child.title.trim().toLocaleLowerCase();
-        if (
-          section.links.some(
-            (link) => link.title.trim().toLocaleLowerCase() === childKey,
-          )
-        ) {
-          return;
-        }
-
         const childPath =
           source === "header"
             ? child.slug
             : `${item.slug}/${child.slug}`;
+        const nestedLinks = getMenuChildren(child).map((nestedChild) => ({
+          title: nestedChild.title,
+          href: getMenuHref(`${childPath}/${nestedChild.slug}`),
+        }));
+        const existingLink = section.links.find(
+          (link) => link.title.trim().toLocaleLowerCase() === childKey,
+        );
+
+        if (existingLink) {
+          const existingNestedTitles = new Set(
+            (existingLink.children ?? []).map((link) =>
+              link.title.trim().toLocaleLowerCase(),
+            ),
+          );
+          existingLink.children = [
+            ...(existingLink.children ?? []),
+            ...nestedLinks.filter(
+              (link) => !existingNestedTitles.has(link.title.trim().toLocaleLowerCase()),
+            ),
+          ];
+          return;
+        }
+
         section.links.push({
           title: child.title,
           href: getMenuHref(childPath),
+          ...(nestedLinks.length > 0 ? { children: nestedLinks } : {}),
         });
       });
 
@@ -163,6 +189,7 @@ export default function FooterMobileMenu({
 }) {
   const [activePanel, setActivePanel] = useState<ActivePanel>(null);
   const [openSubmenu, setOpenSubmenu] = useState<number | null>(null);
+  const [openNestedSubmenu, setOpenNestedSubmenu] = useState<string | null>(null);
   const swiperRef = useRef<SwiperInstance | null>(null);
   const menuSections = getMenuSections(headerMenu, sidebarMenu, productCategoryMenu);
 
@@ -176,6 +203,7 @@ export default function FooterMobileMenu({
       if (event.key === "Escape") {
         setActivePanel(null);
         setOpenSubmenu(null);
+        setOpenNestedSubmenu(null);
       }
     };
 
@@ -188,11 +216,13 @@ export default function FooterMobileMenu({
       currentPanel === panel ? null : panel,
     );
     setOpenSubmenu(null);
+    setOpenNestedSubmenu(null);
   };
 
   const closePanels = () => {
     setActivePanel(null);
     setOpenSubmenu(null);
+    setOpenNestedSubmenu(null);
   };
 
   const featuredIndustries = productCategoryMenu.filter(
@@ -405,16 +435,73 @@ export default function FooterMobileMenu({
                   </span>
                 </button>
                 <div className="submenu" id={`mobile-submenu-${index}`}>
-                  {section.links.map(({ title, href }) => (
-                    <Link
-                      href={href}
-                      key={href}
-                      tabIndex={isOpen ? 0 : -1}
-                      onClick={closePanels}
-                    >
-                      {title}
-                    </Link>
-                  ))}
+                  {section.links.map(({ title, href, children }, linkIndex) => {
+                    const nestedKey = `${index}-${linkIndex}`;
+                    const isNestedOpen = openNestedSubmenu === nestedKey;
+
+                    if (!children?.length) {
+                      return (
+                        <Link
+                          href={href}
+                          key={href}
+                          tabIndex={isOpen ? 0 : -1}
+                          onClick={closePanels}
+                        >
+                          {title}
+                        </Link>
+                      );
+                    }
+
+                    return (
+                      <div className="submenu-link-group" key={href}>
+                        <div className="submenu-parent-row">
+                          <Link
+                            href={href}
+                            className="submenu-parent-link"
+                            tabIndex={isOpen ? 0 : -1}
+                            onClick={closePanels}
+                          >
+                            {title}
+                          </Link>
+                          <button
+                            type="button"
+                            className="nested-submenu-toggle"
+                            aria-label={`${isNestedOpen ? "Collapse" : "Expand"} ${title} submenu`}
+                            aria-expanded={isNestedOpen}
+                            aria-controls={`nested-submenu-${nestedKey}`}
+                            tabIndex={isOpen ? 0 : -1}
+                            onClick={() =>
+                              setOpenNestedSubmenu((current) =>
+                                current === nestedKey ? null : nestedKey,
+                              )
+                            }
+                          >
+                            <Image
+                              src="/assets/icons/right-arrow-white.svg"
+                              alt=""
+                              width={16}
+                              height={16}
+                            />
+                          </button>
+                        </div>
+                        <div
+                          className={`nested-submenu${isNestedOpen ? " open" : ""}`}
+                          id={`nested-submenu-${nestedKey}`}
+                        >
+                          {children.map((nestedLink) => (
+                            <Link
+                              href={nestedLink.href}
+                              key={nestedLink.href}
+                              tabIndex={isOpen && isNestedOpen ? 0 : -1}
+                              onClick={closePanels}
+                            >
+                              {nestedLink.title}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             );

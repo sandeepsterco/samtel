@@ -38,10 +38,10 @@ export default async function MediaDetailLayout({ children, params }: PageProps)
 
      const updatedBreadcrumbsData = {
         breadcrumbs:[
-            {
-                "title": 'Media',
-                "slug": 'media'
-            },,
+            // {
+            //     "title": 'Media',
+            //     "slug": 'media'
+            // },,
             ...topData?.breadcrumbs ?? [],
         ]
     }
