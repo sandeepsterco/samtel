@@ -1,3 +1,4 @@
+
 .happenings-section {background-color: var(--color-c8);padding-block: 12.3rem 13rem;color: #ffffff;overflow: hidden;}
 .happening-header {display: flex;justify-content: space-between;align-items: flex-end;margin-bottom: 4rem;padding-left: 5rem;padding-right: 25rem;}
 .happening-header blockquote, .happening-header p{color:#fff;}
