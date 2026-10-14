@@ -49,7 +49,7 @@ export default async function Footer() {
         <>
         <footer>
             <div className="container">
-                <div className="col-lg-10 mx-auto">
+                <div className="col-lg-11 mx-auto">
                     <div className="footer_grid">
                         {footerUpdatedData?.length > 0 && (
                             <div className="footer_left">

@@ -42,6 +42,17 @@
 } */
 
 
+/* =========DONT UPDATE============= */
+
+
+.people_right_link ul li a{
+        display: flex;
+    align-items: center;
+}
+
+/* =========DONT UPDATE============= */
+
+
 
 .people_panel { height:90vh; }
 .people_panel .font_title { text-align: center; padding: 4rem 0 1rem; }
