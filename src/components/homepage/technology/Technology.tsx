@@ -1,13 +1,19 @@
 "use client"
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useEffect, useLayoutEffect, useRef, useState, type PointerEvent } from 'react';
-import { refreshScrollTriggers } from '@/hooks/useScrollTriggerRefresh';
-import { BASE_URL } from '@/config/config';
-import './technology.css'
-import Image from 'next/image';
 
-gsap.registerPlugin(ScrollTrigger);
+import { useCallback, useLayoutEffect, useRef, useState } from "react"
+import Image from "next/image"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { Swiper, SwiperSlide } from "swiper/react"
+import { Autoplay, Navigation  } from "swiper/modules"
+import type { Swiper as SwiperType } from "swiper"
+import { refreshScrollTriggers } from "@/hooks/useScrollTriggerRefresh"
+import { BASE_URL } from "@/config/config"
+import "swiper/css"
+import "swiper/css/navigation"
+import "./technology.css"
+
+gsap.registerPlugin(ScrollTrigger)
 
 interface TechnologyImage {
     image: string
@@ -17,189 +23,170 @@ interface TechnologyInfo {
     title: string
     id: string
     description: string
-    slug: string;
+    label?: string
+    slug?: string
+    image?: string
 }
 
 interface TechnologyPropsInterface {
     data: {
-        images: TechnologyImage[]
-        heading: string
-        info: TechnologyInfo[],
+        images?: TechnologyImage[]
+        heading?: string
+        info?: TechnologyInfo[]
         mobileimage?: string
     }
 }
 
 export default function Technology({ data }: TechnologyPropsInterface) {
     const images = data?.images ?? []
-    const info = data?.info ?? []
-    const [activeTab, setActiveTab] = useState(info[0]?.id ?? '')
-    const [isMobile, setIsMobile] = useState(false)
-    const [isDragging, setIsDragging] = useState(false)
-    const [dragOffset, setDragOffset] = useState(0)
-    const sectionRef = useRef<HTMLElement | null>(null)
-    const figureRefs = useRef<(HTMLElement | null)[]>([])
-    const dragStartX = useRef(0)
-    const dragDistance = useRef(0)
-    const activeIndex = Math.max(0, info.findIndex((tab) => tab.id === activeTab))
+    const slides = (data?.info ?? []).map((item, index) => ({
+        ...item,
+        image: item.image || images[index]?.image,
+    }))
+    const [activeIndex, setActiveIndex] = useState(0)
+    const gridRef = useRef<HTMLDivElement | null>(null)
+    const activeIndexRef = useRef(0)
+    const timelineRef = useRef<gsap.core.Timeline | null>(null)
+    const swiperRef = useRef<SwiperType | null>(null)
 
-    figureRefs.current = []
-    const addFigureRef = (el: HTMLElement | null) => {
-        if (el && !figureRefs.current.includes(el)) {
-            figureRefs.current.push(el)
-        }
-    }
+    const showSlide = useCallback((requestedIndex: number) => {
+        const index = Math.max(0, Math.min(requestedIndex, slides.length - 1))
+        const previousIndex = activeIndexRef.current
 
-    useEffect(() => {
-        const mobileQuery = window.matchMedia('(max-width: 992px)')
-        const updateMobileState = () => {
-            setIsMobile(mobileQuery.matches)
-            setIsDragging(false)
-            setDragOffset(0)
-        }
+        if (index === previousIndex) return
 
-        updateMobileState()
-        mobileQuery.addEventListener('change', updateMobileState)
+        activeIndexRef.current = index
+        setActiveIndex(index)
 
-        return () => mobileQuery.removeEventListener('change', updateMobileState)
-    }, [])
+        const grid = gridRef.current
+        if (!grid) return
 
-    const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
-        if (!isMobile || !event.isPrimary || event.button !== 0) return
+        const images = grid.querySelectorAll<HTMLElement>(".tech_figureitem .techfigure")
+        const contents = grid.querySelectorAll<HTMLElement>(".techno_tabdata")
+        const newImage = images[index]
+        const newContent = contents[index]
 
-        dragStartX.current = event.clientX
-        dragDistance.current = 0
-        setIsDragging(true)
-    }
+        if (!newImage || !newContent) return
 
-    const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
-        if (!isDragging) return
+        timelineRef.current?.kill()
+        gsap.killTweensOf([...images, ...contents])
 
-        dragDistance.current = event.clientX - dragStartX.current
-        if (
-            Math.abs(dragDistance.current) > 5 &&
-            !event.currentTarget.hasPointerCapture(event.pointerId)
-        ) {
-            event.currentTarget.setPointerCapture(event.pointerId)
-        }
-        setDragOffset(dragDistance.current)
-    }
-
-    const handlePointerUp = (event: PointerEvent<HTMLDivElement>, cancelled = false) => {
-        if (!isDragging) return
-
-        const distance = dragDistance.current
-        setIsDragging(false)
-        setDragOffset(0)
-        dragDistance.current = 0
-
-        if (cancelled || Math.abs(distance) < 60) return
-
-        const nextIndex = Math.max(
-            0,
-            Math.min(info.length - 1, activeIndex + (distance < 0 ? 1 : -1))
-        )
-        if (info[nextIndex]) setActiveTab(info[nextIndex].id)
-
-        if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-            event.currentTarget.releasePointerCapture(event.pointerId)
-        }
-    }
+        const timeline = gsap.timeline()
+        images.forEach((image, imageIndex) => {
+            const isTarget = imageIndex === index
+            timeline.to(image, {
+                autoAlpha: isTarget ? 1 : 0,
+                scale: isTarget ? 1 : 0.97,
+                duration: isTarget ? 0.65 : 0.35,
+                ease: isTarget ? "power2.out" : "power2.inOut",
+            }, 0)
+        })
+        contents.forEach((content, contentIndex) => {
+            const isTarget = contentIndex === index
+            timeline.to(content, {
+                autoAlpha: isTarget ? 1 : 0,
+                y: isTarget ? 0 : -15,
+                duration: isTarget ? 0.5 : 0.25,
+                ease: isTarget ? "power2.out" : "power2.in",
+            }, isTarget ? 0.2 : 0)
+        })
+        timelineRef.current = timeline
+    }, [slides.length])
 
     useLayoutEffect(() => {
-        const section = sectionRef.current;
-        const figures = figureRefs.current
+        const grid = gridRef.current
+        if (!grid || slides.length === 0) return
 
-        if (!section || window.innerWidth < 1024) return
-        if (!figures.length || figures.some((f) => !f)) return
+        const media = gsap.matchMedia()
 
-        const count = figures.length
+        media.add("(min-width: 993px)", () => {
+            const figures = gsap.utils.toArray<HTMLElement>(
+                grid.querySelectorAll(".tech_figureitem .techfigure")
+            )
+            const contents = gsap.utils.toArray<HTMLElement>(
+                grid.querySelectorAll(".techno_tabdata")
+            )
 
-        // spread figures symmetrically around 0, e.g. for 4 items: -40,-15,15,40 (scaled)
-        const getSpread = (index: number, max: number) => {
-            const mid = (count - 1) / 2
-            const step = max / mid
-            return (index - mid) * step
-        }
+            gsap.set(figures, { autoAlpha: 0, scale: 1 })
+            gsap.set(contents, { autoAlpha: 0, y: 25 })
+            gsap.set(figures[activeIndexRef.current], { autoAlpha: 1 })
+            gsap.set(contents[activeIndexRef.current], { autoAlpha: 1, y: 0 })
 
-
-        const ctx = gsap.context(() => {
-            figures.forEach((fig, i) => {
-                gsap.set(fig, { yPercent: getSpread(i, 40) })
-            })
-
-
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: section,
-                    start: 'center center',
-                    end: '+=1200',
-                    pin: true,
-                    pinSpacing: true,
-                    scrub: 1.5,
-                    invalidateOnRefresh: true,
-                    anticipatePin: 1,
-                    onUpdate: (self) => {
-                        const progress = self.progress
-                        const index = Math.min(
-                            info.length - 1,
-                            Math.floor(progress * info.length)
-                        )
-                        setActiveTab(info[index].id)
-
-                    },
+            const trigger = ScrollTrigger.create({
+                trigger: grid,
+                start: "top 20rem",
+                end: () => `+=${window.innerHeight * Math.max(1, slides.length - 1)}`,
+                pin: true,
+                scrub: false,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+                onUpdate: (self) => {
+                    const index = Math.min(
+                        slides.length - 1,
+                        Math.round(self.progress * (slides.length - 1))
+                    )
+                    if (index !== activeIndexRef.current) showSlide(index)
                 },
-
             })
 
-            figures.forEach((fig, i) => {
-                tl.to(fig, { yPercent: getSpread(i, 60) }, 0)
-            })
+            return () => {
+                trigger.kill()
+                timelineRef.current?.kill()
+                timelineRef.current = null
+            }
+        })
 
-        }, section)
+        const handleLoad = () => refreshScrollTriggers()
+        window.addEventListener("load", handleLoad)
+        refreshScrollTriggers()
 
         return () => {
-            ctx.revert()
-            ScrollTrigger.getAll().forEach((st) => {
-                if (st.trigger === section) st.kill()
-            })
+            window.removeEventListener("load", handleLoad)
+            media.revert()
         }
-    }, [images])
+    }, [showSlide, slides.length])
+
+    // const setMobileActiveIndex = (index: number) => {
+    //     activeIndexRef.current = index
+    //     setActiveIndex(index)
+    // }
 
     return (
-        <section className="technology_sec" ref={sectionRef}>
+        <section className="technology_sec">
             <div className="container-fluid">
-                <div className="techno_grid">
+                <div className="techno_grid" ref={gridRef}>
                     <div className="techno_left">
                         <div className="tech_figureitem">
-                            {images.map((img, idx) => (
+                            {slides.map((item, index) => (
                                 <figure
-                                    key={idx}
-                                    className={`techfigure techno0${idx + 1}`}
-                                    ref={addFigureRef}
+                                    key={item.id || index}
+                                    className={`techfigure techno0${index + 1}${activeIndex === index ? " active" : ""}`}
                                 >
-                                    <Image
-                                        src={img.image}
-                                        alt="Technology"
-                                        width={437}
-                                        height={237}
-                                        className="img-fluid w-100"
-                                        loading='lazy'
-                                    />
+                                    {item.image && (
+                                        <Image
+                                            src={item.image}
+                                            alt={item.title || "Technology"}
+                                            width={437}
+                                            height={237}
+                                            className="img-fluid w-100"
+                                            loading="lazy"
+                                        />
+                                    )}
                                 </figure>
                             ))}
-
                         </div>
 
                         <div className="techtab">
-                            {info.map((tab: any) => (
+                            {slides.map((item, index) => (
                                 <button
-                                    key={tab.id}
+                                    key={item.id || index}
                                     type="button"
-                                    className={`techtab_btn${activeTab === tab.id ? ' active' : ''}`}
-                                    data-tabid={tab.id}
-                                    onClick={() => setActiveTab(tab.id)}
+                                    className={`techtab_btn${activeIndex === index ? " active" : ""}`}
+                                    data-tabid={item.id}
+                                    aria-pressed={activeIndex === index}
+                                    onClick={() => showSlide(index)}
                                 >
-                                    {tab.label}
+                                    {item.label || String(index + 1).padStart(2, "0")}
                                 </button>
                             ))}
                         </div>
@@ -209,79 +196,84 @@ export default function Technology({ data }: TechnologyPropsInterface) {
                         {data?.heading && (
                             <h4 dangerouslySetInnerHTML={{ __html: data.heading }} />
                         )}
-                        {data?.mobileimage && (
-                            <div className="techno_mobile for_mobile">
-                            
-                            <figure className="techfigure techno01">
-                                <Image src={data.mobileimage} alt="Technology" className="img-fluid w-100" width={359} height={438}
-                                 />
-                            </figure>
-
-                        </div>
-                        )}
-                        
                         <div className="techno_slider">
-
-                            <div
-                                className={`techno_tabwrapper${isDragging ? ' dragging' : ''}`}
-                                style={isMobile ? {
-                                    transform: `translate3d(calc(-${activeIndex * 100}% + ${dragOffset}px), 0, 0)`,
-                                    transition: isDragging ? 'none' : 'transform 0.45s cubic-bezier(.22,.61,.36,1)',
-                                } : undefined}
-                                onPointerDown={handlePointerDown}
-                                onPointerMove={handlePointerMove}
-                                onPointerUp={handlePointerUp}
-                                onPointerCancel={(event) => handlePointerUp(event, true)}
-                            >
-                                {info.map((tab) => (
+                            <div className="techno_tabwrapper">
+                                {slides.map((item, index) => (
                                     <div
-                                        key={tab.id}
-                                        className={`techno_tabdata${activeTab === tab.id ? ' show' : ''}`}
-                                        data-target={tab.id}
+                                        key={item.id || index}
+                                        className={`techno_tabdata${activeIndex === index ? " show" : ""}`}
+                                        data-target={item.id}
                                     >
-                                        {tab?.title && (
-                                            <h5>{tab.title}</h5>
-                                        )}
-                                        {tab?.description && (
-                                            <p>{tab.description}</p>
-                                        )}
-                                        {tab?.slug && (
-                                            <a href={`${BASE_URL}${tab.slug}`} className="more_btn">
-                                                <img src="/assets/icons/right-arrow-white.svg" alt="arrow" className="img-fluid" />
+                                        {item.title && <h5>{item.title}</h5>}
+                                        {item.description && <p>{item.description}</p>}
+                                        {item.slug && (
+                                            <a href={`${BASE_URL}${item.slug}`} className="more_btn">
+                                                <img
+                                                    src="/assets/icons/right-arrow-white.svg"
+                                                    alt="arrow"
+                                                    className="img-fluid"
+                                                />
                                             </a>
                                         )}
-
                                     </div>
                                 ))}
-
-                            </div>
-
-                            <div className="techno_mobile_nav">
-                                <button
-                                    type="button"
-                                    className="techno_prev"
-                                    aria-label="Previous technology"
-                                    disabled={isMobile && activeIndex === 0}
-                                    onClick={() => {
-                                        if (activeIndex > 0) setActiveTab(info[activeIndex - 1].id)
-                                    }}
-                                >
-                                    <img src="/assets/icons/red-left-btn.svg" alt="arrow" className="img-fluid" />
-                                </button>
-                                <button
-                                    type="button"
-                                    className="techno_next"
-                                    aria-label="Next technology"
-                                    disabled={isMobile && activeIndex >= info.length - 1}
-                                    onClick={() => {
-                                        if (activeIndex < info.length - 1) setActiveTab(info[activeIndex + 1].id)
-                                    }}
-                                >
-                                    <img src="/assets/icons/red-right-btn.svg" alt="arrow" className="img-fluid" />
-                                </button>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div className="techno_mobile for_mobile">
+                    {data?.heading && (
+                        <h4 dangerouslySetInnerHTML={{ __html: data.heading }} />
+                    )}
+                    <Swiper
+                        className="mySwiper"
+                        modules={[Autoplay, Navigation]}
+                        loop={slides.length > 1}
+                        speed={600}
+                        spaceBetween={10}
+                        slidesPerView={1}
+                        navigation
+                        autoplay={slides.length > 1 ? {
+                            delay: 3000,
+                            disableOnInteraction: false,
+                        } : false}
+                        breakpoints={{
+                            0: { slidesPerView: 1, spaceBetween: 10 },
+                            576: { slidesPerView: 2, spaceBetween: 15 },
+                            992: { slidesPerView: 3, spaceBetween: 20 },
+                        }}
+                    >
+                        {slides.map((item, index) => (
+                            <SwiperSlide key={item.id || index}>
+                                <article className="techno_text">
+                                    {item.image && (
+                                        <figure>
+                                            <Image
+                                                src={item.image}
+                                                alt={item.title || "Technology"}
+                                                width={437}
+                                                height={237}
+                                                className="img-fluid w-100"
+                                                loading="lazy"
+                                            />
+                                        </figure>
+                                    )}
+                                    {item.title && <h5>{item.title}</h5>}
+                                    {item.description && <p>{item.description}</p>}
+                                    {item.slug && (
+                                        <a href={`${BASE_URL}${item.slug}`} className="more_btn">
+                                            <img
+                                                src="/assets/icons/right-arrow-white.svg"
+                                                alt="arrow"
+                                                className="img-fluid"
+                                            />
+                                        </a>
+                                    )}
+                                </article>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
                 </div>
             </div>
         </section>
