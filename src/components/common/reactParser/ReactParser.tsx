@@ -99,7 +99,7 @@ const sanitizeOptions: sanitizeHtml.IOptions = {
       "referrerpolicy",
       "allowfullscreen",
     ],
-    svg: ["viewBox"],
+    svg: ["viewBox", "width", "height"],
     iframe: [
       "data",
       "width",
