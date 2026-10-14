@@ -107,6 +107,8 @@ export default function HeaderData({
               </figure>
             </Link>
           </div>
+
+          
           <nav className="main-nav">
             <ul>
               {headerData.map((item: any, idx: number) => (
@@ -122,7 +124,7 @@ export default function HeaderData({
                 >
                   <Link href={BASE_URL + item.slug}>{item.title}</Link>
 
-                  {item?.children?.length > 0 && (
+                  {!item.slug.includes('industri') && item?.children?.length > 0 && (
                     <ul className="site_dropdown_menu">
                       {item.children.map((li:any, liIdx:number)=>(
                         <li key={liIdx}>
