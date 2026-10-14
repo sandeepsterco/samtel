@@ -950,7 +950,7 @@
 .facility-meta { display: flex; gap: 3rem; font-size: 0.9rem; }
 .facility-meta a {color:var(--color-f8);text-decoration: none;display: flex;align-items: center;gap: .8rem;font: var(--font-21);letter-spacing: -0.21px;font-weight: 300;}
 .facility-meta a:hover{color: var(--color-white);}
-.facility-meta svg { width: 3rem; height: 3rem; fill: none; color: var(--color-f8); } 
+.facility-meta svg { width: 3rem;  fill: none; color: var(--color-f8); } 
 .slider-arrows { position: absolute; bottom: 20px; right: 20px; display: flex; gap: 5px; z-index: 10; }
 .arrow-btn { background-color: rgba(255, 255, 255, 0.8); border: none; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; color: #333; transition: background 0.3s; }
 .arrow-btn:hover { background-color: #ffffff; }
