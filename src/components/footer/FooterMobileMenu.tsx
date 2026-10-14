@@ -292,7 +292,7 @@ export default function FooterMobileMenu({
                 <Swiper
                   className="contact-swiper"
                   slidesPerView={1}
-                  loop
+                  rewind
                   onSwiper={(swiper) => {
                     swiperRef.current = swiper;
                   }}

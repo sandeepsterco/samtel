@@ -17,6 +17,9 @@
     font-weight: 600!important;
 }
 
+.pro_tab { min-width: 0; width: 100%; position: relative; }
+.pro-tab-loader { position: absolute; inset: 0; z-index: 3; display: flex; align-items: center; justify-content: center; background: rgb(255 255 255 / 75%); }
+
 /* ============= DONT REMOVE THIS=============== */
 
 
@@ -2416,7 +2419,7 @@ br.desktop-break { display: none; }
 
 
 .prodcut-nav ul li.active a{color: var(--color-c8);}
-.pro_tab { min-width: 0; width: 100%; }
+/* .pro_tab { min-width: 0; width: 100%; } */
 @media (max-width: 1699px) {
 .uuname_sys1 .unname_lftsec {
     margin-left: 39rem;
