@@ -50,7 +50,7 @@ export default async function ProductListingPage({ searchParams }: { searchParam
     const { page, type } = await searchParams;
     const currentPage = Number(page) || 1;
 
-    const { data: ProductCategoriesData } = await apiFetch(`product-categories`);
+    const { data: ProductCategoriesData } = await apiFetch(`product-categories`, {revalidate:60});
     const productCategories = (ProductCategoriesData as CategoryInterface)?.data ?? [];
 
     const activeType = productCategories.some((category) => category.slug === type)
@@ -58,7 +58,7 @@ export default async function ProductListingPage({ searchParams }: { searchParam
         : productCategories[0]?.slug;
 
     const { data } = activeType
-        ? await apiFetch(`product/${encodeURIComponent(activeType)}?page=${currentPage}`)
+        ? await apiFetch(`product/${encodeURIComponent(activeType)}?page=${currentPage}`, {revalidate:60})
         : { data: null };
 
     const apiData = (data as ProductsDataInterface)?.products;
