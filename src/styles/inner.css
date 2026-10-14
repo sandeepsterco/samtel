@@ -32,6 +32,10 @@
     to { transform: rotate(360deg); }
 }
 
+.modal-media-holder { width: 100%; aspect-ratio: 16 / 9; position: relative; overflow: hidden; background: #000; }
+.modal-media-holder .gallery-swiper { position: absolute; inset: 0; width: 100%; height: 100%; }
+.modal-media-holder .swiper-slide { position: relative; height: 100%; }
+
 /* ============= DONT REMOVE THIS=============== */
 
 
@@ -937,7 +941,6 @@
 .modal-wrapper { position: relative; width: 90%; max-width: 850px; background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: flex; flex-direction: column; }
 .modal-close { position: absolute; top: -20px; right: -20px; width:3.5rem; height:3.5rem; border: none; background:none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1010; }
 
-.modal-media-holder { width: 100%; padding-top: 56.25%; position: relative; background: #000; }
 .modal-media-holder img, 
 .modal-media-holder video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
 
