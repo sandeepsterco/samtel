@@ -111,42 +111,49 @@ export default function HeaderData({
           
           <nav className="main-nav">
             <ul>
-              {headerData.map((item: any, idx: number) => (
-                <li
-                  key={idx}
-                  className={`${item.title === "Industries" ? "mega-parent" : "" } ${item?.children?.length > 0 ? 'site_dropdown' : ''} ${showMegaMenu && item.title === "Industries" ? 'active' : ''}`}
-                  onMouseEnter={() => {
-                    if (item.title === "Industries") openMenu();
-                  }}
-                  onMouseLeave={() => {
-                    if (item.title === "Industries") closeMenu();
-                  }}
-                >
-                  <Link href={BASE_URL + item.slug}>{item.title}</Link>
+              {headerData.map((item: any, idx: number) => {
+                const isClickableLink = !!item.slug && item.slug !== '#';
+                const hasChildren = Array.isArray(item?.children) && item.children.length > 0;
+                const isIndustriesMenu = item.title === "Industries" || item.slug?.toLowerCase()?.includes('industri');
 
-                  {!item.slug.includes('industri') && item?.children?.length > 0 && (
-                    <ul className="site_dropdown_menu">
-                      {item.children.map((li:any, liIdx:number)=>(
-                        <li key={liIdx}>
-                          <Link href={`${BASE_URL}${li.slug}`} className={`${li?.child?.length > 0 ? 'has_child' : ''}`}>
-                            {li.title}
-                          </Link>
-                          {li?.child?.length > 0 && (
-                            <ul>
-                              {li.child.map((childItem:any, childIdx:number)=>(
-                                <li key={childIdx}><Link href={`${BASE_URL}${li.slug}/${childItem.slug}`}>{childItem.title}</Link></li>
-                              ))}
-                            </ul>
-                          )}
-                        </li>
-                      ))}
-                      
-                    </ul>
-                  )}
+                return (
+                  <li
+                    key={idx}
+                    className={`${item.title === "Industries" ? "mega-parent" : "" } ${hasChildren ? 'site_dropdown' : ''} ${showMegaMenu && item.title === "Industries" ? 'active' : ''}`}
+                    onMouseEnter={() => {
+                      if (item.title === "Industries") openMenu();
+                    }}
+                    onMouseLeave={() => {
+                      if (item.title === "Industries") closeMenu();
+                    }}
+                  >
+                    {isClickableLink ? (
+                      <Link href={`${BASE_URL}${item.slug}`}>{item.title}</Link>
+                    ) : (
+                      <span className="nav-disabled-link">{item.title}</span>
+                    )}
 
-                  
-                </li>
-              ))}
+                    {!isIndustriesMenu && hasChildren && (
+                      <ul className="site_dropdown_menu">
+                        {item.children.map((li:any, liIdx:number)=>(
+                          <li key={liIdx}>
+                            <Link href={`${BASE_URL}${li.slug}`} className={`${li?.child?.length > 0 ? 'has_child' : ''}`}>
+                              {li.title}
+                            </Link>
+                            {li?.child?.length > 0 && (
+                              <ul>
+                                {li.child.map((childItem:any, childIdx:number)=>(
+                                  <li key={childIdx}><Link href={`${BASE_URL}${li.slug}/${childItem.slug}`}>{childItem.title}</Link></li>
+                                ))}
+                              </ul>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 

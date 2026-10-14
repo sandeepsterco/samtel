@@ -11,6 +11,7 @@ import './footer.css'
 interface ItemInterface{
     title:string;
     slug:string;
+    overwrite_url:String | null;
 }
 
 interface FooterInterface{
@@ -55,7 +56,7 @@ export default async function Footer() {
                                 <ul>
                                     {footerUpdatedData.map((item, idx)=>(
                                         <li key={idx}>
-                                            <Link href={`${BASE_URL}${item.slug}`}>{item.title}</Link>
+                                            <Link href={item?.overwrite_url ? `${BASE_URL}${item.overwrite_url}` : `${BASE_URL}${item.slug}`}>{item.title}</Link>
                                         </li>
                                     ))}
                                 </ul>

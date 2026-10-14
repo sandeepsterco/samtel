@@ -19,6 +19,18 @@
 
 .pro_tab { min-width: 0; width: 100%; position: relative; }
 .pro-tab-loader { position: absolute; inset: 0; z-index: 3; display: flex; align-items: center; justify-content: center; background: rgb(255 255 255 / 75%); }
+.pro-tab-loader .spinner {
+    width: 4.5rem;
+    height: 4.5rem;
+    border: .4rem solid rgb(0 0 0 / 10%);
+    border-top-color: var(--color-c8);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
 
 /* ============= DONT REMOVE THIS=============== */
 
