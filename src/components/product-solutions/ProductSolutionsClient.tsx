@@ -68,12 +68,14 @@ export default function ProductSolutionsClient({
     const [accordionExpanded, setAccordionExpanded] = useState(true);
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [modalOpen, setModalOpen] = useState(false);
+    const [isCategoryLoading, setIsCategoryLoading] = useState(false);
     const selectedProduct = products[selectedIndex];
 
     useEffect(() => {
         setAccordionExpanded(true);
         setSelectedIndex(0);
         setModalOpen(false);
+        setIsCategoryLoading(false);
     }, [activeCategory?.slug]);
 
     useEffect(() => {
@@ -124,7 +126,14 @@ export default function ProductSolutionsClient({
                             {categories.map((category) => {
                                 if(category.products_count || category.name.includes('Custom Solutions')){
                                     return <li key={category.slug} className={category.slug === activeCategory?.slug ? "active" : ""}>
-                                    <Link href={`${pathname}?type=${encodeURIComponent(category.slug)}`}>
+                                    <Link
+                                        href={`${pathname}?type=${encodeURIComponent(category.slug)}`}
+                                        onClick={() => {
+                                            if (category.slug !== activeCategory?.slug) {
+                                                setIsCategoryLoading(true);
+                                            }
+                                        }}
+                                    >
                                         {category.name}
                                     </Link>
                                 </li>
@@ -133,7 +142,7 @@ export default function ProductSolutionsClient({
                         </ul>
                     </nav>
 
-                    <div className="pro_tab">
+                    <div className="pro_tab" aria-busy={isCategoryLoading}>
                         {categories.map((category) => {
                             const isActive = category.slug === activeCategory?.slug;
                             const href = `${pathname}?type=${encodeURIComponent(category.slug)}`;
@@ -146,7 +155,10 @@ export default function ProductSolutionsClient({
                                         aria-expanded={isActive && accordionExpanded}
                                         onClick={() => {
                                             if (isActive) setAccordionExpanded((expanded) => !expanded);
-                                            else router.push(href);
+                                            else {
+                                                setIsCategoryLoading(true);
+                                                router.push(href);
+                                            }
                                         }}
                                     >
                                         <span className="acc-title">{category.name}</span>
@@ -208,6 +220,11 @@ export default function ProductSolutionsClient({
                                 </div>
                             );
                         })}
+                        {isCategoryLoading && (
+                            <div className="pro-tab-loader" role="status" aria-label="Loading product category">
+                                <div className="spinner" aria-hidden="true" />
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

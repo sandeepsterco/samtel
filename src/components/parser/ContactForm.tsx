@@ -1,6 +1,7 @@
 "use client";
 
 import { API_URL, RECAPTCHA_SITE_KEY } from "@/config/config";
+import { notifyPageNavigation } from "@/components/common/PageTransitionLoader";
 import { useRouter } from "next/navigation";
 import Script from "next/script";
 import countryList from "react-select-country-list";
@@ -91,6 +92,7 @@ export default function ContactForm() {
       }
 
       setStatus("sent");
+      notifyPageNavigation("/thank-you");
       router.push("/thank-you");
     } catch {
       setStatus("idle");

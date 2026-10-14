@@ -922,9 +922,11 @@
 .modal-wrapper { position: relative; width: 90%; max-width: 850px; background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: flex; flex-direction: column; }
 .modal-close { position: absolute; top: -20px; right: -20px; width:3.5rem; height:3.5rem; border: none; background:none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1010; }
 
-.modal-media-holder { width: 100%; padding-top: 56.25%; position: relative; background: #000; }
-.modal-media-holder img, 
-.modal-media-holder video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+.modal-media-holder { width: 100%; aspect-ratio: 16 / 9; position: relative; overflow: hidden; background: #000; }
+.modal-media-holder .gallery-swiper { position: absolute; inset: 0; width: 100%; height: 100%; }
+.modal-media-holder .swiper-slide, .modal-media-slide { width: 100%; height: 100%; }
+.modal-media-slide { position: relative; }
+.modal-media-slide .modal-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 
 .modal-footer { padding:2.5rem; background: #fff; display: flex; justify-content: space-between; align-items: center; gap:2rem; }
 .modal-text {font:var(--font-18); line-height: 1.5; flex: 1; letter-spacing: -0.11px;}
@@ -2418,7 +2420,8 @@ br.desktop-break { display: none; }
 
 
 .prodcut-nav ul li.active a{color: var(--color-c8);}
-.pro_tab { min-width: 0; width: 100%; }
+.pro_tab { min-width: 0; width: 100%; position: relative; }
+.pro-tab-loader { position: absolute; inset: 0; z-index: 3; display: flex; align-items: center; justify-content: center; background: rgb(255 255 255 / 75%); }
 @media (max-width: 1699px) {
 .uuname_sys1 .unname_lftsec {
     margin-left: 39rem;
