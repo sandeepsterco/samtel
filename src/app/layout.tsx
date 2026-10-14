@@ -3,6 +3,7 @@ import { Funnel_Sans } from "next/font/google";
 import Header from "@/components/header/Header";
 import WipeOnScroll from "@/components/common/WipeOnScroll";
 import RouteBodyClass from "@/components/common/RouteBodyClass";
+import PageTransitionLoader from "@/components/common/PageTransitionLoader";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "aos/dist/aos.css";
@@ -59,6 +60,7 @@ export default function RootLayout({
 }
 window.scrollTo({ top: 0, left: 0, behavior: "instant" });`}
         </Script>
+        <PageTransitionLoader />
         <ScrollToTop />
         <RouteBodyClass />
         <WipeOnScroll />

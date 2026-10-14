@@ -3,10 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
-import { Navigation, Keyboard } from "swiper/modules";
+import { Keyboard } from "swiper/modules";
 
 import "swiper/css";
-import "swiper/css/navigation";
 import Image from "next/image";
 
 export type GalleryItem = {
@@ -122,12 +121,8 @@ export default function GalleryClient({ items }: { items: GalleryItem[] }) {
                             <div className="modal-media-holder" id="modalMediaHolder">
                                 <Swiper
                                     key={activeItem.id}
-                                    modules={[Navigation, Keyboard]}
-                                    // keyboard={{ enabled: true }}
-                                    navigation={{
-                                        prevEl: ".nav-btn-prev",
-                                        nextEl: ".nav-btn-next",
-                                    }}
+                                    modules={[Keyboard]}
+                                    keyboard={{ enabled: true }}
                                     onSwiper={(swiper) => {
                                         swiperRef.current = swiper;
                                     }}
@@ -162,16 +157,16 @@ export default function GalleryClient({ items }: { items: GalleryItem[] }) {
                                     <button
                                         type="button"
                                         className="nav-btn nav-btn-prev"
-                                        data-dir="-1"
                                         aria-label="Previous"
+                                        onClick={() => swiperRef.current?.slidePrev()}
                                     >
                                         <img src="/assets/icons/arrow-icon-left.svg" alt="prev" />
                                     </button>
                                     <button
                                         type="button"
                                         className="nav-btn nav-btn-next"
-                                        data-dir="1"
                                         aria-label="Next"
+                                        onClick={() => swiperRef.current?.slideNext()}
                                     >
                                         <img src="/assets/icons/arrow-icon-right.svg" alt="next" />
                                     </button>
