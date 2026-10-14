@@ -3,6 +3,9 @@
 #customAccordion .collapse.show{
   visibility: visible!important;
 }
+
+body.body-locked { overflow: hidden; }
+/* ===========DONT REMOVE============ */
 * {
   padding: 0;
   margin: 0;
@@ -87,6 +90,7 @@
   font-display: swap;
 }
 
+
 :root{
     --color-23:#231F20;
     --color-d466:#d1d2d466;
@@ -132,7 +136,6 @@
     --font-18: 300 1.8rem/1.6  'avenir_regularregular';
     --font-16: 300 1.6rem/1.5  'avenir_regularregular';
     --font-14: 1.4rem/1.3  'avenir_regularregular';
-    --font-13: 1.3rem/1.3  'avenir_regularregular';
     --font-12: 1.2rem/1.3  'avenir_regularregular';
     --font-light: 'avenirlight';
     --font-regular: 'avenir_regularregular';
@@ -141,10 +144,9 @@
 
 
 
-body{background:var(--color-ef);background-size:cover;padding:0;margin:0; color: var(--color-23); font: var(--font-18);}
-
-body.body-locked { overflow: hidden; }
-p{line-height: 1.7;}
+ body{background:var(--color-ef);background-size:cover;padding:0;margin:0; color: var(--color-23); font: var(--font-18);}
+ p{line-height: 1.7;}
+a:focus-visible{outline:none;}
 
 /* According to 2545px */
 .container{width:100%;max-width:min(1505px,68.40909090vw);padding-inline:1.5rem;margin: auto;}
@@ -154,7 +156,7 @@ p{line-height: 1.7;}
 html{font-size:min(0.45454545vw,10px);}
 .more_btn {width: 3.2rem;height: 3.2rem;display: inline-flex;background-color: var(--color-c8);}
 .more_btn>img { margin: auto; width: 100%; max-width: 1.5rem; }
-a.more_btn:hover { background: var(--color-c8); }
+.more_btn:hover { background: var(--color-c8); }
 .font_title>p { font: var(--font-21); font-weight: 900; color: var(--color-23); letter-spacing: 1.05px; text-transform: uppercase; margin-bottom: 2rem; }
 .font_title>blockquote { font: var(--font-45); font-weight: 300; color: var(--color-23); letter-spacing: -0.9px; }
 .font_title>blockquote>b { font-weight: 300; color: var(--color-c8); }
@@ -183,33 +185,25 @@ ul.list li::marker{color: var(--color-f8); }
 .explore_btn:hover img { filter: invert(0); }
 /* ---------button---------- */
 
-
-.field-error{
-  font:var(--font-13)
-}
-
-
 @media (max-width:992px) {
 .for_mobile { display: block; }
 .for_desktop { display: none; } 
-    /* .font_title>p {
-        font-weight: 900 !important;
-    } */
 
 }
-/* @media (max-width:1920px) {
-.container {
-    max-width: min(1505px, 72.409091vw);
+@media (max-width:1920px) {
+      /* :root {
+        --font-45: 4.813rem/1.3 'avenir_regularregular';
+        --font-32: 300 3.44rem / 1.3 'avenir_regularregular';
+    }
+    
+
+.container { max-width: min(1505px, 72.409091vw); } */
+
 }
-} */
-
-
 
 
 @media (max-width:1699px) {
     :root {
-
-
         --font-91: 9.1rem/1.3 'avenir_regularregular';
         --font-90: 9rem/1.3 'avenir_regularregular';
         --font-70: 7rem/1.3 'avenir_regularregular';
@@ -241,11 +235,6 @@ ul.list li::marker{color: var(--color-f8); }
 
 }
 
-@media (max-width: 1599px) {
-      .font_title>blockquote {
-        font: var(--font-42);
-    }
-}
 
 @media (max-width:1199px) {
 html { font-size: 45.5%; }
@@ -319,8 +308,6 @@ html { font-size: 45.5%; }
             clip-path: inset(0 0 0 0);
         }
     }
-
-    
 }
 
 @media (max-width:992px) {
@@ -354,9 +341,6 @@ html { font-size: 45.5%; }
     p{font:var(--font-14)!important; line-height:1.4!important;}
 
     .custom_list li{margin-bottom: 1.5rem;}
-    .font_title>blockquote br, .line-wrap2, .people_pic_text blockquote{display: none;}
-    .font_title>blockquote  { margin: 0; padding-bottom: 0;letter-spacing: -0.24px;}
-    /* .font_title>p { font-weight: 900 !important; } */
 }
 
 @media (max-width:2100px) {
@@ -370,7 +354,6 @@ html { font-size: 45.5%; }
 @media (max-width:991px) {
 .container-full { padding-inline: 1.5rem; }
 }
-
 
 
 /* ===========DONT WRITE ANY CSS HERE================ */
