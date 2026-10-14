@@ -3,11 +3,29 @@ import Breadcrumbs from "@/components/common/breadcrumbs/Breadcrumbs";
 import ReactParserDynamic from "@/components/common/reactParser/ReactParserDynamic";
 import RelatedNews from "@/components/news/RelatedNews";
 import { apiFetch } from "@/lib/api"
+import { createPageMetadata } from "@/lib/metadata";
+import type { Metadata } from "next";
 
 interface PageProps {
     params: Promise<{
         slug: string;
     }>
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const { slug } = await params;
+    const { data, error } = await apiFetch(`news-events/${slug}`);
+    const article = data?.newsAndEvent?.data;
+
+    if (error || !data?.status) {
+        return createPageMetadata(null, "Newsroom", "Read the latest news and updates from Samtel Group.");
+    }
+
+    return createPageMetadata(
+        article,
+        article?.name || "Newsroom",
+        "Read the latest news and updates from Samtel Group.",
+    );
 }
 
 export default async function NewsDetailPage({ params }: PageProps) {

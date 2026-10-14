@@ -44,7 +44,7 @@
 .inustries_item blockquote {font: var(--font-18);align-content: center;height: 100%;padding-inline: 2rem;color: #000000;letter-spacing: -0.32px;}
 .inustries_item::after {
         content: "";
-        width: 100%;
+        width: 100%;    
         height: 100%;
         position: absolute;
         bottom: 0px;

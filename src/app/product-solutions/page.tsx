@@ -1,5 +1,12 @@
 import ProductSolutionsClient from "@/components/product-solutions/ProductSolutionsClient";
 import { apiFetch } from "@/lib/api"
+import { createPageMetadata } from "@/lib/metadata";
+
+export const metadata = createPageMetadata(
+    null,
+    "Product Solutions",
+    "Explore Samtel Group product solutions and browse products by category.",
+);
 
 interface MappingItemInterface{
     title?:string;

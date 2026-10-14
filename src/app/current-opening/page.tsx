@@ -1,10 +1,11 @@
 import KekaJobs from "@/components/career/KekaJobs";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata = {
-  title: "Current Opening",
-  description:
-    "Discover opportunities to grow, learn, and build a rewarding career.",
-};
+export const metadata = createPageMetadata(
+  null,
+  "Current Openings",
+  "Explore current job openings at Samtel Group and find opportunities to grow your career.",
+);
 
 export default function CurrentOpeningPage() {
   return (

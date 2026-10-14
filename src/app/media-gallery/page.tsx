@@ -2,6 +2,13 @@ import { apiFetch } from "@/lib/api";
 import NoData from "@/components/ui/NoData";
 import PaginationWrapper from "@/components/common/pagination/PaginationWrapper";
 import GalleryClient, { GalleryItem } from "@/components/gallery/GalleryClient";
+import { createPageMetadata } from "@/lib/metadata";
+
+export const metadata = createPageMetadata(
+    null,
+    "Media Gallery",
+    "Browse photos and videos from Samtel Group events, activities, and updates.",
+);
 
 interface GalleryMediaItem {
     upload_media: string | null;
