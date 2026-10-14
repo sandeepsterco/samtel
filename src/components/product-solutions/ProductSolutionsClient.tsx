@@ -247,6 +247,17 @@ export default function ProductSolutionsClient({
                         </div>
                         
                         <div className="container-full">
+                            <div className="breadcrumb-sec popup">
+                                <div className="col-lg-10 mx-auto">
+                                    <nav aria-label="Breadcrumb">
+                                        <ol className="breadcrumb">
+                                            <li className="breadcrumb-item">Products &amp; Solutions</li>
+                                            <li className="breadcrumb-item">{activeCategory?.name}</li>
+                                            <li className="breadcrumb-item active" aria-current="page">{selectedProduct.name}</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
                             <div className="product_modal_grid">
                                 <div className="product_image">
                                     <figure>
@@ -260,16 +271,8 @@ export default function ProductSolutionsClient({
                                         />
                                     </figure>
                                 </div>
-                                <div>
-                                    <section className="breadcrumb-sec">
-                                        <nav aria-label="Breadcrumb">
-                                            <ol className="breadcrumb">
-                                                <li className="breadcrumb-item">Products &amp; Solutions</li>
-                                                <li className="breadcrumb-item">{activeCategory?.name}</li>
-                                                <li className="breadcrumb-item active" aria-current="page">{selectedProduct.name}</li>
-                                            </ol>
-                                        </nav>
-                                    </section>
+                                <div className="product_content_main">
+                                    
                                     <div className="product_content">
                                         <h1 className="font45" id="product-modal-title">{selectedProduct.name}</h1>
                                         <div id="modalDynamicBody">
