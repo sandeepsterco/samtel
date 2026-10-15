@@ -2064,7 +2064,7 @@ br.desktop-break { display: none; }
 .product_modal_grid .product_image{
    width: 85rem;
     height: 85rem;
-    background-image: url(/assets/images/product/product_bg.webp);
+    background-image: url(/assets/images/product_bg.webp);
     background-size: cover;
     background-position: center;
     position: sticky;
