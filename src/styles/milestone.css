@@ -88,7 +88,7 @@
 }
 
 @media (max-width: 1699px) {
-.milestone-nav { position: relative; min-height: 24.7rem; }
+.milestone-nav { position: relative; }
 .event-right .event-copy { left: calc(57% + 57px); }
 .event-left .event-copy { right: calc(56% + 56px); }
 }
@@ -257,7 +257,7 @@
 
 .milestone_grid { grid-template-columns: 1fr; gap: 4.5rem; }
 .milestone_bottom { margin-top: 0rem; }
-.milestone-nav { width: 94vw; min-height: 12rem; padding-bottom: 3.4rem; }
+.milestone-nav { width: 94vw; padding-bottom: 3.4rem; }
 .milestone-tab { padding: 0 .5rem; }
 .milestone-tab .tab-icon { width: 2.2rem; height: 2.2rem; }
 .milestone-progress { bottom: 2.2rem; }
