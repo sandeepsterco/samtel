@@ -65,6 +65,10 @@
 .banner_caption .banner_title>p>b { color: var(--color-c8); font-weight: normal; }
 .banner_caption .banner_title>em { margin-top: 2rem; font: var(--font-18); color: var(--color57); display: block; position: relative; z-index: 9;  }
 .banner_caption .banner_title { position: relative; margin-inline: auto; margin-top: 42rem; text-align: center;max-height:52rem; }
+@media (min-width: 1024px) {
+    .banner_caption .banner_title.for_desktop>p,
+    .banner_caption .banner_title.for_desktop>em { opacity: 0; }
+}
 .down_btn { position: relative; z-index: 10; }
 .line-section { width: 100%; display: flex; justify-content: center;padding-block: 10rem 5rem;; animation: textFadeUp 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: .9s;position:relative; }
 .line-wrap { position: relative; width: .4rem; height: 16rem; background: #81828626; margin: 0 auto; overflow: hidden; }
@@ -109,4 +113,3 @@
         }
     }
 }
-
