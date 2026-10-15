@@ -805,6 +805,7 @@ background: #a8a9ad1f no-repeat padding-box padding-box;
     display: grid;
     grid-template-columns: 60% 35%;
     gap: 6rem; padding-top:8rem;
+    display: none;
 }
 
 .left_news_text {
