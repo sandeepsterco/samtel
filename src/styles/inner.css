@@ -2357,8 +2357,10 @@ br.desktop-break { display: none; }
 .products_announce p{color:#fff;}
 .announcements_grid{display:grid;grid-template-columns:49.4% auto;gap:10rem;}
 .announcements_grid_left{padding-top:3rem;}
-.announcements_grid_left a{ background: var(--color-df); }
+.announcements_grid_left a{ background: var(--color-df);     margin-top: 2rem;}
+.announcements_grid_left a img { filter: invert() grayscale(); }
 .announcements_grid_left a:hover{ background: var(--color-1a); }
+.announcements_grid_left a:hover img { filter: invert(0) grayscale(0); }
 
 @media (max-width:992px) {
 .product_item figure img{padding:0;}
