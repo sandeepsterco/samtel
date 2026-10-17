@@ -76,6 +76,17 @@
 .system-tile:hover .tile-info-wrapper { transform: translateY(7rem); }
  }
 */
+
+/* =======DONT UPDATE========== */
+
+@media (max-width:992px) {
+    .mobile-trigger svg{
+        margin:auto;
+    }
+}
+
+/* =======DONT UPDATE========== */
+
  .who_we { padding-block: 18rem 0; overflow: hidden; }
 .who_we .font_title { text-align: center; margin-bottom: 8.2rem; }
 .portfolio-grid { width: 100%; }
