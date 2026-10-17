@@ -72,7 +72,7 @@
 .company-right-list .cus-list li { letter-spacing: -0.24px; }
 .experties_boxes { display: grid; grid-template-columns: repeat(4, 1fr); align-items: center; justify-content: center; width: 100%; }
 .epxert_item:nth-child(odd) { background: #E9E9E9 0% 0% no-repeat padding-box; border: 1px solid #DFDADA; }
-.epxert_item { padding-block: 5rem;padding-inline: 5rem;text-align: center; border: 1px solid #DFDADA; position: relative; }
+.epxert_item { padding-block: 5rem;padding-inline: 5rem;text-align: center; border: 1px solid #DFDADA; position: relative; height: 100%;}
 .epxert_item h3 { font: var(--font-60); font-weight: 100; color: var(--color-c8); letter-spacing: -2.4px; }
 .epxert_item p { font: var(--font-24); color: var(--color-23); font-weight: normal; }
 .epxert_item h3 sup { font: var(--font-28); letter-spacing: -1.28px; left: -1rem; top: -2.8rem; }
