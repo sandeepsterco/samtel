@@ -59,7 +59,7 @@ export default function WhoWe({ data }: WhoWePropsInterface) {
                     <div className="mobile-trigger">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 6L15 12L9 18" stroke="" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                     </div>
-                    <a className="streched_link" href="industries.php">link</a>
+                    <Link className="streched_link" href={`${BASE_URL}industries`}>link</Link>
                 </div>
                 </div>
             </div>
