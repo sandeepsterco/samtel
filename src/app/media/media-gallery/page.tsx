@@ -38,24 +38,29 @@ interface GalleryApiInterface {
     data: GalleryDataInterface;
 }
 
+function formatDate (value:string | null | undefined):string{
+    if(!value) return '';
+
+    const date = new Date(value);
+    if(isNaN(date.getTime())) return '';
+
+    return date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+
+}
+
 function mapToGalleryItem(item: GalleryApiItem): GalleryItem {
     const media = (item.mapping_items?.gallery ?? [])
         .map((m) => m.upload_media || m.iframe_url)
         .filter((url): url is string => Boolean(url));
 
-    const date = new Date(item.date);
-    const formattedDate = isNaN(date.getTime())
-        ? item.date
-        : date.toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-          });
-
     return {
         id: item.id,
         title: item.title,
-        date: formattedDate,
+        date: formatDate(item.date),
         badge: `${item.images} Photo${item.images !== 1 ? "s" : ""} &nbsp;|&nbsp; ${item.videos} Video${item.videos !== 1 ? "s" : ""}`,
         media: media.length > 0 ? media : ["/assets/images/placeholders/product.webp"],
         description: item.title,

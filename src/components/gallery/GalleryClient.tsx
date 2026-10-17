@@ -26,6 +26,8 @@ export default function GalleryClient({ items }: { items: GalleryItem[] }) {
     const [activeCardIndex, setActiveCardIndex] = useState(0);
     const swiperRef = useRef<SwiperType | null>(null);
 
+    console.log('data items',items);
+
     const activeItem = items[activeCardIndex];
 
     const openModal = (cardIndex: number) => {
@@ -91,7 +93,9 @@ export default function GalleryClient({ items }: { items: GalleryItem[] }) {
                         </div>
                         <div className="media-content">
                             <h3 className="media-title">{item.title}</h3>
-                            <div className="date">{item.date}</div>
+                            {item?.date && (
+                                <div className="date">{item.date}</div>
+                            )}
                             <div className="read-icon">
                                 <img src="/assets/icons/read-icon.svg" alt="read" />
                             </div>
