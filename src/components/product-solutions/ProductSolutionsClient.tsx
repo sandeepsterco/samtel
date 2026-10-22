@@ -271,8 +271,16 @@ export default function ProductSolutionsClient({
                                 className=""
                                 aria-label="Close product details"
                                 onClick={() => setModalOpen(false)}
+                                style={{
+                                    padding: "10px 24px",
+                                    backgroundColor: "#c83030",
+                                    color: "#fff",
+                                    border: "none",
+                                    borderRadius: "6px",
+                                    cursor: "pointer",
+                                }}
                             >
-                                <Image src="/assets/icons/close-icon.svg" alt="" width={31} height={31} />
+                                Back
                             </button>
                         </div>
                         
