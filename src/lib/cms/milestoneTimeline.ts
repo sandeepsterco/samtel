@@ -57,6 +57,7 @@ async function initMilestoneTimeline(root: HTMLElement): Promise<MilestoneInstan
 
       /* ---------------- ACTIVE PHASE ---------------- */
       let currentPhase = -1;
+      let headingTimeline: gsap.core.Timeline | null = null;
 
       const setActivePhase = (index: number) => {
         const tab = tabs[index];
@@ -76,7 +77,8 @@ async function initMilestoneTimeline(root: HTMLElement): Promise<MilestoneInstan
           );
 
           if (contentElements.length) {
-            gsap
+            headingTimeline?.kill();
+            headingTimeline = gsap
               .timeline()
               .to(contentElements, {
                 opacity: 0,
@@ -106,7 +108,7 @@ async function initMilestoneTimeline(root: HTMLElement): Promise<MilestoneInstan
 
         if (progressDot) {
           gsap.to(progressDot, {
-            left: ["16.666%", "50%", "83.333%"][index],
+            left: `${((index + 0.5) / tabs.length) * 100}%`,
             duration: 0.65,
             ease: "power3.inOut",
             overwrite: true,
@@ -114,7 +116,7 @@ async function initMilestoneTimeline(root: HTMLElement): Promise<MilestoneInstan
         }
         if (progressFill) {
           gsap.to(progressFill, {
-            width: ["33.333%", "66.666%", "100%"][index],
+            width: `${((index + 1) / tabs.length) * 100}%`,
             duration: 0.65,
             ease: "power3.inOut",
             overwrite: true,

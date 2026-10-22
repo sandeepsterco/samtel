@@ -2,16 +2,26 @@
 
 import PaginationWrapper from "@/components/common/pagination/PaginationWrapper";
 import NoData from "@/components/ui/NoData";
+import { Fancybox } from "@fancyapps/ui";
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import sanitizeHtml from "sanitize-html";
 import { KeyboardEvent as ReactKeyboardEvent, useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
 
 interface MappingItemInterface{
     title?:string;
     description?:string;
+}
+
+interface ProductMappingImage {
+    image?: string;
 }
 
 interface ProductCategory {
@@ -33,7 +43,8 @@ interface Product {
     product_details?: string;
     product_details_html?: string;
     mapping_items?:{
-        lists?:MappingItemInterface[]
+        lists?:MappingItemInterface[];
+        images?:ProductMappingImage[];
     };
 }
 
@@ -56,6 +67,14 @@ function getProductDetails(product: Product) {
         ?? "";
 }
 
+function getProductImages(product: Product) {
+    return [...new Set(
+        (product.mapping_items?.images ?? [])
+            .map((item) => item.image)
+            .filter((image): image is string => Boolean(image)),
+    )];
+}
+
 export default function ProductSolutionsClient({
     categories,
     activeCategory,
@@ -70,6 +89,18 @@ export default function ProductSolutionsClient({
     const [modalOpen, setModalOpen] = useState(false);
     const [isCategoryLoading, setIsCategoryLoading] = useState(false);
     const selectedProduct = products[selectedIndex];
+    const selectedProductImages = selectedProduct ? getProductImages(selectedProduct) : [];
+
+    const openImageGallery = (startIndex: number) => {
+        Fancybox.show(
+            selectedProductImages.map((src) => ({
+                src,
+                type: "image",
+                caption: selectedProduct.name,
+            })),
+            { startIndex },
+        );
+    };
 
     useEffect(() => {
         setAccordionExpanded(true);
@@ -261,14 +292,42 @@ export default function ProductSolutionsClient({
                             <div className="product_modal_grid">
                                 <div className="product_image">
                                     <figure>
-                                        <Image
-                                            src={selectedProduct.image || placeholderImage}
-                                            className="img-fluid w-100"
-                                            width={850}
-                                            height={850}
-                                            alt={selectedProduct.name}
-                                            priority
-                                        />
+                                        {selectedProductImages.length > 0 && (
+                                            <Swiper
+                                                key={selectedProduct.id}
+                                                className="product-image-swiper"
+                                                modules={[Pagination]}
+                                                slidesPerView={1}
+                                                pagination={selectedProductImages.length > 1 ? { clickable: true } : false}
+                                                loop={selectedProductImages.length > 1}
+                                            >
+                                                {selectedProductImages.map((image, index) => (
+                                                    <SwiperSlide key={`${image}-${index}`}>
+                                                        <Image
+                                                            src={image}
+                                                            className="img-fluid w-100"
+                                                            width={850}
+                                                            height={850}
+                                                            alt={`${selectedProduct.name}${selectedProductImages.length > 1 ? ` - image ${index + 1}` : ""}`}
+                                                            priority={index === 0}
+                                                        />
+                                                        <button
+                                                            type="button"
+                                                            className="product-image-zoom"
+                                                            aria-label={`Zoom image ${index + 1} of ${selectedProduct.name}`}
+                                                            onClick={() => openImageGallery(index)}
+                                                        >
+                                                            <Image
+                                                                src="/assets/icons/zoombtn.svg"
+                                                                alt=""
+                                                                width={39}
+                                                                height={39}
+                                                            />
+                                                        </button>
+                                                    </SwiperSlide>
+                                                ))}
+                                            </Swiper>
+                                        )}
                                     </figure>
                                 </div>
                                 <div className="product_content_main">

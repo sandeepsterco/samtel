@@ -12,7 +12,7 @@ export async function initHeroSlider(root: HTMLElement): Promise<Swiper[]> {
     import("swiper"),
     import("swiper/modules"),
   ]);
-  await import("swiper/css");
+  await Promise.all([import("swiper/css"), import("swiper/css/navigation")]);
 
   const instances: Swiper[] = [];
 
@@ -22,12 +22,15 @@ export async function initHeroSlider(root: HTMLElement): Promise<Swiper[]> {
 
     // scope buttons to this slider instance, falling back to root
     // in case markup places them as siblings rather than children
-    const nextEl =
-      slider.querySelector<HTMLElement>(".custom-next-btn") ??
-      root.querySelector<HTMLElement>(".custom-next-btn");
-    const prevEl =
-      slider.querySelector<HTMLElement>(".custom-prev-btn") ??
-      root.querySelector<HTMLElement>(".custom-prev-btn");
+    const findControl = (customSelector: string, defaultSelector: string) =>
+      slider.querySelector<HTMLElement>(customSelector) ??
+      root.querySelector<HTMLElement>(customSelector) ??
+      root.ownerDocument.querySelector<HTMLElement>(customSelector) ??
+      slider.querySelector<HTMLElement>(defaultSelector) ??
+      root.querySelector<HTMLElement>(defaultSelector) ??
+      root.ownerDocument.querySelector<HTMLElement>(defaultSelector);
+    const nextEl = findControl(".custom-next-btn", ".swiper-button-next");
+    const prevEl = findControl(".custom-prev-btn", ".swiper-button-prev");
 
     instances.push(
       new SwiperCore(slider, {
@@ -37,7 +40,7 @@ export async function initHeroSlider(root: HTMLElement): Promise<Swiper[]> {
         speed: 600,
         effect: "slide",
         grabCursor: true,
-        navigation: nextEl && prevEl ? { nextEl, prevEl } : undefined,
+        navigation: nextEl && prevEl ? { nextEl, prevEl } : false,
       })
     );
   });

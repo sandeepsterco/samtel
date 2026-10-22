@@ -17,11 +17,17 @@
 .milestone_sec1{ padding-block: 12rem 5rem; }
 .milestone_txt blockquote{ font: var(--font-28); color: var(--color-23); font-weight: 300; margin-bottom: 7rem; }
 .milestone_grid { display: grid; grid-template-columns: 75rem auto; gap: 8.5rem; }
-.milestone_img { margin-left: -11.7rem; }
+/* .milestone_img { margin-left: -11.7rem; } */
 .milestone_right p{ margin-bottom: 3rem; }
+.milestone_right p:last-child{margin: 0;}
 .milestone_bottom{margin-top: 7rem;}
-
-
+.milestone_slider {
+    margin-left: -10rem;
+}
+.milestoneSwiper{overflow: hidden;width: 100%;}
+.milestone_img{height: 100%; overflow: hidden;}
+.milestone_img figure{height: 100%;}
+.swiper-pagination-bullet-active{background-color: var(--color-c8);}
 
 /* =========================================================
    MILESTONE SECTION
@@ -31,6 +37,12 @@
 .milestone-nav { position: relative; min-height:15.7rem; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); align-items: start; }
 .milestone-tab {position: relative;z-index: 10;border: 0;outline: none;background: transparent;text-align: center;color: #c7c7c7;cursor: pointer;font: inherit;transition:color .35s ease;padding: 2.5rem 3rem 0;opacity: .5;display: flex;align-items: center;text-align: left;}
 .milestone-tab .tab-icon { display: block; margin: 0 auto .5rem; transition: color .35s ease, transform .35s ease; }
+.milestone-tab .tab-icon img{  filter: grayscale(100%);}
+.milestone-tab.active .tab-icon img{
+    filter: inherit;
+}
+
+
 .milestone-tab .tab-icon svg { width: 100%; height: 100%; }
 .milestone-tab .tab-title { display: block; font: var(--font-24); letter-spacing: -0.79px; color: var(--color-23); }
 .milestone-tab .tab-years { display: block; font: var(--font-24); letter-spacing: -0.79px; color: var(--color-c8); transition: color .35s ease; }
@@ -79,36 +91,53 @@
 .event-copy p strong{font-weight: 700;}
 
 @media (max-width: 1920px) {
-.milestone-sticky-heading {
-    margin-top: 5.8rem;
-}
+.milestone-sticky-heading { margin-top: 5.8rem; }
 .event-left .event-copy { right: calc(62% + 43px); }
 .event-right .event-copy { left: calc(63% + 40px); }
+.milestone_slider { margin-left: -6rem; }
 
 }
 
 @media (max-width: 1699px) {
-.milestone-nav { position: relative; }
 .event-right .event-copy { left: calc(57% + 57px); }
 .event-left .event-copy { right: calc(56% + 56px); }
+.milestone-nav-wrap{top: 18rem;}
+.milestone_grid { grid-template-columns: 66rem auto; }
+.event-image{ width: 12rem; height: 12rem;}
+.timeline-event { min-height: 24rem; }
+
+
+
 }
 @media (max-width: 1599px) {
 
-.milestone_grid { grid-template-columns: 68rem auto; }
+.milestone_grid {grid-template-columns: 60rem auto;}
+.milestone-phase { padding: 0 0 50rem; }
+}
+
+@media (max-width: 1499px) {
+.milestone_grid { grid-template-columns: 58rem auto; }
+
 }
 
 @media (max-width: 1399px) {
 .event-left .event-copy { right: calc(55% + 70px); }
 .event-right .event-copy { left: calc(55% + 80px); }
 .milestone_grid { grid-template-columns: 61rem auto; }
+.milestone_grid { grid-template-columns: 54rem auto; gap: 7.5rem; }
+.milestone-nav-wrap { top: 17rem; }
 
 }
 @media (max-width: 1299px) {
 .milestone_grid { grid-template-columns: 50rem auto; gap: 6.5rem; }
+.milestone_bottom { margin-top: 4rem; }
+.milestone-section { padding-block: 6rem 0; }
+.event-right .event-copy { left: calc(50% + 80px); }
+.event-left .event-copy { right: calc(51% + 70px); }
 }
 
 @media (max-width: 1199px) {
-.milestone_grid { grid-template-columns: 83rem auto; gap: 6.5rem; }
+.milestone_grid { grid-template-columns: 77rem auto; gap: 6.5rem; }
 .milestone-nav-wrap { top: 18rem; }
 
 
@@ -219,13 +248,14 @@
     opacity: 0;
 }
 .milestone_img1{
-        background-color: var(--color-white);
-            padding: 0.6rem;
-            border-radius: 1.2rem;
-            margin-bottom: 3rem;
-            display: inline-block;
-            width: 11rem;
-            height: fit-content;
+background-color: var(--color-white);
+        padding: 1rem;
+        border-radius: 1.2rem;
+        margin-bottom: 3rem;
+        display: inline-block;
+        width: 11rem;
+        height: fit-content;
+        text-align: center;
 }
 .milestone_img1 img{
     width: 8rem;
@@ -257,7 +287,7 @@
 
 .milestone_grid { grid-template-columns: 1fr; gap: 4.5rem; }
 .milestone_bottom { margin-top: 0rem; }
-.milestone-nav { width: 94vw; padding-bottom: 3.4rem; }
+.milestone-nav { width: 94vw; min-height: 12rem; padding-bottom: 3.4rem; }
 .milestone-tab { padding: 0 .5rem; }
 .milestone-tab .tab-icon { width: 2.2rem; height: 2.2rem; }
 .milestone-progress { bottom: 2.2rem; }
