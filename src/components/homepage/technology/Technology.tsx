@@ -1,20 +1,37 @@
 "use client";
 
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
+import type {
+  PointerEvent as ReactPointerEvent,
+  MouseEvent as ReactMouseEvent,
+} from "react";
 import Image from "next/image";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation } from "swiper/modules";
-import type { Swiper as SwiperType } from "swiper";
 import { refreshScrollTriggers } from "@/hooks/useScrollTriggerRefresh";
 import { BASE_URL } from "@/config/config";
-import "swiper/css";
-import "swiper/css/navigation";
 import "./technology.css";
-import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const DESKTOP_QUERY = "(min-width: 1024px)";
+const MOBILE_QUERY = "(max-width: 992px)";
+const SWIPE_THRESHOLD = 50;
+
+// stacked-figure positions (yPercent): start -> end of the scroll
+const START_Y = [-40, -15, 15, 40, 65];
+const END_Y = [-60, -20, 25, 60, 95];
+const startY = (i: number) =>
+  START_Y[i] ?? START_Y[START_Y.length - 1] + 25 * (i - (START_Y.length - 1));
+const endY = (i: number) =>
+  END_Y[i] ?? END_Y[END_Y.length - 1] + 35 * (i - (END_Y.length - 1));
 
 interface TechnologyImage {
   image: string;
@@ -26,132 +43,73 @@ interface TechnologyInfo {
   description: string;
   label?: string;
   slug?: string;
-  image?: string;
 }
 
 interface TechnologyPropsInterface {
+  // pass the `technology` object from the home page API
   data: {
-    title:string;
-    subtitle:string;
-    desc?:string;
+    title: string;
+    subtitle: string;
+    desc?: string;
     images?: TechnologyImage[];
     heading?: string;
     info?: TechnologyInfo[];
     mobileimage?: string;
-    buttonlink?:string;
+    buttonlink?: string;
   };
 }
 
 export default function Technology({ data }: TechnologyPropsInterface) {
-  const images = data?.images ?? [];
-  const slides = (data?.info ?? []).map((item, index) => ({
-    ...item,
-    image: item.image || images[index]?.image,
-  }));
+  // left-side figures come only from `images[]`
+  const images = (data?.images ?? []).filter((img) => img?.image);
+  const slides = data?.info ?? [];
+
+  const sectionRef = useRef<HTMLElement | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const gridRef = useRef<HTMLDivElement | null>(null);
-  const activeIndexRef = useRef(0);
-  const timelineRef = useRef<gsap.core.Timeline | null>(null);
-  const swiperRef = useRef<SwiperType | null>(null);
 
-  const showSlide = useCallback(
-    (requestedIndex: number) => {
-      const index = Math.max(0, Math.min(requestedIndex, slides.length - 1));
-      const previousIndex = activeIndexRef.current;
+  /* ---------- mobile (drag / prev-next slider) ---------- */
+  const [isMobile, setIsMobile] = useState(false);
+  const [mobileIndex, setMobileIndex] = useState(0);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragRef = useRef({ startX: 0, moved: false });
 
-      if (index === previousIndex) return;
-
-      activeIndexRef.current = index;
-      setActiveIndex(index);
-
-      const grid = gridRef.current;
-      if (!grid) return;
-
-      const images = grid.querySelectorAll<HTMLElement>(
-        ".tech_figureitem .techfigure",
-      );
-      const contents = grid.querySelectorAll<HTMLElement>(".techno_tabdata");
-      const newImage = images[index];
-      const newContent = contents[index];
-
-      if (!newImage || !newContent) return;
-
-      timelineRef.current?.kill();
-      gsap.killTweensOf([...images, ...contents]);
-
-      const timeline = gsap.timeline();
-      images.forEach((image, imageIndex) => {
-        const isTarget = imageIndex === index;
-        timeline.to(
-          image,
-          {
-            autoAlpha: isTarget ? 1 : 0,
-            scale: isTarget ? 1 : 0.97,
-            duration: isTarget ? 0.65 : 0.35,
-            ease: isTarget ? "power2.out" : "power2.inOut",
-          },
-          0,
-        );
-      });
-      contents.forEach((content, contentIndex) => {
-        const isTarget = contentIndex === index;
-        timeline.to(
-          content,
-          {
-            autoAlpha: isTarget ? 1 : 0,
-            y: isTarget ? 0 : -15,
-            duration: isTarget ? 0.5 : 0.25,
-            ease: isTarget ? "power2.out" : "power2.in",
-          },
-          isTarget ? 0.2 : 0,
-        );
-      });
-      timelineRef.current = timeline;
-    },
-    [slides.length],
-  );
-
+  /* desktop (>= 1024px): pin section, scroll moves the stacked figures
+     and syncs the active tab. Clicking a tab only changes tab/content. */
   useLayoutEffect(() => {
-    const grid = gridRef.current;
-    if (!grid || slides.length === 0) return;
+    const section = sectionRef.current;
+    if (!section || slides.length === 0) return;
 
     const media = gsap.matchMedia();
 
-    media.add("(min-width: 993px)", () => {
+    media.add(DESKTOP_QUERY, () => {
       const figures = gsap.utils.toArray<HTMLElement>(
-        grid.querySelectorAll(".tech_figureitem .techfigure"),
-      );
-      const contents = gsap.utils.toArray<HTMLElement>(
-        grid.querySelectorAll(".techno_tabdata"),
+        section.querySelectorAll(".tech_figureitem .techfigure"),
       );
 
-      gsap.set(figures, { autoAlpha: 0, scale: 1 });
-      gsap.set(contents, { autoAlpha: 0, y: 25 });
-      gsap.set(figures[activeIndexRef.current], { autoAlpha: 1 });
-      gsap.set(contents[activeIndexRef.current], { autoAlpha: 1, y: 0 });
+      figures.forEach((figure, i) => gsap.set(figure, { yPercent: startY(i) }));
 
-      const trigger = ScrollTrigger.create({
-        trigger: grid,
-        start: "top 20rem",
-        end: () => `+=${window.innerHeight * Math.max(1, slides.length - 1)}`,
-        pin: true,
-        scrub: false,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          const index = Math.min(
-            slides.length - 1,
-            Math.round(self.progress * (slides.length - 1)),
-          );
-          if (index !== activeIndexRef.current) showSlide(index);
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "center center",
+          end: "+=1200",
+          pin: true,
+          scrub: 1.5,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const index = Math.min(
+              slides.length - 1,
+              Math.floor(self.progress * slides.length),
+            );
+            setActiveIndex((prev) => (prev === index ? prev : index));
+          },
         },
       });
 
-      return () => {
-        trigger.kill();
-        timelineRef.current?.kill();
-        timelineRef.current = null;
-      };
+      figures.forEach((figure, i) => {
+        timeline.to(figure, { yPercent: endY(i) }, 0);
+      });
     });
 
     const handleLoad = () => refreshScrollTriggers();
@@ -162,12 +120,63 @@ export default function Technology({ data }: TechnologyPropsInterface) {
       window.removeEventListener("load", handleLoad);
       media.revert();
     };
-  }, [showSlide, slides.length]);
+  }, [slides.length, images.length]);
 
-  // const setMobileActiveIndex = (index: number) => {
-  //     activeIndexRef.current = index
-  //     setActiveIndex(index)
-  // }
+  /* track the mobile breakpoint */
+  useEffect(() => {
+    const mq = window.matchMedia(MOBILE_QUERY);
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  const goToMobile = useCallback(
+    (index: number) => {
+      setMobileIndex(Math.max(0, Math.min(index, slides.length - 1)));
+    },
+    [slides.length],
+  );
+
+  const handlePointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
+    if (!isMobile) return;
+    dragRef.current = { startX: e.clientX, moved: false };
+    setIsDragging(true);
+  };
+
+  const handlePointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
+    if (!isDragging) return;
+    let delta = e.clientX - dragRef.current.startX;
+    const atStart = mobileIndex === 0 && delta > 0;
+    const atEnd = mobileIndex === slides.length - 1 && delta < 0;
+    if (atStart || atEnd) delta *= 0.3; // resistance at the edges
+    if (Math.abs(delta) > 5) dragRef.current.moved = true;
+    setDragOffset(delta);
+  };
+
+  const endDrag = () => {
+    if (!isDragging) return;
+    if (dragOffset <= -SWIPE_THRESHOLD) goToMobile(mobileIndex + 1);
+    else if (dragOffset >= SWIPE_THRESHOLD) goToMobile(mobileIndex - 1);
+    setDragOffset(0);
+    setIsDragging(false);
+  };
+
+  // a swipe must not trigger the arrow link underneath the finger
+  const handleClickCapture = (e: ReactMouseEvent<HTMLDivElement>) => {
+    if (dragRef.current.moved) {
+      e.preventDefault();
+      e.stopPropagation();
+      dragRef.current.moved = false;
+    }
+  };
+
+  const wrapperStyle = isMobile
+    ? {
+        transform: `translateX(calc(${-mobileIndex * 100}% + ${dragOffset}px))`,
+        transition: isDragging ? "none" : "transform 0.4s ease",
+      }
+    : undefined;
 
   return (
     <>
@@ -179,57 +188,54 @@ export default function Technology({ data }: TechnologyPropsInterface) {
               data-delay="0.3"
               data-duration="1.6"
             >
-                {data?.title && (
-                    <h4 dangerouslySetInnerHTML={{__html:data.title}} />
-                )}
+              {data?.title && (
+                <h4 dangerouslySetInnerHTML={{ __html: data.title }} />
+              )}
 
-                {data?.subtitle && (
-                    <h3 className="font45" dangerouslySetInnerHTML={{__html:data.subtitle}} />
-                )}
+              {data?.subtitle && (
+                <h3
+                  className="font45"
+                  dangerouslySetInnerHTML={{ __html: data.subtitle }}
+                />
+              )}
 
-                {data?.desc && (
-                    <p dangerouslySetInnerHTML={{__html:data.desc}} />
-                )}
-              
-                {data?.buttonlink && (
-                    <Link href={`${BASE_URL}overview`} className="more_btn">
-                        <Image
-                        src="/assets/icons/right-arrow-white.svg"
-                        alt="arrow"
-                        className="img-fluid"
-                        width={64}
-                        height={64}
-                        loading="lazy"
-                        />
-                    </Link>
-                )}
-              
-              
+              {data?.desc && <p dangerouslySetInnerHTML={{ __html: data.desc }} />}
+
+              {data?.buttonlink && (
+                <Link href={`${BASE_URL}${data.buttonlink}`} className="more_btn">
+                  <Image
+                    src="/assets/icons/right-arrow-white.svg"
+                    alt="arrow"
+                    className="img-fluid"
+                    width={64}
+                    height={64}
+                    loading="lazy"
+                  />
+                </Link>
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      <section className="technology_sec">
+      <section className="technology_sec" ref={sectionRef}>
         <div className="container-fluid">
-          <div className="techno_grid" ref={gridRef}>
+          <div className="techno_grid">
             <div className="techno_left">
               <div className="tech_figureitem">
-                {slides.map((item, index) => (
+                {images.map((img, index) => (
                   <figure
-                    key={item.id || index}
-                    className={`techfigure techno0${index + 1}${activeIndex === index ? " active" : ""}`}
+                    key={index}
+                    className={`techfigure techno0${index + 1}`}
                   >
-                    {item.image && (
-                      <Image
-                        src={item.image}
-                        alt={item.title || "Technology"}
-                        width={437}
-                        height={237}
-                        className="img-fluid w-100"
-                        loading="lazy"
-                      />
-                    )}
+                    <Image
+                      src={img.image}
+                      alt={slides[index]?.title || "Technology"}
+                      width={437}
+                      height={237}
+                      className="img-fluid w-100"
+                      loading="lazy"
+                    />
                   </figure>
                 ))}
               </div>
@@ -242,7 +248,7 @@ export default function Technology({ data }: TechnologyPropsInterface) {
                     className={`techtab_btn${activeIndex === index ? " active" : ""}`}
                     data-tabid={item.id}
                     aria-pressed={activeIndex === index}
-                    onClick={() => showSlide(index)}
+                    onClick={() => setActiveIndex(index)}
                   >
                     {item.label || String(index + 1).padStart(2, "0")}
                   </button>
@@ -254,8 +260,33 @@ export default function Technology({ data }: TechnologyPropsInterface) {
               {data?.heading && (
                 <h4 dangerouslySetInnerHTML={{ __html: data.heading }} />
               )}
+
+              {data?.mobileimage && (
+                <div className="techno_mobile for_mobile">
+                  <figure className="techfigure techno01">
+                    <Image
+                      src={data.mobileimage}
+                      alt={data.heading || "Technology"}
+                      width={437}
+                      height={237}
+                      className="img-fluid w-100"
+                      loading="lazy"
+                    />
+                  </figure>
+                </div>
+              )}
+
               <div className="techno_slider">
-                <div className="techno_tabwrapper">
+                <div
+                  className={`techno_tabwrapper${isDragging ? " dragging" : ""}`}
+                  style={wrapperStyle}
+                  onPointerDown={handlePointerDown}
+                  onPointerMove={handlePointerMove}
+                  onPointerUp={endDrag}
+                  onPointerCancel={endDrag}
+                  onPointerLeave={endDrag}
+                  onClickCapture={handleClickCapture}
+                >
                   {slides.map((item, index) => (
                     <div
                       key={item.id || index}
@@ -265,10 +296,7 @@ export default function Technology({ data }: TechnologyPropsInterface) {
                       {item.title && <h5>{item.title}</h5>}
                       {item.description && <p>{item.description}</p>}
                       {item.slug && (
-                        <a
-                          href={`${BASE_URL}${item.slug}`}
-                          className="more_btn"
-                        >
+                        <a href={`${BASE_URL}${item.slug}`} className="more_btn">
                           <img
                             src="/assets/icons/right-arrow-white.svg"
                             alt="arrow"
@@ -279,66 +307,39 @@ export default function Technology({ data }: TechnologyPropsInterface) {
                     </div>
                   ))}
                 </div>
+
+                {slides.length > 1 && (
+                  <div className="techno_mobile_nav">
+                    <button
+                      type="button"
+                      className="techno_prev"
+                      aria-label="Previous"
+                      disabled={mobileIndex === 0}
+                      onClick={() => goToMobile(mobileIndex - 1)}
+                    >
+                      <img
+                        src="/assets/icons/red-left-btn.svg"
+                        alt="arrow"
+                        className="img-fluid"
+                      />
+                    </button>
+                    <button
+                      type="button"
+                      className="techno_next"
+                      aria-label="Next"
+                      disabled={mobileIndex === slides.length - 1}
+                      onClick={() => goToMobile(mobileIndex + 1)}
+                    >
+                      <img
+                        src="/assets/icons/red-right-btn.svg"
+                        alt="arrow"
+                        className="img-fluid"
+                      />
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
-          </div>
-
-          <div className="techno_mobile for_mobile">
-            {data?.heading && (
-              <h4 dangerouslySetInnerHTML={{ __html: data.heading }} />
-            )}
-            <Swiper
-              className="mySwiper"
-              modules={[Autoplay, Navigation]}
-              loop={slides.length > 1}
-              speed={600}
-              spaceBetween={10}
-              slidesPerView={1}
-              navigation
-              autoplay={
-                slides.length > 1
-                  ? {
-                      delay: 3000,
-                      disableOnInteraction: false,
-                    }
-                  : false
-              }
-              breakpoints={{
-                0: { slidesPerView: 1, spaceBetween: 10 },
-                576: { slidesPerView: 2, spaceBetween: 15 },
-                992: { slidesPerView: 3, spaceBetween: 20 },
-              }}
-            >
-              {slides.map((item, index) => (
-                <SwiperSlide key={item.id || index}>
-                  <article className="techno_text">
-                    {item.image && (
-                      <figure>
-                        <Image
-                          src={item.image}
-                          alt={item.title || "Technology"}
-                          width={437}
-                          height={237}
-                          className="img-fluid w-100"
-                          loading="lazy"
-                        />
-                      </figure>
-                    )}
-                    {item.title && <h5>{item.title}</h5>}
-                    {item.description && <p>{item.description}</p>}
-                    {item.slug && (
-                      <a href={`${BASE_URL}${item.slug}`} className="more_btn">
-                        <img
-                          src="/assets/icons/right-arrow-white.svg"
-                          alt="arrow"
-                          className="img-fluid"
-                        />
-                      </a>
-                    )}
-                  </article>
-                </SwiperSlide>
-              ))}
-            </Swiper>
           </div>
         </div>
       </section>
