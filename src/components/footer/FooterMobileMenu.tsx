@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { BASE_URL } from "@/config/config";
 import { Swiper, SwiperSlide } from "swiper/react";
-import type { Swiper as SwiperInstance } from "swiper";
+import { Navigation } from "swiper/modules";
 import "swiper/css";
 
 export interface FooterMenuItem {
@@ -190,7 +190,8 @@ export default function FooterMobileMenu({
   const [activePanel, setActivePanel] = useState<ActivePanel>(null);
   const [openSubmenu, setOpenSubmenu] = useState<number | null>(null);
   const [openNestedSubmenu, setOpenNestedSubmenu] = useState<string | null>(null);
-  const swiperRef = useRef<SwiperInstance | null>(null);
+  const previousContactButtonRef = useRef<HTMLButtonElement | null>(null);
+  const nextContactButtonRef = useRef<HTMLButtonElement | null>(null);
   const menuSections = getMenuSections(headerMenu, sidebarMenu, productCategoryMenu);
 
   useEffect(() => {
@@ -321,10 +322,21 @@ export default function FooterMobileMenu({
               <div className="contact-swiper-section">
                 <Swiper
                   className="contact-swiper"
+                  modules={[Navigation]}
+                  navigation={false}
                   slidesPerView={1}
                   rewind
                   onSwiper={(swiper) => {
-                    swiperRef.current = swiper;
+                    const previousButton = previousContactButtonRef.current;
+                    const nextButton = nextContactButtonRef.current;
+                    if (!previousButton || !nextButton) return;
+
+                    swiper.params.navigation = {
+                      prevEl: previousButton,
+                      nextEl: nextButton,
+                    };
+                    swiper.navigation.init();
+                    swiper.navigation.update();
                   }}
                 >
                   {contactSlides.map((slide) => (
@@ -355,7 +367,7 @@ export default function FooterMobileMenu({
                   type="button"
                   className="contact-arrow contact-prev"
                   aria-label="Previous contact email"
-                  onClick={() => swiperRef.current?.slidePrev()}
+                  ref={previousContactButtonRef}
                 >
                   <Image
                     src="/assets/icons/right-arrow-white.svg"
@@ -369,7 +381,7 @@ export default function FooterMobileMenu({
                   type="button"
                   className="contact-arrow contact-next"
                   aria-label="Next contact email"
-                  onClick={() => swiperRef.current?.slideNext()}
+                  ref={nextContactButtonRef}
                 >
                   <Image
                     src="/assets/icons/right-arrow-white.svg"

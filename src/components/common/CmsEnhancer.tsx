@@ -5,10 +5,12 @@ import { adfSwiperModule } from "@/lib/cms/adfSwiper";
 import { heroSliderModule } from "@/lib/cms/heroSlider";
 import type { SliderModule } from "@/lib/cms/types";
 import { careerSliderModule } from "@/lib/cms/careerSlider";
+import { milestoneSliderModule } from "@/lib/cms/milestoneSlider";
 import { milestoneTimelineModule } from "@/lib/cms/milestoneTimeline";
 
 const SLIDER_MODULES: SliderModule[] = [
   adfSwiperModule,
+  milestoneSliderModule,
   heroSliderModule,
   careerSliderModule,
   milestoneTimelineModule,

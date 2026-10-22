@@ -13,6 +13,10 @@ interface MappingItemInterface{
     description?:string;
 }
 
+interface ProductMappingImage {
+    image?: string;
+}
+
 interface ProductDataInterface {
     name: string;
     image?: string;
@@ -25,7 +29,8 @@ interface ProductDataInterface {
     product_details?: string;
     product_details_html?: string;
     mapping_items?:{
-        lists?:MappingItemInterface[]
+        lists?:MappingItemInterface[];
+        images?:ProductMappingImage[];
     }
 }
 
