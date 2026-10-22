@@ -253,6 +253,20 @@
 /* ---------end-company-overview---------- */
 /*leadership css start here*/
 .leadership_sec{padding-block: 0 12rem;}
+.leadship_top {
+    margin-top: 5rem;
+}
+.more_btn{
+    translate: none;
+    rotate: none;
+    scale: none;
+    opacity: 1;
+    transform: translate(0px, 0px);
+}
+
+.leadship_top .more_btn {
+    margin-top: 4rem;
+}
 .ledrsp_list{margin-top: 5rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem;} 
 .ledrsp_bx{ position: relative;background: #f3f3f3; }
 .ledrsp_bx figure{overflow: hidden;}
@@ -507,6 +521,7 @@
 .gpc_main .pc_ise_col>h4 { min-height: 5rem; }
 .pc_ise_col>figure { margin-bottom: 2rem; }
 .pc_ise_sec .font_title>blockquote, .gpc_main .font_title>blockquote { margin-bottom: 6rem; }
+.pc_hero_rgt {overflow: hidden;width: 100%;}
 .gpc_main { padding-block: 15rem 15.1rem; }
 .gpc_main .pc_ise_col { padding-bottom: 5.8rem; }
 
