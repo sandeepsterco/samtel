@@ -69,7 +69,6 @@ export default function Technology({ data }: TechnologyPropsInterface) {
 
   /* ---------- mobile (drag / prev-next slider) ---------- */
   const [isMobile, setIsMobile] = useState(false);
-  const [mobileIndex, setMobileIndex] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const dragRef = useRef({ startX: 0, moved: false });
@@ -95,7 +94,9 @@ export default function Technology({ data }: TechnologyPropsInterface) {
           start: "center center",
           end: "+=1200",
           pin: true,
+          pinSpacing: true,
           scrub: 1.5,
+          anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             const index = Math.min(
@@ -133,9 +134,9 @@ export default function Technology({ data }: TechnologyPropsInterface) {
 
   const goToMobile = useCallback(
     (index: number) => {
-      setMobileIndex(Math.max(0, Math.min(index, slides.length - 1)));
+      setActiveIndex(Math.max(0, Math.min(index, slides.length - 1)));
     },
-    [slides.length],
+    [setActiveIndex, slides.length],
   );
 
   const handlePointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
@@ -147,8 +148,8 @@ export default function Technology({ data }: TechnologyPropsInterface) {
   const handlePointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (!isDragging) return;
     let delta = e.clientX - dragRef.current.startX;
-    const atStart = mobileIndex === 0 && delta > 0;
-    const atEnd = mobileIndex === slides.length - 1 && delta < 0;
+    const atStart = activeIndex === 0 && delta > 0;
+    const atEnd = activeIndex === slides.length - 1 && delta < 0;
     if (atStart || atEnd) delta *= 0.3; // resistance at the edges
     if (Math.abs(delta) > 5) dragRef.current.moved = true;
     setDragOffset(delta);
@@ -156,8 +157,8 @@ export default function Technology({ data }: TechnologyPropsInterface) {
 
   const endDrag = () => {
     if (!isDragging) return;
-    if (dragOffset <= -SWIPE_THRESHOLD) goToMobile(mobileIndex + 1);
-    else if (dragOffset >= SWIPE_THRESHOLD) goToMobile(mobileIndex - 1);
+    if (dragOffset <= -SWIPE_THRESHOLD) goToMobile(activeIndex + 1);
+    else if (dragOffset >= SWIPE_THRESHOLD) goToMobile(activeIndex - 1);
     setDragOffset(0);
     setIsDragging(false);
   };
@@ -173,7 +174,7 @@ export default function Technology({ data }: TechnologyPropsInterface) {
 
   const wrapperStyle = isMobile
     ? {
-        transform: `translateX(calc(${-mobileIndex * 100}% + ${dragOffset}px))`,
+        transform: `translateX(calc(${-activeIndex * 100}% + ${dragOffset}px))`,
         transition: isDragging ? "none" : "transform 0.4s ease",
       }
     : undefined;
@@ -314,8 +315,8 @@ export default function Technology({ data }: TechnologyPropsInterface) {
                       type="button"
                       className="techno_prev"
                       aria-label="Previous"
-                      disabled={mobileIndex === 0}
-                      onClick={() => goToMobile(mobileIndex - 1)}
+                      disabled={activeIndex === 0}
+                      onClick={() => goToMobile(activeIndex - 1)}
                     >
                       <img
                         src="/assets/icons/red-left-btn.svg"
@@ -327,8 +328,8 @@ export default function Technology({ data }: TechnologyPropsInterface) {
                       type="button"
                       className="techno_next"
                       aria-label="Next"
-                      disabled={mobileIndex === slides.length - 1}
-                      onClick={() => goToMobile(mobileIndex + 1)}
+                      disabled={activeIndex === slides.length - 1}
+                      onClick={() => goToMobile(activeIndex + 1)}
                     >
                       <img
                         src="/assets/icons/red-right-btn.svg"
