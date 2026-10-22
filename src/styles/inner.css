@@ -1013,6 +1013,7 @@
 .dept-card p {font:var(--font-18);margin-bottom: 3rem;line-height: 1.3;}
 .dept-card a {color: #25669D;text-decoration: none;font:var(--font-21);word-break: break-all;font-weight:300;text-decoration: underline;}
 .dept-card a:hover { text-decoration: underline; }
+
 .award-sec .zoombtn {
     top: 44%;
 }
