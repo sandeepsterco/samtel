@@ -68,11 +68,10 @@ function getProductDetails(product: Product) {
 }
 
 function getProductImages(product: Product) {
-    return [...new Set(
-        (product.mapping_items?.images ?? [])
-            .map((item) => item.image)
-            .filter((image): image is string => Boolean(image)),
-    )];
+    return [...new Set([
+        product.image,
+        ...(product.mapping_items?.images ?? []).map((item) => item.image),
+    ].filter((image): image is string => Boolean(image)))];
 }
 
 export default function ProductSolutionsClient({
@@ -292,25 +291,25 @@ export default function ProductSolutionsClient({
                             <div className="product_modal_grid">
                                 <div className="product_image">
                                     <figure>
-                                        {selectedProductImages.length > 0 && (
-                                            <Swiper
-                                                key={selectedProduct.id}
-                                                className="product-image-swiper"
-                                                modules={[Pagination]}
-                                                slidesPerView={1}
-                                                pagination={selectedProductImages.length > 1 ? { clickable: true } : false}
-                                                loop={selectedProductImages.length > 1}
-                                            >
-                                                {selectedProductImages.map((image, index) => (
-                                                    <SwiperSlide key={`${image}-${index}`}>
-                                                        <Image
-                                                            src={image}
-                                                            className="img-fluid w-100"
-                                                            width={850}
-                                                            height={850}
-                                                            alt={`${selectedProduct.name}${selectedProductImages.length > 1 ? ` - image ${index + 1}` : ""}`}
-                                                            priority={index === 0}
-                                                        />
+                                        <Swiper
+                                            key={selectedProduct.id}
+                                            className="product-image-swiper"
+                                            modules={[Pagination]}
+                                            slidesPerView={1}
+                                            pagination={selectedProductImages.length > 1 ? { clickable: true } : false}
+                                            loop={selectedProductImages.length > 1}
+                                        >
+                                            {(selectedProductImages.length ? selectedProductImages : [placeholderImage]).map((image, index) => (
+                                                <SwiperSlide key={`${image}-${index}`}>
+                                                    <Image
+                                                        src={image}
+                                                        className="img-fluid w-100"
+                                                        width={850}
+                                                        height={850}
+                                                        alt={`${selectedProduct.name}${selectedProductImages.length > 1 ? ` - image ${index + 1}` : ""}`}
+                                                        priority={index === 0}
+                                                    />
+                                                    {selectedProductImages.length > 0 && (
                                                         <button
                                                             type="button"
                                                             className="product-image-zoom"
@@ -324,10 +323,10 @@ export default function ProductSolutionsClient({
                                                                 height={39}
                                                             />
                                                         </button>
-                                                    </SwiperSlide>
-                                                ))}
-                                            </Swiper>
-                                        )}
+                                                    )}
+                                                </SwiperSlide>
+                                            ))}
+                                        </Swiper>
                                     </figure>
                                 </div>
                                 <div className="product_content_main">
