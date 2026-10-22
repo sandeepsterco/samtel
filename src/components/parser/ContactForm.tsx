@@ -184,7 +184,7 @@ export default function ContactForm() {
           <textarea
             name="requirement"
             placeholder="Requirement"
-            rows={2}
+            rows={4}
           ></textarea>
         </div>
 

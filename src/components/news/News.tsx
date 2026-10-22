@@ -51,8 +51,8 @@ export default function News({ data }: NewsPropsInterface) {
 
                     </div>
                     <div className="newd-btn">
-                        <Link href="#" className="explore_btn">Learn more in Media Coverage </Link> 
-                        <Link href="product-solutions" className="explore_btn">Learn more about Our Events </Link>
+                        <Link href="/media/press-coverage" className="explore_btn">Learn more in Press Coverage </Link> 
+                        <Link href="media/media-gallery" className="explore_btn">Learn more about Our Events </Link>
                     </div>
                 </div>
             </div>
