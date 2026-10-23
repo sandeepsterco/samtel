@@ -9,51 +9,112 @@ interface HamburgerProps {
   sidebarData: SidebarItem[];
 }
 
-const specialMenus = ["contact us", "media"];
+const specialMenus = ["contact us", "media", "blogs"];
+
+const isAbsolute = (url: string) => /^https?:\/\//i.test(url);
+
+// overwrite_url present -> use it (absolute as-is, relative gets BASE_URL)
+// otherwise            -> normal slug path
+const getLinkProps = (node: any, slugPath: string) => {
+  const custom =
+    typeof node.overwrite_url === "string" ? node.overwrite_url.trim() : "";
+
+  const href = custom
+    ? isAbsolute(custom)
+      ? custom
+      : BASE_URL + custom.replace(/^\/+/, "")
+    : BASE_URL + slugPath;
+
+  const newTab = Number(node.target_blank) === 1;
+
+  return {
+    href,
+    ...(newTab ? { target: "_blank", rel: "noopener noreferrer" } : {}),
+  };
+};
 
 export default function Hamburger({ sidebarData }: HamburgerProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openKey, setOpenKey] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isSidebarOpen) return;
-
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-
     return () => {
       document.body.style.overflow = previousOverflow;
     };
   }, [isSidebarOpen]);
 
-  const topMenus =
-    Array.isArray(sidebarData) &&
-    sidebarData.filter((item) => {
-      return specialMenus.includes(item.title.toLocaleLowerCase());
-    });
-
-  const bottomMenus =
-    Array.isArray(sidebarData) &&
-    sidebarData.filter((item) => {
-      return !specialMenus.includes(item.title.toLocaleLowerCase());
-    });
+  const items = Array.isArray(sidebarData) ? sidebarData : [];
+  const topMenus = items.filter((i) =>
+    specialMenus.includes(i.title.toLowerCase())
+  );
+  const bottomMenus = items.filter(
+    (i) => !specialMenus.includes(i.title.toLowerCase())
+  );
 
   const closeSidebar = () => {
     setIsSidebarOpen(false);
-    setOpenIndex(null);
+    setOpenKey(null);
   };
 
-  const toggleSidebar = () => {
-    if (isSidebarOpen) {
-      closeSidebar();
-    } else {
-      setIsSidebarOpen(true);
-    }
-  };
+  const toggleSidebar = () =>
+    isSidebarOpen ? closeSidebar() : setIsSidebarOpen(true);
 
-  const toggleDropdown = (idx: number) => {
-    setOpenIndex((prev) => (prev === idx ? null : idx));
-  };
+  const toggleDropdown = (key: string) =>
+    setOpenKey((prev) => (prev === key ? null : key));
+
+  const renderMenu = (menus: any[], prefix: string) =>
+    menus.map((item, idx) => {
+      const key = `${prefix}-${idx}`;
+      const hasChildren =
+        Array.isArray(item.children) && item.children.length > 0;
+      const isOpen = openKey === key;
+
+      return (
+        <li key={key}>
+          {hasChildren ? (
+            <>
+              <a
+                href="#"
+                role="button"
+                aria-expanded={isOpen}
+                className={`media-toggle ${isOpen ? "active" : ""}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  toggleDropdown(key);
+                }}
+              >
+                {item.title}
+                <span className="media-arrow">+</span>
+              </a>
+
+              <div
+                className={`media-dropdown-wrap ${isOpen ? "active open" : ""}`}
+              >
+                <ul className="media-dropdown">
+                  {item.children.map((child: any, cIdx: number) => (
+                    <li key={cIdx}>
+                      <Link
+                        {...getLinkProps(child, `${item.slug}/${child.slug}`)}
+                        onClick={closeSidebar}
+                      >
+                        {child.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </>
+          ) : (
+            <Link {...getLinkProps(item, item.slug)} onClick={closeSidebar}>
+              {item.title}
+            </Link>
+          )}
+        </li>
+      );
+    });
 
   return (
     <>
@@ -68,120 +129,11 @@ export default function Hamburger({ sidebarData }: HamburgerProps) {
 
       <div className={`other-links-drawer ${isSidebarOpen ? "open" : ""}`}>
         <div className="custom_link">
-          <ul>
-            {Array.isArray(topMenus) &&
-              topMenus.map((item: any, idx: number) => {
-                const hasChildren = !!item.children && item.children.length > 0;
-                const isOpen = openIndex === idx;
-
-                return (
-                  <li key={idx}>
-                    {hasChildren ? (
-                      <>
-                        <a
-                          href="#"
-                          role="button"
-                          aria-expanded={isOpen}
-                          className={`media-toggle ${isOpen ? "active" : ""}`}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            toggleDropdown(idx);
-                          }}
-                        >
-                          {item.title}
-                          <span className="media-arrow">
-                            +
-                          </span>
-                        </a>
-
-                        <div
-                          className={`media-dropdown-wrap ${isOpen ? "active" : ""}`}
-                        >
-                          <ul className="media-dropdown">
-                            {Array.isArray(item.children) &&
-                              item.children.map((child: any, cIdx: number) => (
-                                <li key={cIdx}>
-                                  <Link
-                                    href={
-                                      BASE_URL + item.slug + "/" + child.slug
-                                    }
-                                    onClick={closeSidebar}
-                                  >
-                                    {child.title}
-                                  </Link>
-                                </li>
-                              ))}
-                          </ul>
-                        </div>
-                      </>
-                    ) : (
-                      <Link href={BASE_URL + item.slug} onClick={closeSidebar}>
-                        {item.title}
-                      </Link>
-                    )}
-                  </li>
-                );
-              })}
-          </ul>
+          <ul>{renderMenu(topMenus, "top")}</ul>
         </div>
 
         <div className="cus-btn-link">
-          <ul>
-            {Array.isArray(bottomMenus) &&
-              bottomMenus.map((item: any, idx: number) => {
-                const hasChildren = !!item.children && item.children.length > 0;
-                const isOpen = openIndex === idx;
-
-                return (
-                  <li key={idx}>
-                    {hasChildren ? (
-                      <>
-                        {/* Parent with children: toggles the dropdown, doesn't navigate */}
-                        <a
-                          href="#"
-                          role="button"
-                          aria-expanded={isOpen}
-                          className={`media-toggle ${isOpen ? "active" : ""}`}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            toggleDropdown(idx);
-                          }}
-                        >
-                          {item.title}
-                          <span className="media-arrow">
-                            +
-                          </span>
-                        </a>
-
-                        <div
-                          className={`media-dropdown-wrap ${isOpen ? "open" : ""}`}
-                        >
-                          <ul className="media-dropdown">
-                            {Array.isArray(item.children) &&
-                              item.children.map((child: any, cIdx: number) => (
-                                <li key={cIdx}>
-                                  <Link
-                                    href={
-                                      BASE_URL + item.slug + "/" + child.slug
-                                    }
-                                    onClick={closeSidebar}
-                                  >
-                                    {child.title}
-                                  </Link>
-                                </li>
-                              ))}
-                          </ul>
-                        </div>
-                      </>
-                    ) : (
-                      <Link href={BASE_URL + item.slug} onClick={closeSidebar}>
-                        {item.title}
-                      </Link>
-                    )}
-                  </li>
-                );
-              })}
-          </ul>
+          <ul>{renderMenu(bottomMenus, "bottom")}</ul>
         </div>
       </div>
 
@@ -191,4 +143,3 @@ export default function Hamburger({ sidebarData }: HamburgerProps) {
     </>
   );
 }
-
