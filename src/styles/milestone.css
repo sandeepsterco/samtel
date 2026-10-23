@@ -37,7 +37,7 @@
 .milestone-nav { position: relative; min-height:15.7rem; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); align-items: start; }
 .milestone-tab {position: relative;z-index: 10;border: 0;outline: none;background: transparent;text-align: center;color: #c7c7c7;cursor: pointer;font: inherit;transition:color .35s ease;padding: 2.5rem 3rem 0;opacity: .5;display: flex;align-items: center;text-align: left;}
 .milestone-tab .tab-icon { display: block; margin: 0 auto .5rem; transition: color .35s ease, transform .35s ease; }
-.milestone-tab .tab-icon img{  filter: grayscale(100%);}
+/* .milestone-tab .tab-icon img{  filter: grayscale(100%);} */
 .milestone-tab.active .tab-icon img{
     filter: inherit;
 }
