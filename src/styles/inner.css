@@ -2171,7 +2171,7 @@ br.desktop-break { display: none; }
     overflow: auto;
 }
 .product_modal_content .breadcrumb-sec{padding-block:0 4rem;}
-.product_modal_close { position: sticky; top: 3rem; right: 2rem; line-height: 1; cursor: pointer; text-align: end; padding-right: 3.9rem; padding-bottom: 7.5rem; z-index: 99; }
+.product_modal_close { position: sticky; top: 3rem; right: 2rem; line-height: 1; cursor: pointer; text-align: end; padding-right: 3.9rem; padding-bottom: 7.5rem; }
 .product_modal_close img{width: 3.1rem;height: 3.1rem;}
 .product_modal_grid{display: grid;grid-template-columns: 85rem 1fr;gap: 12.5rem;align-items: start;}
 .product_modal_grid .product_image{
