@@ -13,6 +13,7 @@ interface LeaderItem {
   id: number;
   name: string;
   image: string | null;
+  mobile_image: string | null;
   designation: string | null;
   message: string | null;
   slug: string;
@@ -36,7 +37,9 @@ export interface LeadershipResponse {
 
 const PLACEHOLDER = "/assets/images/placeholders/leadership.webp";
 
-const fetchLeadershipPage = async (page: number): Promise<LeadershipResponse> => {
+const fetchLeadershipPage = async (
+  page: number,
+): Promise<LeadershipResponse> => {
   const { data, error } = await apiFetch(`leadership?page=${page}`);
   if (error || !data) {
     throw new Error("Failed to fetch leadership");
@@ -70,7 +73,11 @@ const ArrowIcon = () => (
   </svg>
 );
 
-export default function Leaderships({ pageData }: { pageData: LeadershipResponse }) {
+export default function Leaderships({
+  pageData,
+}: {
+  pageData: LeadershipResponse;
+}) {
   const searchParams = useSearchParams();
   const page = Number(searchParams.get("page") || 1);
 
@@ -92,14 +99,23 @@ export default function Leaderships({ pageData }: { pageData: LeadershipResponse
         <div className="container-full">
           <div className="leadship_top">
             <div className="leadship_img">
-              <Image
-                src={first.image || "/assets/images/leadership_pic.webp"}
-                alt={first.name || "Leadership"}
-                width={1920}
-                height={800}
-                className="img-fluid w-100"
-                priority
-              />
+              <picture>
+                <source
+                  media="(max-width: 767px)"
+                  srcSet={first.mobile_image || "/assets/images/leadership_pic.webp"}
+                  type="image/webp"
+                />
+
+                <Image
+                  src={first.image || "/assets/images/leadership_pic.webp"}
+                  alt={first.name || "Leadership"}
+                  width={1920}
+                  height={800}
+                  className="img-fluid w-100"
+                  priority
+                  sizes="100vw"
+                />
+              </picture>
 
               <div className="leadership_detail">
                 {first.message && (
@@ -181,7 +197,9 @@ export default function Leaderships({ pageData }: { pageData: LeadershipResponse
         </div>
 
         <PaginationWrapper
-          currentPage={data?.meta?.current_page ?? pageData?.meta?.current_page ?? 1}
+          currentPage={
+            data?.meta?.current_page ?? pageData?.meta?.current_page ?? 1
+          }
           totalPages={data?.meta?.last_page ?? pageData?.meta?.last_page ?? 1}
         />
       </div>
