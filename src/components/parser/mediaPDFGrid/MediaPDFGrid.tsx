@@ -11,10 +11,20 @@ export default async function MediaPDFGrid({ data }: { data: any }) {
       <div className="press_grid">
         {pageData.map((item:any, idx:number)=>(
           <div key={idx} className="press_bx">
+            <figure>
+              <Image
+                src={item?.image || '/assets/images/placeholders/news.webp'}
+                alt={`Media Gallery ${item.name}`}
+                className="img-fluid"
+                width={406}
+                height={400}
+                loading="lazy"
+              />
+            </figure>
             {item?.name && (
               <p dangerouslySetInnerHTML={{__html:item?.name}} />
             )}
-            <Image src="/assets/icons/pdf_icon.webp" className="img-fluid" width={31} height={39} loading="lazy" alt="pdf icon" />
+            {/* <Image src="/assets/icons/pdf_icon.webp" className="img-fluid" width={31} height={39} loading="lazy" alt="pdf icon" /> */}
             {item?.pdf && (
               <Link
                 href={item.pdf}
