@@ -7,8 +7,12 @@
 .media_link p { font-weight: 300; }
 .divider{ width: 5.7rem; height: 2px; background: var(--color-d4); margin-top: 1rem; }
 .media_lst:hover .media_logo img { transform: scale(1.06); }
-
-
+.media_logo {
+    border-radius: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.media_logo figure img{width: 100%;}
 
 
 @media (max-width: 768px) {
