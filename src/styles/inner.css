@@ -1125,7 +1125,7 @@ box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 .facility-meta { display: flex; gap: 3rem; font-size: 0.9rem; }
 .facility-meta a {color:var(--color-23);text-decoration: none;display: flex;align-items: center;gap: .8rem;font: var(--font-18);letter-spacing: -0.21px;font-weight: 300;}
 .facility-meta a:hover{color: var(--color-black);}
-.facility-meta svg { width: 2rem;  fill: none; color: var(--color-f8); } 
+.facility-meta svg { width: 3rem;  fill: none; color: var(--color-f8); } 
 .slider-arrows { position: absolute; bottom: 20px; right: 20px; display: flex; gap: 5px; z-index: 10; }
 .arrow-btn { background-color: rgba(255, 255, 255, 0.8); border: none; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; color: #333; transition: background 0.3s; }
 .arrow-btn:hover { background-color: #ffffff; }
@@ -1470,6 +1470,16 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
     width: 50rem;
     margin-left: auto;
 }
+.facility-meta p img{width: 2.5rem;
+    height: 2.5rem;}
+.facility-meta p {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--color-23);
+    font: var(--font-18);
+}
+
 
 @media (max-width:1920px) {
 .manufacturing_txt .naval_system_box { width: 50rem; }
@@ -1720,6 +1730,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .facility-meta { gap: 1rem; flex-direction: column; }
 .facility-slide p { margin-bottom: 1.5rem; }
 .facility-meta svg { width: 3rem; height: 3rem; }
+
 .comprehensive_grid { gap: 1rem; }
 .testing-item { min-height:inherit; margin:0; padding-block:4rem; }
 .design_sec1 { padding-block: 5rem 6rem; }
@@ -2221,6 +2232,10 @@ br.desktop-break { display: none; }
 .apply_sec { padding-block: 6rem 3rem; }
 .form-card { padding: 3rem; }
 .explore_btn{padding: 1.2rem 1rem;}
+    .certi_acc_col figure {
+        justify-content: center;
+        display: flex;
+    }
  }
 @media (max-width:575px) {
  }
