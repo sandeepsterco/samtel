@@ -43,6 +43,8 @@ const sanitizeOptions: sanitizeHtml.IOptions = {
     "span",
     "figure",
     "figcaption",
+    "picture",
+    "source",
     "svg",
     "g",
     "path",
@@ -98,6 +100,8 @@ const sanitizeOptions: sanitizeHtml.IOptions = {
       "preserveAspectRatio",
       "referrerpolicy",
       "allowfullscreen",
+      "media",
+      "srcset",
     ],
     svg: ["viewBox", "width", "height"],
     iframe: [
