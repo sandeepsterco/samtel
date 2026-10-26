@@ -13,6 +13,33 @@
 .happenings-section .more_btn {background: #fff;align-items: center;justify-content: center;top: -3rem;position: relative;}
 .happenings-section .more_btn:hover { background: #E6E6E6;}
 .happenings-section .more_btn svg{stroke:currentColor; color: var(--color-c8);}
+
+@media (max-width: 1920px) {
+.happenings-section .slider-outer-wrapper { margin-left: calc((100vw - min(1505px, 73.409091vw)) / 2 + 6.5rem); }
+
+}
+
+@media (max-width: 1699px) {
+.happenings-section .slider-outer-wrapper { margin-left: calc((100vw - min(1505px, 76.409091vw)) / 2 + 6.5rem); }
+}
+
+@media (max-width: 1499px) {
+.happenings-section .slider-outer-wrapper { margin-left: calc((100vw - min(1505px, 79.409091vw)) / 2 + 6.5rem); }
+}
+@media (max-width: 1399px) {
+.happenings-section .slider-outer-wrapper { margin-left: calc((100vw - min(1505px, 81.409091vw)) / 2 + 6.5rem); }
+}
+@media (max-width: 1199px) {
+    .happenings-section .slider-outer-wrapper {
+        margin-left: calc((100vw - min(1505px, 85.409091vw)) / 2 + 6.5rem);
+    }
+}
+@media (max-width: 1099px) {
+    .happenings-section .slider-outer-wrapper {
+        margin-left: calc((100vw - min(1505px, 90.409091vw)) / 2 + 6.5rem);
+    }
+}
+
 @media (max-width:992px) {
 .happening-header{display: block; padding:0;text-align: center;}
 .happenings-section .more_btn{top: 0; margin-top: 2.5rem; width: 2.5rem; height: 2.5rem;}
