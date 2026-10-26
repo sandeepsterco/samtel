@@ -78,7 +78,25 @@ function getIndustryClassName(category: FooterProductCategory) {
 }
 
 function isFeaturedCategory(category: FooterProductCategory) {
-  return category.featured === true || category.featured === "true" || category.slug.includes('industrial');
+  return (
+    category.featured === true ||
+    category.featured === "true" ||
+    category.slug.includes("industrial")
+  );
+}
+
+function getIndustryCategories(categories: FooterProductCategory[]) {
+  const seenSlugs = new Set<string>();
+
+  return categories.filter((category) => {
+    if (!isFeaturedCategory(category)) return false;
+
+    const slug = category.slug.trim().toLocaleLowerCase();
+    if (seenSlugs.has(slug)) return false;
+
+    seenSlugs.add(slug);
+    return true;
+  });
 }
 
 function getMenuHref(slug: string) {
@@ -156,23 +174,12 @@ function getMenuSections(
 
   const industriesSection = sections.get("industries");
   if (industriesSection) {
-    productCategoryMenu
-      .filter(isFeaturedCategory)
-      .forEach((category) => {
-        const categoryKey = category.name.trim().toLocaleLowerCase();
-        if (
-          industriesSection.links.some(
-            (link) => link.title.trim().toLocaleLowerCase() === categoryKey,
-          )
-        ) {
-          return;
-        }
-
-        industriesSection.links.push({
-          title: category.name,
-          href: `/category/${category.slug}`,
-        });
-      });
+    industriesSection.links = getIndustryCategories(productCategoryMenu).map(
+      (category) => ({
+        title: category.name,
+        href: `/category/${category.slug}`,
+      }),
+    );
   }
 
   return Array.from(sections.values());
@@ -226,9 +233,7 @@ export default function FooterMobileMenu({
     setOpenNestedSubmenu(null);
   };
 
-  const featuredIndustries = productCategoryMenu.filter(
-    isFeaturedCategory,
-  );
+  const featuredIndustries = getIndustryCategories(productCategoryMenu);
 
   return (
     <>
@@ -477,7 +482,7 @@ export default function FooterMobileMenu({
                     if (!children?.length) {
                       return (
                         <Link
-                          href={section.href.includes('industries') ? `/category${href}` : href}
+                          href={href}
                           key={href}
                           tabIndex={isOpen ? 0 : -1}
                           onClick={closePanels}
