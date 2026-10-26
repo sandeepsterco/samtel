@@ -13,8 +13,6 @@ const specialMenus = ["contact us", "media", "blogs"];
 
 const isAbsolute = (url: string) => /^https?:\/\//i.test(url);
 
-// overwrite_url present -> use it (absolute as-is, relative gets BASE_URL)
-// otherwise            -> normal slug path
 const getLinkProps = (node: any, slugPath: string) => {
   const custom =
     typeof node.overwrite_url === "string" ? node.overwrite_url.trim() : "";

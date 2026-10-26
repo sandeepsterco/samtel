@@ -324,7 +324,7 @@ export default function ProductSolutionsClient({
                                             className="product-image-swiper"
                                             modules={[Pagination, Autoplay, Navigation]}
                                             slidesPerView={1}
-                                            pagination={selectedProductImages.length > 1 ? { clickable: true } : false}
+                                            // pagination={selectedProductImages.length > 1 ? { clickable: true } : false}
                                             loop={selectedProductImages.length > 1}
                                             autoplay={{
                                                 delay:3000,
