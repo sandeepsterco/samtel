@@ -8,6 +8,7 @@ interface MediaPDFInterface {
   name: string;
   pdf: string;
   id: number;
+  image?:string;
 }
 
 interface PageDataInterface {
@@ -37,15 +38,25 @@ export default async function PressCollection({searchParams}:{searchParams?:Prom
             <div className="press_grid">
               {pageData.data.map((item) => (
                 <div key={item.id} className="press_bx">
+                  <figure>
+                    <Image
+                      src={item?.image || '/assets/images/placeholders/news.webp'}
+                      alt={`Media Gallery ${item.name}`}
+                      className="img-fluid"
+                      width={406}
+                      height={400}
+                      loading="lazy"
+                    />
+                  </figure>
                   <p dangerouslySetInnerHTML={{ __html: item.name }} />
-                  <Image
+                  {/* <Image
                     src="/assets/icons/pdf_icon.webp"
                     className="img-fluid"
                     alt="pdf icon"
                     width={31}
                     height={39}
                     loading="lazy"
-                  />
+                  /> */}
                   {item?.pdf && (
                     <a
                       href={item.pdf}

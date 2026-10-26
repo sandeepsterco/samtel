@@ -13,6 +13,9 @@ export default function AosProvider() {
       easing: "ease-out",
       duration: 800,
       once: true,
+      disable:function(){
+        return window.innerWidth < 768;
+      }
     });
   }, []);
 
