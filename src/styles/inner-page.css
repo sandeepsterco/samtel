@@ -96,7 +96,18 @@
     width: auto;
             padding-inline: 0 3rem;
 }
+
 .storie_grid { grid-template-columns: 67rem auto; gap: 9.5rem; }
+
+}
+
+@media (max-width: 1399px) {
+ .storie_list .work_ttl figure {
+    margin: 0 0 4rem;
+}
+.storie_list .work_ttl blockquote{
+    margin: 0 0 3rem;
+}
 
 }
 
