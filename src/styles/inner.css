@@ -1234,7 +1234,7 @@ box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 .video_grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
 .video_grid .media_bx p{ margin-top: 3rem; }
 .video_grid .media_bx .zoombtn { top: 40%; }
-.cus-media { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6rem; }
+.cus-media { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6rem; gap: 3rem; }
 h4.kh-job-title { font: var(--font-21); color: var(--color-23) }
 ul#kh-hiro-departments, ul#kh-hiro-locations { margin: 1rem !important; }
 li.kh-form-check label { padding-inline: 2rem 0 !important; }
@@ -2369,6 +2369,8 @@ br.desktop-break { display: none; }
 .umae_dron_content p { color: var(--color-white); }
 .umae_dron_content  .explore_btn { margin-top: 5rem; }
 .umae_dron_content h5{font: var(--font-24);color: var(--color-white);margin-bottom: 2rem;font-weight: bold;}
+.product_image .image_title { bottom: 3.5rem; }
+
 @media (max-width:1199px) {
  .uuname_sys .unname_rgt { padding-inline: 0 7rem; }
 .uuname_sys1 .unname_lftsec { margin-left: 5rem; }
@@ -2447,18 +2449,7 @@ br.desktop-break { display: none; }
 .product_modal_close { position: sticky; top: 3rem; right: 2rem; line-height: 1; cursor: pointer; text-align: end; padding-right: 3.9rem; padding-bottom: 7.5rem; }
 .product_modal_close img{width: 3.1rem;height: 3.1rem;}
 .product_modal_grid{display: grid;grid-template-columns: 85rem 1fr;gap: 12.5rem;align-items: start;}
-.product_modal_grid .product_image{
-   width: 85rem;
-    height: 85rem;
-    background-image: url(/assets/images/product_bg.webp);
-    background-size: cover;
-    background-position: center;
-    position: sticky;
-    top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+.product_modal_grid .product_image{ width: 85rem; height: 85rem; background-image: url(/assets/images/product_bg.webp); background-size: cover; background-position: center; position: sticky; top: 0; display: flex; align-items: center; justify-content: center; }
 .product_modal_grid .product_image figure{width:100%;height:100%;margin:0;position:relative;}
 .product-image-swiper,.product-image-swiper .swiper-wrapper,.product-image-swiper .swiper-slide{width:100%;height:100%;}
 .product-image-swiper .swiper-slide{display:flex;align-items:center;justify-content:center;position:relative;}
@@ -2467,12 +2458,7 @@ br.desktop-break { display: none; }
 .product-image-swiper .swiper-pagination{bottom:2rem;}
 .product-image-swiper .swiper-pagination-bullet{background:var(--color-c8);opacity:.45;}
 .product-image-swiper .swiper-pagination-bullet-active{opacity:1;}
-.product_modal_grid .product_image img{
-   mix-blend-mode: darken;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
+.product_modal_grid .product_image img{ mix-blend-mode: darken; max-width: 100%; max-height: 100%; object-fit: contain; }
 .product_modal_grid .product_image img{mix-blend-mode: darken;}
 .product_modal_info {
     width: 100%;
@@ -2500,8 +2486,14 @@ br.desktop-break { display: none; }
 .produ_gbx>.custom_list { margin-bottom: 0; }
 .product_content .custom_list li { font-weight: 300; }
 .produc_btmdesc>p { margin-bottom: 3rem; }
+@media (max-width:1920px) {
+.product_modal_grid .product_image { width: 100%; height: 72rem; }
+.product_modal_grid .product_image img{ object-fit: cover; }
+}
+
 @media (max-width:1699px) {
 .product_modal_grid { grid-template-columns: 78rem 1fr; }
+.product_modal_grid .product_image { height: 66rem; }
 
 }
 @media (max-width:1599px) {
@@ -2519,7 +2511,7 @@ br.desktop-break { display: none; }
 }
 @media (max-width:991px) {
 .product_modal_grid{grid-template-columns: 1fr;gap: 4.5rem;}
-.product_modal_grid .product_image{position: static;width: 100%;height: auto;}
+.product_modal_grid .product_image{position: static;width: 100%;height: auto;overflow: auto;}
 .product_content{max-width: 100%;}
 .product_content p{margin-bottom:0rem;padding-bottom:3rem;}
 .product_content h3{margin-top:0;}
@@ -2541,6 +2533,10 @@ br.desktop-break { display: none; }
     .custom_dropdown_menu li a {
         padding: 1.2rem 1.3rem;
     }
+
+.image_title { padding: .5rem .8rem; bottom: 3rem; }
+.image_title h6 { font-size: 1.3rem; }
+
 }
 
 

@@ -454,7 +454,7 @@ export default function FooterMobileMenu({
                     if (!children?.length) {
                       return (
                         <Link
-                          href={href}
+                          href={section.href.includes('industries') ? `/category${href}` : href}
                           key={href}
                           tabIndex={isOpen ? 0 : -1}
                           onClick={closePanels}
