@@ -5,6 +5,33 @@
 }
 
 body.body-locked { overflow: hidden; }
+
+.swiper_custom_next,
+.swiper_custom_prev{
+    background-color: var(--color-c8);
+    width: 3.2rem;
+    height: 3.2rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 2rem;
+    z-index: 9;
+}
+
+.swiper_custom_next img,
+.swiper_custom_prev img{
+    mix-blend-mode: unset!important;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: auto;
+}
+
+.swiper_custom_prev{
+  left:2rem;
+  right:unset;
+}
+
+
 /* ===========DONT REMOVE============ */
 * {
   padding: 0;
@@ -438,6 +465,14 @@ html { font-size: 45.5%; }
 
 @media (max-width:991px) {
 .container-full { padding-inline: 1.5rem; }
+}
+
+@media (max-width: 767px) {
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 
