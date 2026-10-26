@@ -1,6 +1,7 @@
 import { apiFetch } from "@/lib/api";
 import Leaderships from "../leadership/Leaderships";
 
+
 export default async function LeadershipGrid() {
   const {data, error} = await apiFetch(`leadership`);
 
@@ -11,6 +12,9 @@ export default async function LeadershipGrid() {
   const leadershipData = data?.data;
 
   return (
-    <Leaderships pageData={leadershipData} />
+    <>
+      <Leaderships pageData={leadershipData} />
+      
+    </>
   );
 }

@@ -1,6 +1,19 @@
 import Link from "next/link";
 import "./thank-you.css";
 import { BASE_URL } from "@/config/config";
+import { createPageMetadata } from "@/lib/metadata";
+
+export const metadata = {
+  ...createPageMetadata(
+    null,
+    "Thank You",
+    "Thank you for contacting Samtel Group. Our team will be in touch shortly.",
+  ),
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function ThankYouPage() {
   return (

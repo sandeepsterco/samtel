@@ -16,7 +16,7 @@ export default async function CategoryInnerPage({ params, searchParams }: { para
     return (
         <>
             <ReactParserDynamic html={combinedHtml} />
-            <CategoryProducts data={productsData} title={data?.data?.page_title} />
+            {productsData?.data && productsData?.data.length > 0 && <CategoryProducts data={productsData} title={data?.data?.page_title} />}
         </>
     )
 }

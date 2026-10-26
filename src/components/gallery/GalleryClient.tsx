@@ -3,10 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
-import { Navigation, Keyboard } from "swiper/modules";
+import { Keyboard } from "swiper/modules";
 
 import "swiper/css";
-import "swiper/css/navigation";
 import Image from "next/image";
 
 export type GalleryItem = {
@@ -26,6 +25,8 @@ export default function GalleryClient({ items }: { items: GalleryItem[] }) {
     const [isOpen, setIsOpen] = useState(false);
     const [activeCardIndex, setActiveCardIndex] = useState(0);
     const swiperRef = useRef<SwiperType | null>(null);
+
+    console.log('data items',items);
 
     const activeItem = items[activeCardIndex];
 
@@ -92,7 +93,9 @@ export default function GalleryClient({ items }: { items: GalleryItem[] }) {
                         </div>
                         <div className="media-content">
                             <h3 className="media-title">{item.title}</h3>
-                            <div className="date">{item.date}</div>
+                            {item?.date && (
+                                <div className="date">{item.date}</div>
+                            )}
                             <div className="read-icon">
                                 <img src="/assets/icons/read-icon.svg" alt="read" />
                             </div>
@@ -122,12 +125,8 @@ export default function GalleryClient({ items }: { items: GalleryItem[] }) {
                             <div className="modal-media-holder" id="modalMediaHolder">
                                 <Swiper
                                     key={activeItem.id}
-                                    modules={[Navigation, Keyboard]}
-                                    // keyboard={{ enabled: true }}
-                                    navigation={{
-                                        prevEl: ".nav-btn-prev",
-                                        nextEl: ".nav-btn-next",
-                                    }}
+                                    modules={[Keyboard]}
+                                    keyboard={{ enabled: true }}
                                     onSwiper={(swiper) => {
                                         swiperRef.current = swiper;
                                     }}
@@ -162,16 +161,16 @@ export default function GalleryClient({ items }: { items: GalleryItem[] }) {
                                     <button
                                         type="button"
                                         className="nav-btn nav-btn-prev"
-                                        data-dir="-1"
                                         aria-label="Previous"
+                                        onClick={() => swiperRef.current?.slidePrev()}
                                     >
                                         <img src="/assets/icons/arrow-icon-left.svg" alt="prev" />
                                     </button>
                                     <button
                                         type="button"
                                         className="nav-btn nav-btn-next"
-                                        data-dir="1"
                                         aria-label="Next"
+                                        onClick={() => swiperRef.current?.slideNext()}
                                     >
                                         <img src="/assets/icons/arrow-icon-right.svg" alt="next" />
                                     </button>

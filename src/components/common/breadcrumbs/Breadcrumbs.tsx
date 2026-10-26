@@ -28,13 +28,14 @@ export default function Breadcrumbs({data}:BreadcrumbPropsInterface) {
                             </li>
                             {breadcrumbs.map((item, idx) => {
                                 const isLast = idx === lastIndex;
+                                const isMedia = item.slug == 'media';
                                 return (
                                     <li
                                         key={idx}
                                         className={`breadcrumb-item ${isLast ? 'active' : ''}`}
                                         aria-current={isLast ? 'page' : undefined}
                                     >
-                                        {isLast ? (
+                                        {isLast || String(item.slug).includes('#') || isMedia ? (
                                             item.title
                                         ) : (
                                             <Link href={`/${item.slug}`}>{item.title}</Link>

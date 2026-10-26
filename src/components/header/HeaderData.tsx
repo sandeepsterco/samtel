@@ -4,10 +4,15 @@ import Hamburger from "./Hamburger";
 import Image from "next/image";
 import Link from "next/link";
 import MegaMenu from "./megaMenu/MegaMenu";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { HeaderMenuItem, ProductCategory, SidebarItem } from "./Header";
 import { useHeader } from "./HeaderContext";
 import "./header.css";
+import { usePathname } from "next/navigation";
+import type { InfoItem } from "@/lib/info";
+
+const CLOSE_DELAY = 350; 
+
 
 export default function HeaderData({
   headerData,
@@ -18,43 +23,69 @@ export default function HeaderData({
   headerData: HeaderMenuItem[];
   sidebarData: SidebarItem[];
   productCategoryData: ProductCategory[];
-  infoData:any
+  infoData: InfoItem[];
 }) {
   const navRef = useRef<HTMLDivElement>(null);
   const {showMegaMenu, setShowMegaMenu} = useHeader()
   const [headerHeight, setHeaderHeight] = useState(0);
   const closeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pathname = usePathname();
 
-  useEffect(() => {
-    const updateHeight = () => {
-      if (navRef.current) {
-        setHeaderHeight(navRef.current.getBoundingClientRect().height);
-      }
-    };
-    updateHeight();
-    window.addEventListener("resize", updateHeight);
-    return () => window.removeEventListener("resize", updateHeight);
-  }, []);
-
-  const openMenu = () => {
+  const clearCloseTimer = useCallback(() => {
     if (closeTimeout.current) {
       clearTimeout(closeTimeout.current);
       closeTimeout.current = null;
     }
-    setShowMegaMenu(true);
-  };
+  }, []);
 
-  const closeMenu = () => {
-    closeTimeout.current = setTimeout(() => {
-      setShowMegaMenu(false);
-    }, 150);
-  };
+  const updateHeight = useCallback(() => {
+    if (navRef.current) {
+      setHeaderHeight(navRef.current.getBoundingClientRect().height);
+    }
+  }, []);
 
   useEffect(() => {
+    updateHeight();
+    const el = navRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(updateHeight);
+    ro.observe(el);
+    window.addEventListener("resize", updateHeight);
     return () => {
-      if (closeTimeout.current) clearTimeout(closeTimeout.current);
+      ro.disconnect();
+      window.removeEventListener("resize", updateHeight);
     };
-  }, []);
+  }, [updateHeight]);
+
+  const openMenu = useCallback(() => {
+    clearCloseTimer();
+    updateHeight();
+    setShowMegaMenu(true);
+  }, [clearCloseTimer, updateHeight, setShowMegaMenu]);
+
+  const closeMenu = useCallback(() => {
+    clearCloseTimer();
+    closeTimeout.current = setTimeout(() => setShowMegaMenu(false), CLOSE_DELAY);
+  }, [clearCloseTimer, setShowMegaMenu]);
+
+  const closeMenuNow = useCallback(() => {
+    clearCloseTimer();
+    setShowMegaMenu(false);
+  }, [clearCloseTimer, setShowMegaMenu]);
+
+  useEffect(() => {
+    closeMenuNow();
+  }, [pathname, closeMenuNow]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeMenuNow();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [closeMenuNow]);
+
+  useEffect(() => clearCloseTimer, [clearCloseTimer]);
 
   return (
     <>
@@ -76,35 +107,53 @@ export default function HeaderData({
               </figure>
             </Link>
           </div>
+
+          
           <nav className="main-nav">
             <ul>
-              {headerData.map((item: any, idx: number) => (
-                <li
-                  key={idx}
-                  className={`${item.title === "Industries" ? "mega-parent" : "" } ${item?.children?.length > 0 ? 'site_dropdown' : ''}`}
-                  onMouseEnter={() => {
-                    if (item.title === "Industries") openMenu();
-                  }}
-                  onMouseLeave={() => {
-                    if (item.title === "Industries") closeMenu();
-                  }}
-                >
-                  <Link href={BASE_URL + item.slug}>{item.title}</Link>
+              {headerData.map((item: any, idx: number) => {
+                const isClickableLink = !!item.slug && item.slug !== '#';
+                const hasChildren = Array.isArray(item?.children) && item.children.length > 0;
+                const isIndustriesMenu = item.title === "Industries" || item.slug?.toLowerCase()?.includes('industri');
 
-                  {item?.children?.length > 0 && (
-                    <ul className="site_dropdown_menu">
-                      {item.children.map((li:any, liIdx:number)=>(
-                        <li key={liIdx}>
-                          <Link href={`${BASE_URL}${li.slug}`}>{li.title}</Link>
-                        </li>
-                      ))}
-                      
-                    </ul>
-                  )}
+                return (
+                  <li
+                    key={idx}
+                    className={`${item.title === "Industries" ? "mega-parent" : "" } ${hasChildren ? 'site_dropdown' : ''} ${showMegaMenu && item.title === "Industries" ? 'active' : ''}`}
+                    onMouseEnter={() => {
+                      if (item.title === "Industries") openMenu();
+                    }}
+                    onMouseLeave={() => {
+                      if (item.title === "Industries") closeMenu();
+                    }}
+                  >
+                    {isClickableLink ? (
+                      <Link href={`${BASE_URL}${item.slug}`}>{item.title}</Link>
+                    ) : (
+                      <span className="nav-disabled-link">{item.title}</span>
+                    )}
 
-                  
-                </li>
-              ))}
+                    {!isIndustriesMenu && hasChildren && (
+                      <ul className="site_dropdown_menu">
+                        {item.children.map((li:any, liIdx:number)=>(
+                          <li key={liIdx}>
+                            <Link href={li.overwrite_url ? `${BASE_URL}${li.overwrite_url}` : `${BASE_URL}${li.slug}`} className={`${li?.child?.length > 0 ? 'has_child' : ''}`}>
+                              {li.title}
+                            </Link>
+                            {li?.child?.length > 0 && (
+                              <ul>
+                                {li.child.map((childItem:any, childIdx:number)=>(
+                                  <li key={childIdx}><Link href={`${BASE_URL}${li.slug}/${childItem.slug}`}>{childItem.title}</Link></li>
+                                ))}
+                              </ul>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 
@@ -119,6 +168,7 @@ export default function HeaderData({
         infoData={infoData}
         onMouseEnter={openMenu}
         onMouseLeave={closeMenu}
+        onClose={closeMenuNow}
       />
     </>
   );

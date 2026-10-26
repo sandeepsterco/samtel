@@ -14,7 +14,10 @@ export interface HappeningItem {
     name: string;
     image:string;
     date: string
-    slug: string
+    slug: string;
+    youtube_url?:string;
+    pdf?:string;
+    external_link?:string;
 }
 
 interface HappeningsPropsInterface{
@@ -35,26 +38,28 @@ export default function Happenings({data}:HappeningsPropsInterface) {
                 <div className="happening-header">
                     <div className="font_title">
                         {data?.title && (
-                            <p dangerouslySetInnerHTML={{__html:data.title}} />
+                            <p dangerouslySetInnerHTML={{__html:data.title}}  className="fade-up" data-aos="fade-up" data-aos-delay="400" />
                         )}
                         {data?.subtitle && (
-                            <blockquote dangerouslySetInnerHTML={{__html:data.subtitle}}  />
+                            <blockquote className="fade-up" data-aos="fade-up" data-aos-delay="500" dangerouslySetInnerHTML={{__html:data.subtitle}}  />
                         )}
                     </div>
                     {data?.link && (
-                        <Link href={data.link} className="more_btn">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                strokeWidth="1.1">
-                                <polyline points="9 18 15 12 9 6"></polyline>
-                            </svg>
-                        </Link>
+                        <div className="for_desktop">
+                            <Link href={data.link} className="more_btn fade-up" data-aos="fade-up" data-aos-delay="600">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    strokeWidth="1.1">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </Link>
+                        </div>
                     )}
                     
                 </div>
             </div>
 
             {data?.happeningsData && data?.happeningsData?.length > 0 && (
-                <div className="slider-outer-wrapper">
+                <div className="slider-outer-wrapper fade-up" data-aos="fade-up" data-aos-delay="700">
                     <Swiper
                         modules={[Navigation]}
                         className="happenings-slider"
@@ -79,23 +84,48 @@ export default function Happenings({data}:HappeningsPropsInterface) {
                             }
                         }}
                     >
-                        {data?.happeningsData.map((item, idx) => (
-                            <SwiperSlide key={idx}>
-                                <div className='content'>
+                        {data?.happeningsData.map((item, idx) => {
+                            const href = item?.youtube_url || item?.external_link || item?.pdf;
+
+                            const content = (
+                                <>
                                     <div className="happening-image">
                                         <img src={item.image} className="img-fluid" alt={item.name} />
                                     </div>
+
                                     <div className="happening-content">
                                         <h3>{item.name}</h3>
-                                        <span className="happening-date">{item.date}</span>
+                                        <span className="happening-date">
+                                            {new Date(item.date).toLocaleDateString('en-US', {
+                                                month: 'long',
+                                                day: 'numeric',
+                                                year: 'numeric',
+                                            })}
+                                        </span>
                                     </div>
-                                    {item?.slug && (
-                                        <Link className="streched_link" href={`${BASE_URL}newsroom/${item.slug}`}></Link>
-                                    )}
-                                </div>
+                                </>
+                            );
 
-                            </SwiperSlide>
-                        ))}
+                            return (
+                                <SwiperSlide key={item.slug || idx}>
+                                    <div className="content">
+                                        {href ? (
+                                            <>
+                                                {content}
+                                                <Link
+                                                    className="streched_link"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    href={href}
+                                                />
+                                            </>
+                                        ) : (
+                                            content
+                                        )}
+                                    </div>
+                                </SwiperSlide>
+                            );
+                        })}
                     </Swiper>
                 </div>
             )}

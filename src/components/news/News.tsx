@@ -10,6 +10,9 @@ interface NewsInterface {
     image: string;
     slug: string;
     id: number;
+    youtube_url?:string;
+    pdf?:string;
+    external_link?:string;
 }
 
 interface NewsPropsInterface {
@@ -30,25 +33,49 @@ export default function News({ data }: NewsPropsInterface) {
                     {data?.data?.length === 0 && <NoData />}
 
                     <div className="news_grid">
-                        {data?.data?.length > 0 && data.data.map((item) => (
-                            <div key={item.id} className="news_item">
-                                <figure>
-                                    <Image src={item?.image ?? '/assets/images/placeholders/news.webp'} className="img-fluid w-100" width={406} height={400} alt={item.name} loading="lazy" />
-                                </figure>
-                                <div className="news-des">
-                                    {item?.date && (
-                                        <div className="date">{new Date(item.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</div>
-                                    )}
-                                    {item?.name && (
-                                        <p>{item.name}</p>
-                                    )}
-                                </div>
-                                {item?.slug && (
-                                    <Link href={`${BASE_URL}newsroom/${item.slug}`} className="streched_link" />
-                                )}
-                            </div>
-                        ))}
+                        {data?.data?.length > 0 && data.data.map((item) => {
+                            const href = item?.youtube_url || item?.external_link || item?.pdf;
 
+                            const content = (
+                                <>
+                                    <figure>
+                                        <Image src={item?.image ?? '/assets/images/placeholders/news.webp'} className="img-fluid w-100" width={406} height={400} alt={item.name} loading="lazy" />
+                                    </figure>
+                                    <div className="news-des">
+                                        {item?.date && (
+                                            <div className="date">{new Date(item.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</div>
+                                        )}
+                                        {item?.name && (
+                                            <p>{item.name}</p>
+                                        )}
+                                    </div>
+                                </>
+                            );
+
+                            return (
+                                <div key={item.id} className="news_item">
+                                    {href ? (
+                                        <>
+                                            {content}
+                                            <Link
+                                                className="streched_link"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                href={href}
+                                            />
+                                        </>
+                                    ) : (content)}
+                                    {/* {item?.slug && (
+                                        <Link href={`${BASE_URL}media/newsroom/${item.slug}`} className="streched_link" />
+                                    )} */}
+                                </div>
+                            )
+                        })}
+
+                    </div>
+                    <div className="newd-btn">
+                        <Link href="/media/press-coverage" className="explore_btn">Learn more in Press Coverage </Link> 
+                        <Link href="media/media-gallery" className="explore_btn">Learn more about Our Events </Link>
                     </div>
                 </div>
             </div>

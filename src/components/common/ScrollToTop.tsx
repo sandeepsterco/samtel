@@ -6,8 +6,16 @@ export default function ScrollToTop() {
   const pathname = usePathname();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);   
-  
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  }, []);
+
+  useEffect(() => {
+    const frameId = requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    });
+
+    return () => cancelAnimationFrame(frameId);
+  }, [pathname]);
+
   return null;
 }

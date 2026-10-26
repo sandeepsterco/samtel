@@ -3,14 +3,17 @@ import { ProductCategory } from "../Header";
 import Image from "next/image";
 import Link from "next/link";
 import "./megaMenu.css";
+import type { InfoItem } from "@/lib/info";
+import { BASE_URL } from "@/config/config";
 
 interface MegaMenuProps {
   show: boolean;
   categoryData: ProductCategory[];
   topOffset: number;
-  infoData: any;
+  infoData: InfoItem[];
   onMouseEnter: () => void;
   onMouseLeave: () => void;
+  onClose: () => void;
 }
 
 export default function MegaMenu({
@@ -20,60 +23,52 @@ export default function MegaMenu({
   infoData,
   onMouseEnter,
   onMouseLeave,
+  onClose 
 }: MegaMenuProps) {
 
   const getValue = (key: string) => {
-    const found = infoData?.data.find((item: any) => item.key == key) ?? null;
-    if (found?.value || found?.image || found?.url) {
-      return {
-        value: found?.value ?? null,
-        image: found?.image ?? null,
-        url: found?.url ?? null,
-      }
-    } else {
-      return null;
-    }
+    return infoData.find((item) => item.key === key) ?? null;
   }
 
 
   return (
     <div
       className={`mega-menu ${show ? "show" : ""}`}
-      style={{ top: topOffset }}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      // style={{ top: topOffset }}
+      onMouseEnter={show ? onMouseEnter : undefined}
+  onMouseLeave={show ? onMouseLeave : undefined}
     >
-      <div className="container-fluid">
-        <div className="col-md-9 mx-auto">
+      <div className="menu-container">
           <div className="mega-wrapper">
             <div className="mega-left">
               <div>
                 {getValue('title') && (
-                  <h2 dangerouslySetInnerHTML={{__html:getValue('title')?.value}} />
+                  <blockquote dangerouslySetInnerHTML={{__html:getValue('title')?.value ?? ''}} />
                 )}
                 
-                <Link href="#" className="mega-btn">
-                  <Image src={`/assets/icons/right-arrow-white.svg`} width={16} height={16} alt="arrow right" />
+                <Link href={`${BASE_URL}industries`} className="mega-btn">
+                  <Image src={`/assets/icons/right-arrow-white.svg`} width={10} height={10} alt="arrow right" />
                 </Link>
               </div>
               <div className="mega-count">
-                <span className="before"></span>
-                <span className="after"></span>
+                {/* <span className="before"></span>
+                <span className="after"></span> */}
                 {getValue('count') && (
-                  <h3 className="total" dangerouslySetInnerHTML={{__html:getValue('count')?.value}} />
+                  <b className="total" dangerouslySetInnerHTML={{__html:getValue('count')?.value ?? ''}} />
                 )}
                 {getValue('para') && (
-                  <p className="para">{getValue('para')?.value}</p>
+                  <p className="para">{getValue('para')?.value ?? ''}</p>
                 )}
               </div>
             </div>
             <div className="mega-grid">
-              {categoryData.map((category, idx) => (
-                <Link
+              {categoryData.map((category, idx) => {
+                if(category.featured || category.slug.includes('industrial')){
+                  return <Link
                   href={`/category/${category.slug}`}
                   key={idx}
                   className="industry-card"
-                  onClick={onMouseLeave}
+                  onClick={onClose}
                 >
                   {category.image && (
                     <Image
@@ -85,10 +80,10 @@ export default function MegaMenu({
                   )}
                   <span>{category.name}</span>
                 </Link>
-              ))}
+                }
+              })}
             </div>
           </div>
-        </div>
       </div>
     </div>
   );

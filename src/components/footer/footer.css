@@ -1,13 +1,190 @@
+/* ============DONT WRRITE ANY CSS HERE========== */
+
+
+.contact-phone a{
+   display: flex;
+   justify-content: center;
+   gap: 0.4rem;
+}
+
+.submenu-link-group { border-top: 1px solid rgba(0, 0, 0, .08); }
+.submenu-parent-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.submenu-parent-link { flex: 1; }
+.nested-submenu-toggle { width: 3.2rem; height: 3.2rem; flex: 0 0 3.2rem; display: flex; align-items: center; justify-content: center; border: 0; background: transparent; cursor: pointer; }
+.nested-submenu-toggle img { width: 1.4rem; height: 1.4rem; filter: brightness(0); transition: transform .25s ease; }
+.nested-submenu-toggle[aria-expanded="true"] img { transform: rotate(90deg); }
+.nested-submenu { display: none; padding: 0 0 1rem 1.5rem; border-left: 1px solid rgba(0, 0, 0, .18); margin-left: .2rem; }
+.nested-submenu.open { display: block; }
+.submenu .nested-submenu a { padding: .6rem 0; }
+
+
+/* ============DONT WRRITE ANY CSS HERE========== */
+
+
 footer{background: var(--color-16); padding-block:5rem 2rem;}
 ul{padding:0; list-style: none; margin:0;}
-.footer_grid {display: grid;grid-template-columns: 56% 41.5%;gap: 3rem;}
+.footer_grid { display: grid; grid-template-columns: 56% 41.5%; gap: 3rem;}
 .footer_left ul {display: flex;gap: 4rem;flex-wrap: wrap;}
-.footer_left ul li a { text-decoration: none; color: #fff; font: var(--font-18); letter-spacing: 0.36px; }
+.footer_left ul li a { text-decoration: none; color: #fff; font: var(--font-18); letter-spacing: 0.36px; transition: all 0.2s ease-in-out;}
 .footer_right { margin-left: auto; }
-.social-icon a {}
-.social-icon a img { margin: 0 auto; }
+.social-icon a {width: 3.2rem; height: 3.2rem; background: #000; display: inline-flex; margin: auto; border-radius: 10rem; margin-right: .5rem;transition: all 0.2s ease-in-out;}
+.social-icon a:hover{background:#fff;}
+.social-icon a:nth-child(2):hover img{filter:invert(1) grayscale(1);}
+
+.social-icon a img { width: 32%; margin: 0 auto; }
 .copyright p {color: #fff;font: var(--font-14);letter-spacing: -0.35px;line-height: 1.6;margin-bottom: 0;}
-.social-icon {    margin-bottom: 1.5rem;
-    display: flex;
-    gap: 1rem;}
-.copyright p a { color: #fff; text-decoration: none; }
+.social-icon { margin-bottom: 1.5rem; }
+.copyright p a { color: #fff; text-decoration: none;transition: all 0.2s ease-in-out; }
+.copyright a:hover, .footer_left a:hover{color:var(--color-c8);}
+
+
+@media (max-width:991px) {
+footer { padding-block: 6.7rem 9.3rem; }
+.footer_grid { grid-template-columns: 100%; gap: 5rem; }
+.footer_left ul { gap: 3.5rem; flex-wrap: wrap; flex-direction: column; text-align: center; }
+.footer_right { margin: 0 auto; text-align: center; border-top: 1px solid #6666668f; width: 100%; padding-top: 5rem; }
+.social-icon a { width: 4.2rem; height: 4.2rem; }
+.copyright p { font: var(--font-16); letter-spacing: -0.35px;line-height: 1.9 !important; }
+}
+
+
+
+
+.mobile-panel { position: fixed; top: 0; left: 0; right: 0; bottom: 4.3rem; z-index: 9999; background: #f5f5f5; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(20px); transition: opacity .3s ease, visibility .3s ease, transform .3s ease; }
+.mobile-panel.active { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
+.mobile-panel-content { height: 100%; overflow-y: auto; padding: 4.6rem 0; }
+ .contact-panel{
+   padding-bottom: 0;
+ }
+/* =========================================
+   PANEL TITLE
+========================================= */
+.panel-title { padding-bottom: 3rem; text-align: center;}
+.panel-title span { font: var(--font-14); color: var(--color-23); font-weight: 800; letter-spacing: 0.7px; }
+
+/* =========================================
+   INDUSTRIES
+========================================= */
+.industries-grid { width: 100%; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, auto); gap: 1px; overflow: hidden; }
+.industry-card1 { position: relative; display: block; width: 100%; overflow: hidden; text-decoration: none; }
+.industry-card1.airborne { grid-column: 1; grid-row: 1 / 3; }
+.industry-card1.naval { grid-column: 2; grid-row: 1; }
+.industry-card1.space { grid-column: 2; grid-row: 2; }
+.industry-card1.unmanned { grid-column: 1; grid-row: 3; }
+.industry-card1.railways { grid-column: 2; grid-row: 3; }
+.industry-card1.industrial { grid-column: 1; grid-row: 4; }
+.industry-card1.land { grid-column: 2; grid-row: 4; }
+.industry-card1 img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.industry-card1.airborne { min-height: 30.6rem; }
+.industry-card1.naval, .industry-card1.space, .industry-card1.unmanned, .industry-card1.railways, .industry-card1.industrial, .industry-card1.land { min-height:16rem; }
+.industry-card1::after { content: ""; position: absolute; inset: 0; background: transparent linear-gradient(180deg, #00000000 0%, #000000 100%) 0% 0% no-repeat padding-box; opacity: 0.6; z-index: 1; pointer-events: none; }
+.industry-card1 span { position: absolute; left: 1rem; right: 1rem; bottom: 1.8rem; z-index: 2; color: var(--color-white); text-align: center; font:var(--font-14); font-weight: 300; line-height: 1.25; text-shadow: 0 1px 3px rgba(0, 0, 0, .7); }
+.industry-card1.airborne span { bottom: 1.8rem; }
+.industry-card1:hover img { transform: scale(1.04); }
+
+
+/* =========================================
+   CONTACT
+========================================= */
+.contact-list { display: flex; flex-direction: column; }
+.contact-section { width: 100%; text-align: center; }
+.contact-title { margin-bottom: 48px; color: #333; font-size: 15px; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; }
+.contact-block { margin: 4.7rem 0 0; }
+.contact-block h2 { margin-bottom: 2rem; color: var(--color-23); font-size: 2.1rem; font-weight: 300; line-height: 1.4; letter-spacing: -0.21px; }
+.contact-block p { margin-bottom: 2rem; color: var(--color-23); font-size: 1.8rem; line-height: 1.5; }
+.contact-phone a { color: var(--color-c8); text-decoration: none; letter-spacing: -0.18px; font:var(--font-18); }
+.phone-icon { margin-right: 05rem; }
+.contact-line { width: 27rem; height: 2px; margin: 2rem auto 0; background: var(--color-f8); }
+.contact-email-area { background: #EFEFEF;padding: 5.7rem 6rem 4.5rem;height: 47rem;}
+.email-text { color: var(--color-23); font-size: 2rem; line-height: 1.5; letter-spacing: -0.14px; }
+.email-link { display: inline-block; margin-top: .4rem; color: #25669D;font:var(--font-18);text-decoration: underline; }
+.contact-arrows { margin-top: 2.7rem; display: flex; justify-content: center; gap: 3px; }
+.contact-arrow { width: 3rem; height: 3rem; border: 0; display: flex; align-items: center; justify-content: center; background: var(--color-c8); color: var(--color-white); padding: .7rem; font-size: 3rem;}
+.contact-swiper { width: 100%; overflow: hidden; }
+.contact-swiper .swiper-slide { width: 100%; overflow: hidden; }
+.contact-swiper .swiper-slide img { object-fit: cover; margin: 0 auto 2rem; }
+.contact-swiper .swiper-pagination { position: relative; margin-top: 2rem; }
+.contact-swiper .swiper-pagination-bullet { width: 7px; height: 7px; opacity: .35; }
+.contact-swiper .swiper-pagination-bullet-active { opacity: 1; }
+.contact-section .panel-title { padding-bottom: 0rem; }
+.contact-arrows .contact-prev { rotate: 180deg; }
+
+/* =========================================
+   MAIN MOBILE MENU
+========================================= */
+
+.mobile-menu { position: fixed; top: 0; left: 0; right: 0; bottom: 40px; z-index: 9998; background: var(--color-ef); opacity: 0; visibility: hidden; 
+    pointer-events: none; transform: translateY(20px); transition: opacity .3s ease, visibility .3s ease, transform .3s ease; z-index: 9999; }
+.mobile-menu.active { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
+.mobile-menu-inner { width: 100%; height: 100%; overflow-y: auto; padding: 4.5rem 0 2rem; }
+
+/* =========================================
+   MENU ITEMS
+========================================= */
+.mobile-menu-item { width: 100%; padding: 1rem 0;}
+.mobile-menu-item > a, .submenu-toggle { width: 100%; min-height: 3.3rem; padding: 0 3rem; display: flex; align-items: center; justify-content: space-between; border: 0; 
+   background: transparent; color: var(--color-23); font-size: 2.1rem; font-weight: 300; letter-spacing: -0.21px; text-decoration: none; cursor: pointer; }
+
+/* =========================================
+   ARROW
+========================================= */
+
+.menu-arrow {     padding: .5rem; width: 2.4rem; height: 2.4rem; flex: 0 0 23px; display: flex; align-items: center; justify-content: center; border: 1px solid #B4B4B4; color: #686868; font-size: 2.1rem; font-style: normal; line-height: 1;   }
+.has-submenu.open .menu-arrow { border-color: var(--color-f8); transition: transform .3s ease; }
+.menu-arrow img{ filter: brightness(0); }
+
+/* =========================================
+   SUBMENU
+========================================= */
+
+.submenu { display: none; padding: 1rem 5rem 1rem; }
+.submenu a { display: block; padding: .8rem 0; color: var(--color-23); font:var(--font-14); line-height: 1.4; text-decoration: none; letter-spacing: -0.14px; font-weight: 300;}
+
+.mobile-menu-item.has-submenu.open { background: var(--color-f7); transition: .35s ease;}
+.has-submenu.open .submenu { background: var(--color-f7); display: block;transition: .35s ease; }
+.has-submenu.open .submenu-toggle .menu-arrow { transform: rotate(90deg); transition: .35s ease;}
+/* =========================================
+   BOTTOM NAV
+========================================= */
+.mobile-bottom-nav { position: fixed; left: 0; right: 0; bottom: 0; width: 100%; height: 4.3rem; display: grid; grid-template-columns: 1fr 1fr 1fr; z-index: 9999; }
+.bottom-nav-item { width: 100%; padding: 0; display: flex; align-items: center; justify-content: center; border: 0; border-right: 1px solid rgba(255,255,255,.25); 
+   cursor: pointer; font: var(--font-14); }
+/* =========================================
+   INDUSTRIES BUTTON
+========================================= */
+.industries-btn { background: var(--color-b8); color: var(--color-white); }
+.industries-btn.active-btn { background: var(--color-ef); color: var(--color-c8); }
+
+/* =========================================
+   CONTACT BUTTON
+========================================= */
+.contact-btn { background: var(--color-b8); color: var(--color-white); }
+.contact-btn.active-btn { background: var(--color-ef); color: var(--color-c8); }
+
+/* =========================================
+   MENU BUTTON
+========================================= */
+.menu-btn { background: var(--color-b8); color: var(--color-white); }
+.menu-btn.active-btn { background: var(--color-ef); color: var(--color-c8); }
+
+@media (max-width: 414px) {
+
+.contact-email-area {
+    height: auto;
+}
+}
+
+/* =========================================
+   MOBILE ONLY
+========================================= */
+
+@media (min-width: 992px) {
+
+    .mobile-menu,
+    .mobile-panel,
+    .mobile-bottom-nav {
+
+        display: none;
+    }
+
+}
