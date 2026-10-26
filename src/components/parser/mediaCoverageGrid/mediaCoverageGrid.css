@@ -31,9 +31,7 @@
         grid-template-columns: repeat(1, 1fr);
     }
 
-    .media_logo {
-        padding: 4rem;
-    }
+
     .media_logo img{
         margin:auto;
     }
