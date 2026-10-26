@@ -11,6 +11,8 @@ import "swiper/css";
 export interface FooterMenuItem {
   title: string;
   slug: string;
+  overwrite_url?: string | null;
+  target_blank?: boolean | number | string | null;
   children?: FooterMenuItem[];
   child?: FooterMenuItem[];
 }
@@ -26,13 +28,22 @@ export interface FooterProductCategory {
 interface MenuSection {
   title: string;
   href: string;
+  target?: "_blank";
+  rel?: string;
   links: MenuLink[];
 }
 
 interface MenuLink {
   title: string;
   href: string;
-  children?: { title: string; href: string }[];
+  target?: "_blank";
+  rel?: string;
+  children?: {
+    title: string;
+    href: string;
+    target?: "_blank";
+    rel?: string;
+  }[];
 }
 
 const contactSlides = [
@@ -99,9 +110,25 @@ function getIndustryCategories(categories: FooterProductCategory[]) {
   });
 }
 
-function getMenuHref(slug: string) {
-  const normalizedSlug = slug.replace(/^\/+/, "");
-  return `${BASE_URL ?? "/"}${normalizedSlug}`;
+function getMenuLinkProps(
+  item: FooterMenuItem,
+  slugPath: string,
+): Pick<MenuLink, "href" | "target" | "rel"> {
+  const overwriteUrl =
+    typeof item.overwrite_url === "string" ? item.overwrite_url.trim() : "";
+  const isAbsoluteUrl = /^https?:\/\//i.test(overwriteUrl);
+  const href = overwriteUrl
+    ? isAbsoluteUrl
+      ? overwriteUrl
+      : `${BASE_URL ?? "/"}${overwriteUrl.replace(/^\/+/, "")}`
+    : `${BASE_URL ?? "/"}${slugPath.replace(/^\/+/, "")}`;
+
+  const newTab = Number(item.target_blank) === 1;
+
+  return {
+    href,
+    ...(newTab ? { target: "_blank" as const, rel: "noopener noreferrer" } : {}),
+  };
 }
 
 function getMenuChildren(item: FooterMenuItem) {
@@ -123,11 +150,16 @@ function getMenuSections(
       const key = item.title.trim().toLocaleLowerCase();
       const children = getMenuChildren(item);
       const existing = sections.get(key);
+      const sectionLinkProps = getMenuLinkProps(item, item.slug);
       const section = existing ?? {
         title: item.title,
-        href: getMenuHref(item.slug),
+        ...sectionLinkProps,
         links: [],
       };
+
+      if (existing && source === "sidebar") {
+        Object.assign(section, sectionLinkProps);
+      }
 
       children.forEach((child) => {
         const childKey = child.title.trim().toLocaleLowerCase();
@@ -135,32 +167,48 @@ function getMenuSections(
           source === "header"
             ? child.slug
             : `${item.slug}/${child.slug}`;
+        const childLinkProps = getMenuLinkProps(child, childPath);
         const nestedLinks = getMenuChildren(child).map((nestedChild) => ({
           title: nestedChild.title,
-          href: getMenuHref(`${childPath}/${nestedChild.slug}`),
+          ...getMenuLinkProps(
+            nestedChild,
+            `${childPath}/${nestedChild.slug}`,
+          ),
         }));
         const existingLink = section.links.find(
           (link) => link.title.trim().toLocaleLowerCase() === childKey,
         );
 
         if (existingLink) {
-          const existingNestedTitles = new Set(
-            (existingLink.children ?? []).map((link) =>
-              link.title.trim().toLocaleLowerCase(),
-            ),
-          );
-          existingLink.children = [
-            ...(existingLink.children ?? []),
-            ...nestedLinks.filter(
-              (link) => !existingNestedTitles.has(link.title.trim().toLocaleLowerCase()),
-            ),
-          ];
+          if (source === "sidebar") {
+            Object.assign(existingLink, childLinkProps);
+          }
+
+          nestedLinks.forEach((nestedLink) => {
+            const existingNestedLink = existingLink.children?.find(
+              (link) =>
+                link.title.trim().toLocaleLowerCase() ===
+                nestedLink.title.trim().toLocaleLowerCase(),
+            );
+
+            if (existingNestedLink) {
+              if (source === "sidebar") {
+                Object.assign(existingNestedLink, nestedLink);
+              }
+              return;
+            }
+
+            existingLink.children = [
+              ...(existingLink.children ?? []),
+              nestedLink,
+            ];
+          });
           return;
         }
 
         section.links.push({
           title: child.title,
-          href: getMenuHref(childPath),
+          ...childLinkProps,
           ...(nestedLinks.length > 0 ? { children: nestedLinks } : {}),
         });
       });
@@ -439,6 +487,8 @@ export default function FooterMobileMenu({
                   <Link
                     href={section.href}
                     className="main-menu-link"
+                    target={section.target}
+                    rel={section.rel}
                     onClick={closePanels}
                   >
                     <span>{section.title}</span>
@@ -475,73 +525,81 @@ export default function FooterMobileMenu({
                   </span>
                 </button>
                 <div className="submenu" id={`mobile-submenu-${index}`}>
-                  {section.links.map(({ title, href, children }, linkIndex) => {
-                    const nestedKey = `${index}-${linkIndex}`;
-                    const isNestedOpen = openNestedSubmenu === nestedKey;
+                  {section.links.map(
+                    ({ title, href, children, target, rel }, linkIndex) => {
+                      const nestedKey = `${index}-${linkIndex}`;
+                      const isNestedOpen = openNestedSubmenu === nestedKey;
 
-                    if (!children?.length) {
-                      return (
-                        <Link
-                          href={href}
-                          key={href}
-                          tabIndex={isOpen ? 0 : -1}
-                          onClick={closePanels}
-                        >
-                          {title}
-                        </Link>
-                      );
-                    }
-
-                    return (
-                      <div className="submenu-link-group" key={href}>
-                        <div className="submenu-parent-row">
+                      if (!children?.length) {
+                        return (
                           <Link
                             href={href}
-                            className="submenu-parent-link"
+                            key={href}
+                            target={target}
+                            rel={rel}
                             tabIndex={isOpen ? 0 : -1}
                             onClick={closePanels}
                           >
                             {title}
                           </Link>
-                          <button
-                            type="button"
-                            className="nested-submenu-toggle"
-                            aria-label={`${isNestedOpen ? "Collapse" : "Expand"} ${title} submenu`}
-                            aria-expanded={isNestedOpen}
-                            aria-controls={`nested-submenu-${nestedKey}`}
-                            tabIndex={isOpen ? 0 : -1}
-                            onClick={() =>
-                              setOpenNestedSubmenu((current) =>
-                                current === nestedKey ? null : nestedKey,
-                              )
-                            }
-                          >
-                            <Image
-                              src="/assets/icons/right-arrow-white.svg"
-                              alt=""
-                              width={16}
-                              height={16}
-                            />
-                          </button>
-                        </div>
-                        <div
-                          className={`nested-submenu${isNestedOpen ? " open" : ""}`}
-                          id={`nested-submenu-${nestedKey}`}
-                        >
-                          {children.map((nestedLink) => (
+                        );
+                      }
+
+                      return (
+                        <div className="submenu-link-group" key={href}>
+                          <div className="submenu-parent-row">
                             <Link
-                              href={nestedLink.href}
-                              key={nestedLink.href}
-                              tabIndex={isOpen && isNestedOpen ? 0 : -1}
+                              href={href}
+                              className="submenu-parent-link"
+                              target={target}
+                              rel={rel}
+                              tabIndex={isOpen ? 0 : -1}
                               onClick={closePanels}
                             >
-                              {nestedLink.title}
+                              {title}
                             </Link>
-                          ))}
+                            <button
+                              type="button"
+                              className="nested-submenu-toggle"
+                              aria-label={`${isNestedOpen ? "Collapse" : "Expand"} ${title} submenu`}
+                              aria-expanded={isNestedOpen}
+                              aria-controls={`nested-submenu-${nestedKey}`}
+                              tabIndex={isOpen ? 0 : -1}
+                              onClick={() =>
+                                setOpenNestedSubmenu((current) =>
+                                  current === nestedKey ? null : nestedKey,
+                                )
+                              }
+                            >
+                              <Image
+                                src="/assets/icons/right-arrow-white.svg"
+                                alt=""
+                                width={16}
+                                height={16}
+                              />
+                            </button>
+                          </div>
+                          <div
+                            className={`nested-submenu${isNestedOpen ? " open" : ""}`}
+                            id={`nested-submenu-${nestedKey}`}
+                          >
+                            {children.map((nestedLink) => (
+                              <Link
+                                href={nestedLink.href}
+                                key={nestedLink.href}
+                                target={nestedLink.target}
+                                rel={nestedLink.rel}
+                                tabIndex={isOpen && isNestedOpen ? 0 : -1}
+                                onClick={closePanels}
+                              >
+                                {nestedLink.title}
+                              </Link>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    },
+                  )}
                 </div>
               </div>
             );
