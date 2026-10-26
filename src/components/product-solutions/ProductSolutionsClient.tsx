@@ -22,6 +22,12 @@ interface MappingItemInterface{
 
 interface ProductMappingImage {
     image?: string;
+    caption?: string;
+}
+
+interface ProductImage {
+    src: string;
+    caption?: string;
 }
 
 interface ProductCategory {
@@ -67,11 +73,20 @@ function getProductDetails(product: Product) {
         ?? "";
 }
 
-function getProductImages(product: Product) {
-    return [...new Set([
-        product.image,
-        ...(product.mapping_items?.images ?? []).map((item) => item.image),
-    ].filter((image): image is string => Boolean(image)))];
+function getProductImages(product: Product): ProductImage[] {
+    const seen = new Set<string>();
+    const result: ProductImage[] = [];
+
+    const add = (src?: string, caption?: string) => {
+        if (!src || seen.has(src)) return;
+        seen.add(src);
+        result.push({ src, caption });
+    };
+
+    add(product.image);
+    (product.mapping_items?.images ?? []).forEach((item) => add(item.image, item.caption));
+
+    return result;
 }
 
 export default function ProductSolutionsClient({
@@ -91,15 +106,15 @@ export default function ProductSolutionsClient({
     const selectedProductImages = selectedProduct ? getProductImages(selectedProduct) : [];
 
     const openImageGallery = (startIndex: number) => {
-        Fancybox.show(
-            selectedProductImages.map((src) => ({
-                src,
-                type: "image",
-                caption: selectedProduct.name,
-            })),
-            { startIndex },
-        );
-    };
+    Fancybox.show(
+        selectedProductImages.map(({ src, caption }) => ({
+            src,
+            type: "image",
+            caption: caption || selectedProduct.name,
+        })),
+        { startIndex },
+    );
+};
 
     useEffect(() => {
         setAccordionExpanded(true);
@@ -307,16 +322,26 @@ export default function ProductSolutionsClient({
                                             pagination={selectedProductImages.length > 1 ? { clickable: true } : false}
                                             loop={selectedProductImages.length > 1}
                                         >
-                                            {(selectedProductImages.length ? selectedProductImages : [placeholderImage]).map((image, index) => (
-                                                <SwiperSlide key={`${image}-${index}`}>
+                                            {(selectedProductImages.length
+                                                ? selectedProductImages
+                                                : [{ src: placeholderImage, caption: undefined }]
+                                            ).map((item, index) => (
+                                                <SwiperSlide key={`${item.src}-${index}`}>
                                                     <Image
-                                                        src={image}
+                                                        src={item.src}
                                                         className="img-fluid w-100"
                                                         width={850}
                                                         height={850}
                                                         alt={`${selectedProduct.name}${selectedProductImages.length > 1 ? ` - image ${index + 1}` : ""}`}
                                                         priority={index === 0}
                                                     />
+
+                                                    {item.caption && (
+                                                        <div className="image_title">
+                                                            <h6>{item.caption}</h6>
+                                                        </div>
+                                                    )}
+
                                                     {selectedProductImages.length > 0 && (
                                                         <button
                                                             type="button"
@@ -324,12 +349,7 @@ export default function ProductSolutionsClient({
                                                             aria-label={`Zoom image ${index + 1} of ${selectedProduct.name}`}
                                                             onClick={() => openImageGallery(index)}
                                                         >
-                                                            <Image
-                                                                src="/assets/icons/zoombtn.svg"
-                                                                alt=""
-                                                                width={39}
-                                                                height={39}
-                                                            />
+                                                            <Image src="/assets/icons/zoombtn.svg" alt="" width={39} height={39} />
                                                         </button>
                                                     )}
                                                 </SwiperSlide>
