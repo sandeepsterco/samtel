@@ -53,7 +53,6 @@
 /* =========DONT UPDATE============= */
 
 
-
 .people_panel { height:90vh; }
 .people_panel .font_title { text-align: center; padding: 4rem 0 1rem; }
 .line-wrap2 {width: 0.4rem;height: 12rem;background: #ddd;margin: 2rem auto 4rem;position: relative;}
@@ -72,7 +71,7 @@
 .people_right_link ul {list-style: none;padding: 0;margin: 0;display: flex;gap: 5rem;}
 .people_right_link ul li a {color: #ffffff;text-decoration: none;position: relative;padding-bottom:1.3rem;border-bottom: 1px dashed rgba(255, 255, 255, 1);transition: color 0.2s ease;font: var(--font-21);font-weight: 600;}
 .people_right_link ul li a:hover { color: var(--color-f8); }
-.people_pic_text a.more_btn {margin-top: 5rem;width: 3.2rem;height: 3.2rem;background: #fff;}
+.people_pic_text a.more_btn {margin-top: 5rem;width: 3.2rem;height: 3.2rem;background: #fff;padding:0;}
 .people_pic_text a.more_btn img { filter: invert(1); }
 .people_pic_text a.more_btn img { width: .8rem; }
 .people_pic_text a.more_btn:hover { background: var(--color-c8); }

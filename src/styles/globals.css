@@ -91,57 +91,137 @@ body.body-locked { overflow: hidden; }
 }
 
 
-:root{
-    --color-23:#231F20;
-    --color-d466:#d1d2d466;
-    --color57:#57585A;
-    --color-c8:#C83030;
-    --color-c83:#c83030c7;
-    --color-d4:#D40505;
-    --color-b8:#B82727;
-    --color-f5:#F5F5F5;
-    --color-f9:#F9F9F9;
-    --color-f3:#f3f3f3;
-    --color-ef:#efefef;
-    --color-d1:#d1d2d4;
-    --color-1a:#1A1A1A;
-    --color-f8:#F8CD2A;
-    --color-fb:#FBF22D;
-     --color-df:#DFDADA;
-      --color-e9:#e9e9e9;
-    --color-16:#161616;
-    --color-f7:#f7f7f7;
-     --color-ee:#EEEEEE;
-    --color-white:#ffffff;
-    --color-black:#000000;
-    --color-dc:#DCDCDC;
-     --color-fd:#FEDADA;
 
-    --font-91: 9.1rem/1.3  'avenir_regularregular';
-    --font-90: 9rem/1.3  'avenir_regularregular';
-     --font-70: 7rem/1.3  'avenir_regularregular';
-    --font-60: 6rem/1.3  'avenir_regularregular';
-    --font-50: 5rem/1.3  'avenir_regularregular';
-    --font-46: 4.6rem/1.3  'avenir_regularregular';
-    --font-45: 4.5rem/1.3  'avenir_regularregular';
-    --font-42: 300 4.2rem/1.3  'avenir_regularregular';
-    --font-36: 3.6rem/1.3  'avenir_regularregular';
-    --font-34: 3.4rem/1.3  'avenir_regularregular';
-    --font-32: 300 3.2rem/1.3  'avenir_regularregular';
-    --font-30: 300 3rem/1.3  'avenir_regularregular';
-    --font-28: 2.8rem/1.3  'avenir_regularregular';
-    --font-26: 2.6rem/1.3  'avenir_regularregular';
-    --font-24: 300 2.4rem/1.3  'avenir_regularregular';
-    --font-21: 2.1rem/1.3  'avenir_regularregular';
-    --font-18: 300 1.8rem/1.6  'avenir_regularregular';
-    --font-16: 300 1.6rem/1.5  'avenir_regularregular';
-    --font-14: 1.4rem/1.3  'avenir_regularregular';
-    --font-12: 1.2rem/1.3  'avenir_regularregular';
-    --font-light: 'avenirlight';
-    --font-regular: 'avenir_regularregular';
-    --font-funnel: "Funnel Sans", sans-serif;
+html {
+    font-size: 62.5%;
 }
 
+:root {
+    --color-23: #231F20;
+    --color-d466: #d1d2d466;
+    --color57: #57585A;
+    --color-c8: #C83030;
+    --color-c83: #c83030c7;
+    --color-d4: #D40505;
+    --color-b8: #B82727;
+    --color-f5: #F5F5F5;
+    --color-f9: #F9F9F9;
+    --color-f3: #f3f3f3;
+    --color-ef: #efefef;
+    --color-d1: #d1d2d4;
+    --color-1a: #1A1A1A;
+    --color-f8: #F8CD2A;
+    --color-fb: #FBF22D;
+    --color-df: #DFDADA;
+    --color-e9: #e9e9e9;
+    --color-16: #161616;
+    --color-f7: #f7f7f7;
+    --color-ee: #EEEEEE;
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-dc: #DCDCDC;
+    --color-fd: #FEDADA;
+
+    /* 2545px and above */
+    --font-91: 9.1rem/1.3 'avenir_regularregular';
+    --font-90: 9rem/1.3 'avenir_regularregular';
+    --font-70: 7rem/1.3 'avenir_regularregular';
+    --font-60: 6rem/1.3 'avenir_regularregular';
+    --font-50: 5rem/1.3 'avenir_regularregular';
+    --font-46: 4.6rem/1.3 'avenir_regularregular';
+    --font-45: 4.5rem/1.3 'avenir_regularregular';
+    --font-42: 300 4.2rem/1.3 'avenir_regularregular';
+    --font-36: 3.6rem/1.3 'avenir_regularregular';
+    --font-34: 3.4rem/1.3 'avenir_regularregular';
+    --font-32: 300 3.2rem/1.3 'avenir_regularregular';
+    --font-30: 300 3rem/1.3 'avenir_regularregular';
+    --font-28: 2.8rem/1.3 'avenir_regularregular';
+    --font-26: 2.6rem/1.3 'avenir_regularregular';
+    --font-24: 300 2.4rem/1.3 'avenir_regularregular';
+    --font-21: 2.1rem/1.3 'avenir_regularregular';
+    --font-18: 300 1.8rem/1.6 'avenir_regularregular';
+    --font-16: 300 1.6rem/1.5 'avenir_regularregular';
+    --font-14: 1.4rem/1.3 'avenir_regularregular';
+    --font-12: 1.2rem/1.3 'avenir_regularregular';
+}
+
+/* 1920px to 2545px */
+@media (min-width: 1920px) and (max-width: 2544px) {
+    :root {
+        --font-91: 8rem/1.3 'avenir_regularregular';
+        --font-90: 8rem/1.3 'avenir_regularregular';
+        --font-70: 6rem/1.3 'avenir_regularregular';
+        --font-60: 5rem/1.3 'avenir_regularregular';
+        --font-50: 4.5rem/1.3 'avenir_regularregular';
+        --font-46: 4.3rem/1.3 'avenir_regularregular';
+        --font-45: 4.2rem/1.3 'avenir_regularregular';
+        --font-42: 300 4rem/1.3 'avenir_regularregular';
+        --font-36: 3rem/1.3 'avenir_regularregular';
+        --font-34: 3rem/1.3 'avenir_regularregular';
+        --font-32: 300 3rem/1.3 'avenir_regularregular';
+        --font-30: 300 3rem/1.3 'avenir_regularregular';
+        --font-28: 2.4rem/1.3 'avenir_regularregular';
+        --font-26: 2.2rem/1.3 'avenir_regularregular';
+        --font-24: 300 2.1rem/1.3 'avenir_regularregular';
+        --font-21: 1.8rem/1.3 'avenir_regularregular';
+        --font-18: 300 1.6rem/1.6 'avenir_regularregular';
+        --font-16: 300 1.6rem/1.5 'avenir_regularregular';
+        --font-14: 1.4rem/1.3 'avenir_regularregular';
+        --font-12: 1.2rem/1.3 'avenir_regularregular';
+    }
+}
+
+/* 1366px to 1920px */
+@media (min-width: 1366px) and (max-width: 1919px) {
+    :root {
+        --font-91: 7.2rem/1.3 'avenir_regularregular';
+        --font-90: 7.2rem/1.3 'avenir_regularregular';
+        --font-70: 5.2rem/1.3 'avenir_regularregular';
+        --font-60: 4.5rem/1.3 'avenir_regularregular';
+        --font-50: 3.8rem/1.3 'avenir_regularregular';
+        --font-46: 3.5rem/1.3 'avenir_regularregular';
+        --font-45: 3rem/1.3 'avenir_regularregular';
+        --font-42: 300 3rem/1.3 'avenir_regularregular';
+        --font-36: 2.4rem/1.3 'avenir_regularregular';
+        --font-34: 2.4rem/1.3 'avenir_regularregular';
+        --font-32: 300 2.4rem/1.3 'avenir_regularregular';
+        --font-30: 300 2.4rem/1.3 'avenir_regularregular';
+        --font-28: 2.1rem/1.3 'avenir_regularregular';
+        --font-26: 1.9rem/1.3 'avenir_regularregular';
+        --font-24: 300 1.8rem/1.3 'avenir_regularregular';
+        --font-21: 1.6rem/1.3 'avenir_regularregular';
+        --font-18: 300 1.4rem/1.6 'avenir_regularregular';
+        --font-16: 300 1.4rem/1.5 'avenir_regularregular';
+        --font-14: 1.3rem/1.3 'avenir_regularregular';
+        --font-12: 1.2rem/1.3 'avenir_regularregular';
+    }
+}
+
+/* Below 1366px: retain the smaller sizes */
+@media (max-width: 1365px) {
+    :root {
+        --font-91: 7.2rem/1.3 'avenir_regularregular';
+        --font-90: 7.2rem/1.3 'avenir_regularregular';
+        --font-70: 5.2rem/1.3 'avenir_regularregular';
+        --font-60: 4.5rem/1.3 'avenir_regularregular';
+        --font-50: 3.8rem/1.3 'avenir_regularregular';
+        --font-46: 3.5rem/1.3 'avenir_regularregular';
+        --font-45: 3rem/1.3 'avenir_regularregular';
+        --font-42: 300 3rem/1.3 'avenir_regularregular';
+        --font-36: 2.4rem/1.3 'avenir_regularregular';
+        --font-34: 2.4rem/1.3 'avenir_regularregular';
+        --font-32: 300 2.4rem/1.3 'avenir_regularregular';
+        --font-30: 300 2.4rem/1.3 'avenir_regularregular';
+        --font-28: 2.1rem/1.3 'avenir_regularregular';
+        --font-26: 1.9rem/1.3 'avenir_regularregular';
+        --font-24: 300 1.8rem/1.3 'avenir_regularregular';
+        --font-21: 1.6rem/1.3 'avenir_regularregular';
+        --font-18: 300 1.4rem/1.6 'avenir_regularregular';
+        --font-16: 300 1.4rem/1.5 'avenir_regularregular';
+        --font-14: 1.3rem/1.3 'avenir_regularregular';
+        --font-12: 1.2rem/1.3 'avenir_regularregular';
+    }
+}
 
 
  body{background:var(--color-ef);background-size:cover;padding:0;margin:0; color: var(--color-23); font: var(--font-18);}
@@ -149,14 +229,19 @@ body.body-locked { overflow: hidden; }
 a:focus-visible{outline:none;}
 
 /* According to 2545px */
-.container{width:100%;max-width:min(1505px,68.40909090vw);padding-inline:1.5rem;margin: auto;}
+.container {
+    width: 100%;
+    max-width: min(1505px, calc(53.159vw + 391.9px));
+    padding-inline: 1.5rem;
+    margin-inline: auto;
+}
 .container-group{width:100%;max-width:min(1465px,66.590909090vw);padding-inline:1.5rem;margin: auto;}
 .container-full{width:100%;max-width:min(1755px,91.40625vw);padding-inline:1.5rem;margin: auto;}
 .menu-container { width: 100%; max-width: min(2113px, 83.0255vw); margin-inline: auto; }
-html{font-size:min(0.45454545vw,10px);}
-.more_btn {width: 3.2rem;height: 3.2rem;display: inline-flex;background-color: var(--color-c8);}
+
+.more_btn {width: 3.2rem;height: 3.2rem;display: inline-flex;background-color: var(--color-c8);position: relative;}
 .more_btn>img { margin: auto; width: 100%; max-width: 1.5rem; }
-.more_btn:hover { background: var(--color-c8); }
+.more_btn:hover { background: var(--color-23); }
 .font_title>p { font: var(--font-21); font-weight: 900; color: var(--color-23); letter-spacing: 1.05px; text-transform: uppercase; margin-bottom: 2rem; }
 .font_title>blockquote { font: var(--font-45); font-weight: 300; color: var(--color-23); letter-spacing: -0.9px; }
 .font_title>blockquote>b { font-weight: 300; color: var(--color-c8); }
@@ -177,9 +262,10 @@ ul.list li::marker{color: var(--color-f8); }
 /* ---------button---------- */
 .explore_btn img { margin-left: 1rem; }
 
-.explore_btn::before { content: ""; position: absolute; inset: 0; background: var(--color-black); transform: translateX(-101%); transition: transform 0.45s ease; z-index: -1; }
+ .explore_btn::before{ content: ""; position: absolute; inset: 0; background: var(--color-black); transform: translateX(-101%); transition: transform 0.45s ease; z-index: -1; }
 .explore_btn { position: relative; display: inline-flex; align-items: center; gap: 1rem; overflow: hidden; background: var(--color-c8); color: var(--color-white); border-radius: 0.8rem; padding: 1.2rem 2rem; font-size: 1.6rem; line-height: 2.4rem; margin-top: 7rem; text-decoration: none; transition: color 0.3s ease; z-index: 1; }
-.explore_btn:hover::before { transform: translateX(0); }
+.explore_btn:hover::before { transform: translateX(0); } 
+.more_btn{margin-top:0;}
 
 .explore_btn:hover { color: var(--color-white); }
 .explore_btn:hover img { filter: invert(0); }
@@ -202,7 +288,7 @@ ul.list li::marker{color: var(--color-f8); }
 }
 
 
-@media (max-width:1699px) {
+/* @media (max-width:1699px) {
     :root {
         --font-91: 9.1rem/1.3 'avenir_regularregular';
         --font-90: 9rem/1.3 'avenir_regularregular';
@@ -233,12 +319,11 @@ ul.list li::marker{color: var(--color-f8); }
      font-size: 45.5%;
  }
 
-}
+} */
 
 
 @media (max-width:1199px) {
 html { font-size: 45.5%; }
-.container{width:100%;max-width:100%;padding-inline:3rem;margin: auto;}
 .container-group{width:100%;max-width:100%;padding-inline:3rem;margin: auto;}
 .container-full{width:100%;max-width:100%;padding-inline:3rem;margin: auto;}
 .menu-container { width: 100%; max-width:100%; margin-inline: auto;padding-inline: 3rem; }
@@ -354,6 +439,7 @@ html { font-size: 45.5%; }
 @media (max-width:991px) {
 .container-full { padding-inline: 1.5rem; }
 }
+
 
 
 /* ===========DONT WRITE ANY CSS HERE================ */

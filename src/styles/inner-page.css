@@ -72,9 +72,15 @@
 .mro_sec2_content blockquote{color:var(--color-white);margin:0 0 5rem 0;}
 .mro_sec2_content ul{padding:0;margin:0;}
 .mro_sec2_content ul li{font:var(--font-18);font-weight:300;color:var(--color-white);margin:0 0 2.9rem 0;position:relative;padding-left:3.1rem;line-height:1.6;}
-.mro_sec2_content .font_links .more_btn{background-color:var(--color-23);}
+.more_btn.black{background-color:var(--color-23);position: relative; overflow: hidden;z-index: 1;transition: color .3s;display: inline-flex;}
+.more_btn.black:before{content:"";background-color:var(--color-f5);z-index:-1;transition:transform .45s;position:absolute;inset:0;transform:translate(-101%);}
+
+.more_btn.black:hover:before{transform:translate(0);}
+.more_btn.black:hover{color:var( --color-1a) ;}
+.more_btn.black:hover img{filter:invert(1);transition:all 0.5s ease-in-out;}
+
 .mro_sec2_content ul li:before{content:"";position:absolute;top:9px;left:0;width:7px;height:7px;background-color:#FBF22D;border-radius:50%;}
-.mro_sec2_content{padding:0 29rem 0 0;}
+.mro_sec2_content{width: 50rem;}
 .mro_sec2_content .font_links{margin:7rem 0 0 0;}
 .mro_grid .career_ttl p{padding-bottom:4rem;margin:0;}
 
@@ -83,6 +89,15 @@
     .mro_grid .career_ttl {
         max-width: 51rem;
     }
+}
+
+@media (max-width: 1699px) {
+    .storie_list {
+    width: auto;
+            padding-inline: 0 3rem;
+}
+.storie_grid { grid-template-columns: 67rem auto; gap: 9.5rem; }
+
 }
 
 /* Rugged Electronics css starts here */
@@ -133,55 +148,72 @@
 .value_bx { width: 50rem;}
 
 /* railways page css ends here */
-
+.career_sec_two {
+    overflow: hidden;
+}
 @media(max-width:1920px){
-.railways_grid1{ grid-template-columns: 98rem auto; }
+.railways_grid1{ grid-template-columns: 82rem auto; }
 .career_sec_four .slider-outer-wrapper { margin-left: calc((100vw - min(1755px, 83.40625vw)) / 2 + 0.7rem); }
-
+.mro_grid { grid-template-columns: 740fr 900fr; }
 
 }
 @media(max-width:1700px){
-    .mro_sec2_grid{grid-template-columns:100rem auto;}
-    .mro_sec2_content{padding:0 39rem 0 0;}
-
+.mro_grid { grid-template-columns: 710fr 900fr; }
+.mro_sec2_grid { grid-template-columns: 77rem auto; gap: 0 10.5rem; }
+.mro_sec2_content { width: 42rem; }
+.railways_grid1 { grid-template-columns: 75rem auto; gap: 0 10.5rem;}
+.railways-content { width: auto; }
+.ourvalue_grid{ gap: 9.5rem; }
+.railways_grid6 { gap: 9.5rem; }
+.railways_grid6 .work_ttl { padding-left: 6rem; }
 
 }
+
+
+
+
 @media(max-width:1599px){
-
-    .mro_sec2_grid{grid-template-columns:84rem auto;}
-    .mro_sec2_content{padding:0 20rem 0 0;}
     .rug_elect_list ul{gap:0 2.5rem;}
-
+.railways_grid6 .work_ttl { padding-left: 9rem; }
+.railways_grid1 { grid-template-columns: 72rem auto; }
 
 
 }
 @media(max-width:1499px){
-    .career_sec_two figure img{min-height:85rem;margin-left:0;margin-right:auto;object-position:left;}
+    .career_sec_two figure img{margin-left:0;margin-right:auto;object-position:left;}
     .storie_grid{grid-template-columns:70rem auto;}
-
-.railways_grid1 { grid-template-columns: 86rem auto; gap: 0 10.5rem; }
+.railways_grid6 .work_ttl { padding-left: 11rem; }
 
 }
 @media(max-width:1399px){
-.railways_grid6 { grid-template-columns: 790fr 800fr; gap: 8.5rem; }
+.railways_grid1 { grid-template-columns: 67rem auto; }
 .ourvalue_grid { gap: 9.5rem; }
+    .optronics_grid{display:grid;grid-template-columns:100rem auto;gap:2.5rem;}
+.mro_grid { grid-template-columns: 700fr 900fr; }
+.mro_sec2_grid { grid-template-columns: 65rem auto; gap: 0 10.5rem; }
+.railways_grid6 .work_ttl { padding-left: 12rem; }
+.storie_grid { grid-template-columns: 66rem auto; gap: 7.5rem; }
+.princ-sec .work_ttl h2 { margin: 0 0 1rem 0; }
+.work_ttl blockquote { margin: 0 0 1.2rem 0;}
 
 }
 @media(max-width:1299px){
     .career_sec_two figure:before{width:80%;}
-.railways_grid1 { grid-template-columns: 77rem auto; }
+.railways_grid1 { grid-template-columns: 63rem auto; gap: 0 7.5rem; }
+.mro_sec2_grid { grid-template-columns: 60rem auto; gap: 0 7.5rem; }
+.mro_grid { grid-template-columns: 610fr 930fr; }
+.railways_grid6 { margin-top: 8rem; }
+.railways_grid6 .work_ttl { padding-left: 8rem; }
 
 }
 @media(max-width:1199px){
-    .railways_grid6 {
-        grid-template-columns: 660fr 770fr;
-    }
-    .mro_grid .career_ttl {
-    max-width: 83%;
-}
-.mro_sec2_grid {
-    gap: 0 8.5rem;
-}
+.railways_grid6 { grid-template-columns: 660fr 770fr; }
+.mro_grid .career_ttl { max-width: 83%; }
+.mro_sec2_grid { gap: 0 8.5rem; }
+.mro_sec2_grid { grid-template-columns: 85rem auto; }
+.mro_grid { grid-template-columns: 620fr 800fr; }
+.railways_grid6 .work_ttl { padding-left: 0; }
+.railways_grid1 { grid-template-columns: 78rem auto; gap: 0 7.5rem; }
 
 }
 
@@ -194,12 +226,8 @@
     .ourvalue_grid > figure:last-child{margin-right:0;}
     .value_list{padding:0;}
     .value_list.value-second{padding:0;}
-    .career_sec_two figure img{min-height:74rem;}
     .storie_grid{grid-template-columns:100%;padding:0 0 6rem;gap:5.5rem;}
     .storie_grid:before{display:none;}
-    .mro_grid{grid-template-columns:100%;}
-
-    .mro_sec2_grid{grid-template-columns:100%;}
     .mro_sec2_content{padding:6rem 0 0 0;}
     .mro_sec2{padding:20rem 0 8rem;}
     .mro_sec1{margin-bottom:-13.5rem;}
@@ -210,6 +238,9 @@
 .ourvalue_grid.railways_grid5 .value_list blockquote br{
     display: none;
 }
+    .mro_sec2_grid {
+        grid-template-columns: 76rem auto;
+    }
 
     .railways-sec1 {
     padding: 0;
@@ -336,19 +367,25 @@
     .career_ttl {
     padding: 0 0 5rem 0;
 }
-.work_content {
-    margin: 4rem 0 0 0;
+.work_content { margin: 4rem 0 0 0; }
+.value_bx { width: 100%; }
+.car_btmcont { margin: 4rem 0 0 0; }
+.career_sec_four .slider-outer-wrapper { margin-left: 3rem; }
+.mro_sec .container-full, .mro_sec1 .container-full, .mro_sec2 .container-full{ padding-inline: 4.5rem; }
+.mro_sec2_content { width: 100%; }
+.career_sec_one .container-full{
+    padding-inline: 4.5rem;
 }
-.value_bx {
-    width: 100%;
-}
-.car_btmcont {
-    margin: 4rem 0 0 0;
-}
-    .career_sec_four .slider-outer-wrapper {
-        margin-left: 3rem;
-    }
 
+}
+
+@media(max-width:850px){
+   .mro_sec .container-full, .mro_sec1 .container-full, .mro_sec2 .container-full{
+    padding-inline: 1.5rem;
+   } 
+   .career_sec_one .container-full{
+    padding-inline: 1.5rem;
+}
 }
 
 @media(max-width:767px){

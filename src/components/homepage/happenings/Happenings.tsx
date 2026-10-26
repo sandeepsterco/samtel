@@ -14,7 +14,10 @@ export interface HappeningItem {
     name: string;
     image:string;
     date: string
-    slug: string
+    slug: string;
+    youtube_url?:string;
+    pdf?:string;
+    external_link?:string;
 }
 
 interface HappeningsPropsInterface{
@@ -81,27 +84,48 @@ export default function Happenings({data}:HappeningsPropsInterface) {
                             }
                         }}
                     >
-                        {data?.happeningsData.map((item, idx) => (
-                            <SwiperSlide key={idx}>
-                                <div className='content'>
+                        {data?.happeningsData.map((item, idx) => {
+                            const href = item?.youtube_url || item?.external_link || item?.pdf;
+
+                            const content = (
+                                <>
                                     <div className="happening-image">
                                         <img src={item.image} className="img-fluid" alt={item.name} />
                                     </div>
+
                                     <div className="happening-content">
                                         <h3>{item.name}</h3>
-                                        <span className="happening-date">{new Date(item.date).toLocaleDateString('en-US', {
-                                            month: 'long',
-                                            day: 'numeric',
-                                            year: 'numeric'
-                                        })}</span>
+                                        <span className="happening-date">
+                                            {new Date(item.date).toLocaleDateString('en-US', {
+                                                month: 'long',
+                                                day: 'numeric',
+                                                year: 'numeric',
+                                            })}
+                                        </span>
                                     </div>
-                                    {item?.slug && (
-                                        <Link className="streched_link" href={`${BASE_URL}media/newsroom/${item.slug}`}></Link>
-                                    )}
-                                </div>
+                                </>
+                            );
 
-                            </SwiperSlide>
-                        ))}
+                            return (
+                                <SwiperSlide key={item.slug || idx}>
+                                    <div className="content">
+                                        {href ? (
+                                            <>
+                                                {content}
+                                                <Link
+                                                    className="streched_link"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    href={href}
+                                                />
+                                            </>
+                                        ) : (
+                                            content
+                                        )}
+                                    </div>
+                                </SwiperSlide>
+                            );
+                        })}
                     </Swiper>
                 </div>
             )}

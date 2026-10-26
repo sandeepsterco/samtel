@@ -13,7 +13,6 @@
 /* ================DONT CHANGE ==============================*/
 
 
-
 .milestone_sec1{ padding-block: 12rem 5rem; }
 .milestone_txt blockquote{ font: var(--font-28); color: var(--color-23); font-weight: 300; margin-bottom: 7rem; }
 .milestone_grid { display: grid; grid-template-columns: 75rem auto; gap: 8.5rem; }
@@ -165,6 +164,7 @@
 .milestone-section { padding-block: 0rem 3rem; }
 .milestone_txt blockquote { margin-bottom: 3rem; }
 .milestone_sec1 { padding-block: 7rem 3rem; }
+.milestone_slider { margin-left: 0; overflow: hidden; }
 
 /* Accordion main */
 .custom-accordion .accordion-item {
