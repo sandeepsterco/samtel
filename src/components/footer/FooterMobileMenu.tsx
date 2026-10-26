@@ -296,6 +296,18 @@ export default function FooterMobileMenu({
                   +91 124 4682000
                 </a>
               </p>
+
+                 <p className="contact-phone">
+                  <Image
+                    src="/assets/icons/fax2.svg"
+                    alt=""
+                    width={18}
+                    height={18}
+                  />
+                +91 124 4682029
+            
+              </p>
+
               <div className="contact-line" />
             </div>
             <div className="contact-block registered-office">
@@ -315,6 +327,17 @@ export default function FooterMobileMenu({
                   />
                   +91 11 40555700
                 </a>
+              </p>
+
+                  <p className="contact-phone">
+                  <Image
+                    src="/assets/icons/fax2.svg"
+                    alt=""
+                    width={18}
+                    height={18}
+                  />
+                +91 11 41555006
+            
               </p>
               <div className="contact-line" />
             </div>

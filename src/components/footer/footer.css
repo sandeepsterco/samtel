@@ -91,7 +91,15 @@ footer { padding-block: 6.7rem 9.3rem; }
 .contact-title { margin-bottom: 48px; color: #333; font-size: 15px; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; }
 .contact-block { margin: 4.7rem 0 0; }
 .contact-block h2 { margin-bottom: 2rem; color: var(--color-23); font-size: 2.1rem; font-weight: 300; line-height: 1.4; letter-spacing: -0.21px; }
-.contact-block p { margin-bottom: 2rem; color: var(--color-23); font-size: 1.8rem; line-height: 1.5; }
+.contact-block p { margin-bottom: 2rem; color: var(--color-23); font-size: 1.8rem; line-height: 1.5;     justify-content: center;
+    display: flex; }
+    p.contact-phone {
+          color: var(--color-c8);
+              font: var(--font-18) !important;
+    } 
+ p.contact-phone img{
+   margin-right: 1rem;
+}
 .contact-phone a { color: var(--color-c8); text-decoration: none; letter-spacing: -0.18px; font:var(--font-18); }
 .phone-icon { margin-right: 05rem; }
 .contact-line { width: 27rem; height: 2px; margin: 2rem auto 0; background: var(--color-f8); }
