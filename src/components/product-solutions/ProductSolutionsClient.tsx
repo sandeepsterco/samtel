@@ -11,7 +11,7 @@ import { usePathname, useRouter } from "next/navigation";
 import sanitizeHtml from "sanitize-html";
 import { KeyboardEvent as ReactKeyboardEvent, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
@@ -193,78 +193,82 @@ export default function ProductSolutionsClient({
                             const isActive = category.slug === activeCategory?.slug;
                             const href = `${pathname}?type=${encodeURIComponent(category.slug)}`;
 
-                            return (
-                                <div key={category.slug}>
-                                    <button
-                                        type="button"
-                                        className={`accordion-header${isActive && accordionExpanded ? " active" : ""}`}
-                                        aria-expanded={isActive && accordionExpanded}
-                                        onClick={() => {
-                                            if (isActive) setAccordionExpanded((expanded) => !expanded);
-                                            else {
-                                                setIsCategoryLoading(true);
-                                                router.push(href);
-                                            }
-                                        }}
-                                    >
-                                        <span className="acc-title">{category.name}</span>
-                                        <span className="acc-icon" aria-hidden="true" />
-                                    </button>
+                            if(category.products_count){
+                                return (
+                                    <div key={category.slug}>
+                                        <button
+                                            type="button"
+                                            className={`accordion-header${isActive && accordionExpanded ? " active" : ""}`}
+                                            aria-expanded={isActive && accordionExpanded}
+                                            onClick={() => {
+                                                if (isActive) setAccordionExpanded((expanded) => !expanded);
+                                                else {
+                                                    setIsCategoryLoading(true);
+                                                    router.push(href);
+                                                }
+                                            }}
+                                        >
+                                            <span className="acc-title">{category.name}</span>
+                                            <span className="acc-icon" aria-hidden="true" />
+                                        </button>
 
-                                    {isActive && (
-                                        <div className={`tab_content_wrapper${accordionExpanded ? " active" : ""}`}>
-                                            <h3 className="fade-up" data-aos="fade-up" data-aos-delay="300">{category.name}</h3>
-                                            
-                                            <div className="prodcut_text">
-                                                {category.subtitle && (
-                                                    <blockquote className="fade-up" data-aos="fade-up" data-aos-delay="300">{category.subtitle}</blockquote>
-                                                )}
-
-                                                {category.description && (
-                                                    <p className="fade-up" data-aos="fade-up" data-aos-delay="300">{category.description}</p>
-                                                )}
+                                        {isActive && (
+                                            <div className={`tab_content_wrapper${accordionExpanded ? " active" : ""}`}>
+                                                <h3 className="fade-up" data-aos="fade-up" data-aos-delay="300">{category.name}</h3>
                                                 
-                                                {category?.content && (
-                                                    <div className="fade-up" data-aos="fade-up" data-aos-delay="300" dangerouslySetInnerHTML={{ __html: category.content }} />
-                                                )}
+                                                <div className="prodcut_text">
+                                                    {category.subtitle && (
+                                                        <blockquote className="fade-up" data-aos="fade-up" data-aos-delay="300">{category.subtitle}</blockquote>
+                                                    )}
+
+                                                    {category.description && (
+                                                        <p className="fade-up" data-aos="fade-up" data-aos-delay="300">{category.description}</p>
+                                                    )}
+                                                    
+                                                    {category?.content && (
+                                                        <div className="fade-up" data-aos="fade-up" data-aos-delay="300" dangerouslySetInnerHTML={{ __html: category.content }} />
+                                                    )}
+                                                </div>
+                                                {products.length > 0 && (
+                                                    <>
+                                                        <div className="product_grid">
+                                                            {products.map((product, index) => (
+                                                                <div
+                                                                    key={product.id}
+                                                                    className="product_item"
+                                                                    role="button"
+                                                                    tabIndex={0}
+                                                                    aria-label={`View ${product.name} details`}
+                                                                    onClick={() => openProduct(index)}
+                                                                    onKeyDown={(event) => handleCardKeyDown(event, index)}
+                                                                >
+                                                                    <span className="plus_icon" aria-hidden="true">
+                                                                        <Image src="/assets/icons/plus-icon.svg" alt="" width={24} height={24} />
+                                                                    </span>
+                                                                    <figure>
+                                                                        <Image
+                                                                            src={product.image || placeholderImage}
+                                                                            className="img-fluid"
+                                                                            width={275}
+                                                                            height={265}
+                                                                            alt={product.name}
+                                                                            loading="lazy"
+                                                                        />
+                                                                    </figure>
+                                                                    <p>{product.name}</p>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                        <PaginationWrapper currentPage={currentPage} totalPages={totalPages} />
+                                                    </>
+                                                ) }
                                             </div>
-                                            {products.length > 0 && (
-                                                <>
-                                                    <div className="product_grid">
-                                                        {products.map((product, index) => (
-                                                            <div
-                                                                key={product.id}
-                                                                className="product_item"
-                                                                role="button"
-                                                                tabIndex={0}
-                                                                aria-label={`View ${product.name} details`}
-                                                                onClick={() => openProduct(index)}
-                                                                onKeyDown={(event) => handleCardKeyDown(event, index)}
-                                                            >
-                                                                <span className="plus_icon" aria-hidden="true">
-                                                                    <Image src="/assets/icons/plus-icon.svg" alt="" width={24} height={24} />
-                                                                </span>
-                                                                <figure>
-                                                                    <Image
-                                                                        src={product.image || placeholderImage}
-                                                                        className="img-fluid"
-                                                                        width={275}
-                                                                        height={265}
-                                                                        alt={product.name}
-                                                                        loading="lazy"
-                                                                    />
-                                                                </figure>
-                                                                <p>{product.name}</p>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                    <PaginationWrapper currentPage={currentPage} totalPages={totalPages} />
-                                                </>
-                                            ) }
-                                        </div>
-                                    )}
-                                </div>
-                            );
+                                        )}
+                                    </div>
+                                );
+                            }
+
+                            
                         })}
                         {isCategoryLoading && (
                             <div className="pro-tab-loader" role="status" aria-label="Loading product category">
@@ -318,10 +322,18 @@ export default function ProductSolutionsClient({
                                         <Swiper
                                             key={selectedProduct.id}
                                             className="product-image-swiper"
-                                            modules={[Pagination]}
+                                            modules={[Pagination, Autoplay, Navigation]}
                                             slidesPerView={1}
                                             pagination={selectedProductImages.length > 1 ? { clickable: true } : false}
                                             loop={selectedProductImages.length > 1}
+                                            autoplay={{
+                                                delay:3000,
+                                                disableOnInteraction: false,
+                                            }}
+                                            navigation={{
+                                                nextEl:'.swiper_custom_next',
+                                                prevEl: '.swiper_custom_prev',
+                                            }}
                                         >
                                             {(selectedProductImages.length
                                                 ? selectedProductImages
@@ -356,6 +368,14 @@ export default function ProductSolutionsClient({
                                                 </SwiperSlide>
                                             ))}
                                         </Swiper>
+
+                                            <button type="button" className="swiper_custom_prev" aria-label="Previous product" >
+                                                <Image src="/assets/icons/left-arrow.svg" alt="" width={52} height={52} />
+                                            </button>
+                                            
+                                            <button type="button" className="swiper_custom_next" aria-label="Next product">
+                                                <Image src="/assets/icons/right-arrow-white.svg" alt="" width={52} height={52} />
+                                            </button>
                                     </figure>
                                 </div>
                                 <div className="product_content_main">

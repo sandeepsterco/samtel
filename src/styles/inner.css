@@ -2482,6 +2482,8 @@ br.desktop-break { display: none; }
 .product_modal_info {
     width: 100%;
 }
+
+
 .product_content {
     max-width: 50rem; /* Exact 500px */
     width: 100%;
