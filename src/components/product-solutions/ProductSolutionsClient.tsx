@@ -52,6 +52,7 @@ interface Product {
         lists?:MappingItemInterface[];
         images?:ProductMappingImage[];
     };
+    image_caption?:string;
 }
 
 interface ProductSolutionsClientProps {
@@ -83,7 +84,7 @@ function getProductImages(product: Product): ProductImage[] {
         result.push({ src, caption });
     };
 
-    add(product.image);
+    add(product.image, product.image_caption);
     (product.mapping_items?.images ?? []).forEach((item) => add(item.image, item.caption));
 
     return result;
