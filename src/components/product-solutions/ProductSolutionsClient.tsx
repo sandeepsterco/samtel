@@ -369,13 +369,18 @@ export default function ProductSolutionsClient({
                                             ))}
                                         </Swiper>
 
-                                            <button type="button" className="swiper_custom_prev" aria-label="Previous product" >
-                                                <Image src="/assets/icons/left-arrow.svg" alt="" width={52} height={52} />
-                                            </button>
+                                            {selectedProductImages.length > 1 && (
+                                                <>
+                                                    <button type="button" className="swiper_custom_prev" aria-label="Previous product" >
+                                                        <Image src="/assets/icons/left-arrow.svg" alt="" width={52} height={52} />
+                                                    </button>
+                                                    
+                                                    <button type="button" className="swiper_custom_next" aria-label="Next product">
+                                                        <Image src="/assets/icons/right-arrow-white.svg" alt="" width={52} height={52} />
+                                                    </button>
+                                                </>
+                                            )}
                                             
-                                            <button type="button" className="swiper_custom_next" aria-label="Next product">
-                                                <Image src="/assets/icons/right-arrow-white.svg" alt="" width={52} height={52} />
-                                            </button>
                                     </figure>
                                 </div>
                                 <div className="product_content_main">
