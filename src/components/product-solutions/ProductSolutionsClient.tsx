@@ -53,6 +53,7 @@ interface Product {
         images?:ProductMappingImage[];
     };
     image_caption?:string;
+    padding?:string;
 }
 
 interface ProductSolutionsClientProps {
@@ -316,6 +317,7 @@ export default function ProductSolutionsClient({
                                     </nav>
                                 </div>
                             </div>
+
                             <div className="product_modal_grid">
                                 <div className="product_image">
                                     <figure>
@@ -339,7 +341,7 @@ export default function ProductSolutionsClient({
                                                 ? selectedProductImages
                                                 : [{ src: placeholderImage, caption: undefined }]
                                             ).map((item, index) => (
-                                                <SwiperSlide key={`${item.src}-${index}`}>
+                                                <SwiperSlide key={`${item.src}-${index}`} className={selectedProduct?.padding ? 'padding' : ''}>
                                                     <Image
                                                         src={item.src}
                                                         className="img-fluid w-100"
