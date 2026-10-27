@@ -2494,10 +2494,8 @@ br.desktop-break { display: none; }
 .product-image-swiper .swiper-pagination-bullet-active{opacity:1;}
 .product_modal_grid .product_image img{ mix-blend-mode: darken; max-width: 100%; max-height: 100%; object-fit: contain; }
 .product_modal_grid .product_image img{mix-blend-mode: darken;}
-.product_modal_info {
-    width: 100%;
-}
-
+.product_modal_info { width: 100%; }
+.padding{padding: 4rem;}
 
 .product_content {
     max-width: 50rem; /* Exact 500px */
