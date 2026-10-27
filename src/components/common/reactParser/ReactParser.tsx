@@ -80,6 +80,7 @@ const sanitizeOptions: sanitizeHtml.IOptions = {
       "data-bs-toggle",
       "data-bs-target",
       "data-bs-parent",
+      "data-fancybox",
       "aria-expanded",
       "aria-controls",
       "aria-labelledby",
