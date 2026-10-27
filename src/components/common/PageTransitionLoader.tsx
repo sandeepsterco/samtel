@@ -41,7 +41,13 @@ export default function PageTransitionLoader() {
             if (!(target instanceof Element)) return;
 
             const link = target.closest("a");
-            if (!link || link.hasAttribute("download")) return;
+            if (
+                !link ||
+                link.hasAttribute("download") ||
+                link.hasAttribute("data-fancybox")
+            ) {
+                return;
+            }
             if (link.target && link.target !== "_self") return;
 
             const destination = new URL(link.href, window.location.href);

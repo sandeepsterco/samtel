@@ -19,6 +19,7 @@ const CONFIGS: Record<Variant, { selector: string; options: Record<string, any> 
   video: {
     selector: "[data-fancybox='video']",
     options: {
+      Hash: false,
       type: "iframe",
       iframe: { preload: false },
     },
