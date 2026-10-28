@@ -194,7 +194,7 @@ export default function ProductSolutionsClient({
                             const isActive = category.slug === activeCategory?.slug;
                             const href = `${pathname}?type=${encodeURIComponent(category.slug)}`;
 
-                            if(category.products_count){
+                            if(category.products_count || category.name.includes('Custom Solutions')){
                                 return (
                                     <div key={category.slug}>
                                         <button
