@@ -6,6 +6,11 @@
 .home_sustainbility .more_btn:hover{background: var(--color-c8);}
 .home_sustainbility .more_btn img { filter: invert(1); }
 .home_sustainbility .more_btn:hover img { filter: invert(0); }
+@media (max-width:1920px) {
+    .home_sustainbility {
+    padding-block: 22rem 16rem;
+}
+}
 
 @media (max-width:1599px) {
     .font_title>blockquote{font: var(--font-42)}
