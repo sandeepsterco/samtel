@@ -28,13 +28,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function LeadershipDetailPage({params}:PageProps){
     const {slug} = await params;
     const {data, error} = await apiFetch(`leadership/${slug}`);
+    const {data:cmsData} = await apiFetch(`cms/leadership`);
  
     if(error){
         throw new Error(`Failed to fetch leadership detail api`);
     }
 
     const combinedHtml = Object.values(data?.leadership?.cms ?? {}).join('');
-    const descriptionData = data?.leadership?.data?.message;
+    const descriptionData = cmsData?.data?.description;
 
     const innerData = {
         page_title:'Leadership', 

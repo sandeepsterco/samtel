@@ -58,8 +58,8 @@
 .breadcrumb-item+.breadcrumb-item::before { padding-right: 1.5rem; font-weight: normal; }
 .breadcrumb-sec li.breadcrumb-item a { color: var(--color-23); text-decoration: none; }
 .breadcrumb-sec li.breadcrumb-item.active { color: var(--color-c8); font-weight: 700; }
-.company-sec1 { padding-block: 10rem;}
-.company-text { position: relative; margin-bottom:7rem; }
+.company-sec1 { padding-block: 6rem 10rem;}
+.company-text { position: relative; margin-bottom:4rem; }
 .company-text h2 { font: var(--font-28); color: var(--color-23); font-weight: 300; }
 .company-list { display: grid; grid-template-columns: repeat(1, 57.65% auto); gap: 8.5rem; }
 .company-right-list p strong { font-weight: 600; }
@@ -338,13 +338,14 @@
 .leadship_top{ margin-top: 5rem; }
 .leadship_top .more_btn { margin-top: 4rem; }
 .pc_hero_rgt{ overflow: hidden; width: 100%; }
+.leadship_top .leadership_detail {padding-top: 24rem; }
 
 @media (max-width:1920px) {    
 .leadership_detail { margin-right: 12rem; padding-top: 16rem; }
 .lead_right { margin-top: -25rem; }
 .ledrsp_txt_lft p { font: var(--font-18); }
 .ledrsp_txt { gap: 2rem; }
-.leadership { padding-block: 8rem; }
+.leadership { padding-block: 4rem 8rem; }
 .leader_title p { font: var(--font-28); font-weight: 300; }
 .vision-mission .font_title>blockquote{ letter-spacing: -0.9px; }
 .vision_box h4 { letter-spacing: 0.9px; }
@@ -363,6 +364,8 @@
 @media (max-width:1699px) {    
 .leadership_detail { margin-right: 8rem; padding-top: 10rem; width: 53.5rem; }
 .lead_right { padding-inline: 9.8rem 12.8rem; }
+.leadship_top .leadership_detail {padding-top: 20rem; }
+
 }
 
 @media (max-width:1599px) {    
@@ -370,6 +373,8 @@
         padding-top: 6rem;
         width: 51.5rem; }
 .lead_right { margin-top: -23rem; }
+.leadship_top .leadership_detail {padding-top: 14rem; }
+
 }
 @media (max-width:1499px) {    
 .ledrsp_txt { padding: 3.2rem 2.6rem; }
@@ -386,10 +391,13 @@
 .leadership blockquote { margin-bottom: 7rem; padding-inline: 0; }
 .lead_content_grid { grid-template-columns: 40.7% 53.6%; gap: 8.5rem; }
 }
-@media (max-width:1280px) {    
+@media (max-width:1299px) {    
 .leadership_detail { margin-right: 5rem; padding-top: 7rem; }
 .lead_right { padding-inline: 6.8rem 8.8rem; }
 .lead_content_grid { gap: 6.5rem; }
+.lead_right { margin-top: -14rem; }
+ 
+
 }
 @media (max-width:1199px) {    
 .leadership_detail { margin-right: 28rem; padding-top: 26rem; }
@@ -398,6 +406,7 @@
 .leadership { padding-block: 6rem; }
 .lead_right{margin-top: 0;}
 .leadership_detail p{    margin-bottom: 4rem;}
+.leadship_top .leadership_detail { padding-top: 22rem; }
 }
 
 @media (max-width:1099px) {   
@@ -425,7 +434,7 @@
 .ledrsp_list{grid-template-columns: repeat(2,1fr);}
 .leadership .container-full { padding-inline: 4.5rem; }
 .leadship_top { padding-inline: 3rem; }
-
+.leadship_top .leadership_detail { padding-top: 4rem; }
 }
 @media (max-width:860px) {
     .leadership .container-full { padding-inline: 1.5rem; }
@@ -453,7 +462,7 @@
 /*leadership css end here*/
 
 /* Certifications & Quality Page css Start */
-.test_quali_over { padding-block: 10rem 18rem; }
+.test_quali_over { padding-block: 5rem 18rem; }
 .tquali_ovrgrid { display: grid; grid-template-columns: repeat(1, 52.7rem auto); gap: 9.8rem; }
 .tqualifi_lft>h2 { margin-bottom: 5.9rem; }
 .tquali_rgt { margin-right: -24.6rem; }
@@ -568,7 +577,7 @@
 /* Certifications & Quality Page css End */
 
 /* Partnership and Collabrations page css  Start*/
-.pc_herosec { padding-block: 10rem 15rem; }
+.pc_herosec { padding-block: 5rem 15rem; }
 .pc_herosec h2 { margin-bottom: 7rem; }
 .pc_herosec .pc_fullimg { margin-bottom: 13rem; }
 .pc_hero_grid { display: grid; grid-template-columns: 750fr 850fr; gap: 12.5rem; }
@@ -666,7 +675,7 @@
 
 
 /* Sustainability & CSR css Start */
-.sus_csr_oversec { padding-block: 10rem 0; }
+.sus_csr_oversec { padding-block: 5rem 0; }
 .ss_csr_grid { display: grid; grid-template-columns: 750fr 850fr; gap: 12.5rem; }
 .ss_csr_grid .ss_csr_lft { margin-left: auto; max-width: 24vw; }
 .ss_csr_lft>h2 { margin-bottom: 4rem; }
@@ -799,7 +808,7 @@
 /* Sustainability & CSR css End */
 
 /* What We Do Page CSS start  */
-.wht_we_over { padding-block: 10rem 15rem; }
+.wht_we_over { padding-block: 5rem 15rem; }
 .wht_we_over h2 { margin-bottom: 7rem; padding-right: 10rem; }
 .wht_ove_lftcol>figure { max-width: 33rem; margin-block: 0 5rem; }
 .wht_wegrid { display: grid; grid-template-columns: 751fr 850fr; gap: 12.4rem; ; }
@@ -954,7 +963,7 @@
 /* What We Do Page CSS End  */
 
 /*Products & Solutions overview page  Start*/ 
-.produ_solu_over { padding-block: 12rem 13rem; }
+.produ_solu_over { padding-block: 6rem 13rem; }
 .pro_solu_ovtop { margin-bottom: 7rem; }
 .pro_solu_ovtop blockquote { font: var(--font-28); color: var(--color-23); font-weight: 300; margin-bottom: 4rem; padding-inline: 0 7rem; }
 .prod_solu_ovbtm { margin-top: 7rem; }
@@ -1078,7 +1087,7 @@
 
 /* --- Gallery Grid Layout --- */
 /* CSS framework same rahega */
-.gallery { padding-block: 10rem; }
+.gallery { padding-block: 6rem 10rem; }
 .gallery-container {display: grid;grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));row-gap: 6rem;column-gap: 3rem;}
 .gallery-card { background: transparent; cursor: pointer; display: flex; flex-direction: column; }
 .media-image-wrapper {position: relative;width: 100%;padding-top: 61.25%;overflow: hidden;}
@@ -1110,7 +1119,7 @@
 
 
 /* Top Feature Section Split */
-.contact{padding-block: 10rem 0;}
+.contact{padding-block: 6rem 0;}
 .hero-contact-section {display: flex;flex-wrap: wrap; border-radius: 0;overflow: hidden;margin-bottom: 1rem;
 box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
@@ -1328,7 +1337,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 /* =================================
  infrastructure
 ================================= */
-.infrastructure_sec1{ padding-block: 12rem 13rem; }
+.infrastructure_sec1{ padding-block: 6rem 13rem; }
 .infrastructure_txt{margin-bottom: 7rem;}
 .infrastructure_txt blockquote{ font: var(--font-28); color: var(--color-23); font-weight: 300; margin-bottom: 4rem; padding-inline: 0 7rem;}
 .complex_txt{margin-top: 7rem;}
@@ -1378,7 +1387,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .repeatable_txt h3{ margin-bottom: 3rem; }
 .repeatable_txt blockquote{ font: var(--font-28); margin-bottom: 4rem; font-weight: 300; padding-inline: 0 3rem; }
 .repeatable_txt p{ font: var(--font-18); line-height: 1.7; }
-.design_sec1{padding-block: 12rem 15rem;    overflow: hidden;}
+.design_sec1{padding-block: 6rem 15rem;    overflow: hidden;}
 .design_txt{margin-bottom: 7rem;}
 .design_txt blockquote{ font: var(--font-28); font-weight: 300; padding-inline: 0 13rem; }
 
@@ -1409,7 +1418,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .engineering_bx h3{margin-bottom: 4rem;}
 .specialised .engineering_bx:nth-last-child(1){padding-bottom: 8rem;}
 .engineering_bx .right_airborne_sys blockquote { margin-bottom: 3rem; }
-.manufacturing_sec1{padding-block: 12rem 15rem;}
+.manufacturing_sec1{padding-block: 6rem 15rem;}
 .manufacturing_grid{ display: grid; grid-template-columns: 760fr 850fr; gap: 12.5rem; margin-top: 15rem; }
 .manufacturing_txt { padding-left: 0; margin-left: auto; max-width: 50rem; }
 .manufacturing_txt>p{ margin-bottom: 3rem; }
@@ -1767,8 +1776,8 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 
 
 /* SS1999-03 */
-.wht_eng_top { padding-block: 12rem 10.9rem; }
-.spce_stlt_top { padding-block: 12rem 10.9rem; }
+.wht_eng_top { padding-block: 6rem 10.9rem; }
+.spce_stlt_top { padding-block: 6rem 10.9rem; }
 .infrastructure_img{position: relative;}
 .what_eng_txt { margin-bottom: 7rem; }
 .what_eng_txt blockquote { font: var(--font-28); color: var(--color-23); font-weight: 300; padding-inline: 0 7rem; line-height: 1.43;}
@@ -1817,7 +1826,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .discuss_bx p { font: var(--font-24); font-weight: normal; }
 .discuss_bx:after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(#ff6b6b, #ff6b6b) top 14px left 14px / 12px 1px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) top 14px left 14px / 1px 12px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) top 14px right 14px / 12px 1px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) top 14px right 14px / 1px 12px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) bottom 14px left 14px / 12px 1px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) bottom 14px left 14px / 1px 12px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) bottom 14px right 16px / 12px 1px no-repeat, linear-gradient(#ff6b6b, #ff6b6b) bottom 14px right 14px / 1px 12px no-repeat; top: -15px; left: -15px; right: -16px; z-index: 9; bottom: -15px; }
 .keycap_discuss_btn { text-align: end; margin-top: 4rem; }
-.keycap_discuss_btn .more_btn { width: auto; height: auto; padding: 1.2rem 2rem 1.2rem 2rem; border-radius: 0.8rem; font: var(--font-16); text-decoration: none; color: var(--color-white); line-height: 1.4; }
+.keycap_discuss_btn .more_btn { width: auto; height: auto; padding: 1.2rem 2rem 1.2rem 2rem; border-radius: 0.8rem; font: var(--font-16); text-decoration: none; color: var(--color-white); line-height: 1.4; margin-top: 3rem;}
 .keycap_discuss_btn .more_btn img { margin-left: 1rem; }
 .wht_eng_keycap_right p { margin-bottom: 6rem; padding-bottom: 8rem; position: relative; }
 .wht_eng_keycap_right p::after { position: absolute; left: 0; bottom: 1px; content: ""; background-color: var(--color-c8); height: 0.2rem; width: 12.3rem; }
@@ -1851,7 +1860,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .spce_key_bx:last-child { border-bottom: none; margin-bottom: 0;}
 .keycap_left { position: sticky; top: 23rem; z-index: 10; }
 /* Strategic */
-.strategic_sec { padding-top: 12rem; }
+.strategic_sec { padding-top: 6rem; }
 .stategic_first_rght { padding-right: 0; width: 50rem; }
 /* .stategic_first_rght p { padding-block: 3rem 12.2rem; } */
 .stategic_first_rght .discuss_bx{ margin-top: 12.2rem; }
@@ -1990,7 +1999,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 
 
 /* UAVs Page CSS Start  */
-.uav_oversec { padding-block: 12rem 15rem; }
+.uav_oversec { padding-block: 6rem 15rem; }
 .uav_oversec .uav_overtop { padding-bottom: 9rem; }
 .uav_oversec .uav_overtop h2 { margin-bottom: 4rem; }
 .uav_oversec .uav_ovrgrid { grid-template-columns: 850fr 747fr; gap: 12.5rem; display: grid; }
@@ -2070,7 +2079,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 /* UAVs Page CSS End  */
 
 /* Test Benches Page CSS Start  */
-.ed_test_bench { padding-block: 12rem 15rem; }
+.ed_test_bench { padding-block: 6rem 15rem; }
 .ed_tes_bench_over { display: grid; grid-template-columns: 750fr 850fr; gap: 12.5rem; }
 
 .ed_tes_bench_over .ed_tes_lft>h2 { margin-bottom: 4rem; }
@@ -2128,7 +2137,6 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 }
 .ed_tes_bench_over .ed_tes_lft {
     width: 48rem;
-    padding-left: 5rem;
 }
 
 }
@@ -2245,7 +2253,7 @@ br.desktop-break { display: none; }
 /* Test Benches Page CSS End  */
 
 /* Manufacturing & System Integration Page CSS Start  */
-.mf_sys_mainsec{padding-block: 12rem 15rem;}
+.mf_sys_mainsec{padding-block: 6rem 15rem;}
 .mf_sys_grid{ display: grid; grid-template-columns: 850fr 750fr; gap: 12.5rem; }
 .mf_sys_grid .mfsys_rgt{width: 50rem;}
 .mf_sys_grid .mfsys_rgt .explore_btn{margin-top: 2rem;}
@@ -2308,7 +2316,7 @@ br.desktop-break { display: none; }
 
 
 /* Railways/Railway Electronics Page CSS Start  */
-.rail_elec_over{padding-block: 12rem 13rem;}
+.rail_elec_over{padding-block: 6rem 13rem;}
 .rail_ele_title{margin-bottom: 7rem;}
 .rail_elec_over .rail_fullimg{padding-bottom: 15rem;}
 .rail_aboutsec{display: grid;grid-template-columns: 850fr 750fr; gap: 12.5rem;}
@@ -2378,7 +2386,7 @@ br.desktop-break { display: none; }
 
 
 /* Unmanned Systems Page CSS Start  */
-.unname_over{padding-block: 12rem 15rem;}
+.unname_over{padding-block: 6rem 15rem;}
 .unma_title{margin-bottom: 7rem;}
 .unma_title h2{margin-bottom: 4rem;}
 .uuname_ov_full{margin-bottom: 15rem; position: relative;}
@@ -2731,7 +2739,7 @@ br.desktop-break { display: none; }
 
 /*industry css end*/
     /*Naval Systems start*/
-.airborne_systems_detail { padding-block:12rem 15.2rem;}
+.airborne_systems_detail { padding-block:6rem 15.2rem;}
 .airborne_systems_grid { display: grid; grid-template-columns: 48.5% 40.7%; gap: 12.5rem;    position: relative; }
 .spaceSatelliteSwiper{margin-bottom: 1rem;}
 .right_airborne_sys blockquote { font: var(--font-28); margin-bottom: 4rem; font-weight: 300; }
@@ -2848,7 +2856,7 @@ br.desktop-break { display: none; }
 
 /* airborne-solutions-end */
     /* land-and-tactical-systems-start */
-.airborne_systems_detail.land_tactical_systems { padding-block: 15rem 13.5rem; }
+.airborne_systems_detail.land_tactical_systems { padding-block: 6rem 13.5rem; }
 .sec_hed { padding-bottom: 7rem; }
 .land_tactical_systems_banner { padding-bottom: 15rem; }
 .products_announce.dmr_based .sec_hed{padding-top:0;border-top:0;padding-bottom:0;}
@@ -2923,7 +2931,7 @@ br.desktop-break { display: none; }
 
 /*product_list css satrt here*/
 
-.products_systems_detail{padding-block:10rem;}
+.products_systems_detail{padding-block:5rem 10rem;}
 .products_systems_detail h3{font:var(--font-45);margin-bottom: 4rem;letter-spacing: -0.9px;font-weight:300;}
 /* .products_systems_detail  .product_item p{text-align: center;} */
 
