@@ -13,7 +13,7 @@
 /* ================DONT CHANGE ==============================*/
 
 
-.milestone_sec1{ padding-block: 12rem 5rem; }
+.milestone_sec1{ padding-block: 5rem 5rem; }
 .milestone_txt blockquote{ font: var(--font-28); color: var(--color-23); font-weight: 300; margin-bottom: 7rem; }
 .milestone_grid { display: grid; grid-template-columns: 75rem auto; gap: 8.5rem; }
 /* .milestone_img { margin-left: -11.7rem; } */
