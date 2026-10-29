@@ -9,7 +9,7 @@ interface HamburgerProps {
   sidebarData: SidebarItem[];
 }
 
-const specialMenus = ["contact us", "media", "blogs"];
+const specialMenus = ["contact us", "media", "careers"];
 
 const isAbsolute = (url: string) => /^https?:\/\//i.test(url);
 

@@ -118,16 +118,16 @@ export default function Leaderships({
               </picture>
 
               <div className="leadership_detail">
-                {/* {first.message && (
+                {first.message && (
                   <p
                     className="fade-up"
                     data-delay="0.3"
                     data-duration="2"
                     dangerouslySetInnerHTML={{ __html: first.message }}
                   />
-                )} */}
-                <p>With over two decades of experience in aerospace, defence, and advanced technologies, Puneet Kaura leads Samtel Avionics' growth and transformation, driving innovation, indigenous capability development, and expansion across defence electronics, avionics, railways, space, UAVs, and emerging strategic domains.
-</p>
+                )}
+                {/* <p>With over two decades of experience in aerospace, defence, and advanced technologies, Puneet Kaura leads Samtel Avionics' growth and transformation, driving innovation, indigenous capability development, and expansion across defence electronics, avionics, railways, space, UAVs, and emerging strategic domains.
+</p> */}
                 <h2 className="fade-up" data-delay="0.3" data-duration="2.3">
                   {first.name}
                 </h2>
