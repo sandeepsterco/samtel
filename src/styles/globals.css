@@ -284,6 +284,7 @@ ul.list li::marker{color: var(--color-f8); }
 .font45 { font: var(--font-45); font-weight: 300; color: var(--color-23); letter-spacing: -0.9px; }
 .for_mobile{display: none;}
 .for_desktop{display: block;}
+.title24{ font:var(--font-24); color:var(--color-23);line-height: 1.5;font-weight: 300; }
 
 .streched_link { z-index: 99; width: 100%; height: 100%; position: absolute; bottom: 0; left: 0; right: 0; }
 /* ---------button---------- */

@@ -13,8 +13,8 @@
 /* ================DONT CHANGE ==============================*/
 
 
-.milestone_sec1{ padding-block: 5rem 5rem; }
-.milestone_txt blockquote{ font: var(--font-28); color: var(--color-23); font-weight: 300; margin-bottom: 7rem; }
+.milestone_sec1{ padding-block: 8rem; }
+.milestone_txt blockquote{ font: var(--font-24);line-height: 1.5; color: var(--color-23); font-weight: 300; margin-bottom: 7rem; }
 .milestone_grid { display: grid; grid-template-columns: 75rem auto; gap: 8.5rem; }
 /* .milestone_img { margin-left: -11.7rem; } */
 .milestone_right p{ margin-bottom: 3rem; }
@@ -61,9 +61,10 @@
 .milestone-content { margin-top: 5rem; position: relative; width: 100%; }
 .global-timeline-line { position: absolute; z-index: 1; top: 0; bottom: 0; left: 50%; width: 1px; transform: translateX(-50%); background:#efbcbc; pointer-events: none; }
 .global-timeline-line-fill { position: absolute; left: 0; top: 0; width: 100%; height: 0%; background: var(--color-c8); transform-origin: top center; will-change: height; }
-.milestone-phase { position: relative; padding: 0 0 60rem; }
+.milestone-phase { position: relative; padding: 0 0 5rem; }
 .milestone-phase:first-child { padding-top: 2rem; }
 .milestone-phase+.milestone-phase { padding-top: 4rem; }
+.milestone-phase+.milestone-phase+.milestone-phase { padding-bottom: 60rem; }
 .timeline { position: relative; width: min(720px, 90vw); margin: 0 auto; padding: 1.5rem 0 8rem; }
 .timeline-event { position: relative; z-index: 5; min-height: 28rem; margin-bottom: 1.5rem; opacity: 0; will-change: opacity, transform; }
 .event-visual { position: absolute; top: 4.7rem; width: 50%; height: 14.8rem; }
