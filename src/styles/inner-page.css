@@ -1,6 +1,6 @@
 /* career page css starts here */
 
-.career_sec{padding:6rem 0 10rem;}
+.career_sec{padding:8rem 0 10rem;}
 .career_ttl{padding:0 0 7rem 0;}
 .career_ttl blockquote{margin:0 0 5rem 0;font:var(--font-45);font-weight:300;color:var(--color-23);letter-spacing:-0.9px;}
 .career_ttl blockquote b{font-weight:300;color:var(--color-c8);}
@@ -141,7 +141,7 @@
 /* optronics css ends here */
 
 /* railways page css starts here */
-.rug_elect_sec.railways-sec{padding:6rem 0 15rem 0;}
+.rug_elect_sec.railways-sec{padding:8rem 0 15rem 0;}
 .railways_grid1 { display: grid; grid-template-columns: 85rem auto; gap: 0 12.5rem; align-items: center; margin-bottom: 0.5rem; position: sticky; top: 23rem; background-color: var(--color-ef); }
 .railways-content { width: 50rem; }
 

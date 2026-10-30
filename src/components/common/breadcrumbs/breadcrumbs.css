@@ -1,5 +1,13 @@
 .breadcrumb-sec { padding-block: 1.7rem; }
+.breadcrumb-sec .breadcrumb { gap: 2.8rem; }
 .breadcrumb-sec li.breadcrumb-item { font: var(--font-18); font-weight: 300; letter-spacing: -0.18px; color: var(--color-23); }
-.breadcrumb-item+.breadcrumb-item::before { padding-right: 1.5rem; font-weight: normal; content: '>';}
+.breadcrumb-item+.breadcrumb-item::before { content: ""; background: url(/assets/images/icons/breadcrump-arrow.svg) center / contain no-repeat; width: 0.7rem; height: 1.1rem; font-weight: normal; position: absolute; top: 0.9rem; left: -2rem; }
 .breadcrumb-sec li.breadcrumb-item a { color: var(--color-23); text-decoration: none; }
 .breadcrumb-sec li.breadcrumb-item.active { color: var(--color-c8); font-weight: 700; }
+@media(max-width:1920px) {
+ .breadcrumb-item+.breadcrumb-item::before { top: 0.7rem; height: 0.9rem; left: -1.6rem; }
+.breadcrumb-sec .breadcrumb { gap: 2.2rem; }
+ }
+@media(max-width:1440px) {
+ .breadcrumb-item+.breadcrumb-item::before { top: 0.6rem; }
+ }

@@ -52,10 +52,10 @@
 @media(max-width:640px){
     .inner-section { padding-block: 5.3rem 4.4rem; }
 }
-.inner-text blockquote { font: var(--font-28); color: var(--color-23); font-weight: 300; line-height: 1.43; }
-.breadcrumb-sec { padding-block: 1.7rem; }
-.breadcrumb-sec li.breadcrumb-item { font: var(--font-18); font-weight: 300; letter-spacing: -0.18px; color: var(--color-23); }
-.breadcrumb-item+.breadcrumb-item::before { padding-right: 1.5rem; font-weight: normal; }
+.inner-text blockquote { font: var(--font-30); color: var(--color-23); font-weight: 300; line-height: 1.4; }
+.breadcrumb-sec { padding-block: 2rem 0;  }
+.breadcrumb-sec li.breadcrumb-item { font: var(--font-18); font-weight: 300; letter-spacing: -0.18px; color: var(--color-23);position: relative; }
+.breadcrumb-item+.breadcrumb-item::before {  font-weight: normal; }
 .breadcrumb-sec li.breadcrumb-item a { color: var(--color-23); text-decoration: none; }
 .breadcrumb-sec li.breadcrumb-item.active { color: var(--color-c8); font-weight: 700; }
 .company-sec1 { padding-block: 8rem 10rem;}
@@ -311,8 +311,8 @@
 
 
 /*leadership -details css start here*/
-.leadership { padding-block: 10rem;}
-.leadership blockquote { font: var(--font-28); color: var(--color-23); font-weight: 300; margin-bottom: 9rem; padding-inline: 0 6rem; }
+.leadership { padding-block: 8rem;}
+.leadership blockquote { font: var(--font-24); color: var(--color-23); font-weight: 300; margin-bottom: 9rem; padding-inline: 0 6rem;line-height: 1.5; }
 .leadship_img { display: grid; }
 .leadship_img>* { grid-area: 1/1; }
 .leadership_detail { width: 62.5rem; margin-left: auto; margin-right: 23rem; padding-top: 20rem; }
@@ -963,9 +963,9 @@
 /* What We Do Page CSS End  */
 
 /*Products & Solutions overview page  Start*/ 
-.produ_solu_over { padding-block: 6rem 13rem; }
+.produ_solu_over { padding-block: 8rem 13rem; }
 .pro_solu_ovtop { margin-bottom: 7rem; }
-.pro_solu_ovtop blockquote { font: var(--font-28); color: var(--color-23); font-weight: 300; margin-bottom: 4rem; padding-inline: 0 7rem; }
+.pro_solu_ovtop blockquote { font: var(--font-24); color: var(--color-23); font-weight: 300;line-height: 1.5; margin-bottom: 4rem; padding-inline: 0 7rem; }
 .prod_solu_ovbtm { margin-top: 7rem; }
 .proso_portarea { background-color: var(--color-f7); padding-block: 14rem 14.7rem; }
 .proso_portarea .proso_ttl { text-align: center; padding-bottom: 6rem; }
@@ -1087,7 +1087,7 @@
 
 /* --- Gallery Grid Layout --- */
 /* CSS framework same rahega */
-.gallery { padding-block: 6rem 10rem; }
+.gallery { padding-block: 8rem 10rem; }
 .gallery-container {display: grid;grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));row-gap: 6rem;column-gap: 3rem;}
 .gallery-card { background: transparent; cursor: pointer; display: flex; flex-direction: column; }
 .media-image-wrapper {position: relative;width: 100%;padding-top: 61.25%;overflow: hidden;}
@@ -1119,7 +1119,7 @@
 
 
 /* Top Feature Section Split */
-.contact{padding-block: 6rem 0;}
+.contact{padding-block: 8rem 0;}
 .hero-contact-section {display: flex;flex-wrap: wrap; border-radius: 0;overflow: hidden;margin-bottom: 1rem;
 box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
@@ -1200,7 +1200,7 @@ box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 /* press */
-.press-sec{ padding-block: 6rem 12rem; }
+.press-sec{ padding-block: 8rem 12rem; }
 .press_grid { display: grid; gap: 2rem; grid-template-columns: repeat(2, 1fr); }
 .press_bx { position: relative; gap: 2rem; justify-content: space-between; padding: 3rem; align-items: center; background-color: rgb(255 255 255 / 59%); border-bottom: 0.1rem solid var(--color-d4); }
 .press_bx>img { width: 3.6rem; }
@@ -1210,7 +1210,7 @@ box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 /* media */
-.media_sec1{ padding-block: 6rem 12rem; }
+.media_sec1{ padding-block: 8rem 12rem; }
 .media_grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 6.6rem 3.8rem; position: relative;  }
 .media_lst { position: relative; }
 .media_logo { background: var(--color-f9); text-align: center; border-radius: 0rem; padding: 0rem; margin-bottom: 2.5rem; overflow: hidden; }
@@ -1337,9 +1337,9 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 /* =================================
  infrastructure
 ================================= */
-.infrastructure_sec1{ padding-block: 6rem 13rem; }
+.infrastructure_sec1{ padding-block: 8rem 13rem; }
 .infrastructure_txt{margin-bottom: 7rem;}
-.infrastructure_txt blockquote{ font: var(--font-28); color: var(--color-23); font-weight: 300; margin-bottom: 4rem; padding-inline: 0 7rem;}
+.infrastructure_txt blockquote{ font: var(--font-24); color: var(--color-23); font-weight: 300; margin-bottom: 4rem; padding-inline: 0 7rem;line-height: 1.5;}
 .complex_txt{margin-top: 7rem;}
 .infrastructure_sec2{background-color: var(--color-f7); padding-block: 13rem;}
 .infrastructure_sec2 .testing-heading { margin-bottom: 7.2rem; }
@@ -1387,9 +1387,9 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .repeatable_txt h3{ margin-bottom: 3rem; }
 .repeatable_txt blockquote{ font: var(--font-28); margin-bottom: 4rem; font-weight: 300; padding-inline: 0 3rem; }
 .repeatable_txt p{ font: var(--font-18); line-height: 1.7; }
-.design_sec1{padding-block: 6rem 15rem;    overflow: hidden;}
+.design_sec1{padding-block: 8rem 15rem;    overflow: hidden;}
 .design_txt{margin-bottom: 7rem;}
-.design_txt blockquote{ font: var(--font-28); font-weight: 300; padding-inline: 0 13rem; }
+.design_txt blockquote{ font: var(--font-24);line-height: 1.5 ; font-weight: 300; padding-inline: 0 13rem; }
 
 .design_sec1 .naval_system_box { margin-top: 10.5rem;     grid-template-columns: 35% 65%;padding-block: 5rem; padding-inline: 4rem;text-wrap: balance;}
 .integration-text {
@@ -1418,7 +1418,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .engineering_bx h3{margin-bottom: 4rem;}
 .specialised .engineering_bx:nth-last-child(1){padding-bottom: 8rem;}
 .engineering_bx .right_airborne_sys blockquote { margin-bottom: 3rem; }
-.manufacturing_sec1{padding-block: 6rem 15rem;}
+.manufacturing_sec1{padding-block: 8rem 15rem;}
 .manufacturing_grid{ display: grid; grid-template-columns: 760fr 850fr; gap: 12.5rem; margin-top: 15rem; }
 .manufacturing_txt { padding-left: 0; margin-left: auto; max-width: 50rem; }
 .manufacturing_txt>p{ margin-bottom: 3rem; }
@@ -1780,7 +1780,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .spce_stlt_top { padding-block: 8rem 10.9rem; }
 .infrastructure_img{position: relative;}
 .what_eng_txt { margin-bottom: 7rem; }
-.what_eng_txt blockquote { font: var(--font-28); color: var(--color-23); font-weight: 300; padding-inline: 0 7rem; line-height: 1.43;}
+.what_eng_txt blockquote { font: var(--font-24); color: var(--color-23); font-weight: 300; padding-inline: 0 7rem; line-height: 1.5;}
 .wht_eng_keycap { padding-bottom: 15rem; }
 .keycap_common_grd { display: grid; grid-template-columns: 850fr 750fr; gap: 12.5rem;  align-items: flex-start; }
 .key_left {
@@ -1860,7 +1860,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .spce_key_bx:last-child { border-bottom: none; margin-bottom: 0;}
 .keycap_left { position: sticky; top: 23rem; z-index: 10; }
 /* Strategic */
-.strategic_sec { padding-top: 6rem; }
+.strategic_sec { padding-top: 8rem; }
 .stategic_first_rght { padding-right: 0; width: 50rem; }
 /* .stategic_first_rght p { padding-block: 3rem 12.2rem; } */
 .stategic_first_rght .discuss_bx{ margin-top: 12.2rem; }
@@ -2386,7 +2386,7 @@ br.desktop-break { display: none; }
 
 
 /* Unmanned Systems Page CSS Start  */
-.unname_over{padding-block: 6rem 15rem;}
+.unname_over{padding-block: 8rem 15rem;}
 .unma_title{margin-bottom: 7rem;}
 .unma_title h2{margin-bottom: 4rem;}
 .uuname_ov_full{margin-bottom: 15rem; position: relative;}
@@ -2595,7 +2595,7 @@ br.desktop-break { display: none; }
 .naval_systems { margin-block: 13rem 0rem; }
 .airborne_systems_detail.naval .airborne_systems_grid { margin-top: 13rem; }
 .airborne_systems_detail.naval .naval_system_box { grid-template-columns: 30% 57%; }
-.naval blockquote.blockquote { margin-bottom: 7rem; }
+.naval blockquote.blockquote { margin-bottom: 7rem; font: var(--font-24); margin-bottom: 4rem; line-height: 1.5; font-weight: 300;}
 .naval_system_box { background: #a8a9ad1f 0% 0% no-repeat padding-box; border: 1px solid #DFDADA; padding-block: 4.5rem;padding-inline: 4rem;display: grid; grid-template-columns: 30% 66%; gap: 3rem; margin-top: 11rem; position: relative; }
 .ns_number { font: var(--font-70); letter-spacing: -2.8px; color: var(--color-c8); font-weight: 300;line-height: 1; }
 .ns_number sup { font: var(--font-45); letter-spacing: -1.76px; font-weight: 300; }
@@ -2739,10 +2739,10 @@ br.desktop-break { display: none; }
 
 /*industry css end*/
     /*Naval Systems start*/
-.airborne_systems_detail { padding-block:6rem 15.2rem;}
+.airborne_systems_detail { padding-block:8rem 15.2rem;}
 .airborne_systems_grid { display: grid; grid-template-columns: 48.5% 40.7%; gap: 12.5rem;    position: relative; }
 .spaceSatelliteSwiper{margin-bottom: 1rem;}
-.right_airborne_sys blockquote { font: var(--font-28); margin-bottom: 4rem; font-weight: 300; }
+.right_airborne_sys blockquote { font: var(--font-24); margin-bottom: 4rem; line-height: 1.5; font-weight: 300; }
 .dgaqa-logo { border-top: 1px solid #ddd; padding-block: 5rem; margin-top: 5rem; }
 .left_airborne_sys { width: 85rem; margin-left: -25rem; }
 .left_airborne_sys .image_title{bottom: 2rem;}
@@ -2751,7 +2751,7 @@ br.desktop-break { display: none; }
 .left_airborne_sys2 blockquote { font: var(--font-28); margin-bottom: 4rem; font-weight: 300; }
 .airborne_full { padding-block: 6rem 0; }
 .prodcut_text{margin-bottom: 8rem;}
-.prodcut_text blockquote {font: var(--font-28);color: var(--color-23);font-weight: 300;padding-inline: 0 7rem;margin-bottom: 4rem;line-height: 1.43;}
+.prodcut_text blockquote {font: var(--font-24);color: var(--color-23);font-weight: 300;padding-inline: 0 7rem;margin-bottom: 4rem;line-height: 1.5;}
 .prodcut_text h5{    font: var(--font-24);font-weight: 500;margin-block: 4rem;}
 .products_systems { padding-block: 13rem; background: var(--color-f7); text-align: center; }
 .products_systems h3 { font: var(--font-45); margin-bottom: 5.5rem; letter-spacing: -0.9px; font-weight: 300; }
@@ -2856,7 +2856,7 @@ br.desktop-break { display: none; }
 
 /* airborne-solutions-end */
     /* land-and-tactical-systems-start */
-.airborne_systems_detail.land_tactical_systems { padding-block: 6rem 13.5rem; }
+.airborne_systems_detail.land_tactical_systems { padding-block: 8rem 13.5rem; }
 .sec_hed { padding-bottom: 7rem; }
 .land_tactical_systems_banner { padding-bottom: 15rem; }
 .products_announce.dmr_based .sec_hed{padding-top:0;border-top:0;padding-bottom:0;}
@@ -2931,7 +2931,7 @@ br.desktop-break { display: none; }
 
 /*product_list css satrt here*/
 
-.products_systems_detail{padding-block:5rem 10rem;}
+.products_systems_detail{padding-block:8rem 10rem;}
 .products_systems_detail h3{font:var(--font-45);margin-bottom: 4rem;letter-spacing: -0.9px;font-weight:300;}
 /* .products_systems_detail  .product_item p{text-align: center;} */
 
