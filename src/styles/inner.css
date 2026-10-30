@@ -963,7 +963,7 @@
 /* What We Do Page CSS End  */
 
 /*Products & Solutions overview page  Start*/ 
-.produ_solu_over { padding-block: 8rem 13rem; }
+.produ_solu_over { padding-block: 5rem 11rem; }
 .pro_solu_ovtop { margin-bottom: 7rem; }
 .pro_solu_ovtop blockquote { font: var(--font-24); color: var(--color-23); font-weight: 300;line-height: 1.5; margin-bottom: 4rem; padding-inline: 0 7rem; }
 .prod_solu_ovbtm { margin-top: 7rem; }
@@ -999,7 +999,7 @@
 
 
 /*newsroom css start here*/
-.newsroom_full { display: grid; padding-top: 4rem; height: 100%; overflow: hidden;}
+.newsroom_full { display: grid; padding-top: 0rem; height: 100%; overflow: hidden;}
 .newsroom_full>* { grid-area: 1/1; }
 .newsroom_full figure { height: 100%; }
 .newsroom_full figure img{ height: 100%;object-fit: cover; }
@@ -1087,7 +1087,7 @@
 
 /* --- Gallery Grid Layout --- */
 /* CSS framework same rahega */
-.gallery { padding-block: 8rem 10rem; }
+.gallery { padding-block: 5rem 8rem; }
 .gallery-container {display: grid;grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));row-gap: 6rem;column-gap: 3rem;}
 .gallery-card { background: transparent; cursor: pointer; display: flex; flex-direction: column; }
 .media-image-wrapper {position: relative;width: 100%;padding-top: 61.25%;overflow: hidden;}
@@ -1119,7 +1119,7 @@
 
 
 /* Top Feature Section Split */
-.contact{padding-block: 8rem 0;}
+.contact { padding-block: 5rem 0; }
 .hero-contact-section {display: flex;flex-wrap: wrap; border-radius: 0;overflow: hidden;margin-bottom: 1rem;
 box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
@@ -1200,7 +1200,7 @@ box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 /* press */
-.press-sec{ padding-block: 8rem 12rem; }
+.press-sec{     padding-block: 5rem 9rem; }
 .press_grid { display: grid; gap: 2rem; grid-template-columns: repeat(2, 1fr); }
 .press_bx { position: relative; gap: 2rem; justify-content: space-between; padding: 3rem; align-items: center; background-color: rgb(255 255 255 / 59%); border-bottom: 0.1rem solid var(--color-d4); }
 .press_bx>img { width: 3.6rem; }
@@ -1210,7 +1210,7 @@ box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 /* media */
-.media_sec1{ padding-block: 8rem 12rem; }
+.media_sec1{ padding-block: 5rem 12rem; }
 .media_grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 6.6rem 3.8rem; position: relative;  }
 .media_lst { position: relative; }
 .media_logo { background: var(--color-f9); text-align: center; border-radius: 0rem; padding: 0rem; margin-bottom: 2.5rem; overflow: hidden; }
@@ -1246,7 +1246,7 @@ box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 .video_grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
 .video_grid .media_bx p{ margin-top: 3rem; }
 .video_grid .media_bx .zoombtn { top: 40%; }
-.cus-media { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6rem; gap: 3rem; }
+.cus-media { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7rem; gap: 3rem; }
 h4.kh-job-title { font: var(--font-21); color: var(--color-23) }
 ul#kh-hiro-departments, ul#kh-hiro-locations { margin: 1rem !important; }
 li.kh-form-check label { padding-inline: 2rem 0 !important; }
@@ -1337,7 +1337,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 /* =================================
  infrastructure
 ================================= */
-.infrastructure_sec1{ padding-block: 8rem 13rem; }
+.infrastructure_sec1 { padding-block: 5rem 13rem; }
 .infrastructure_txt{margin-bottom: 7rem;}
 .infrastructure_txt blockquote{ font: var(--font-24); color: var(--color-23); font-weight: 300; margin-bottom: 4rem; padding-inline: 0 7rem;line-height: 1.5;}
 .complex_txt{margin-top: 7rem;}
@@ -1387,7 +1387,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .repeatable_txt h3{ margin-bottom: 3rem; }
 .repeatable_txt blockquote{ font: var(--font-28); margin-bottom: 4rem; font-weight: 300; padding-inline: 0 3rem; }
 .repeatable_txt p{ font: var(--font-18); line-height: 1.7; }
-.design_sec1{padding-block: 8rem 15rem;    overflow: hidden;}
+.design_sec1{padding-block: 5rem 12rem; overflow: hidden;}
 .design_txt{margin-bottom: 7rem;}
 .design_txt blockquote{ font: var(--font-24);line-height: 1.5 ; font-weight: 300; padding-inline: 0 13rem; }
 
@@ -1418,7 +1418,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 .engineering_bx h3{margin-bottom: 4rem;}
 .specialised .engineering_bx:nth-last-child(1){padding-bottom: 8rem;}
 .engineering_bx .right_airborne_sys blockquote { margin-bottom: 3rem; }
-.manufacturing_sec1{padding-block: 8rem 15rem;}
+.manufacturing_sec1{padding-block: 5rem 10rem;}
 .manufacturing_grid{ display: grid; grid-template-columns: 760fr 850fr; gap: 12.5rem; margin-top: 15rem; }
 .manufacturing_txt { padding-left: 0; margin-left: auto; max-width: 50rem; }
 .manufacturing_txt>p{ margin-bottom: 3rem; }
@@ -2739,7 +2739,7 @@ br.desktop-break { display: none; }
 
 /*industry css end*/
     /*Naval Systems start*/
-.airborne_systems_detail { padding-block:5rem 15.2rem;}
+.airborne_systems_detail { padding-block:5rem 12rem;}
 .airborne_systems_grid { display: grid; grid-template-columns: 48.5% 40.7%; gap: 12.5rem;    position: relative; }
 .spaceSatelliteSwiper{margin-bottom: 1rem;}
 .right_airborne_sys blockquote { font: var(--font-24); margin-bottom: 4rem; line-height: 1.5; font-weight: 300; }
@@ -2931,7 +2931,7 @@ br.desktop-break { display: none; }
 
 /*product_list css satrt here*/
 
-.products_systems_detail{padding-block:8rem 10rem;}
+.products_systems_detail{padding-block:5rem 8rem;}
 .products_systems_detail h3{font:var(--font-45);margin-bottom: 4rem;letter-spacing: -0.9px;font-weight:300;}
 /* .products_systems_detail  .product_item p{text-align: center;} */
 
