@@ -1,4 +1,4 @@
-.breadcrumb-sec { padding-block: 1.7rem; }
+.breadcrumb-sec { padding-block: 3rem 0; }
 .breadcrumb-sec .breadcrumb { gap: 2.8rem; }
 .breadcrumb-sec li.breadcrumb-item { font: var(--font-18); font-weight: 300; letter-spacing: -0.18px; color: var(--color-23); }
 .breadcrumb-item+.breadcrumb-item::before { content: ""; background: url(/assets/images/icons/breadcrump-arrow.svg) center / contain no-repeat; width: 0.7rem; height: 1.1rem; font-weight: normal; position: absolute; top: 0.9rem; left: -2rem; }
