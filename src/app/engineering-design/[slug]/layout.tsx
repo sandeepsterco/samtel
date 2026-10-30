@@ -40,7 +40,7 @@ export default async function DynamicPageLayout({ children, params }: PageProps)
     return (
         <>
             <InnerSection data={topData} />
-            <Breadcrumbs data={topData} />
+            {/* <Breadcrumbs data={topData} /> */}
             {data.data.sections.length == 0 ? <ComingSoon /> : children}
             <ScrollToTop />
         </>

@@ -1,4 +1,4 @@
-@import url(./inner-page.css); @import url(./shyam.css); @import url(./milestone.css);
+@import url(./inner-page.css); @import url(./milestone.css);
 
 
 
@@ -58,9 +58,9 @@
 .breadcrumb-item+.breadcrumb-item::before { padding-right: 1.5rem; font-weight: normal; }
 .breadcrumb-sec li.breadcrumb-item a { color: var(--color-23); text-decoration: none; }
 .breadcrumb-sec li.breadcrumb-item.active { color: var(--color-c8); font-weight: 700; }
-.company-sec1 { padding-block: 6rem 10rem;}
+.company-sec1 { padding-block: 8rem 10rem;}
 .company-text { position: relative; margin-bottom:4rem; }
-.company-text h2 { font: var(--font-28); color: var(--color-23); font-weight: 300; }
+.company-text h2 { font: var(--font-24); color: var(--color-23); line-height: 1.5; font-weight: 300; }
 .company-list { display: grid; grid-template-columns: repeat(1, 57.65% auto); gap: 8.5rem; }
 .company-right-list p strong { font-weight: 600; }
 .company-right-list .cus-list li:last-child { margin-bottom: 0; }
@@ -335,7 +335,7 @@
 .ledrsp_top { display: flex; justify-content: center; }
 .award-text { margin-top: 2rem; }
 .award-sec .zoombtn{ top: 44%; }
-.leadship_top{ margin-top: 5rem; }
+.leadship_top{ margin-top: 8rem; }
 .leadship_top .more_btn { margin-top: 4rem; }
 .pc_hero_rgt{ overflow: hidden; width: 100%; }
 .leadship_top .leadership_detail {padding-top: 24rem; }
@@ -462,11 +462,11 @@
 /*leadership css end here*/
 
 /* Certifications & Quality Page css Start */
-.test_quali_over { padding-block: 5rem 18rem; }
+.test_quali_over { padding-block: 8rem 18rem; }
 .tquali_ovrgrid { display: grid; grid-template-columns: repeat(1, 52.7rem auto); gap: 9.8rem; }
-.tqualifi_lft>h2 { margin-bottom: 5.9rem; }
+.tqualifi_lft>h2 { margin-bottom: 5rem; }
 .tquali_rgt { margin-right: -24.6rem; }
-.tqualifi_lft>h4 { margin-bottom: 4.2rem; }
+.tqualifi_lft>h4 { margin-bottom: 4.2rem;}
 .tquali_rgt figure { margin-top: 11.9rem; }
 .tquali_gridbtm { display: grid; grid-template-columns:auto 50rem; gap: 12.5rem; margin-top: 13rem; }
 .tquali_btmlft { margin-left: -24.6rem; }
@@ -577,8 +577,8 @@
 /* Certifications & Quality Page css End */
 
 /* Partnership and Collabrations page css  Start*/
-.pc_herosec { padding-block: 5rem 15rem; }
-.pc_herosec h2 { margin-bottom: 7rem; }
+.pc_herosec { padding-block: 8rem 15rem; }
+.pc_herosec h2 { margin-bottom: 7rem;}
 .pc_herosec .pc_fullimg { margin-bottom: 13rem; }
 .pc_hero_grid { display: grid; grid-template-columns: 750fr 850fr; gap: 12.5rem; }
 .pc_hero_grid>.pc_hero_lft { max-width: 50rem; margin-left: auto; }
@@ -675,10 +675,10 @@
 
 
 /* Sustainability & CSR css Start */
-.sus_csr_oversec { padding-block: 5rem 0; }
+.sus_csr_oversec { padding-block: 8rem 0; }
 .ss_csr_grid { display: grid; grid-template-columns: 750fr 850fr; gap: 12.5rem; }
 .ss_csr_grid .ss_csr_lft { margin-left: auto; max-width: 24vw; }
-.ss_csr_lft>h2 { margin-bottom: 4rem; }
+.ss_csr_lft>h2 { margin-bottom: 4rem;}
 .ss_csr_ovrbtm { padding-block: 10rem 7rem; }
 .csr_mod_pubsch { padding-block: 15rem 13rem; }
 .csr_ttl { padding-bottom: 8rem; }
@@ -808,7 +808,7 @@
 /* Sustainability & CSR css End */
 
 /* What We Do Page CSS start  */
-.wht_we_over { padding-block: 5rem 15rem; }
+.wht_we_over { padding-block: 8rem 15rem; }
 .wht_we_over h2 { margin-bottom: 7rem; padding-right: 10rem; }
 .wht_ove_lftcol>figure { max-width: 33rem; margin-block: 0 5rem; }
 .wht_wegrid { display: grid; grid-template-columns: 751fr 850fr; gap: 12.4rem; ; }
@@ -1776,8 +1776,8 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 
 
 /* SS1999-03 */
-.wht_eng_top { padding-block: 6rem 10.9rem; }
-.spce_stlt_top { padding-block: 6rem 10.9rem; }
+.wht_eng_top { padding-block: 8rem 10.9rem; }
+.spce_stlt_top { padding-block: 8rem 10.9rem; }
 .infrastructure_img{position: relative;}
 .what_eng_txt { margin-bottom: 7rem; }
 .what_eng_txt blockquote { font: var(--font-28); color: var(--color-23); font-weight: 300; padding-inline: 0 7rem; line-height: 1.43;}
@@ -1999,7 +1999,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 
 
 /* UAVs Page CSS Start  */
-.uav_oversec { padding-block: 6rem 15rem; }
+.uav_oversec { padding-block: 8rem 15rem; }
 .uav_oversec .uav_overtop { padding-bottom: 9rem; }
 .uav_oversec .uav_overtop h2 { margin-bottom: 4rem; }
 .uav_oversec .uav_ovrgrid { grid-template-columns: 850fr 747fr; gap: 12.5rem; display: grid; }
@@ -2079,7 +2079,7 @@ body .kh-job-container:hover.kh-job-card{border-color:var(--color-c8)!important;
 /* UAVs Page CSS End  */
 
 /* Test Benches Page CSS Start  */
-.ed_test_bench { padding-block: 6rem 15rem; }
+.ed_test_bench { padding-block: 8rem 15rem; }
 .ed_tes_bench_over { display: grid; grid-template-columns: 750fr 850fr; gap: 12.5rem; }
 
 .ed_tes_bench_over .ed_tes_lft>h2 { margin-bottom: 4rem; }
@@ -2253,7 +2253,7 @@ br.desktop-break { display: none; }
 /* Test Benches Page CSS End  */
 
 /* Manufacturing & System Integration Page CSS Start  */
-.mf_sys_mainsec{padding-block: 6rem 15rem;}
+.mf_sys_mainsec{padding-block: 8rem 15rem;}
 .mf_sys_grid{ display: grid; grid-template-columns: 850fr 750fr; gap: 12.5rem; }
 .mf_sys_grid .mfsys_rgt{width: 50rem;}
 .mf_sys_grid .mfsys_rgt .explore_btn{margin-top: 2rem;}
@@ -2316,7 +2316,7 @@ br.desktop-break { display: none; }
 
 
 /* Railways/Railway Electronics Page CSS Start  */
-.rail_elec_over{padding-block: 6rem 13rem;}
+.rail_elec_over{padding-block: 8rem 13rem;}
 .rail_ele_title{margin-bottom: 7rem;}
 .rail_elec_over .rail_fullimg{padding-bottom: 15rem;}
 .rail_aboutsec{display: grid;grid-template-columns: 850fr 750fr; gap: 12.5rem;}
