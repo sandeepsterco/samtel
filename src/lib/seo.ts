@@ -1,6 +1,32 @@
 import { SEO_URL } from "@/config/config";
 import { cache } from "react";
-import type { Metadata } from "next";
+
+type OpenGraphType =
+  | "website"
+  | "article"
+  | "book"
+  | "profile"
+  | "music.song"
+  | "music.album"
+  | "music.playlist"
+  | "music.radio_station"
+  | "video.tv_show"
+  | "video.other"
+  | "video.movie"
+  | "video.episode";
+
+type OpenGraphImage =
+  | string
+  | URL
+  | {
+      url: string | URL;
+      secureUrl?: string | URL;
+      alt?: string;
+      type?: string;
+      width?: string | number;
+      height?: string | number;
+      [key: string]: unknown;
+    };
 
 type SEOResult = {
   title: string;
@@ -18,8 +44,8 @@ type SEOResult = {
   openGraph?: {
     title: string;
     description: string;
-    type: NonNullable<Metadata["openGraph"]>["type"];
-    images: NonNullable<Metadata["openGraph"]>["images"];
+    type: OpenGraphType;
+    images: OpenGraphImage[];
     url: string;
   };
   schema: Record<string, unknown> | null;
