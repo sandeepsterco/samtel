@@ -103,11 +103,12 @@ export default function HeaderData({
                 const isClickableLink = !!item.slug && item.slug !== '#';
                 const megaMenuName = item.mega_menu?.name;
                 const hasMegaMenu = !!item.mega_menu?.content && !!megaMenuName;
+                const isActive = showMegaMenu && activeMegaMenuName === megaMenuName;
 
                 return (
                   <li
                     key={idx}
-                    className={hasMegaMenu ? "mega-hover-parent site_dropdown" : "mega-hover-parent"}
+                    className={`${hasMegaMenu ? "mega-hover-parent site_dropdown" : "mega-hover-parent"}${isActive ? " active" : ""}`}
                     onMouseEnter={() => {
                       if (hasMegaMenu) openMenu(megaMenuName);
                     }}
