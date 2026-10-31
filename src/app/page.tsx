@@ -25,7 +25,7 @@ export default async function Home() {
   }
 
   const whoWeData = {...pageData?.who_we, categories:data?.modular?.['product-category'] ?? []};
-  const happeningData = {...pageData?.news_and_events, happeningsData:data?.modular?.['news-and-events'] ?? []};
+  const happeningData = {...pageData?.news_and_events, happeningsData:data?.latestModuleEntries ?? []};
 
   return (
     <main className="homepage-content">

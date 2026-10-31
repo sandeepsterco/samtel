@@ -5,8 +5,10 @@
 .happenings-section .slider-outer-wrapper {margin-left: calc((100vw - min(1505px, 68.40909090vw)) / 2 + 6.5rem);overflow: hidden;}
 .happenings-slider { overflow: visible !important; width: 100%; }
 .happenings-section .swiper-slide { height: auto; display: flex; flex-direction: column; }
-.happening-image { width: 100%; aspect-ratio: 1.45 / 1; overflow: hidden; }
+.happening-image { width: 100%; aspect-ratio: 1.45 / 1; overflow: hidden; position: relative; }
 .happening-image img { width: 100%; height: 100%; object-fit: cover; }
+.happening-video-play { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; }
+.happening-video-play img { width: 6rem; height: auto; filter: brightness(0) invert(1); }
 .happening-content { margin-block: 3rem 0rem; }
 .happening-content h3 {font: var(--font-21);font-weight: 300;line-height: 1.4;margin: 0 0 0.8rem 0;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;color: #ffffff;letter-spacing: 0.42px;padding-right: 4rem;}
 .happening-date { font: var(--font-16); opacity: 0.6; }
