@@ -2,7 +2,7 @@ import React from "react";
 import { ProductCategory } from "../Header";
 import Image from "next/image";
 import Link from "next/link";
-import "./megaMenu.css";
+// import "./megaMenu.css";
 import type { InfoItem } from "@/lib/info";
 import { BASE_URL } from "@/config/config";
 
@@ -38,7 +38,8 @@ export default function MegaMenu({
       onMouseEnter={show ? onMouseEnter : undefined}
   onMouseLeave={show ? onMouseLeave : undefined}
     >
-      <div className="menu-container">
+      <div className="container-full">
+        <div className="product-mega-wrapper">
           <div className="mega-wrapper">
             <div className="mega-left">
               <div>
@@ -83,6 +84,7 @@ export default function MegaMenu({
                 }
               })}
             </div>
+          </div>
           </div>
       </div>
     </div>

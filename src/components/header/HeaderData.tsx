@@ -3,9 +3,10 @@ import { BASE_URL } from "@/config/config";
 import Hamburger from "./Hamburger";
 import Image from "next/image";
 import Link from "next/link";
+import { useRef, useEffect, useCallback, useState } from "react";
+import type { ReactNode } from "react";
 import MegaMenu from "./megaMenu/MegaMenu";
-import { useRef, useState, useEffect, useCallback } from "react";
-import { HeaderMenuItem, ProductCategory, SidebarItem } from "./Header";
+import { isIndustriesMegaMenu, type HeaderMenuItem, type ProductCategory, type SidebarItem } from "./Header";
 import { useHeader } from "./HeaderContext";
 import "./header.css";
 import { usePathname } from "next/navigation";
@@ -16,18 +17,19 @@ const CLOSE_DELAY = 350;
 
 export default function HeaderData({
   headerData,
+  dropdownContents,
   sidebarData,
   productCategoryData,
-  infoData
+  infoData,
 }: {
   headerData: HeaderMenuItem[];
+  dropdownContents: (ReactNode | null)[];
   sidebarData: SidebarItem[];
   productCategoryData: ProductCategory[];
   infoData: InfoItem[];
 }) {
-  const navRef = useRef<HTMLDivElement>(null);
   const {showMegaMenu, setShowMegaMenu} = useHeader()
-  const [headerHeight, setHeaderHeight] = useState(0);
+  const [activeMegaMenuName, setActiveMegaMenuName] = useState<string | null>(null);
   const closeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pathname = usePathname();
 
@@ -38,43 +40,29 @@ export default function HeaderData({
     }
   }, []);
 
-  const updateHeight = useCallback(() => {
-    if (navRef.current) {
-      setHeaderHeight(navRef.current.getBoundingClientRect().height);
-    }
-  }, []);
-
-  useEffect(() => {
-    updateHeight();
-    const el = navRef.current;
-    if (!el) return;
-    const ro = new ResizeObserver(updateHeight);
-    ro.observe(el);
-    window.addEventListener("resize", updateHeight);
-    return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", updateHeight);
-    };
-  }, [updateHeight]);
-
-  const openMenu = useCallback(() => {
+  const openMenu = useCallback((name: string) => {
     clearCloseTimer();
-    updateHeight();
+    setActiveMegaMenuName(name);
     setShowMegaMenu(true);
-  }, [clearCloseTimer, updateHeight, setShowMegaMenu]);
+  }, [clearCloseTimer, setShowMegaMenu]);
 
   const closeMenu = useCallback(() => {
     clearCloseTimer();
-    closeTimeout.current = setTimeout(() => setShowMegaMenu(false), CLOSE_DELAY);
+    closeTimeout.current = setTimeout(() => {
+      setActiveMegaMenuName(null);
+      setShowMegaMenu(false);
+    }, CLOSE_DELAY);
   }, [clearCloseTimer, setShowMegaMenu]);
 
   const closeMenuNow = useCallback(() => {
     clearCloseTimer();
+    setActiveMegaMenuName(null);
     setShowMegaMenu(false);
   }, [clearCloseTimer, setShowMegaMenu]);
 
   useEffect(() => {
-    closeMenuNow();
+    const timeout = setTimeout(closeMenuNow, 0);
+    return () => clearTimeout(timeout);
   }, [pathname, closeMenuNow]);
 
   useEffect(() => {
@@ -90,7 +78,7 @@ export default function HeaderData({
   return (
     <>
       <div className="container">
-        <div className="header_nav" ref={navRef}>
+        <div className="header_nav">
           <div className="logo">
             <Link href={BASE_URL ?? "/"}>
               <figure>
@@ -111,45 +99,26 @@ export default function HeaderData({
           
           <nav className="main-nav">
             <ul>
-              {headerData.map((item: any, idx: number) => {
+              {headerData.map((item, idx) => {
                 const isClickableLink = !!item.slug && item.slug !== '#';
-                const hasChildren = Array.isArray(item?.children) && item.children.length > 0;
-                const isIndustriesMenu = item.title === "Industries" || item.slug?.toLowerCase()?.includes('industri');
+                const megaMenuName = item.mega_menu?.name;
+                const hasMegaMenu = !!item.mega_menu?.content && !!megaMenuName;
 
                 return (
                   <li
                     key={idx}
-                    className={`${item.title === "Industries" ? "mega-parent" : "" } ${hasChildren ? 'site_dropdown' : ''} ${showMegaMenu && item.title === "Industries" ? 'active' : ''}`}
+                    className={hasMegaMenu ? "site_dropdown" : ""}
                     onMouseEnter={() => {
-                      if (item.title === "Industries") openMenu();
+                      if (hasMegaMenu) openMenu(megaMenuName);
                     }}
                     onMouseLeave={() => {
-                      if (item.title === "Industries") closeMenu();
+                      if (hasMegaMenu) closeMenu();
                     }}
                   >
                     {isClickableLink ? (
                       <Link href={`${BASE_URL}${item.slug}`}>{item.title}</Link>
                     ) : (
                       <span className="nav-disabled-link">{item.title}</span>
-                    )}
-
-                    {!isIndustriesMenu && hasChildren && (
-                      <ul className="site_dropdown_menu">
-                        {item.children.map((li:any, liIdx:number)=>(
-                          <li key={liIdx}>
-                            <Link href={li.overwrite_url ? `${BASE_URL}${li.overwrite_url}` : `${BASE_URL}${li.slug}`} className={`${li?.child?.length > 0 ? 'has_child' : ''}`}>
-                              {li.title}
-                            </Link>
-                            {li?.child?.length > 0 && (
-                              <ul>
-                                {li.child.map((childItem:any, childIdx:number)=>(
-                                  <li key={childIdx}><Link href={`${BASE_URL}${li.slug}/${childItem.slug}`}>{childItem.title}</Link></li>
-                                ))}
-                              </ul>
-                            )}
-                          </li>
-                        ))}
-                      </ul>
                     )}
                   </li>
                 );
@@ -161,15 +130,42 @@ export default function HeaderData({
         </div>
       </div>
 
-      <MegaMenu
-        show={showMegaMenu}
-        categoryData={productCategoryData}
-        topOffset={headerHeight}
-        infoData={infoData}
-        onMouseEnter={openMenu}
-        onMouseLeave={closeMenu}
-        onClose={closeMenuNow}
-      />
+      {headerData.map((item, idx) => {
+        const megaMenuName = item.mega_menu?.name;
+        if (!item.mega_menu?.content || !megaMenuName) {
+          return null;
+        }
+
+        const isIndustriesMenu = isIndustriesMegaMenu(megaMenuName);
+        const isActive = showMegaMenu && activeMegaMenuName === megaMenuName;
+        if (!isIndustriesMenu && !dropdownContents[idx]) {
+          return null;
+        }
+
+        return (
+          <div
+            key={megaMenuName}
+            className={`site-dropdown-panel ${isIndustriesMenu ? "industry-dropdown-panel" : "parser-dropdown-panel"}${isActive ? " show" : ""}`}
+            onMouseEnter={() => openMenu(megaMenuName)}
+            onMouseLeave={closeMenu}
+          >
+            {isIndustriesMenu ? (
+              <MegaMenu
+                show={isActive}
+                categoryData={productCategoryData}
+                topOffset={0}
+                infoData={infoData}
+                onMouseEnter={() => openMenu(megaMenuName)}
+                onMouseLeave={closeMenu}
+                onClose={closeMenuNow}
+              />
+            ) : (
+              dropdownContents[idx]
+            )}
+          </div>
+        );
+      })}
+
     </>
   );
 }
