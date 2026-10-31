@@ -1,12 +1,24 @@
 import ProductSolutionsClient from "@/components/product-solutions/ProductSolutionsClient";
 import { apiFetch } from "@/lib/api"
-import { createPageMetadata } from "@/lib/metadata";
+import { getPageSEO } from "@/lib/seo";
+import type { Metadata } from "next";
 
-export const metadata = createPageMetadata(
-    null,
-    "Product Solutions",
-    "Explore Samtel Group product solutions and browse products by category.",
-);
+export async function generateMetadata(): Promise<Metadata> {
+    const seo = await getPageSEO("product-solutions");
+
+    return {
+        title: seo.title,
+        description: seo.description,
+        keywords: seo.keywords,
+        alternates: seo.alternates,
+        robots: seo.robots,
+        openGraph: seo.openGraph
+            ? {
+                  ...seo.openGraph,
+              }
+            : undefined,
+    };
+}
 
 interface MappingItemInterface{
     title?:string;

@@ -21,7 +21,7 @@ const funnelSans = Funnel_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "Samtel Group",
+    default: "Samtel",
     template: "%s | Samtel Group",
   },
   description:

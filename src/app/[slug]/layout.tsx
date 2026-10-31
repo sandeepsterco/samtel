@@ -7,7 +7,7 @@ import '@/styles/inner.css'
 import NotFound from "../not-found";
 import ComingSoon from "@/components/common/comingSoon/ComingSoon";
 import ScrollToTop from "@/components/common/ScrollToTop";
-import { createPageMetadata } from "@/lib/metadata";
+import { getPageSEO } from "@/lib/seo";
 import type { Metadata } from "next";
 
 type PageProps = {
@@ -17,17 +17,20 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { slug } = await params;
-    const { data, error } = await apiFetch(`cms/${slug}`);
+    const seo = await getPageSEO(slug);
 
-    if (error || !data?.status) {
-        return createPageMetadata(null, slug, "Explore information from Samtel Group.");
-    }
-
-    return createPageMetadata(
-        data?.data,
-        slug.replace(/-/g, " "),
-        "Explore information from Samtel Group.",
-    );
+    return {
+        title: seo.title,
+        description: seo.description,
+        keywords: seo.keywords,
+        alternates: seo.alternates,
+        robots: seo.robots,
+        openGraph: seo.openGraph
+            ? {
+                  ...seo.openGraph,
+              }
+            : undefined,
+    };
 }
 
 export default async function DynamicPageLayout({ children }: PageProps) {

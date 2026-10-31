@@ -1,10 +1,9 @@
 import Breadcrumbs from "@/components/common/breadcrumbs/Breadcrumbs";
 import InnerSection from "@/components/common/innerSection/InnerSection";
 import { apiFetch } from "@/lib/api";
-import { getSlug } from "@/lib/getSlug";
 import NotFound from "@/app/not-found";
 import '@/styles/inner.css'
-import { createPageMetadata } from "@/lib/metadata";
+import { getPageSEO } from "@/lib/seo";
 import type { Metadata } from "next";
 
 type PageProps = {
@@ -14,17 +13,20 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { category } = await params;
-    const { data, error } = await apiFetch(`product-category/${category}`);
+    const seo = await getPageSEO(`category/${category}`);
 
-    if (error || !data?.status) {
-        return createPageMetadata(null, "Product Category", "Browse Samtel Group products by category.");
-    }
-
-    return createPageMetadata(
-        data?.data,
-        "Product Category",
-        "Browse Samtel Group products by category.",
-    );
+    return {
+        title: seo.title,
+        description: seo.description,
+        keywords: seo.keywords,
+        alternates: seo.alternates,
+        robots: seo.robots,
+        openGraph: seo.openGraph
+            ? {
+                  ...seo.openGraph,
+              }
+            : undefined,
+    };
 }
 
 export default async function CategoryPageLayout({ children, params }: PageProps) {

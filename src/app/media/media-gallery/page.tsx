@@ -2,13 +2,25 @@ import { apiFetch } from "@/lib/api";
 import NoData from "@/components/ui/NoData";
 import PaginationWrapper from "@/components/common/pagination/PaginationWrapper";
 import GalleryClient, { GalleryItem } from "@/components/gallery/GalleryClient";
-import { createPageMetadata } from "@/lib/metadata";
+import { getPageSEO } from "@/lib/seo";
+import type { Metadata } from "next";
 
-export const metadata = createPageMetadata(
-    null,
-    "Media Gallery",
-    "Browse photos and videos from Samtel Group events, activities, and updates.",
-);
+export async function generateMetadata(): Promise<Metadata> {
+    const seo = await getPageSEO("media/media-gallery");
+
+    return {
+        title: seo.title,
+        description: seo.description,
+        keywords: seo.keywords,
+        alternates: seo.alternates,
+        robots: seo.robots,
+        openGraph: seo.openGraph
+            ? {
+                  ...seo.openGraph,
+              }
+            : undefined,
+    };
+}
 
 interface GalleryMediaItem {
     upload_media: string | null;

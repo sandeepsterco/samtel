@@ -1,19 +1,34 @@
 import Link from "next/link";
 import "./thank-you.css";
 import { BASE_URL } from "@/config/config";
-import { createPageMetadata } from "@/lib/metadata";
+import { getPageSEO } from "@/lib/seo";
+import type { Metadata } from "next";
 
-export const metadata = {
-  ...createPageMetadata(
-    null,
-    "Thank You",
-    "Thank you for contacting Samtel Group. Our team will be in touch shortly.",
-  ),
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSEO("thank-you");
+
+  return {
+    title: seo.title,
+    description: seo.description,
+    keywords: seo.keywords,
+    alternates: seo.alternates,
+    robots: {
+      ...seo.robots,
+      index: false,
+      follow: false,
+      googleBot: {
+        ...seo.robots.googleBot,
+        index: false,
+        follow: false,
+      },
+    },
+    openGraph: seo.openGraph
+      ? {
+          ...seo.openGraph,
+        }
+      : undefined,
+  };
+}
 
 export default function ThankYouPage() {
   return (

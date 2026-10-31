@@ -2,16 +2,28 @@ import FancyboxWrapper from "@/components/common/FancyboxWrapper";
 import PaginationWrapper from "@/components/common/pagination/PaginationWrapper";
 import NoData from "@/components/ui/NoData";
 import { apiFetch } from "@/lib/api";
-import { createPageMetadata } from "@/lib/metadata";
+import { getPageSEO } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
-export const metadata = createPageMetadata(
-  null,
-  "Awards & Recognitions",
-  "Explore Samtel Group awards and recognitions.",
-);
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSEO("media/awards-recognitions");
+
+  return {
+    title: seo.title,
+    description: seo.description,
+    keywords: seo.keywords,
+    alternates: seo.alternates,
+    robots: seo.robots,
+    openGraph: seo.openGraph
+      ? {
+          ...seo.openGraph,
+        }
+      : undefined,
+  };
+}
 
 interface AwardItem {
   id: number;

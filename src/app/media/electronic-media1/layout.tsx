@@ -3,21 +3,24 @@ import InnerSection from "@/components/common/innerSection/InnerSection";
 import { apiFetch } from "@/lib/api";
 import { notFound } from "next/navigation";
 import '@/styles/inner.css'
-import { createPageMetadata } from "@/lib/metadata";
+import { getPageSEO } from "@/lib/seo";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
-    const { data, error } = await apiFetch(`modular/electronic-media`);
+    const seo = await getPageSEO("media/electronic-media1");
 
-    if (error || !data?.status) {
-        return createPageMetadata(null, "Electronic Media", "Explore electronic media updates from Samtel Group.");
-    }
-
-    return createPageMetadata(
-        data?.data,
-        "Electronic Media",
-        "Explore electronic media updates from Samtel Group.",
-    );
+    return {
+        title: seo.title,
+        description: seo.description,
+        keywords: seo.keywords,
+        alternates: seo.alternates,
+        robots: seo.robots,
+        openGraph: seo.openGraph
+            ? {
+                  ...seo.openGraph,
+              }
+            : undefined,
+    };
 }
 
 export default async function MediaCoverageLayout({ children }: { children: React.ReactNode }) {

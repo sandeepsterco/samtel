@@ -3,21 +3,24 @@ import InnerSection from "@/components/common/innerSection/InnerSection";
 import { apiFetch } from "@/lib/api";
 import { notFound } from "next/navigation";
 import '@/styles/inner.css'
-import { createPageMetadata } from "@/lib/metadata";
+import { getPageSEO } from "@/lib/seo";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
-    const { data, error } = await apiFetch(`modular/press-coverage`);
+    const seo = await getPageSEO("media/press-coverage");
 
-    if (error || !data?.status) {
-        return createPageMetadata(null, "Press Coverage", "Read media coverage featuring Samtel Group.");
-    }
-
-    return createPageMetadata(
-        data?.data,
-        "Press Coverage",
-        "Read media coverage featuring Samtel Group.",
-    );
+    return {
+        title: seo.title,
+        description: seo.description,
+        keywords: seo.keywords,
+        alternates: seo.alternates,
+        robots: seo.robots,
+        openGraph: seo.openGraph
+            ? {
+                  ...seo.openGraph,
+              }
+            : undefined,
+    };
 }
 
 export default async function PressCoverageLayout({ children }: { children: React.ReactNode }) {

@@ -107,7 +107,7 @@ export default function HeaderData({
                 return (
                   <li
                     key={idx}
-                    className={hasMegaMenu ? "site_dropdown" : ""}
+                    className={hasMegaMenu ? "mega-hover-parent site_dropdown" : "mega-hover-parent"}
                     onMouseEnter={() => {
                       if (hasMegaMenu) openMenu(megaMenuName);
                     }}
@@ -118,7 +118,7 @@ export default function HeaderData({
                     {isClickableLink ? (
                       <Link href={`${BASE_URL}${item.slug}`}>{item.title}</Link>
                     ) : (
-                      <span className="nav-disabled-link">{item.title}</span>
+                      <Link className="" href={'#'}>{item.title}</Link>
                     )}
                   </li>
                 );

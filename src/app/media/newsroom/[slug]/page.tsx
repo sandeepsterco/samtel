@@ -3,7 +3,7 @@ import Breadcrumbs from "@/components/common/breadcrumbs/Breadcrumbs";
 import ReactParserDynamic from "@/components/common/reactParser/ReactParserDynamic";
 import RelatedNews from "@/components/news/RelatedNews";
 import { apiFetch } from "@/lib/api"
-import { createPageMetadata } from "@/lib/metadata";
+import { getPageSEO } from "@/lib/seo";
 import type { Metadata } from "next";
 
 interface PageProps {
@@ -14,18 +14,20 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { slug } = await params;
-    const { data, error } = await apiFetch(`news-events/${slug}`);
-    const article = data?.newsAndEvent?.data;
+    const seo = await getPageSEO(`media/newsroom/${slug}`);
 
-    if (error || !data?.status) {
-        return createPageMetadata(null, "Newsroom", "Read the latest news and updates from Samtel Group.");
-    }
-
-    return createPageMetadata(
-        article,
-        article?.name || "Newsroom",
-        "Read the latest news and updates from Samtel Group.",
-    );
+    return {
+        title: seo.title,
+        description: seo.description,
+        keywords: seo.keywords,
+        alternates: seo.alternates,
+        robots: seo.robots,
+        openGraph: seo.openGraph
+            ? {
+                  ...seo.openGraph,
+              }
+            : undefined,
+    };
 }
 
 export default async function NewsDetailPage({ params }: PageProps) {
