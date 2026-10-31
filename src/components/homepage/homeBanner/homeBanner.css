@@ -92,9 +92,9 @@
 .video_text { max-width: 60rem; }
 }
 
-@media (max-width: 1699px) {
+@media (max-width: 1920px) {
 .banner_caption .banner_title {
-    margin-top: 32rem;
+    margin-top: 26rem;
     position: relative;
 }
 }
