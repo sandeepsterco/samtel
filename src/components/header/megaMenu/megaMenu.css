@@ -1,7 +1,7 @@
 .mega-left { padding-top: 2rem; }
 .mega-menu {position: absolute;top: 100%;left: 0;width: 100%;background: var(--color-ef);opacity:0;visibility: hidden;/* transform: translateY(0rem); */transition: 0.45s ease;z-index: 99999;overflow: hidden;}
 .mega-menu.show { opacity: 1; visibility: visible; transform: translateY(0); }
-.mega-wrapper {display: grid;gap: 8.4rem;padding:6rem 0;grid-template-columns: 416fr 1475fr;}
+.mega-wrapper {display: grid;gap: 8.4rem;grid-template-columns: 416fr 1475fr;}
 .mega-left blockquote { font:var(--font-42); line-height: 1.2; font-weight: 300; margin: 0 0 3rem;letter-spacing: -1.26px; }
 .mega-left blockquote span { color: var(--color-c8);display: block; }
 .mega-btn { width:3.6rem; height:3.6rem; display: flex; align-items: center; justify-content: center; background: var(--color-c8); color: #fff; text-decoration: none;margin-bottom:12rem; }
