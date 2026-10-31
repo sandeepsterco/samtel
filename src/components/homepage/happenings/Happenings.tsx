@@ -8,16 +8,50 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import './happenings.css'
 import Link from 'next/link'
-import { BASE_URL } from '@/config/config'
+import FancyboxWrapper from '@/components/common/FancyboxWrapper'
+import Image from 'next/image'
 
 export interface HappeningItem {
-    name: string;
-    image:string;
+    name?: string;
+    title?: string;
+    image?: string;
+    thumbnail_image?: string;
     date: string
     slug: string;
-    youtube_url?:string;
-    pdf?:string;
-    external_link?:string;
+    video?: string | null;
+    video_url?: string | null;
+    youtube_url?: string | null;
+    pdf?: string | null;
+    link?: string | null;
+    external_link?: string | null;
+}
+
+function getUrl(value?: string | null): string | undefined {
+    if (!value?.trim()) return undefined;
+
+    const trimmedValue = value.trim();
+    const markdownLink = trimmedValue.match(/^\[[^\]]+\]\((.+)\)$/);
+    return (markdownLink?.[1] ?? trimmedValue).trim() || undefined;
+}
+
+function getVideoUrl(item: HappeningItem): string | undefined {
+    const videoUrl = getUrl(item.video_url) || getUrl(item.video);
+    if (!videoUrl) return undefined;
+
+    try {
+        const url = new URL(videoUrl);
+        const youtubeId = url.hostname === 'youtu.be'
+            ? url.pathname.slice(1)
+            : url.searchParams.get('v') ?? url.pathname.match(/\/(?:embed|shorts|live)\/([^/?]+)/)?.[1];
+
+        if (youtubeId && (/\.youtube\.com$/.test(url.hostname) || url.hostname === 'youtu.be')) {
+            return `https://www.youtube.com/embed/${youtubeId}`;
+        }
+    } catch {
+        return videoUrl;
+    }
+
+    return videoUrl;
 }
 
 interface HappeningsPropsInterface{
@@ -60,73 +94,98 @@ export default function Happenings({data}:HappeningsPropsInterface) {
 
             {data?.happeningsData && data?.happeningsData?.length > 0 && (
                 <div className="slider-outer-wrapper fade-up" data-aos="fade-up" data-aos-delay="700">
-                    <Swiper
-                        modules={[Navigation]}
-                        className="happenings-slider"
-                        slidesPerView={1.2}
-                        spaceBetween={8}
-                        grabCursor={true}
-                        navigation={{ nextEl: '.swiper-button-next-custom' }}
-                        onSwiper={(swiper) => { swiperRef.current = swiper }}
-                        breakpoints={{
-                            480: {
-                                slidesPerView: 2.2,
-                                spaceBetween: 8
-                            },
-                            768: {
-                                slidesPerView: 3.2,
-                                spaceBetween: 8
-                            },
-                            1024: {
-                                slidesPerView: 4,
-                                spaceBetween: 8,
-                                allowTouchMove: true
-                            }
-                        }}
-                    >
-                        {data?.happeningsData.map((item, idx) => {
-                            const href = item?.youtube_url || item?.external_link || item?.pdf;
+                    <FancyboxWrapper variant="video">
+                        <Swiper
+                            modules={[Navigation]}
+                            className="happenings-slider"
+                            slidesPerView={1.2}
+                            spaceBetween={8}
+                            grabCursor={true}
+                            navigation={{ nextEl: '.swiper-button-next-custom' }}
+                            onSwiper={(swiper) => { swiperRef.current = swiper }}
+                            breakpoints={{
+                                480: {
+                                    slidesPerView: 2.2,
+                                    spaceBetween: 8
+                                },
+                                768: {
+                                    slidesPerView: 3.2,
+                                    spaceBetween: 8
+                                },
+                                1024: {
+                                    slidesPerView: 4,
+                                    spaceBetween: 8,
+                                    allowTouchMove: true
+                                }
+                            }}
+                        >
+                            {data?.happeningsData.map((item, idx) => {
+                                const videoUrl = getVideoUrl(item);
+                                const href = getUrl(item.pdf)
+                                    || getUrl(item.link)
+                                    || getUrl(item.external_link)
+                                    || getUrl(item.youtube_url);
+                                const image = videoUrl
+                                    ? item.thumbnail_image || item.image
+                                    : item.image || item.thumbnail_image;
+                                const title = item.name || item.title || '';
 
-                            const content = (
-                                <>
-                                    <div className="happening-image">
-                                        <img src={item.image} className="img-fluid" alt={item.name} />
-                                    </div>
+                                const content = (
+                                    <>
+                                        <div className="happening-image">
+                                            {image && <Image loading='lazy' width={500} height={350} src={getUrl(image) ?? ''} className="img-fluid" alt={title} />}
+                                            {videoUrl && (
+                                                <span className="happening-video-play" aria-hidden="true">
+                                                    <img src="/assets/icons/videopausebtn.svg" alt="" />
+                                                </span>
+                                            )}
+                                        </div>
 
-                                    <div className="happening-content">
-                                        <h3>{item.name}</h3>
-                                        <span className="happening-date">
-                                            {new Date(item.date).toLocaleDateString('en-US', {
-                                                month: 'long',
-                                                day: 'numeric',
-                                                year: 'numeric',
-                                            })}
-                                        </span>
-                                    </div>
-                                </>
-                            );
+                                        <div className="happening-content">
+                                            <h3>{title}</h3>
+                                            <span className="happening-date">
+                                                {new Date(item.date).toLocaleDateString('en-US', {
+                                                    month: 'long',
+                                                    day: 'numeric',
+                                                    year: 'numeric',
+                                                })}
+                                            </span>
+                                        </div>
+                                    </>
+                                );
 
-                            return (
-                                <SwiperSlide key={item.slug || idx}>
-                                    <div className="content">
-                                        {href ? (
-                                            <>
-                                                {content}
-                                                <Link
-                                                    className="streched_link"
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    href={href}
-                                                />
-                                            </>
-                                        ) : (
-                                            content
-                                        )}
-                                    </div>
-                                </SwiperSlide>
-                            );
-                        })}
-                    </Swiper>
+                                return (
+                                    <SwiperSlide key={item.slug || idx}>
+                                        <div className="content">
+                                            {videoUrl ? (
+                                                <>
+                                                    {content}
+                                                    <a
+                                                        data-fancybox="video"
+                                                        href={videoUrl}
+                                                        className="streched_link"
+                                                        aria-label={`Play ${title}`}
+                                                    />
+                                                </>
+                                            ) : href ? (
+                                                <>
+                                                    {content}
+                                                    <Link
+                                                        className="streched_link"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        href={href}
+                                                    />
+                                                </>
+                                            ) : (
+                                                content
+                                            )}
+                                        </div>
+                                    </SwiperSlide>
+                                );
+                            })}
+                        </Swiper>
+                    </FancyboxWrapper>
                 </div>
             )}
 

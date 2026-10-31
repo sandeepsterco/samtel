@@ -6,6 +6,10 @@
 
 body.body-locked { overflow: hidden; }
 
+.fancybox__container{
+    z-index: 9999!important;
+}
+
 .swiper_custom_next,
 .swiper_custom_prev{
     background-color: var(--color-c8);
