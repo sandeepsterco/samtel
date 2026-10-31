@@ -175,7 +175,7 @@ ul.media-dropdown li a{position: relative;}
 ========================================= */
 
 .who-mega-wrapper {
-    padding: 8rem 0 13rem;
+    padding: 4rem 0 13rem;
     display: grid;
     grid-template-columns: 60fr 41.5fr 46fr;
     gap: 9rem;
@@ -400,7 +400,7 @@ border-bottom: 1px solid #c9c9c9f2;
 ========================================= */
 
 .what-mega-wrapper {
-    padding: 8rem 0 13rem;
+    padding: 4rem 0 13rem;
     display: grid;
     grid-template-columns: 46.5fr 38fr 38fr 38fr;
     gap: 3rem;
@@ -519,7 +519,7 @@ content: "›";
 .what-card .mega-arrow{}
 
 .product-mega-wrapper {
-    padding: 8rem 0 13rem;
+    padding: 4rem 0 13rem;
     display: grid;
 }
 .product-top-menu {

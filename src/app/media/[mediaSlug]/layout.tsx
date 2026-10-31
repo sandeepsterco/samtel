@@ -3,7 +3,7 @@ import InnerSection from "@/components/common/innerSection/InnerSection";
 import { apiFetch } from "@/lib/api";
 import { notFound } from "next/navigation";
 import '@/styles/inner.css'
-import { createPageMetadata } from "@/lib/metadata";
+import { getPageSEO } from "@/lib/seo";
 import type { Metadata } from "next";
 
 type PageProps = {
@@ -13,17 +13,20 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { mediaSlug } = await params;
-    const { data, error } = await apiFetch(`cms/${mediaSlug}`);
+    const seo = await getPageSEO(`media/${mediaSlug}`);
 
-    if (error || !data?.status) {
-        return createPageMetadata(null, "Media", "Explore media and updates from Samtel Group.");
-    }
-
-    return createPageMetadata(
-        data?.data,
-        "Media",
-        "Explore media and updates from Samtel Group.",
-    );
+    return {
+        title: seo.title,
+        description: seo.description,
+        keywords: seo.keywords,
+        alternates: seo.alternates,
+        robots: seo.robots,
+        openGraph: seo.openGraph
+            ? {
+                  ...seo.openGraph,
+              }
+            : undefined,
+    };
 }
 
 export default async function MediaDetailLayout({ children, params }: PageProps) {

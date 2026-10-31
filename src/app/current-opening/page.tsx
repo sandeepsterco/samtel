@@ -1,11 +1,23 @@
 import KekaJobs from "@/components/career/KekaJobs";
-import { createPageMetadata } from "@/lib/metadata";
+import { getPageSEO } from "@/lib/seo";
+import type { Metadata } from "next";
 
-export const metadata = createPageMetadata(
-  null,
-  "Current Openings",
-  "Explore current job openings at Samtel Group and find opportunities to grow your career.",
-);
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSEO("current-opening");
+
+  return {
+    title: seo.title,
+    description: seo.description,
+    keywords: seo.keywords,
+    alternates: seo.alternates,
+    robots: seo.robots,
+    openGraph: seo.openGraph
+      ? {
+          ...seo.openGraph,
+        }
+      : undefined,
+  };
+}
 
 export default function CurrentOpeningPage() {
   return (

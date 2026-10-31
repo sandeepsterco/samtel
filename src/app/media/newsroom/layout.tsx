@@ -3,21 +3,24 @@ import { apiFetch } from "@/lib/api";
 
 import '@/styles/inner.css'
 import { notFound } from "next/navigation";
-import { createPageMetadata } from "@/lib/metadata";
+import { getPageSEO } from "@/lib/seo";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
-    const { data, error } = await apiFetch(`cms/newsroom`);
+    const seo = await getPageSEO("media/newsroom");
 
-    if (error || !data?.status) {
-        return createPageMetadata(null, "Newsroom", "Read the latest news and updates from Samtel Group.");
-    }
-
-    return createPageMetadata(
-        data?.data,
-        "Newsroom",
-        "Read the latest news and updates from Samtel Group.",
-    );
+    return {
+        title: seo.title,
+        description: seo.description,
+        keywords: seo.keywords,
+        alternates: seo.alternates,
+        robots: seo.robots,
+        openGraph: seo.openGraph
+            ? {
+                  ...seo.openGraph,
+              }
+            : undefined,
+    };
 }
 
 export default async function DynamicPageLayout({ children }: { children: React.ReactNode }) {

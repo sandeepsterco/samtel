@@ -5,13 +5,25 @@ import Sustainability from "@/components/homepage/sustainability/Sustainability"
 import Technology from "@/components/homepage/technology/Technology";
 import WhoWe from "@/components/homepage/whoWe/WhoWe";
 import { apiFetch } from "@/lib/api";
-import { createPageMetadata } from "@/lib/metadata";
+import { getPageSEO } from "@/lib/seo";
+import type { Metadata } from "next";
 
-export const metadata = createPageMetadata(
-  null,
-  "Homepage",
-  "Discover Samtel Group, its product solutions, technology, people, sustainability initiatives, and latest news.",
-);
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSEO("home");
+
+  return {
+    title: seo.title,
+    description: seo.description,
+    keywords: seo.keywords,
+    alternates: seo.alternates,
+    robots: seo.robots,
+    openGraph: seo.openGraph
+      ? {
+          ...seo.openGraph,
+        }
+      : undefined,
+  };
+}
 
 export default async function Home() {
   const {data, error} = await apiFetch(`home-page`);

@@ -4,25 +4,27 @@ import { apiFetch } from "@/lib/api";
 import './leadership-detail.css'
 import '@/styles/inner.css'
 import Breadcrumbs from "@/components/common/breadcrumbs/Breadcrumbs";
-import { createPageMetadata } from "@/lib/metadata";
+import { getPageSEO } from "@/lib/seo";
 import type { Metadata } from "next";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { slug } = await params;
-    const { data, error } = await apiFetch(`leadership/${slug}`);
-    const leader = data?.leadership?.data;
+    const seo = await getPageSEO(`leadership/${slug}`);
 
-    if (error || !data?.status) {
-        return createPageMetadata(null, "Leadership", "Meet the Samtel Group leadership team.");
-    }
-
-    return createPageMetadata(
-        leader,
-        leader?.name || leader?.title || "Leadership",
-        "Meet the Samtel Group leadership team.",
-    );
+    return {
+        title: seo.title,
+        description: seo.description,
+        keywords: seo.keywords,
+        alternates: seo.alternates,
+        robots: seo.robots,
+        openGraph: seo.openGraph
+            ? {
+                  ...seo.openGraph,
+              }
+            : undefined,
+    };
 }
 
 export default async function LeadershipDetailPage({params}:PageProps){
