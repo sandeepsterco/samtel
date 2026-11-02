@@ -126,15 +126,10 @@ export default function Leaderships({
                     dangerouslySetInnerHTML={{ __html: first.message }}
                   />
                 )}
-                {/* <p>With over two decades of experience in aerospace, defence, and advanced technologies, Puneet Kaura leads Samtel Avionics' growth and transformation, driving innovation, indigenous capability development, and expansion across defence electronics, avionics, railways, space, UAVs, and emerging strategic domains.
-</p> */}
-                <h2 className="fade-up" data-delay="0.3" data-duration="2.3">
-                  {first.name}
-                </h2>
+               
+                <h2 className="fade-up" data-delay="0.3" data-duration="2.3" dangerouslySetInnerHTML={{ __html: first.name }} />
                 {first.designation && (
-                  <h3 className="fade-up" data-delay="0.3" data-duration="3">
-                    {first.designation}
-                  </h3>
+                  <h3 className="fade-up" data-delay="0.3" data-duration="3" dangerouslySetInnerHTML={{ __html: first.designation }} />
                 )}
 
                 {first.slug && (
@@ -175,16 +170,20 @@ export default function Leaderships({
                     loading="lazy"
                   />
                 </figure>
-                <div className="ledrsp_txt">
-                  <div className="ledrsp_txt_lft">
-                    <h5>{item.name}</h5>
-                    {item.designation && <p>{item.designation}</p>}
-                  </div>
+                <div className="ledrsp_content">
+                  <div className="ledrsp_txt">
+                    <div className="ledrsp_txt_lft">
+                      <h5 dangerouslySetInnerHTML={{ __html: item.name }} />
+                      {item.designation && (
+                        <p dangerouslySetInnerHTML={{ __html: item.designation }} />
+                      )}
+                    </div>
 
-                  <div className="ledrsp_right">
-                    <span className="web_btn" aria-label="View Profile">
-                      <ArrowIcon />
-                    </span>
+                    <div className="ledrsp_right">
+                      <span className="web_btn" aria-label="View Profile">
+                        <ArrowIcon />
+                      </span>
+                    </div>
                   </div>
                 </div>
                 {item.slug && (

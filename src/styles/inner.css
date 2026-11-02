@@ -286,7 +286,8 @@
 .ledrsp_bx figure img{ transition: transform 0.6s; }
 .ledrsp_bx:hover img{ transform: scale(1.06); }
 
-.ledrsp_txt {max-height: 16rem; padding: 4.2rem 3.6rem; position: relative; display: flex; justify-content: space-between;position: relative; }
+/* .ledrsp_content{height:100%;} */
+.ledrsp_txt {min-height: 26rem; padding: 4.2rem 3.6rem; position: relative; display: flex; justify-content: space-between;position: relative; height: 100%;}
 .ledrsp_txt_lft h5{ font: var(--font-24); color: var(--color-30); }
 .ledrsp_txt_lft p{ font: var(--font-16); }
 .ledrsp_bx:hover .web_btn{ background: var(--color-07); color: var(--color-white); border-color: var(--color-2a); }
@@ -340,7 +341,7 @@
 
 @media (max-width:1920px) {    
 .leadership_detail { margin-right: 12rem; padding-top: 16rem; }
-.lead_right { margin-top: -25rem; }
+.lead_right { margin-top: -23rem; }
 .ledrsp_txt_lft p { font: var(--font-18); }
 .ledrsp_txt { gap: 2rem; }
 .leadership { padding-block: 4rem 8rem; }
@@ -375,7 +376,7 @@
 
 }
 @media (max-width:1499px) {    
-.ledrsp_txt { padding: 3.2rem 2.6rem; }
+.ledrsp_txt { padding: 3.2rem 2.6rem; min-height: 19rem;}
 .web_btn { width: 3.8rem; height: 3.4rem; padding: 0.8rem; }
 .leadership_detail { margin-right: 7rem; padding-top: 6rem; }
 .lead_right{padding-inline: 9.8rem 12.8rem;}
@@ -446,6 +447,8 @@
 .leadership_detail { padding-top: 3.5rem; }
 .leadership_detail p { margin-bottom: 2rem; }
 .leadership { padding-block: 5rem 3rem; }
+
+.ledrsp_txt{min-height:unset;}
 
 }
 @media (max-width:575px) {
