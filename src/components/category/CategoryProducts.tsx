@@ -5,21 +5,38 @@ import { KeyboardEvent as ReactKeyboardEvent, useEffect, useState } from "react"
 import PaginationWrapper from "../common/pagination/PaginationWrapper";
 import Link from "next/link";
 import { BASE_URL } from "@/config/config";
+import { Fancybox } from "@fancyapps/ui";
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
+import { Autoplay, Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 interface MappingItemInterface {
     title?: string;
     description?: string;
 }
 
+interface ProductMappingImage {
+    image?: string;
+    caption?: string;
+}
+
+interface ProductImage {
+    src: string;
+    caption?: string;
+}
+
 interface ProductInterface{
     name:string;
     image?:string;
+    image_caption?:string;
     ['product-category']:string;
     slug:string;
     id:number;
     description?:string;
     mapping_items?:{
         lists?:MappingItemInterface[];
+        images?:ProductMappingImage[];
     };
 }
 
@@ -34,11 +51,39 @@ interface CategoryPropsInterface{
 
 const placeholderImage = "/assets/images/placeholders/product.webp";
 
+function getProductImages(product: ProductInterface): ProductImage[] {
+    const seen = new Set<string>();
+    const images: ProductImage[] = [];
+
+    const addImage = (src?: string, caption?: string) => {
+        if (!src || seen.has(src)) return;
+        seen.add(src);
+        images.push({ src, caption });
+    };
+
+    addImage(product.image, product.image_caption);
+    (product.mapping_items?.images ?? []).forEach((item) => addImage(item.image, item.caption));
+
+    return images;
+}
+
 export default function CategoryProducts({title, data}:CategoryPropsInterface) {
     const products = data?.data ?? [];
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [modalOpen, setModalOpen] = useState(false);
     const selectedProduct = products[selectedIndex];
+    const selectedProductImages = selectedProduct ? getProductImages(selectedProduct) : [];
+
+    const openImageGallery = (startIndex: number) => {
+        Fancybox.show(
+            selectedProductImages.map(({ src, caption }) => ({
+                src,
+                type: "image",
+                caption: caption || selectedProduct?.name,
+            })),
+            { startIndex },
+        );
+    };
 
     useEffect(() => {
         if (!modalOpen) return;
@@ -129,14 +174,62 @@ export default function CategoryProducts({title, data}:CategoryPropsInterface) {
                             <div className="product_modal_grid">
                                 <div className="product_image">
                                     <figure>
-                                        <Image
-                                            src={selectedProduct.image || placeholderImage}
-                                            className="img-fluid w-100"
-                                            width={850}
-                                            height={850}
-                                            alt={selectedProduct.name}
-                                            priority
-                                        />
+                                        <Swiper
+                                            key={selectedProduct.id}
+                                            className="product-image-swiper"
+                                            modules={[Autoplay, Navigation]}
+                                            slidesPerView={1}
+                                            loop={selectedProductImages.length > 1}
+                                            autoplay={selectedProductImages.length > 1 ? {
+                                                delay: 3000,
+                                                disableOnInteraction: false,
+                                            } : false}
+                                            navigation={{
+                                                nextEl: ".swiper_custom_next",
+                                                prevEl: ".swiper_custom_prev",
+                                            }}
+                                        >
+                                            {(selectedProductImages.length
+                                                ? selectedProductImages
+                                                : [{ src: placeholderImage, caption: undefined }]
+                                            ).map((item, index) => (
+                                                <SwiperSlide key={`${item.src}-${index}`}>
+                                                    <Image
+                                                        src={item.src}
+                                                        className="img-fluid w-100"
+                                                        width={850}
+                                                        height={850}
+                                                        alt={`${selectedProduct.name}${selectedProductImages.length > 1 ? ` - image ${index + 1}` : ""}`}
+                                                        priority={index === 0}
+                                                    />
+                                                    {item.caption && (
+                                                        <div className="image_title">
+                                                            <h6>{item.caption}</h6>
+                                                        </div>
+                                                    )}
+                                                    {selectedProductImages.length > 0 && (
+                                                        <button
+                                                            type="button"
+                                                            className="product-image-zoom"
+                                                            aria-label={`Zoom image ${index + 1} of ${selectedProduct.name}`}
+                                                            onClick={() => openImageGallery(index)}
+                                                        >
+                                                            <Image src="/assets/icons/zoombtn.svg" alt="" width={39} height={39} />
+                                                        </button>
+                                                    )}
+                                                </SwiperSlide>
+                                            ))}
+                                        </Swiper>
+                                        {selectedProductImages.length > 1 && (
+                                            <>
+                                                <button type="button" className="swiper_custom_prev" aria-label="Previous image">
+                                                    <Image src="/assets/icons/left-arrow.svg" alt="" width={52} height={52} />
+                                                </button>
+                                                <button type="button" className="swiper_custom_next" aria-label="Next image">
+                                                    <Image src="/assets/icons/right-arrow-white.svg" alt="" width={52} height={52} />
+                                                </button>
+                                            </>
+                                        )}
                                     </figure>
                                 </div>
                                 <div>
