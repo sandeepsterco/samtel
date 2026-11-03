@@ -6,7 +6,7 @@
 .happenings-slider { overflow: visible !important; width: 100%; }
 .happenings-section .swiper-slide { height: auto; display: flex; flex-direction: column; }
 .happening-image { width: 100%; aspect-ratio: 1.45 / 1; overflow: hidden; position: relative; }
-.happening-image img { width: 100%; height: 100%; object-fit: cover; }
+.happening-image img { width: 100%; height: 100%; object-fit: cover; object-position: top;}
 .happening-video-play { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; }
 .happening-video-play img { width: 6rem; height: auto; filter: brightness(0) invert(1); }
 .happening-content { margin-block: 3rem 0rem; }
