@@ -35,8 +35,8 @@ export default function MegaMenu({
     <div
       className={`mega-menu ${show ? "show" : ""}`}
       // style={{ top: topOffset }}
-      onMouseEnter={show ? onMouseEnter : undefined}
-  onMouseLeave={show ? onMouseLeave : undefined}
+  //     onMouseEnter={show ? onMouseEnter : undefined}
+  // onMouseLeave={show ? onMouseLeave : undefined}
     >
       <div className="container-full">
         <div className="product-mega-wrapper">
