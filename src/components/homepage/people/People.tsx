@@ -62,7 +62,7 @@ export default function People({ data }: PeoplePropsInterface) {
                 scrollTrigger: {
                     trigger: section,
                     start: 'top top',
-                    end: '+=350%',
+                    end: '+=150%',
                     scrub: 1,
                     pin: true,
                     anticipatePin: 1,
@@ -90,6 +90,15 @@ export default function People({ data }: PeoplePropsInterface) {
                     autoAlpha: 1,
                     ease: 'none'
                 }, 0)
+                   .to(
+  ".people_panel .font_title",
+  {
+    autoAlpha: 0,
+    duration: 0.05,
+    ease: "none",
+  },
+  0.45
+)
 
             peopleTl.addLabel('textShow')
 

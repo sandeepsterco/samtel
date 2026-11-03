@@ -298,7 +298,7 @@
 
 /* journey */
 .journey-sec{
-    padding-block: 15rem;
+    padding-block: 15rem 0;
     position: relative;
 }
 .journey-txt {
