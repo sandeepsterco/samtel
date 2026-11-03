@@ -15,7 +15,7 @@ import Providers from "@/lib/Providers";
 import AosProvider from "@/components/AosProvider";
 
 const funnelSans = Funnel_Sans({
-  subsets: ['latin'],
+  subsets: ['latin'], 
   variable: '--font-funnel'
 })
 
