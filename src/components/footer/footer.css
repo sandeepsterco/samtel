@@ -21,7 +21,7 @@
 /* ============DONT WRRITE ANY CSS HERE========== */
 
 
-footer{background: var(--color-16); padding-block:5rem 2rem;}
+footer{background: var(--color-16); padding-block:5rem 4rem;}
 ul{padding:0; list-style: none; margin:0;}
 .footer_grid { display: grid; grid-template-columns: 56% 41.5%; gap: 3rem;}
 .footer_left ul {display: flex;gap: 4rem;flex-wrap: wrap;}
@@ -38,6 +38,9 @@ ul{padding:0; list-style: none; margin:0;}
 .copyright a:hover, .footer_left a:hover{color:var(--color-c8);}
 
 
+@media (max-width:1334px) {
+   .footer_left ul{gap: 3rem;}
+}
 @media (max-width:991px) {
 footer { padding-block: 6.7rem 9.3rem; }
 .footer_grid { grid-template-columns: 100%; gap: 5rem; }
