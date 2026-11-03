@@ -1,4 +1,6 @@
+
 "use client";
+
 import { BASE_URL } from "@/config/config";
 import Hamburger from "./Hamburger";
 import Image from "next/image";
@@ -6,14 +8,18 @@ import Link from "next/link";
 import { useRef, useEffect, useCallback, useState } from "react";
 import type { ReactNode } from "react";
 import MegaMenu from "./megaMenu/MegaMenu";
-import { isIndustriesMegaMenu, type HeaderMenuItem, type ProductCategory, type SidebarItem } from "./Header";
+import {
+  isIndustriesMegaMenu,
+  type HeaderMenuItem,
+  type ProductCategory,
+  type SidebarItem,
+} from "./Header";
 import { useHeader } from "./HeaderContext";
 import "./header.css";
 import { usePathname } from "next/navigation";
 import type { InfoItem } from "@/lib/info";
 
-const CLOSE_DELAY = 0; 
-
+const CLOSE_DELAY = 200;
 
 export default function HeaderData({
   headerData,
@@ -28,9 +34,12 @@ export default function HeaderData({
   productCategoryData: ProductCategory[];
   infoData: InfoItem[];
 }) {
-  const {showMegaMenu, setShowMegaMenu} = useHeader()
+  const { showMegaMenu, setShowMegaMenu } = useHeader();
+
   const [activeMegaMenuName, setActiveMegaMenuName] = useState<string | null>(null);
+
   const closeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const pathname = usePathname();
 
   const clearCloseTimer = useCallback(() => {
@@ -40,36 +49,51 @@ export default function HeaderData({
     }
   }, []);
 
-  const openMenu = useCallback((name: string) => {
-    clearCloseTimer();
-    setActiveMegaMenuName(name);
-    setShowMegaMenu(true);
-  }, [clearCloseTimer, setShowMegaMenu]);
+  // Open menu ONLY from actual navigation item
+  const openMenu = useCallback(
+    (name: string) => {
+      clearCloseTimer();
+      setActiveMegaMenuName(name);
+      setShowMegaMenu(true);
+    },
+    [clearCloseTimer, setShowMegaMenu]
+  );
 
+  // Delayed close allows mouse movement from menu item to panel
   const closeMenu = useCallback(() => {
     clearCloseTimer();
-    setActiveMegaMenuName(null);
+
+    closeTimeout.current = setTimeout(() => {
+      setActiveMegaMenuName(null);
       setShowMegaMenu(false);
+      closeTimeout.current = null;
+    }, CLOSE_DELAY);
   }, [clearCloseTimer, setShowMegaMenu]);
 
+  // Immediate close
   const closeMenuNow = useCallback(() => {
     clearCloseTimer();
     setActiveMegaMenuName(null);
     setShowMegaMenu(false);
   }, [clearCloseTimer, setShowMegaMenu]);
 
+  // Close on route change
   useEffect(() => {
-    return () => clearTimeout(setTimeout(closeMenuNow, 0));
+    closeMenuNow();
   }, [pathname, closeMenuNow]);
 
+  // Escape key
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeMenuNow();
     };
+
     document.addEventListener("keydown", onKey);
+
     return () => document.removeEventListener("keydown", onKey);
   }, [closeMenuNow]);
 
+  // Clear pending timer on unmount
   useEffect(() => clearCloseTimer, [clearCloseTimer]);
 
   return (
@@ -93,14 +117,15 @@ export default function HeaderData({
             </Link>
           </div>
 
-          
           <nav className="main-nav">
             <ul>
               {headerData.map((item, idx) => {
-                const isClickableLink = !!item.slug && item.slug !== '#';
+                const isClickableLink = !!item.slug && item.slug !== "#";
                 const megaMenuName = item.mega_menu?.name;
                 const hasMegaMenu = !!item.mega_menu?.content && !!megaMenuName;
-                const isActive = showMegaMenu && activeMegaMenuName === megaMenuName;
+
+                const isActive =
+                  showMegaMenu && activeMegaMenuName === megaMenuName;
 
                 return (
                   <li
@@ -114,9 +139,13 @@ export default function HeaderData({
                     }}
                   >
                     {isClickableLink ? (
-                      <Link href={`${BASE_URL}${item.slug}`}>{item.title}</Link>
+                      <Link href={`${BASE_URL}${item.slug}`}>
+                        {item.title}
+                      </Link>
                     ) : (
-                      <Link className="" href={'#'}>{item.title}</Link>
+                      <Link href="#">
+                        {item.title}
+                      </Link>
                     )}
                   </li>
                 );
@@ -130,12 +159,16 @@ export default function HeaderData({
 
       {headerData.map((item, idx) => {
         const megaMenuName = item.mega_menu?.name;
+
         if (!item.mega_menu?.content || !megaMenuName) {
           return null;
         }
 
         const isIndustriesMenu = isIndustriesMegaMenu(megaMenuName);
-        const isActive = showMegaMenu && activeMegaMenuName === megaMenuName;
+
+        const isActive =
+          showMegaMenu && activeMegaMenuName === megaMenuName;
+
         if (!isIndustriesMenu && !dropdownContents[idx]) {
           return null;
         }
@@ -143,8 +176,21 @@ export default function HeaderData({
         return (
           <div
             key={megaMenuName}
-            className={`site-dropdown-panel ${isIndustriesMenu ? "industry-dropdown-panel" : "parser-dropdown-panel"}${isActive ? " show" : ""}`}
-            onMouseEnter={() => openMenu(megaMenuName)}
+            className={`site-dropdown-panel ${
+              isIndustriesMenu
+                ? "industry-dropdown-panel"
+                : "parser-dropdown-panel"
+            }${isActive ? " show" : ""}`}
+
+            // IMPORTANT:
+            // Panel hover cannot open a closed menu.
+            // It only cancels pending close when this panel is already active.
+            onMouseEnter={() => {
+              if (showMegaMenu && activeMegaMenuName === megaMenuName) {
+                clearCloseTimer();
+              }
+            }}
+
             onMouseLeave={closeMenu}
           >
             {isIndustriesMenu ? (
@@ -153,7 +199,11 @@ export default function HeaderData({
                 categoryData={productCategoryData}
                 topOffset={0}
                 infoData={infoData}
-                onMouseEnter={() => openMenu(megaMenuName)}
+                onMouseEnter={() => {
+                  if (showMegaMenu && activeMegaMenuName === megaMenuName) {
+                    clearCloseTimer();
+                  }
+                }}
                 onMouseLeave={closeMenu}
                 onClose={closeMenuNow}
               />
@@ -163,7 +213,6 @@ export default function HeaderData({
           </div>
         );
       })}
-
     </>
   );
 }
