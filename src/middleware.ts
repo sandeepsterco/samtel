@@ -47,6 +47,33 @@ function buildCsp(nonce: string, isDev: boolean): string {
     .trim();
 }
 
+/**
+ * Converts the `new_url` returned by the API into an internal path.
+ * Accepts absolute URLs ("https://www.site.com/careers") and
+ * relative values ("/careers", "careers").
+ * Returns null if the target points to a different site.
+ */
+function toInternalTarget(
+  newUrl: string,
+  request: NextRequest
+): { pathname: string; search: string } | null {
+  try {
+    // For relative values, resolve against the current origin
+    const base = request.nextUrl.origin + '/';
+    const target = new URL(newUrl.trim(), base);
+
+    // Treat www and non-www as the same site
+    const strip = (h: string) => h.toLowerCase().replace(/^www\./, '');
+    if (strip(target.hostname) !== strip(request.nextUrl.hostname)) {
+      return null; // external redirect, reject
+    }
+
+    return { pathname: target.pathname, search: target.search };
+  } catch {
+    return null;
+  }
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const isDev = process.env.NODE_ENV === 'development';
@@ -62,7 +89,8 @@ export async function middleware(request: NextRequest) {
     request: { headers: requestHeaders },
   });
 
-  const slug = pathname.replace(/^\/+/, '');
+  // Lowercase so "/Careers.html" matches the same redirect as "/careers.html"
+  const slug = pathname.replace(/^\/+/, '').toLowerCase();
   if (!slug) {
     response.headers.set('x-pathname', pathname);
     return response;
@@ -92,13 +120,14 @@ export async function middleware(request: NextRequest) {
         'new_url' in json.data &&
         typeof json.data.new_url === 'string'
       ) {
-        const newUrl = json.data.new_url;
-        const redirectUrl = new URL(`/${newUrl.replace(/^\/+/, '')}`, request.url);
+        const target = toInternalTarget(json.data.new_url, request);
 
-        if (
-          redirectUrl.origin === request.nextUrl.origin &&
-          redirectUrl.pathname !== pathname
-        ) {
+        if (target && target.pathname !== pathname) {
+          // Clone keeps the host the user actually requested (www / non-www)
+          const redirectUrl = request.nextUrl.clone();
+          redirectUrl.pathname = target.pathname;
+          redirectUrl.search = target.search;
+
           const redirectResponse = NextResponse.redirect(redirectUrl, 301);
           redirectResponse.headers.set('x-pathname', pathname);
           return redirectResponse;
@@ -117,5 +146,4 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
-
 };
