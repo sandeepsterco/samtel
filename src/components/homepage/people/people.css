@@ -52,7 +52,10 @@
 
 /* =========DONT UPDATE============= */
 
-
+.people_panel .font_title {
+    opacity: 1;
+    visibility: visible;
+}
 .people_panel { height:90vh; }
 .people_panel .font_title { text-align: center; padding: 4rem 0 1rem; }
 .line-wrap2 {width: 0.4rem;height: 12rem;background: #ddd;margin: 2rem auto 4rem;position: relative;}

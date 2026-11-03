@@ -177,7 +177,7 @@ ul.media-dropdown li a{position: relative;}
 ========================================= */
 
 .who-mega-wrapper {
-    padding: 4rem 0 13rem;
+    padding: 4rem 0 3rem;
     display: grid;
     grid-template-columns: 60fr 41.5fr 46fr;
     gap: 9rem;
@@ -362,14 +362,15 @@ border-bottom: 1px solid #c9c9c9f2;
     width: 100%;
 }
 .sustainability-card figure::before{
-    background: #0000006e 0% 0% no-repeat padding-box;
-    opacity: 0.7;
-    width: 100%;
-    content: '';
+    content: "";
     position: absolute;
-    left: 0;
-    height: 7rem;
     bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 14rem;
+    background: linear-gradient(180deg, #00000000 0%, #000000 100%);
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 .sustainability-bottom {
@@ -402,7 +403,7 @@ border-bottom: 1px solid #c9c9c9f2;
 ========================================= */
 
 .what-mega-wrapper {
-    padding: 4rem 0 13rem;
+    padding: 4rem 0 3rem;
     display: grid;
     grid-template-columns: 46.5fr 38fr 38fr 38fr;
     gap: 3rem;
@@ -521,7 +522,7 @@ content: "›";
 .what-card .mega-arrow{}
 
 .product-mega-wrapper {
-    padding: 4rem 0 13rem;
+    padding: 4rem 0 3rem;
     display: grid;
 }
 .product-top-menu {

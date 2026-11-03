@@ -64,7 +64,7 @@
 .milestone-phase { position: relative; padding: 0 0 5rem; }
 .milestone-phase:first-child { padding-top: 2rem; }
 .milestone-phase+.milestone-phase { padding-top: 4rem; }
-.milestone-phase+.milestone-phase+.milestone-phase { padding-bottom: 60rem; }
+.milestone-phase+.milestone-phase+.milestone-phase { padding-bottom: 44rem; }
 .timeline { position: relative; width: min(720px, 90vw); margin: 0 auto; padding: 1.5rem 0 8rem; }
 .timeline-event { position: relative; z-index: 5; min-height: 28rem; margin-bottom: 1.5rem; opacity: 0; will-change: opacity, transform; }
 .event-visual { position: absolute; top: 4.7rem; width: 50%; height: 14.8rem; }
@@ -89,15 +89,23 @@
 .event-copy h3 { color: var(--color-c8); font: var(--font-30); line-height: 1; font-weight: 800; margin-bottom: 2rem; }
 .mobile-milestone{display: none;}
 .event-copy p strong{font-weight: 700;}
-
+@media (min-width: 2545px) {
+    .milestone-phase + .milestone-phase + .milestone-phase {
+         padding-bottom: 60rem;
+    }
+}
 @media (max-width: 1920px) {
 .milestone-sticky-heading { margin-top: 5.8rem; }
 .event-left .event-copy { right: calc(62% + 43px); }
 .event-right .event-copy { left: calc(63% + 40px); }
 .milestone_slider { margin-left: -6rem; }
-
 }
-
+@media (max-width: 1919px) {
+    
+    .milestone-phase + .milestone-phase + .milestone-phase {
+            padding-bottom: 33rem;
+       }
+}
 @media (max-width: 1699px) {
 .event-right .event-copy { left: calc(57% + 57px); }
 .event-left .event-copy { right: calc(56% + 56px); }
@@ -105,14 +113,16 @@
 .milestone_grid { grid-template-columns: 66rem auto; }
 .event-image{ width: 12rem; height: 12rem;}
 .timeline-event { min-height: 24rem; }
-
+.milestone-phase + .milestone-phase + .milestone-phase {
+            padding-bottom: 40rem;
+       }
 
 
 }
 @media (max-width: 1599px) {
 
 .milestone_grid {grid-template-columns: 60rem auto;}
-.milestone-phase { padding: 0 0 50rem; }
+/* .milestone-phase { padding: 0 0 50rem; } */
 }
 
 @media (max-width: 1499px) {
