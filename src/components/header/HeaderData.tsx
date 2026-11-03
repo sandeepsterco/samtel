@@ -12,7 +12,7 @@ import "./header.css";
 import { usePathname } from "next/navigation";
 import type { InfoItem } from "@/lib/info";
 
-const CLOSE_DELAY = 350; 
+const CLOSE_DELAY = 0; 
 
 
 export default function HeaderData({
@@ -48,10 +48,8 @@ export default function HeaderData({
 
   const closeMenu = useCallback(() => {
     clearCloseTimer();
-    closeTimeout.current = setTimeout(() => {
-      setActiveMegaMenuName(null);
+    setActiveMegaMenuName(null);
       setShowMegaMenu(false);
-    }, CLOSE_DELAY);
   }, [clearCloseTimer, setShowMegaMenu]);
 
   const closeMenuNow = useCallback(() => {
@@ -61,8 +59,7 @@ export default function HeaderData({
   }, [clearCloseTimer, setShowMegaMenu]);
 
   useEffect(() => {
-    const timeout = setTimeout(closeMenuNow, 0);
-    return () => clearTimeout(timeout);
+    return () => clearTimeout(setTimeout(closeMenuNow, 0));
   }, [pathname, closeMenuNow]);
 
   useEffect(() => {

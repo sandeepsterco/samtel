@@ -287,37 +287,13 @@ export default function ProductSolutionsClient({
                     <div className="product_modal_overlay" onClick={() => setModalOpen(false)} />
                     <div className="product_modal_content" role="dialog" aria-modal="true" aria-labelledby="product-modal-title">
                         <div className="product_modal_close">
-                            <button
-                                type="button"
-                                className=""
-                                aria-label="Close product details"
-                                onClick={() => setModalOpen(false)}
-                                style={{
-                                    padding: "10px 24px",
-                                    backgroundColor: "#c83030",
-                                    color: "#fff",
-                                    border: "none",
-                                    borderRadius: "6px",
-                                    cursor: "pointer",
-                                }}
-                            >
-                                Back
+                            <button type="button" aria-label="Close product details" onClick={() => setModalOpen(false)}>
+                                <Image src="/assets/icons/close-icon.svg" alt="" width={31} height={31} />
                             </button>
                         </div>
                         
                         <div className="container-full">
-                            <div className="breadcrumb-sec popup">
-                                <div className="col-lg-10 mx-auto">
-                                    <nav aria-label="Breadcrumb">
-                                        <ol className="breadcrumb">
-                                            <li className="breadcrumb-item">Products &amp; Solutions</li>
-                                            <li className="breadcrumb-item">{activeCategory?.name}</li>
-                                            <li className="breadcrumb-item active" aria-current="page">{selectedProduct.name}</li>
-                                        </ol>
-                                    </nav>
-                                </div>
-                            </div>
-
+                            
                             <div className="product_modal_grid">
                                 <div className="product_image">
                                     <figure>
@@ -385,8 +361,18 @@ export default function ProductSolutionsClient({
                                             
                                     </figure>
                                 </div>
-                                <div className="product_content_main">
-                                    
+
+                                <div>
+                                    <section className="breadcrumb-sec">
+                                        <nav aria-label="Breadcrumb">
+                                            <ol className="breadcrumb">
+                                                <li className="breadcrumb-item">Products &amp; Solutions</li>
+                                                <li className="breadcrumb-item">{activeCategory?.name}</li>
+                                                <li className="breadcrumb-item active" aria-current="page">{selectedProduct.name}</li>
+                                            </ol>
+                                        </nav>
+                                    </section>
+
                                     <div className="product_content">
                                         <h1 className="font45" id="product-modal-title">{selectedProduct.name}</h1>
                                         <div id="modalDynamicBody">

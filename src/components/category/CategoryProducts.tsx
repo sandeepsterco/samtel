@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { KeyboardEvent as ReactKeyboardEvent, useEffect, useState } from "react";
 import PaginationWrapper from "../common/pagination/PaginationWrapper";
+import Link from "next/link";
+import { BASE_URL } from "@/config/config";
 
 interface MappingItemInterface {
     title?: string;
@@ -141,7 +143,9 @@ export default function CategoryProducts({title, data}:CategoryPropsInterface) {
                                     <section className="breadcrumb-sec">
                                         <nav aria-label="Breadcrumb">
                                             <ol className="breadcrumb">
-                                                <li className="breadcrumb-item">Products &amp; Solutions</li>
+                                                <li className="breadcrumb-item">
+                                                    <Link href={`${BASE_URL}industries`}>Industries</Link>
+                                                </li>
                                                 {title && <li className="breadcrumb-item">{title}</li>}
                                                 <li className="breadcrumb-item active" aria-current="page">{selectedProduct.name}</li>
                                             </ol>
