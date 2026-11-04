@@ -54,11 +54,25 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        <Script
+          id="google-tag-manager"
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-P5DJ66QV"
+        />
+
+        <Script id="google-tag-manager-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'GTM-P5DJ66QV');
+          `}
+        </Script>
         <Script id="reset-scroll-position" strategy="beforeInteractive">
           {`if ("scrollRestoration" in window.history) {
-  window.history.scrollRestoration = "manual";
-}
-window.scrollTo({ top: 0, left: 0, behavior: "instant" });`}
+              window.history.scrollRestoration = "manual";
+            }
+          window.scrollTo({ top: 0, left: 0, behavior: "instant" });`}
         </Script>
         <PageTransitionLoader />
         <ScrollToTop />
