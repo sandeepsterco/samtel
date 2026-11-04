@@ -2374,6 +2374,7 @@ br.desktop-break { display: none; }
 .work_ttl .font28 { }
 .prodcut-nav ul li.active a { color: var(--color-c8); }
 .pro_tab { min-width: 0; width: 100%; }
+.side_menu_open{display: none;}
 @media (max-width: 1920px) {
  .prodcut-nav { width: 25rem; margin-left: -28.625rem; }
  }
@@ -2385,11 +2386,58 @@ br.desktop-break { display: none; }
  .uuname_sys1 .unname_lftsec { margin-left: 11rem; }
 .unam_grid { gap: 8.5rem; }
  }
+  
 @media (max-width: 1499px) {
 .uuname_sys1 .unname_lftsec { margin-left: 16rem; }
 .prodcut-nav {width: 17rem; margin-left: -20.625rem; }
 }
+@media (max-width: 1440px) {
+    .products_systems_detail_grd {
+        transition: grid-template-columns 0.5s ease-in-out;
+    }
 
+    /* .products_systems_detail_grd.nav_active {
+        grid-template-columns: 19rem minmax(0, 1fr);
+                width: 100%;
+
+    } */
+
+    .nav_active .pro_tab {
+        min-width: 0;
+        transition: width 0.5s ease-in-out;
+    }
+
+    .prodcut-nav {
+        display: block;
+        /* width: 19rem;
+        margin-left: -23.625rem; */
+        visibility: hidden;
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: margin-left 0.5s ease, transform 0.5s ease,
+                    opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .prodcut-nav.nav-open {
+                /* margin-left: -5.625rem; */
+        visibility: visible;
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* .nav_active {
+        margin-inline:  0 auto;
+    } */
+
+    .side_menu {
+        position: sticky;
+        top: 17rem;
+        z-index: 9;
+        width: auto;
+          transform: translateX(0);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+}
 
 @media (max-width: 1399px) {
  .airborne_systems_grid { gap: 9.5rem; }
@@ -2465,36 +2513,34 @@ br.desktop-break { display: none; }
  .right_airborne_sys2 { width: 60rem; }
 .boder_line .explore_btn { margin-top: 1rem; }
  }
+
 @media (max-width: 1399px) {
  .airb_solutions .airborne_systems_grid2 { grid-template-columns: 42% 50%; }
 .airborne_systems_grid2 .naval_system_box { gap: 5rem; }
 .airborne_systems_detail.naval .airborne_systems_grid { margin-top: 10rem; }
-.prodcut-nav { width: 16rem; margin-left: -18.625rem; }
+/* .prodcut-nav { width: 16rem; margin-left: -18.625rem; } */
+.prodcut-nav {
+            width: 17rem;
+        margin-left: -19.625rem;
+    }
 
 }
+
 @media (max-width: 1299px) {
- .prodcut-nav { width: 18rem; margin-left: -19.625rem; }
 .right_airborne_sys2 { width: 55rem; }
 .boder_line .explore_btn { margin-top: 0rem; }
 .left_airborne_sys2 p:not(:last-child), .right_airborne_sys p:not(:last-child) { margin-bottom: 2rem; }
 .announcements_grid { grid-template-columns: 48.4% auto; gap: 4rem; }
  }
 @media (max-width: 1199px) {
- .products_systems_detail_grd { grid-template-columns: 1fr; }
-.prodcut-nav { margin-left: 0; display: none; }
+ /* .products_systems_detail_grd { grid-template-columns: 1fr; } */
+/* .prodcut-nav { margin-left: 0; display: none; } */
+/* .prodcut-nav { display: none; } */
+.prodcut-nav {
+        width: 18rem;
+        margin-left: -21.625rem;
+    }
 .products_systems_detail { padding-block: 3rem 6rem; }
-.prodcut-nav { display: none; }
-.tab_content_wrapper { display: none }
-.tab_content_wrapper.active { display: block }
-/* Accordion Header Style */
-    .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: #f8f9fa; margin-top: 8px; cursor: pointer; border: 1px solid #e2e8f0; border-radius: 4px; transition: all 0.3s ease; width: 100%; }
-.acc-title { font: var(--font-21); }
-.accordion-header.active { background: var(--color-c8); color: #ffffff; }
-.products_systems_detail h3 { margin-top: 2.3rem; }
-/* Option 1: CSS Pure + and - Icons */
-    .acc-icon::after { content: '+'; font-size: 2.6rem; font-weight: 500; }
-.accordion-header.active .acc-icon::after { content: '−'; /* Minus symbol */ }
-.boder_line .explore_btn { margin-top: 1rem; }
  }
 @media(max-width:1199px) {
  .airborne_systems_grid2 { gap: 8rem; }
@@ -2508,12 +2554,26 @@ br.desktop-break { display: none; }
 .airborne_systems_detail { padding-block: 8rem 14.2rem; }
 .products_systems { padding-block: 10rem; }
 .load_more { margin-top: 10rem; }
+/* .prodcut-nav.nav-open {        display: none;} */
+/* .side_menu{display: none;} */
  }
 /* max-width:1199px end */
 @media(max-width:1099px) {
  .airborne_systems_grid { grid-template-columns: 54.5% 39.7%; }
  }
 @media(max-width:991px) {
+    .side_menu{display: none;}
+    .tab_content_wrapper { display: none }
+.tab_content_wrapper.active { display: block }
+
+/* Accordion Header Style */
+    .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: #f8f9fa; margin-top: 8px; cursor: pointer; border: 1px solid #e2e8f0; border-radius: 4px; transition: all 0.3s ease; width: 100%; }
+.acc-title { font: var(--font-21); }
+.accordion-header.active { background: var(--color-c8); color: #ffffff; }
+.products_systems_detail h3 { margin-top: 2.3rem; }
+    .acc-icon::after { content: '+'; font-size: 2.6rem; font-weight: 500; }
+.accordion-header.active .acc-icon::after { content: '−';  }
+.boder_line .explore_btn { margin-top: 1rem; }
  .accordion-header { padding: 0.6rem 1.8rem; }
 .airborne_systems_grid2 { grid-template-columns: 100%; }
 .naval blockquote.blockquote { margin-bottom: 3rem; }
@@ -2542,6 +2602,7 @@ br.desktop-break { display: none; }
 .product_modal_close { padding-bottom: 4.5rem; }
 .land_tactical_systems_banner .container-full { padding-inline: 4.5rem; }
 .left_airborne_sys { margin-left: 0; }
+
  }
 @media(max-width:768px) {
  .land_tactical_systems_banner .container-full { padding-inline: 1.5rem; }
