@@ -5,8 +5,6 @@ import Link from "next/link";
 export default async function MediaCoverageGrid({ data }: { data: any }) {
   const pageData = data?.[`media-coverage`] ?? [];
 
-  console.log('MediaCoverageGrid data:', pageData);
-
   if (!Array.isArray(pageData) || pageData.length === 0) return null;
 
   return (

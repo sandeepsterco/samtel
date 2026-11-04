@@ -26,8 +26,6 @@ export default function GalleryClient({ items }: { items: GalleryItem[] }) {
     const [activeCardIndex, setActiveCardIndex] = useState(0);
     const swiperRef = useRef<SwiperType | null>(null);
 
-    console.log('data items',items);
-
     const activeItem = items[activeCardIndex];
 
     const openModal = (cardIndex: number) => {

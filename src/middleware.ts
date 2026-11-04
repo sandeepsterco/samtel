@@ -42,6 +42,7 @@ function buildCsp(nonce: string, isDev: boolean): string {
     frame-ancestors 'self';
     object-src 'none';
     base-uri 'self';
+    form-action 'self';
   `
     .replace(/\s{2,}/g, ' ')
     .trim();
@@ -77,17 +78,18 @@ function toInternalTarget(
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const isDev = process.env.NODE_ENV === 'development';
-  const nonce = crypto.randomUUID();
+  const nonce = btoa(crypto.randomUUID());
   const cspHeader = buildCsp(nonce, isDev);
 
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-pathname', pathname);
-  // requestHeaders.set('x-nonce', nonce);
-  // requestHeaders.set('Content-Security-Policy', cspHeader);
+  requestHeaders.set('x-nonce', nonce);
+  requestHeaders.set('Content-Security-Policy', cspHeader);
 
   const response = NextResponse.next({
     request: { headers: requestHeaders },
   });
+  response.headers.set('Content-Security-Policy', cspHeader);
 
   // Lowercase so "/Careers.html" matches the same redirect as "/careers.html"
   const slug = pathname.replace(/^\/+/, '').toLowerCase();
@@ -130,6 +132,7 @@ export async function middleware(request: NextRequest) {
 
           const redirectResponse = NextResponse.redirect(redirectUrl, 301);
           redirectResponse.headers.set('x-pathname', pathname);
+          redirectResponse.headers.set('Content-Security-Policy', cspHeader);
           return redirectResponse;
         }
       }
@@ -138,7 +141,6 @@ export async function middleware(request: NextRequest) {
     console.error('Redirect API error:', err);
   }
 
-  // response.headers.set('Content-Security-Policy', cspHeader);
   response.headers.set('x-pathname', pathname);
 
   return response;
