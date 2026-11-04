@@ -459,7 +459,9 @@ html { font-size: 45.5%; }
 
     .custom_list li{margin-bottom: 1.5rem;}
 }
-
+@media (max-width:3500px) {
+    .product_modal_content .container-full{padding-inline: 10.5rem;}
+}
 @media (max-width:2100px) {
     .container-full{padding-inline: 10.5rem;}
 }
