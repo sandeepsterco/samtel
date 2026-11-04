@@ -185,7 +185,7 @@ export default function ProductSolutionsClient({
                 if (isSectionInView) {
                     // Down Scroll logic
                     if (currentScrollY > lastScrollY.current + 10) {
-                        // Agar user ne manually click kar rakha h, tab tak auto-close mat karo jab tak wo khud nav band na kare ya dobara scroll logic trigger na ho
+                        // If the user has manually opened the nav, don't auto-close it until they close it themselves or the scroll logic is triggered again.
                         if (!userInteracted.current) {
                             setIsNavArrow(true);
                             setIsNavOpen(false);
@@ -218,7 +218,7 @@ export default function ProductSolutionsClient({
     const handleArrowClick = () => {
         setIsNavOpen((prev) => {
             const nextState = !prev;
-            // Jab arrow click karke khola jaye tab userInteracted true karo taaki immediate scroll par close na ho
+            // When the arrow is clicked to open the nav, set userInteracted to true so it doesn't close immediately on scroll.
             userInteracted.current = nextState;
             return nextState;
         });
@@ -260,7 +260,7 @@ export default function ProductSolutionsClient({
                 </div>
             )}
             <div className="container">
-                <div className={`products_systems_detail_grd ${isNavOpen ? 'nav_active ' : 'prdcts_systm_grd_nw'}`}>
+                <div className={`products_systems_detail_grd ${isNavOpen ? 'nav_active ' : ''}`}>
 
                     <nav className={`prodcut-nav${isNavOpen ? " nav-open" : ""}`} aria-label="Product categories">
                         <ul>
