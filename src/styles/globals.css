@@ -465,7 +465,11 @@ html { font-size: 45.5%; }
 @media (max-width:2100px) {
     .container-full{padding-inline: 10.5rem;}
 }
-
+@media (max-width:1920px) {
+    .product_modal_content .container-full {
+        padding-inline: 4.5rem;
+    }
+}
 @media (max-width:1499px) {
 .container-full { padding-inline: 3.5rem; }
 }
