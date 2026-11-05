@@ -12,6 +12,8 @@
  .breadcrumb-item+.breadcrumb-item::before { top: 0.6rem; }
  }
 @media (max-width:575px) {
+    .product_modal_grid .breadcrumb-sec  .container{padding-inline: 0;}
+    .product_modal_grid .breadcrumb-sec .breadcrumb{max-width: 30rem;}
  .breadcrumb { display: flex; align-items: center; flex-wrap: nowrap; overflow: hidden; }
 /* Three dots */
     .breadcrumb-collapsed { flex-shrink: 0; list-style: none; }
@@ -25,4 +27,6 @@
 /* Expanded breadcrumbs */
     .breadcrumb-expanded .breadcrumb-extra { flex: 0 0 auto; max-width: 1500px; opacity: 1; padding-left: 8px !important; margin-left: 0 !important; visibility: visible; }
 .breadcrumb-item+.breadcrumb-item:before { top: 0.3rem; left: -0.7rem; }
+
  }
+

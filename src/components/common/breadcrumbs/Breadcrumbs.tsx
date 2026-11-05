@@ -8,19 +8,20 @@ import "./breadcrumbs.css";
 
 import { BASE_URL } from "@/config/config";
 
-interface BreadcrumbsInterface {
+export interface BreadcrumbsInterface {
     title: string;
-
     slug: string;
 }
 
-interface BreadcrumbPropsInterface {
+export interface BreadcrumbPropsInterface {
     data: {
         breadcrumbs?: BreadcrumbsInterface[];
     };
+    isModal?: boolean;
+
 }
 
-export default function Breadcrumbs({ data }: BreadcrumbPropsInterface) {
+export default function Breadcrumbs({ data, isModal = false}: BreadcrumbPropsInterface) {
 const [isExpanded, setIsExpanded] = useState(false);
 const [isMobile, setIsMobile] = useState(false);
 
@@ -53,7 +54,7 @@ useEffect(() => {
 const showDots = isMobile && allBreadcrumbs.length > 2;
 
     return (
-        <section className="breadcrumb-sec">
+       <section className={`breadcrumb-sec ${isModal ? "modal-breadcrumb" : ""}`}>
             <div className="container">
                 <div className="col-lg-10 mx-auto">
                     <nav aria-label="breadcrumb" className="breadcrumb-custom">

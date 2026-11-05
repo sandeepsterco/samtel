@@ -2645,6 +2645,9 @@ br.desktop-break { display: none; }
 .airb_solutions .naval_system_box { margin-top: 4rem; padding-inline: 3rem; }
  }
 /* max-width:640px end */
+@media(max-width:575px) {
+.product_modal_close{        padding-bottom: 4.5rem;}
+}
 @media(max-width:480px) {
  .product_grid { grid-template-columns: repeat(1, 1fr); }
 .airborne_systems_detail { padding-block: 4rem 5rem; }
