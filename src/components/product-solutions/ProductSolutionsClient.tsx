@@ -14,6 +14,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import Breadcrumbs from "../common/breadcrumbs/Breadcrumbs";
 
 interface MappingItemInterface{
     title?:string;
@@ -90,6 +91,7 @@ function getProductImages(product: Product): ProductImage[] {
 
     return result;
 }
+
 
 export default function ProductSolutionsClient({
     categories,
@@ -239,6 +241,23 @@ export default function ProductSolutionsClient({
             openProduct(index);
         }
     };
+
+    const breadcrumbFn = {
+    breadcrumbs: [
+        {
+            title: 'Products & Solutions',
+            slug: '',
+        },
+        {
+            title: activeCategory?.name || '',
+            slug: '',
+        },
+        {
+            title: selectedProduct?.name || '',
+            slug: '',
+        },
+    ]
+};
 
     return (
        <>
@@ -452,7 +471,7 @@ export default function ProductSolutionsClient({
                             </div>
 
                             <div>
-                                <section className="breadcrumb-sec">
+                                {/* <section className="breadcrumb-sec">
                                     <nav aria-label="Breadcrumb">
                                         <ol className="breadcrumb">
                                             <li className="breadcrumb-item">Products &amp; Solutions</li>
@@ -460,7 +479,8 @@ export default function ProductSolutionsClient({
                                             <li className="breadcrumb-item active" aria-current="page">{selectedProduct.name}</li>
                                         </ol>
                                     </nav>
-                                </section>
+                                </section> */}
+                                <Breadcrumbs data={breadcrumbFn} isModal={true}  />
 
                                 <div className="product_content">
                                     <h1 className="font45" id="product-modal-title">{selectedProduct.name}</h1>
