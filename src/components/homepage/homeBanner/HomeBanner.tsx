@@ -351,16 +351,16 @@ export default function HomeBanner({ data }: HomeBannerProps) {
                     }, 0)
 
                     .to(h1, {
-                        y: 0,
+                        y: -100,
                         ease: "none",
-                        duration: 0
+                        duration: 1
                     }, 0)
 
                 tl.to(h1, {
                     scale: 10,
                     opacity: 0,
                     ease: "power2.out",
-                    duration: 0,
+                    duration: 1.5,
                     force3D: true
                 }, 1)
 
