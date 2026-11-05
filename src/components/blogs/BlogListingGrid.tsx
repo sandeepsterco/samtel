@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import NoData from "@/components/ui/NoData";
 import PaginationWrapper from "@/components/common/pagination/PaginationWrapper";
+import { BASE_URL } from "@/config/config";
 
 export interface ListingItem {
     id: number;
@@ -65,7 +66,7 @@ export default function ListingGrid({
 
                     return (
                         <div key={item.id} className="gallery-card">
-                            <div className="media-image-wrapper">
+                            <div className="media-image-wrapper blog_wrapper">
                                 <Image
                                     src={item.image_url}
                                     alt={item.title}
@@ -88,10 +89,7 @@ export default function ListingGrid({
 
                             <Link
                                 className="streched_link"
-                                href={`${base}/${item.slug}`}
-                                {...(openInNewTab
-                                    ? { target: "_blank", rel: "noopener noreferrer" }
-                                    : {})}
+                                href={`${BASE_URL}blogs/${item.slug}`}
                                 aria-label={item.title}
                             />
                         </div>

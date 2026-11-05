@@ -16,31 +16,35 @@ function buildCsp(nonce: string, isDev: boolean): string {
     style-src 'self' 'unsafe-inline'
       https://fonts.googleapis.com
       https://cdn.jsdelivr.net;
+      https://cdn.keka.com;
     img-src 'self' data: blob: https:;
     media-src 'self' https:;
     font-src 'self'
       https://fonts.gstatic.com
       https://cdn.jsdelivr.net
+      https://cdn.keka.com
       data:;
     connect-src 'self'
       https://project-demo.in
+      https://*.keka.com
       https://www.google-analytics.com
       https://analytics.google.com
       https://stats.g.doubleclick.net
       https://www.gstatic.com
       https://www.recaptcha.net;
     frame-src 'self'
-    https://www.youtube.com
-    https://youtube.com
-    https://www.youtube-nocookie.com
-    https://youtube-nocookie.com
-    https://www.google.com
-    https://www.gstatic.com
-    https://www.recaptcha.net
-    https://maps.google.com
-    https://www.google.com/maps/
-    https://maps.googleapis.com
-    https://www.googletagmanager.com;
+      https://www.youtube.com
+      https://youtube.com
+      https://www.youtube-nocookie.com
+      https://youtube-nocookie.com
+      https://www.google.com
+      https://www.gstatic.com
+      https://www.recaptcha.net
+      https://samtel.keka.com
+      https://maps.google.com
+      https://www.google.com/maps/
+      https://maps.googleapis.com
+      https://www.googletagmanager.com;
     frame-ancestors 'self';
     object-src 'none';
     base-uri 'self';
