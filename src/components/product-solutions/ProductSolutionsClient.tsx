@@ -379,7 +379,8 @@ export default function ProductSolutionsClient({
                 <div className="product_modal_content" role="dialog" aria-modal="true" aria-labelledby="product-modal-title">
                     <div className="product_modal_close">
                         <button type="button" aria-label="Close product details" onClick={() => setModalOpen(false)}>
-                            <Image src="/assets/icons/close-icon.svg" alt="" width={31} height={31} />
+                            {/* <Image src="/assets/icons/close-icon.svg" alt="" width={31} height={31} /> */}
+                            Back
                         </button>
                     </div>
                     
