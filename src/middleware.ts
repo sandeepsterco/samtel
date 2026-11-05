@@ -30,15 +30,17 @@ function buildCsp(nonce: string, isDev: boolean): string {
       https://www.gstatic.com
       https://www.recaptcha.net;
     frame-src 'self'
-      https://www.youtube.com
-      https://youtube.com
-      https://www.google.com
-      https://www.gstatic.com
-      https://www.recaptcha.net
-      https://maps.google.com
-      https://www.google.com/maps/
-      https://maps.googleapis.com
-      https://www.googletagmanager.com;
+    https://www.youtube.com
+    https://youtube.com
+    https://www.youtube-nocookie.com
+    https://youtube-nocookie.com
+    https://www.google.com
+    https://www.gstatic.com
+    https://www.recaptcha.net
+    https://maps.google.com
+    https://www.google.com/maps/
+    https://maps.googleapis.com
+    https://www.googletagmanager.com;
     frame-ancestors 'self';
     object-src 'none';
     base-uri 'self';
@@ -48,12 +50,7 @@ function buildCsp(nonce: string, isDev: boolean): string {
     .trim();
 }
 
-/**
- * Converts the `new_url` returned by the API into an internal path.
- * Accepts absolute URLs ("https://www.site.com/careers") and
- * relative values ("/careers", "careers").
- * Returns null if the target points to a different site.
- */
+
 function toInternalTarget(
   newUrl: string,
   request: NextRequest
