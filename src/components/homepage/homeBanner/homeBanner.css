@@ -101,7 +101,7 @@
 .banner_caption .banner_title { margin-top: 15rem; }
 .line-section:after { top: 2.3rem; }
 .line-section:before { top: 1.5rem; }
-.line-section { padding-block: 5rem 5rem; }
+.line-section { padding-block: 5rem 2rem; }
 .line-wrap { height: 4rem; }
 .banner_caption .banner_title > em{margin-top: 1.3rem;}
 .arrwo_fix:after{
