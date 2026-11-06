@@ -33,7 +33,7 @@ export default function BlogCommentForm({ id }: { id: number }) {
     try {
       const data = await apiFetch(`blogs/${id}/comments`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify({
           name: form.name.trim(),
           email: form.email.trim(),

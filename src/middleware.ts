@@ -3,6 +3,9 @@ import type { NextRequest } from 'next/server';
 import { API_URL } from './config/config';
 
 function buildCsp(nonce: string, isDev: boolean): string {
+
+  const apiOrigin = API_URL ? new URL(API_URL).origin : '';
+  
   return `
     default-src 'self';
     script-src 'self' 'nonce-${nonce}' 'strict-dynamic'
@@ -25,6 +28,7 @@ function buildCsp(nonce: string, isDev: boolean): string {
       https://cdn.keka.com
       data:;
     connect-src 'self'
+      ${apiOrigin}
       https://project-demo.in
       https://*.keka.com
       https://www.google-analytics.com
