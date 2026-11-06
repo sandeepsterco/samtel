@@ -20,24 +20,41 @@ const funnelSans = Funnel_Sans({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://samtelavionics.com"),
+
   title: {
-    default: "Samtel",
-    template: "%s | Samtel Group",
+    default: "Samtel Avionics | Defence Electronics Company in India",
+    template: "%s | Samtel Avionics",
   },
+
   description:
-    "Learn about Samtel Group, its products, technology, people, and latest updates.",
-  openGraph: {
-    siteName: "Samtel Group",
-    type: "website",
-    title: "Samtel Group",
-    description:
-      "Learn about Samtel Group, its products, technology, people, and latest updates.",
+    "Samtel Avionics (SA) is a key Indian player in high-technology avionics, defence and railway electronic products and systems.",
+
+  verification: {
+    google: "5F1J4u7wctCD5Kzl3AJ0dOVJ12mfZUPxZL7EBvdfz3c",
   },
+
+  openGraph: {
+    siteName: "Samtel Avionics",
+    type: "website",
+    title: "Defence Electronics Company in India",
+    description:
+      "Samtel Avionics (SA) is a key Indian player in high-technology avionics, defence and railway electronic products and systems.",
+    url: "/",
+    images: [
+      {
+        url: "/assets/images/main-logo.webp",
+        alt: "Samtel Avionics",
+      },
+    ],
+  },
+
   twitter: {
     card: "summary_large_image",
-    title: "Samtel Group",
+    title: "Defence Electronics Company in India",
     description:
-      "Learn about Samtel Group, its products, technology, people, and latest updates.",
+      "Samtel Avionics (SA) is a key Indian player in high-technology avionics, defence and railway electronic products and systems.",
+    images: ["/assets/images/main-logo.webp"],
   },
 };
 
@@ -53,6 +70,15 @@ export default function RootLayout({
       // data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
+      <head>
+        <meta
+            name="google-site-verification"
+            content="5F1J4u7wctCD5Kzl3AJ0dOVJ12mfZUPxZL7EBvdfz3c"
+        />
+
+        
+
+      </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <Script
           id="google-tag-manager"
@@ -74,6 +100,21 @@ export default function RootLayout({
             }
           window.scrollTo({ top: 0, left: 0, behavior: "instant" });`}
         </Script>
+
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-RSVP17KFKM"
+          strategy="afterInteractive"
+        />
+
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-RSVP17KFKM');
+          `}
+        </Script>
+
         <PageTransitionLoader />
         <ScrollToTop />
         <RouteBodyClass />
