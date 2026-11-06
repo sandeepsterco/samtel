@@ -12,7 +12,7 @@ function buildCsp(nonce: string, isDev: boolean): string {
       https://www.google.com
       https://www.gstatic.com
       https://www.recaptcha.net
-      https://www.googletagmanager.com
+      https://www.googletagmanager.com 
       https://www.google-analytics.com
       https://cdn.jsdelivr.net
       ${isDev ? "'unsafe-eval'" : ""};
