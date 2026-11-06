@@ -2681,6 +2681,8 @@ br.desktop-break { display: none; }
 
  /* ============ BLOG PAGE============== */
 
+ .blog_detal{margin-top: 5rem;}
+ .blog_detal strong{font-weight: 600;}
  .blog_wrapper::after { display: none; }
  .blog-comment-form {
    margin-top: 8rem;

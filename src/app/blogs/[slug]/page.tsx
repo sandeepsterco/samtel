@@ -51,7 +51,7 @@ export default async function BlogDetailPage({
 
           <div className="row">
             <div className="col-lg-10 mx-auto">
-              <div className="news_panel_text">
+              <div className="blog_detal">
                 <ReactParserDynamic html={combinedHtml} />
               </div>
             </div>
