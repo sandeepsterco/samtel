@@ -617,7 +617,75 @@ content: "›";
    RESPONSIVE
 ========================================= */
 
+@media (min-width: 993px) and (max-width: 1536px) {
+    .what-engineering figure, .what-card figure{margin-bottom: 1.5rem;}
+    .what-engineering h4, .what-card h4{margin-bottom: 1rem;font-size: 1.6rem;}
+    .what-engineering ul li a{    padding: 0.2rem 0;}
+    .what-engineering ul{margin: 0;}
+    .what-engineering .mega-arrow, .what-card .mega-arrow {margin-top: 1.5rem;}
+    .mega-arrow{width: 2.6rem;height: 2.6rem;}
+    .what-card p{margin-bottom: 0;}
+    .what-mega-wrapper{    padding: 2.5rem 0 3rem;}
+    .who-mega-wrapper{padding: 2.5rem 0 3rem;}
+    .who-company-box{margin-top: 1.6rem;}
+    .experience-number{padding: 0.9rem 1.2rem;}
+    .who-leadership .mega-label{margin-top:1.3rem;margin-bottom: 1.2rem;}
+    .experience-number span{font-size: 6rem;}
+    .who-links li a{padding: 1.2rem 0;}
+    .who-links {margin-bottom: 3rem;}
+    .sustainability-bottom{margin-top: 1rem;}
+    .sustainability-bottom{padding-right:4rem}
+    .sustainability-bottom h3{font-size: 2.1rem;}
+    .who-company-bottom p{margin-bottom: 2rem;}
+    .technology-menu-box .what-card p {    height: 18rem;}
+    .technology-menu-box .what-card p{line-height: 1.5;font-size: 1.35rem;}
+    .product-mega-wrapper{padding: 2rem 0px 3rem;}
+    .product-top-menu{gap: 1.1rem .5rem;}
+    .product-menu-box p{margin-top: 0.9rem;}
+    .product-menu-txt h4{font-size: 2.2rem;}
+    .mega-btn{height: 2.5rem;width: 2.5rem;}
+    .mega-count{padding-block: 2.5rem;}
+    .mega-count b{font-size: 5rem;}
+    .mega-count p{font-size: 1.4rem;}
+}
+@media (max-width: 1399px) {
+    .header_nav{padding-block: 2rem;}
+    .what-intro h3{width: 36rem;}
+    .what-engineering figure, .what-card figure{margin-bottom: 1rem;}
+    .what-engineering h4, .what-card h4{margin-bottom: 0.7rem;font-size: 1.4rem;}
+    .what-engineering ul li a{font-size: 1.2rem;}
+    .mega-arrow{width: 2.2rem;height: 2.2rem;}
+    .what-engineering .mega-arrow, .what-card .mega-arrow {margin-top: 1rem;}
+    .what-card p{font-size: 1.2rem;}
+    .what-mega-wrapper{    padding: 2rem 0 3rem;}
+    .who-company figure img{height: 21rem;}
+    .who-company-bottom p{line-height: 1.3;}
+    .who-company-bottom {   margin-top: 0.5rem;}
+    .who-leadership figure img{height: 28.4rem;}
+    .experience-number span {    font-size: 4.6rem;}
+    .who-leadership .mega-label {margin-top: 1rem;margin-bottom: 0.5rem;}
+    .who-leadership .mega-label{font-size: 1.1rem;}
+    .leadership-bottom h4{font-size: 1.2rem;}
+    .leadership-bottom p{font-size: 1.2rem;}
+    .who-links li a{padding: 1rem 0;    font-size: 1.2rem;}
+    .who-links {    margin-bottom: 2rem;}
+    .sustainability-bottom h3{font-size: 1.8rem;}
+    .what-mega-wrapper, .who-mega-wrapper {    padding: 2.5rem 0 2rem;}
+    .technology-menu-box .what-card p{line-height: 1.4;font-size: 1.23rem;}
+    .product-top-menu{gap: 1rem .5rem;}
+    .product-menu-txt h4{font-size: 2rem;}
+    .product-menu-box p {font-size: 1.2rem;margin-bottom: 0.3rem;}
+    .product-menu-box figure{height: 13.5rem;}
+    .mega-count { margin-right: 7rem;}
+    .mega-count p{font-size: 1.2rem;}
+.mega-left blockquote{font-size: 2rem;}
 
+    
+}
+@media (max-width: 1199px) {
+.who-leadership figure img{height: 38rem;}
+.product-menu-box figure{height: 18.8rem;}
+}
 @media(max-width: 767px) {
 
     .mega-menu {
@@ -686,6 +754,19 @@ content: "›";
 }   
 .sustainability-card figure { height: auto; }
 }
+@media  (max-width: 1800px) {
+    .technology-menu-box .what-card p {
+        height: 19rem;
+    }
+    .product-mega-wrapper {
+    padding: 4rem 0 3rem;}
+    .what-mega-wrapper{padding: 2.5rem;}
+    .mega-btn{margin-bottom: 6rem;}
+}
+@media (min-width: 993px) and (max-width: 1536px) {
+    .product-mega-wrapper{padding: 2.4rem 0px 1.8rem;}
+    .mega-btn{margin-bottom: 5rem;}
+}
 @media (max-width:1699px) {
 .logo figure { width: 13.4rem; }
 .main-nav ul { display: flex; gap: 5rem;}
@@ -708,27 +789,24 @@ content: "›";
     }
 }
 
+
 @media (max-width:1399px) {
-.logo figure { width: 11.4rem; }
+.logo figure { width: 9rem; }
 .main-nav ul { display: flex; gap: 4rem;}
 .who-mega-wrapper { gap: 4rem; }
-
-}
-
-@media (max-width:1399px) {
 .mega-wrapper { grid-template-columns: 520fr 1450fr; }
-.mega-btn { margin-bottom: 7rem; }
+.mega-btn { margin-bottom: 6rem; }
 .other-links-drawer { width: 25rem; }
 .custom_link { padding-block: 12rem 7rem; }
 .hamburger.active span{ background-color: var(--color-white); }
 .what-intro { margin-right: 1rem; }
 .what-mega-wrapper { gap: 2rem; }
 .technology-menu { gap: 2rem; }
-.technology-menu-box .mega-arrow { width: 2.8rem; height: 2.8rem; }
+.technology-menu-box .mega-arrow { width: 2.4rem; height: 2.4rem; }
 .what-card p { padding-inline: 0 1rem; }
-.technology-menu-box .what-card p {
-    padding-inline: 0 1rem;
-}
+.technology-menu-box .what-card p {padding-inline: 0 1rem;}
+.technology-menu-box .what-card p {    height: 15rem;}
+.product-mega-wrapper{padding: 2.4rem 0px 2rem;}
 }
 
 @media (max-width:1299px) {

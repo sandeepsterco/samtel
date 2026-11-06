@@ -94,6 +94,15 @@
 @media (max-width: 1920px) {
  .banner_caption .banner_title { margin-top: 26rem; position: relative; }
  }
+ @media (max-width: 1536px) {
+    .banner_caption .banner_title{margin-top: 22rem;}
+    .banner_caption .banner_title > p { font-size: 2.5rem; line-height: 1.1; }
+.line-section:after { top: 2rem; }
+.line-section:before { top: 1rem; }
+.line-section { padding-block: 5rem 3rem; }
+.line-wrap { height: 5rem; }
+
+ }
 @media (min-width: 1199px) and (max-width: 1300px) {
  .banner_caption .banner_title > p { font-size: 2.2rem; line-height: 1.1; }
 .header_nav { padding-block: 2rem; }
