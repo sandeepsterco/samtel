@@ -103,7 +103,7 @@
 .line-wrap { height: 5rem; }
 
  }
-@media (min-width: 1199px) and (max-width: 1300px) {
+@media (min-width: 1199px) and (max-width: 1440px) {
  .banner_caption .banner_title > p { font-size: 2.2rem; line-height: 1.1; }
 .header_nav { padding-block: 2rem; }
 .logo figure { width: 9.4rem; }
