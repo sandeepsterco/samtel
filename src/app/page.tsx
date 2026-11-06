@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: seo.title,
     description: seo.description,
     keywords: seo.keywords,
-    alternates: seo.alternates,
+    alternates: seo.alternates, 
     robots: seo.robots,
     openGraph: seo.openGraph
       ? {
