@@ -1,34 +1,22 @@
 import Link from "next/link";
 import './not-found.css'
 import { BASE_URL } from "@/config/config";
-import { getPageSEO } from "@/lib/seo";
 import type { Metadata } from "next";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const seo = await getPageSEO("not-found");
+export const dynamic = "force-dynamic";
 
-  return {
-    title: seo.title,
-    description: seo.description,
-    keywords: seo.keywords,
-    alternates: seo.alternates,
-    robots: {
-      ...seo.robots,
+export const metadata: Metadata = {
+  title: "Page not found",
+  description: "The page you are looking for does not exist.",
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
       index: false,
       follow: false,
-      googleBot: {
-        ...seo.robots.googleBot,
-        index: false,
-        follow: false,
-      },
     },
-    openGraph: seo.openGraph
-      ? {
-          ...seo.openGraph,
-        }
-      : undefined,
-  };
-}
+  },
+};
 
 export default function NotFound() {
   return (

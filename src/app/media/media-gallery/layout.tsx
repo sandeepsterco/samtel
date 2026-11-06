@@ -6,6 +6,8 @@ import NotFound from "../../not-found";
 
 import '@/styles/inner.css'
 
+export const dynamic = "force-dynamic";
+
 export default async function GalleryLayoutPage({ children }: { children: React.ReactNode }) {
     const slug = await getSlug();
     const {data, error} = await apiFetch(`cms/${slug}`);
