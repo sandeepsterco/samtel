@@ -41,14 +41,14 @@ export default function BlogCommentForm({ id }: { id: number }) {
         }),
       });
 
-        // Validation errors (422): show them under the matching inputs
-        if (data?.error) {
-          setErrors(data?.error as FieldErrors);
-          return;
-        }
-        throw new Error(data?.data?.message || `Request failed (${data?.data.status})`);
+      console.log('form-data', data);
 
-      setStatus({ type: "success", message: "Comment submitted successfully!" });
+      if (data?.error) {
+        setErrors(data?.error as FieldErrors);
+        return;
+      }
+
+      setStatus({ type: "success", message: `${data?.data?.message || "Comment submitted successfully!"}` });
       setForm({ name: "", email: "", comment: "" });
     } catch (err) {
       setStatus({
