@@ -8,7 +8,7 @@ function buildCsp(nonce: string, isDev: boolean): string {
   
   return `
     default-src 'self';
-    script-src 'self' 'nonce-${nonce}' 'strict-dynamic'
+    script-src 'self'  https://cdn.example.com https://cdn.keka.com; img-src 'self'" 'nonce-${nonce}' 'strict-dynamic'
       https://www.google.com
       https://www.gstatic.com
       https://www.recaptcha.net
